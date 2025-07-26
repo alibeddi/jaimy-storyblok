@@ -7,6 +7,7 @@ import Page from '../components/blocks/Page'
 import Header from '../components/blocks/Header'
 import Hero from '../components/blocks/Hero'
 import Steps from '../components/blocks/Steps'
+import Features from '@/components/blocks/Features'; // Add this import
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,6 +20,7 @@ storyblokInit({
     header: Header,
     hero: Hero,
     steps: Steps,
+    features: Features, // Add this component
   },
 })
 
