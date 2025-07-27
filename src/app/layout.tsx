@@ -13,6 +13,7 @@ import Reviews from "../components/blocks/Reviews";
 import SocialProof from "../components/blocks/SocialProof";
 import FAQ from "../components/blocks/FAQ";
 import Footer from "../components/blocks/Footer";
+import Features from "@/components/blocks/Features"; // Add this import
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,6 +32,7 @@ storyblokInit({
     social_proof: SocialProof,
     faq: FAQ,
     footer: Footer,
+    features: Features, // Add this component
   },
 });
 

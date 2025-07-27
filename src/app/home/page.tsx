@@ -1,22 +1,23 @@
 export const dynamic = "force-dynamic";
 
-import { getStoryblokApi } from "@storyblok/react/rsc";
-import Header from "@/components/blocks/Header";
-import Hero from "@/components/blocks/Hero";
-import Steps from "@/components/blocks/Steps";
 import Slider from "@/components/blocks/Slider";
 import Blogs from "@/components/blocks/Blogs";
 import Reviews from "@/components/blocks/Reviews";
 import SocialProof from "@/components/blocks/SocialProof";
 import FAQ from "@/components/blocks/FAQ";
 import Footer from "@/components/blocks/Footer";
-import { draftMode } from "next/headers";
 
 interface StoryBlock {
   component: string;
   _uid: string;
   [key: string]: unknown;
 }
+import { getStoryblokApi } from "@storyblok/react/rsc";
+import Header from "@/components/blocks/Header";
+import Hero from "@/components/blocks/Hero";
+import Steps from "@/components/blocks/Steps";
+import { draftMode } from "next/headers";
+import Features from "@/components/blocks/Features";
 
 export default async function Home() {
   const { data } = await fetchData();
