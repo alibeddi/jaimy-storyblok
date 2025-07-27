@@ -1,8 +1,10 @@
+export const dynamic = "force-dynamic";
+
 import { getStoryblokApi } from "@storyblok/react/rsc";
 import Header from "@/components/blocks/Header";
 import Hero from "@/components/blocks/Hero";
 import Steps from "@/components/blocks/Steps";
-import Body from "@/components/blocks/Body";
+import Slider from "@/components/blocks/Slider";
 import Blogs from "@/components/blocks/Blogs";
 import Reviews from "@/components/blocks/Reviews";
 import SocialProof from "@/components/blocks/SocialProof";
@@ -24,7 +26,7 @@ export default async function Home() {
     data as { story?: { content?: { body?: StoryBlock[] } } }
   ).story?.content;
   const blocks = storyContent?.body || [];
-
+  console.log("storyContent", storyContent);
   // Find specific blocks
   const headerBlock = blocks.find(
     (block: StoryBlock) => block.component === "header"
@@ -35,8 +37,8 @@ export default async function Home() {
   const stepsBlock = blocks.find(
     (block: StoryBlock) => block.component === "steps"
   );
-  const bodyBlock = blocks.find(
-    (block: StoryBlock) => block.component === "body"
+  const sliderBlock = blocks.find(
+    (block: StoryBlock) => block.component === "slider"
   );
   const blogsBlock = blocks.find(
     (block: StoryBlock) => block.component === "blogs"
@@ -56,24 +58,30 @@ export default async function Home() {
 
   return (
     <div>
+      <Header blok={headerBlock as any} />
+      {/* <Blogs blok={blogsBlock as any} /> */}
       {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-      {headerBlock && <Header blok={headerBlock as any} />}
+      {/* {headerBlock && <Header blok={headerBlock as any} />} */}
       {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-      {heroBlock && <Hero blok={heroBlock as any} />}
+      {/* {heroBlock && <Hero blok={heroBlock as any} />} */}
       {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-      {stepsBlock && <Steps blok={stepsBlock as any} />}
+      {/* {stepsBlock && <Steps blok={stepsBlock as any} />} */}
       {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-      {bodyBlock && <Body blok={bodyBlock as any} />}
+      <Slider blok={sliderBlock as any} />
+      <Reviews blok={reviewsBlock as any} />
+      <SocialProof blok={socialProofBlock as any} />
+      <FAQ blok={faqBlock as any} />
+      <Footer blok={footerBlock as any} />
       {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-      {blogsBlock && <Blogs blok={blogsBlock as any} />}
+      {/* {blogsBlock && <Blogs blok={blogsBlock as any} />} */}
       {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-      {reviewsBlock && <Reviews blok={reviewsBlock as any} />}
+      {/* {reviewsBlock && <Reviews blok={reviewsBlock as any} />} */}
       {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-      {socialProofBlock && <SocialProof blok={socialProofBlock as any} />}
+      {/* {socialProofBlock && <SocialProof blok={socialProofBlock as any} />} */}
       {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-      {faqBlock && <FAQ blok={faqBlock as any} />}
+      {/* {faqBlock && <FAQ blok={faqBlock as any} />} */}
       {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-      {footerBlock && <Footer blok={footerBlock as any} />}
+      {/* {footerBlock && <Footer blok={footerBlock as any} />} */}
     </div>
   );
 }
@@ -82,7 +90,8 @@ async function fetchData() {
   const { isEnabled } = await draftMode();
 
   const sbParams = {
-    version: isEnabled ? "draft" : ("published" as const),
+    version: "draft",
+    // version: isEnabled ? "draft" : ("published" as const),
   };
 
   const storyblokApi = getStoryblokApi();

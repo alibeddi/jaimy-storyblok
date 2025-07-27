@@ -7,7 +7,7 @@ import Page from "../components/blocks/Page";
 import Header from "../components/blocks/Header";
 import Hero from "../components/blocks/Hero";
 import Steps from "../components/blocks/Steps";
-import Body from "../components/blocks/Body";
+import Body from "../components/blocks/Slider";
 import Blogs from "../components/blocks/Blogs";
 import Reviews from "../components/blocks/Reviews";
 import SocialProof from "../components/blocks/SocialProof";

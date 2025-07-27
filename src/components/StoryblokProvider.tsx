@@ -4,7 +4,7 @@ import Page from "./blocks/Page";
 import Header from "./blocks/Header";
 import Hero from "./blocks/Hero";
 import Steps from "./blocks/Steps";
-import Body from "./blocks/Body";
+import Body from "./blocks/Slider";
 import Blogs from "./blocks/Blogs";
 import Reviews from "./blocks/Reviews";
 import SocialProof from "./blocks/SocialProof";

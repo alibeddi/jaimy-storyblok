@@ -1,30 +1,8 @@
 import { storyblokEditable } from "@storyblok/react/rsc";
 import Image from "next/image";
+import { ReviewsBlok } from "@/types/storyblok";
 
-interface ReviewsProps {
-  blok: {
-    title?: string;
-    subtitle?: string;
-    description?: string;
-    reviews?: Array<{
-      name: string;
-      role?: string;
-      company?: string;
-      rating: number;
-      review_text: string;
-      avatar?: {
-        filename: string;
-        alt?: string;
-      };
-      date?: string;
-    }>;
-    layout?: "grid-2" | "grid-3" | "carousel";
-    show_rating?: boolean;
-    background_color?: string;
-  };
-}
-
-export default function Reviews({ blok }: ReviewsProps) {
+export default function Reviews({ blok }: { blok: ReviewsBlok }) {
   const gridClasses = {
     "grid-2": "grid-cols-1 md:grid-cols-2",
     "grid-3": "grid-cols-1 md:grid-cols-2 lg:grid-cols-3",
@@ -35,9 +13,7 @@ export default function Reviews({ blok }: ReviewsProps) {
     return Array.from({ length: 5 }, (_, i) => (
       <svg
         key={i}
-        className={`w-5 h-5 ${
-          i < rating ? "text-yellow-400" : "text-gray-300"
-        }`}
+        className={`w-5 h-5 ${i < rating ? "text-yellow-400" : "text-gray-300"}`}
         fill="currentColor"
         viewBox="0 0 20 20"
       >
@@ -49,24 +25,22 @@ export default function Reviews({ blok }: ReviewsProps) {
   return (
     <section
       {...storyblokEditable(blok)}
-      className={`py-16 lg:py-24 ${
-        blok.background_color === "gray" ? "bg-gray-50" : "bg-white"
-      }`}
+      className={`py-16 lg:py-24 ${blok?.background_color === "gray" ? "bg-gray-50" : "bg-white"}`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
-          {blok.subtitle && (
+          {blok?.subtitle && (
             <p className="text-belfius-red font-medium text-lg mb-4 font-belfius-body">
               {blok.subtitle}
             </p>
           )}
-          {blok.title && (
+          {blok?.title && (
             <h2 className="font-belfius-title text-3xl lg:text-5xl text-gray-900 mb-6">
               {blok.title}
             </h2>
           )}
-          {blok.description && (
+          {blok?.description && (
             <p className="text-xl text-gray-600 max-w-3xl mx-auto font-belfius-body">
               {blok.description}
             </p>
@@ -74,15 +48,15 @@ export default function Reviews({ blok }: ReviewsProps) {
         </div>
 
         {/* Reviews Grid */}
-        {blok.reviews && blok.reviews.length > 0 && (
-          <div className={`grid ${gridClasses[blok.layout || "grid-3"]} gap-8`}>
-            {blok.reviews.map((review, index) => (
+        {blok?.reviews && blok?.reviews?.length > 0 && (
+          <div className={`grid ${gridClasses[blok?.layout || "grid-3"]} gap-8`}>
+            {blok?.reviews?.map((review, index) => (
               <div
                 key={index}
                 className="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-shadow duration-300"
               >
                 {/* Rating */}
-                {blok.show_rating && (
+                {blok?.show_rating && (
                   <div className="flex items-center mb-4">
                     {renderStars(review.rating)}
                     <span className="ml-2 text-sm text-gray-600 font-belfius-body">
@@ -98,7 +72,7 @@ export default function Reviews({ blok }: ReviewsProps) {
 
                 {/* Author Info */}
                 <div className="flex items-center">
-                  {review.avatar?.filename ? (
+                  {review?.avatar?.filename ? (
                     <div className="relative w-12 h-12 rounded-full overflow-hidden mr-4">
                       <Image
                         src={review.avatar.filename}
@@ -118,14 +92,14 @@ export default function Reviews({ blok }: ReviewsProps) {
                     <div className="font-belfius-title text-gray-900">
                       {review.name}
                     </div>
-                    {(review.role || review.company) && (
+                    {(review?.role || review?.company) && (
                       <div className="text-sm text-gray-600 font-belfius-body">
                         {review.role && <span>{review.role}</span>}
                         {review.role && review.company && <span> at </span>}
                         {review.company && <span>{review.company}</span>}
                       </div>
                     )}
-                    {review.date && (
+                    {review?.date && (
                       <div className="text-sm text-gray-500 font-belfius-body">
                         {review.date}
                       </div>
