@@ -12,7 +12,7 @@ export default function Footer({ blok }: { blok: FooterBlok }) {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="lg:col-span-1">
-            {blok.logo && (
+            {blok.logo && blok.logo.filename && (
               <div className="mb-6">
                 <Image
                   src={blok.logo.filename}

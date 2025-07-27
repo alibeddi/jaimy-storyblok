@@ -37,7 +37,9 @@ export default function Slider({ blok }: { blok: SliderBlok }) {
                 className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${section.layout === "text-right" ? "lg:grid-flow-col-dense" : ""}`}
               >
                 {/* Text Content */}
-                <div className={`${section.layout === "text-right" ? "lg:col-start-2" : ""}`}>
+                <div
+                  className={`${section.layout === "text-right" ? "lg:col-start-2" : ""}`}
+                >
                   <h3 className="font-belfius-title text-3xl lg:text-4xl text-gray-900 mb-6">
                     {section.heading}
                   </h3>
@@ -47,8 +49,10 @@ export default function Slider({ blok }: { blok: SliderBlok }) {
                 </div>
 
                 {/* Image */}
-                {section.image && (
-                  <div className={`${section.layout === "text-right" ? "lg:col-start-1" : ""}`}>
+                {section.image && section.image.filename && (
+                  <div
+                    className={`${section.layout === "text-right" ? "lg:col-start-1" : ""}`}
+                  >
                     <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                       <Image
                         src={section.image.filename}

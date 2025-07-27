@@ -56,7 +56,7 @@ export default function Hero({ blok }: { blok: HeroBlok }) {
           </div>
 
           {/* Right Content - Hero Image */}
-          {blok.hero_image && (
+          {blok.hero_image && blok.hero_image.filename && (
             <div className="relative">
               <img
                 src={blok.hero_image.filename}

@@ -6,18 +6,30 @@ import Reviews from "@/components/blocks/Reviews";
 import SocialProof from "@/components/blocks/SocialProof";
 import FAQ from "@/components/blocks/FAQ";
 import Footer from "@/components/blocks/Footer";
+import Header from "@/components/blocks/Header";
+import Hero from "@/components/blocks/Hero";
+import Steps from "@/components/blocks/Steps";
+import Features from "@/components/blocks/Features";
+
+import { getStoryblokApi } from "@storyblok/react/rsc";
+import { draftMode } from "next/headers";
+import {
+  HeaderBlok,
+  HeroBlok,
+  StepsBlok,
+  SliderBlok,
+  BlogsBlok,
+  ReviewsBlok,
+  SocialProofBlok,
+  FAQBlok,
+  FooterBlok,
+} from "@/types/storyblok";
 
 interface StoryBlock {
   component: string;
   _uid: string;
   [key: string]: unknown;
 }
-import { getStoryblokApi } from "@storyblok/react/rsc";
-import Header from "@/components/blocks/Header";
-import Hero from "@/components/blocks/Hero";
-import Steps from "@/components/blocks/Steps";
-import { draftMode } from "next/headers";
-import Features from "@/components/blocks/Features";
 
 export default async function Home() {
   const { data } = await fetchData();
@@ -59,30 +71,21 @@ export default async function Home() {
 
   return (
     <div>
-      <Header blok={headerBlock as any} />
-      {/* <Blogs blok={blogsBlock as any} /> */}
-      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-      {/* {headerBlock && <Header blok={headerBlock as any} />} */}
-      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-      {/* {heroBlock && <Hero blok={heroBlock as any} />} */}
-      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-      {/* {stepsBlock && <Steps blok={stepsBlock as any} />} */}
-      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-      <Slider blok={sliderBlock as any} />
-      <Reviews blok={reviewsBlock as any} />
-      <SocialProof blok={socialProofBlock as any} />
-      <FAQ blok={faqBlock as any} />
-      <Footer blok={footerBlock as any} />
-      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-      {/* {blogsBlock && <Blogs blok={blogsBlock as any} />} */}
-      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-      {/* {reviewsBlock && <Reviews blok={reviewsBlock as any} />} */}
-      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-      {/* {socialProofBlock && <SocialProof blok={socialProofBlock as any} />} */}
-      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-      {/* {faqBlock && <FAQ blok={faqBlock as any} />} */}
-      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-      {/* {footerBlock && <Footer blok={footerBlock as any} />} */}
+      <Header blok={headerBlock as HeaderBlok} />
+      {/* <Blogs blok={blogsBlock as BlogsBlok} /> */}
+      {/* {headerBlock && <Header blok={headerBlock as HeaderBlok} />} */}
+      {/* {heroBlock && <Hero blok={heroBlock as HeroBlok} />} */}
+      {/* {stepsBlock && <Steps blok={stepsBlock as StepsBlok} />} */}
+      <Slider blok={sliderBlock as SliderBlok} />
+      <Reviews blok={reviewsBlock as ReviewsBlok} />
+      <SocialProof blok={socialProofBlock as SocialProofBlok} />
+      <FAQ blok={faqBlock as FAQBlok} />
+      <Footer blok={footerBlock as FooterBlok} />
+      {/* {blogsBlock && <Blogs blok={blogsBlock as BlogsBlok} />} */}
+      {/* {reviewsBlock && <Reviews blok={reviewsBlock as ReviewsBlok} />} */}
+      {/* {socialProofBlock && <SocialProof blok={socialProofBlock as SocialProofBlok} />} */}
+      {/* {faqBlock && <FAQ blok={faqBlock as FAQBlok} />} */}
+      {/* {footerBlock && <Footer blok={footerBlock as FooterBlok} />} */}
     </div>
   );
 }

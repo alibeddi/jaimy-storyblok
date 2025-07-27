@@ -27,8 +27,12 @@ export interface StoryblokComponent<T extends string = string> {
   [key: string]: unknown;
 }
 
+// Import the SbBlokData type from Storyblok
+import type { SbBlokData } from "@storyblok/react/rsc";
+
 // Component-specific types based on your Storyblok schema
-export interface ReviewsBlok extends StoryblokComponent<"reviews"> {
+export interface ReviewsBlok extends SbBlokData {
+  component: "reviews";
   title?: string;
   subtitle?: string;
   description?: string;
@@ -49,7 +53,8 @@ export interface ReviewsBlok extends StoryblokComponent<"reviews"> {
   background_color?: string;
 }
 
-export interface HeroBlok extends StoryblokComponent<"hero"> {
+export interface HeroBlok extends SbBlokData {
+  component: "hero";
   headline?: string;
   subheadline?: string;
   description?: string;
@@ -71,7 +76,8 @@ export interface HeroBlok extends StoryblokComponent<"hero"> {
   };
 }
 
-export interface StepsBlok extends StoryblokComponent<"steps"> {
+export interface StepsBlok extends SbBlokData {
+  component: "steps";
   title?: string;
   subtitle?: string;
   steps?: Array<{
@@ -85,7 +91,8 @@ export interface StepsBlok extends StoryblokComponent<"steps"> {
   }>;
 }
 
-export interface HeaderBlok extends StoryblokComponent<"header"> {
+export interface HeaderBlok extends SbBlokData {
+  component: "header";
   logo?: {
     filename: string;
     alt?: string;
@@ -104,7 +111,8 @@ export interface HeaderBlok extends StoryblokComponent<"header"> {
   }>;
 }
 
-export interface BlogsBlok extends StoryblokComponent<"blogs"> {
+export interface BlogsBlok extends SbBlokData {
+  component: "blogs";
   title?: string;
   subtitle?: string;
   description?: string;
@@ -132,7 +140,8 @@ export interface BlogsBlok extends StoryblokComponent<"blogs"> {
   layout?: "grid-2" | "grid-3" | "grid-4";
 }
 
-export interface SocialProofBlok extends StoryblokComponent<"social_proof"> {
+export interface SocialProofBlok extends SbBlokData {
+  component: "social_proof";
   title?: string;
   subtitle?: string;
   description?: string;
@@ -157,7 +166,8 @@ export interface SocialProofBlok extends StoryblokComponent<"social_proof"> {
   background_color?: string;
 }
 
-export interface FAQBlok extends StoryblokComponent<"faq"> {
+export interface FAQBlok extends SbBlokData {
+  component: "faq";
   title?: string;
   subtitle?: string;
   description?: string;
@@ -169,7 +179,8 @@ export interface FAQBlok extends StoryblokComponent<"faq"> {
   background_color?: string;
 }
 
-export interface FooterBlok extends StoryblokComponent<"footer"> {
+export interface FooterBlok extends SbBlokData {
+  component: "footer";
   logo?: {
     filename: string;
     alt?: string;
@@ -198,7 +209,8 @@ export interface FooterBlok extends StoryblokComponent<"footer"> {
   background_color?: string;
 }
 
-export interface SliderBlok extends StoryblokComponent<"slider"> {
+export interface SliderBlok extends SbBlokData {
+  component: "slider";
   title?: string;
   subtitle?: string;
   description?: string;
@@ -220,7 +232,8 @@ export interface SliderBlok extends StoryblokComponent<"slider"> {
   background_color?: string;
 }
 
-export interface PageBlok extends StoryblokComponent<"page"> {
+export interface PageBlok extends SbBlokData {
+  component: "page";
   body?: Array<
     | ReviewsBlok
     | HeroBlok

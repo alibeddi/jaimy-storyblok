@@ -1,12 +1,9 @@
-import { storyblokEditable } from '@storyblok/react/rsc';
+import { storyblokEditable } from "@storyblok/react/rsc";
 import { StepsBlok } from "@/types/storyblok";
 
 export default function Steps({ blok }: { blok: StepsBlok }) {
   return (
-    <section
-      {...storyblokEditable(blok)}
-      className="py-16 lg:py-24 bg-white"
-    >
+    <section {...storyblokEditable(blok)} className="py-16 lg:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
@@ -36,7 +33,7 @@ export default function Steps({ blok }: { blok: StepsBlok }) {
                 </div>
 
                 {/* Icon */}
-                {step.icon && (
+                {step.icon && step.icon.filename && (
                   <div className="mb-6">
                     <img
                       src={step.icon.filename}

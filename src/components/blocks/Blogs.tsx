@@ -10,10 +10,7 @@ export default function Blogs({ blok }: { blok: BlogsBlok }) {
   };
 
   return (
-    <section
-      {...storyblokEditable(blok)}
-      className="py-16 lg:py-24 bg-white"
-    >
+    <section {...storyblokEditable(blok)} className="py-16 lg:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
@@ -36,14 +33,16 @@ export default function Blogs({ blok }: { blok: BlogsBlok }) {
 
         {/* Blog Posts Grid */}
         {blok?.blog_posts && blok.blog_posts.length > 0 && (
-          <div className={`grid ${gridClasses[blok?.layout || "grid-3"]} gap-8 mb-12`}>
+          <div
+            className={`grid ${gridClasses[blok?.layout || "grid-3"]} gap-8 mb-12`}
+          >
             {blok.blog_posts.map((post, index) => (
               <article
                 key={index}
                 className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
               >
                 {/* Image */}
-                {post.image && (
+                {post.image && post.image.filename && (
                   <div className="relative h-48">
                     <Image
                       src={post.image.filename}
