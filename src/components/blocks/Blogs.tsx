@@ -1,107 +1,150 @@
 import { storyblokEditable } from "@storyblok/react/rsc";
-import Image from "next/image";
 import { BlogsBlok } from "@/types/storyblok";
+import Image from "next/image";
 
 export default function Blogs({ blok }: { blok: BlogsBlok }) {
-  const gridClasses = {
-    "grid-2": "grid-cols-1 md:grid-cols-2",
-    "grid-3": "grid-cols-1 md:grid-cols-2 lg:grid-cols-3",
-    "grid-4": "grid-cols-1 md:grid-cols-2 lg:grid-cols-4",
-  };
-
   return (
-    <section {...storyblokEditable(blok)} className="py-16 lg:py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-16">
-          {blok?.subtitle && (
-            <p className="text-belfius-red font-medium text-lg mb-4 font-belfius-body">
-              {blok.subtitle}
-            </p>
-          )}
-          {blok?.title && (
-            <h2 className="font-belfius-title text-3xl lg:text-5xl text-gray-900 mb-6">
-              {blok.title}
-            </h2>
-          )}
-          {blok?.description && (
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto font-belfius-body">
-              {blok.description}
-            </p>
-          )}
-        </div>
-
-        {/* Blog Posts Grid */}
-        {blok?.blog_posts && blok.blog_posts.length > 0 && (
+    <section
+      {...storyblokEditable(blok)}
+      className="bg-[#F4F4F4] min-h-screen py-16 relative"
+    >
+      <div className="max-w-7xl mx-auto px-8 relative z-10">
+        {/* Main Container */}
+        <div
+          className="bg-white rounded-3xl p-12 relative overflow-hidden"
+          style={{
+            boxShadow: "-5px 7px 17px 2px #0000008C",
+            border: "1px solid #000000",
+          }}
+        >
+          {/* Background Image Inside Container */}
           <div
-            className={`grid ${gridClasses[blok?.layout || "grid-3"]} gap-8 mb-12`}
-          >
-            {blok.blog_posts.map((post, index) => (
-              <article
-                key={index}
-                className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
-              >
-                {/* Image */}
-                {post.image && post.image.filename && (
-                  <div className="relative h-48">
-                    <Image
-                      src={post.image.filename}
-                      alt={post.image.alt || post.title}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    />
-                    {post.category && (
-                      <div className="absolute top-4 left-4 bg-belfius-red text-white px-3 py-1 rounded-full text-sm font-medium">
-                        {post.category}
+            className="absolute inset-0"
+            style={{
+              backgroundImage: "url(/backgrounds/blogs-bg.png)",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+            }}
+          />
+
+          {/* Content */}
+          <div className="relative z-10">
+            {/* H2 Title */}
+            <h2 className="text-[#32546D] font-belfius-title text-4xl lg:text-5xl mb-12 text-center">
+              {blok?.title || "H2"}
+            </h2>
+
+            {/* Two Column Layout */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+              {/* Left Column - Main Blog Post */}
+              <div className="space-y-6">
+                {/* Main Image with NEW Tag */}
+                <div className="relative">
+                  <div className="bg-gray-200 rounded-2xl h-80 flex items-center justify-center">
+                    <div className="text-center">
+                      <div className="text-6xl mb-4">💻</div>
+                      <div className="text-gray-600 font-medium">
+                        Main Blog Image
                       </div>
-                    )}
+                      <div className="text-sm text-gray-500 mt-2">
+                        Person typing on laptop
+                      </div>
+                    </div>
                   </div>
-                )}
-
-                {/* Content */}
-                <div className="p-6">
-                  <h3 className="font-belfius-title text-xl text-gray-900 mb-3">
-                    {post.title}
-                  </h3>
-                  <p className="text-gray-600 mb-4 font-belfius-body">
-                    {post.excerpt}
-                  </p>
-
-                  {/* Meta */}
-                  <div className="flex items-center justify-between text-sm text-gray-500 mb-4 font-belfius-body">
-                    <span>{post.author}</span>
-                    <span>{post.date}</span>
-                    <span>{post.read_time}</span>
+                  {/* NEW Tag */}
+                  <div className="absolute bottom-4 left-4 bg-[#AF1B3C] text-white px-3 py-1 rounded-lg text-sm font-bold uppercase">
+                    NEW
                   </div>
-
-                  {/* Link */}
-                  <a
-                    href={post.link.cached_url}
-                    className="text-belfius-red font-medium hover:underline font-belfius-body"
-                  >
-                    Read more →
-                  </a>
                 </div>
-              </article>
-            ))}
-          </div>
-        )}
 
-        {/* View All Button */}
-        {blok?.view_all_button && blok.view_all_button.length > 0 && (
-          <div className="text-center">
-            {blok.view_all_button.map((button, index) => (
-              <a
-                key={index}
-                href={button.link.cached_url}
-                className="inline-block bg-belfius-red text-white px-8 py-3 rounded-lg font-medium hover:bg-red-700 transition-colors duration-200 font-belfius-body"
-              >
-                {button.label}
-              </a>
-            ))}
+                {/* Main Blog Title */}
+                <h3 className="font-belfius-title text-2xl font-bold text-gray-900 leading-tight">
+                  Title Title Title Title Title Title Title Title Title Title
+                  Title
+                </h3>
+
+                {/* Main Blog Body Text */}
+                <div className="space-y-2">
+                  <p className="text-gray-700 font-belfius-body">Body text</p>
+                  <p className="text-gray-700 font-belfius-body">Body text</p>
+                </div>
+              </div>
+
+              {/* Right Column - Three Smaller Blog Posts */}
+              <div className="space-y-8">
+                {/* First Small Blog Post */}
+                <div className="flex gap-4">
+                  <div className="flex-shrink-0">
+                    <div className="w-24 h-24 bg-gray-200 rounded-xl flex items-center justify-center">
+                      <div className="text-center">
+                        <div className="text-2xl">👧</div>
+                        <div className="text-xs text-gray-500">
+                          Girl with tablet
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="font-belfius-title text-lg font-bold text-gray-900 leading-tight mb-2">
+                      Title Title Title Title Title Title Title Title Title
+                      Title Title Title
+                    </h4>
+                    <p className="text-gray-700 font-belfius-body text-sm">
+                      Body text Body text Body text Body text Body text
+                    </p>
+                  </div>
+                </div>
+
+                {/* Second Small Blog Post */}
+                <div className="flex gap-4">
+                  <div className="flex-shrink-0">
+                    <div className="w-24 h-24 bg-gray-200 rounded-xl flex items-center justify-center">
+                      <div className="text-center">
+                        <div className="text-2xl">🎧</div>
+                        <div className="text-xs text-gray-500">
+                          Person with headphones
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="font-belfius-title text-lg font-bold text-gray-900 leading-tight mb-2">
+                      Title Title Title Title Title Title Title Title Title
+                      Title Title Title
+                    </h4>
+                    <p className="text-gray-700 font-belfius-body text-sm">
+                      Body text Body text Body text Body text Body text
+                    </p>
+                  </div>
+                </div>
+
+                {/* Third Small Blog Post */}
+                <div className="flex gap-4">
+                  <div className="flex-shrink-0">
+                    <div className="w-24 h-24 bg-gray-200 rounded-xl flex items-center justify-center">
+                      <div className="text-center">
+                        <div className="text-2xl">🐱</div>
+                        <div className="text-xs text-gray-500">
+                          Cat with laptop
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="font-belfius-title text-lg font-bold text-gray-900 leading-tight mb-2">
+                      Title Title Title Title Title Title Title Title Title
+                      Title Title Title
+                    </h4>
+                    <p className="text-gray-700 font-belfius-body text-sm">
+                      Body text Body text Body text Body text Body text
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        )}
+        </div>
       </div>
     </section>
   );

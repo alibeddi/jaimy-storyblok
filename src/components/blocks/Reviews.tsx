@@ -1,115 +1,140 @@
+"use client";
 import { storyblokEditable } from "@storyblok/react/rsc";
-import Image from "next/image";
 import { ReviewsBlok } from "@/types/storyblok";
+import { useState } from "react";
 
 export default function Reviews({ blok }: { blok: ReviewsBlok }) {
-  const gridClasses = {
-    "grid-2": "grid-cols-1 md:grid-cols-2",
-    "grid-3": "grid-cols-1 md:grid-cols-2 lg:grid-cols-3",
-    carousel: "grid-cols-1",
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  // Demo reviews data
+  const reviews = [
+    {
+      name: "Louis Lilet",
+      location: "Bruxelles",
+      rating: 5,
+      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    },
+    {
+      name: "Louis Lilet",
+      location: "Bruxelles",
+      rating: 4,
+      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    },
+    {
+      name: "Louis Lilet",
+      location: "Bruxelles",
+      rating: 4,
+      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    },
+  ];
+
+  const goToSlide = (index: number) => {
+    setCurrentSlide(index);
   };
 
-  const renderStars = (rating: number) => {
-    return Array.from({ length: 5 }, (_, i) => (
-      <svg
-        key={i}
-        className={`w-5 h-5 ${i < rating ? "text-yellow-400" : "text-gray-300"}`}
-        fill="currentColor"
-        viewBox="0 0 20 20"
-      >
-        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-      </svg>
-    ));
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % 4);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + 4) % 4);
   };
 
   return (
     <section
       {...storyblokEditable(blok)}
-      className={`py-16 lg:py-24 ${blok?.background_color === "gray" ? "bg-gray-50" : "bg-white"}`}
+      className="bg-gray-100 min-h-screen py-16"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-16">
-          {blok?.subtitle && (
-            <p className="text-belfius-red font-medium text-lg mb-4 font-belfius-body">
-              {blok.subtitle}
-            </p>
-          )}
-          {blok?.title && (
-            <h2 className="font-belfius-title text-3xl lg:text-5xl text-gray-900 mb-6">
-              {blok.title}
-            </h2>
-          )}
-          {blok?.description && (
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto font-belfius-body">
-              {blok.description}
-            </p>
-          )}
-        </div>
+      <div className="max-w-7xl mx-auto px-8">
+        {/* H2 Title */}
+        <h2 className="text-[#32546D] font-belfius-title text-4xl lg:text-5xl mb-16">
+          {blok?.title || "H2"}
+        </h2>
 
-        {/* Reviews Grid */}
-        {blok?.reviews && blok?.reviews?.length > 0 && (
-          <div className={`grid ${gridClasses[blok?.layout || "grid-3"]} gap-8`}>
-            {blok?.reviews?.map((review, index) => (
-              <div
-                key={index}
-                className="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-shadow duration-300"
-              >
-                {/* Rating */}
-                {blok?.show_rating && (
-                  <div className="flex items-center mb-4">
-                    {renderStars(review.rating)}
-                    <span className="ml-2 text-sm text-gray-600 font-belfius-body">
-                      {review.rating}/5
+        {/* Reviews Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+          {reviews.map((review, index) => (
+            <div
+              key={index}
+              className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300"
+            >
+              {/* User Info and Rating */}
+              <div className="flex items-start justify-between mb-6">
+                <div className="flex items-center gap-4">
+                  {/* User Avatar */}
+                  <div className="w-12 h-12 bg-[#AF1B3C] rounded-full flex items-center justify-center">
+                    <span className="text-white font-bold text-lg">
+                      {review.name.charAt(0)}
                     </span>
                   </div>
-                )}
 
-                {/* Review Text */}
-                <blockquote className="text-gray-700 mb-6 font-belfius-body leading-relaxed">
-                  &ldquo;{review.review_text}&rdquo;
-                </blockquote>
-
-                {/* Author Info */}
-                <div className="flex items-center">
-                  {review?.avatar?.filename ? (
-                    <div className="relative w-12 h-12 rounded-full overflow-hidden mr-4">
-                      <Image
-                        src={review.avatar.filename}
-                        alt={review.avatar.alt || review.name}
-                        fill
-                        className="object-cover"
-                        sizes="48px"
-                      />
-                    </div>
-                  ) : (
-                    <div className="w-12 h-12 bg-belfius-red rounded-full flex items-center justify-center text-white font-bold mr-4">
-                      {review.name.charAt(0)}
-                    </div>
-                  )}
-
+                  {/* User Details */}
                   <div>
-                    <div className="font-belfius-title text-gray-900">
+                    <h4 className="font-belfius-title text-lg font-bold text-gray-900">
                       {review.name}
-                    </div>
-                    {(review?.role || review?.company) && (
-                      <div className="text-sm text-gray-600 font-belfius-body">
-                        {review.role && <span>{review.role}</span>}
-                        {review.role && review.company && <span> at </span>}
-                        {review.company && <span>{review.company}</span>}
-                      </div>
-                    )}
-                    {review?.date && (
-                      <div className="text-sm text-gray-500 font-belfius-body">
-                        {review.date}
-                      </div>
-                    )}
+                    </h4>
+                    <p className="text-gray-500 text-sm">{review.location}</p>
                   </div>
                 </div>
+
+                {/* Star Rating */}
+                <div className="flex gap-1">
+                  {[...Array(5)].map((_, starIndex) => (
+                    <span
+                      key={starIndex}
+                      className={`text-xl ${
+                        starIndex < review.rating
+                          ? "text-[#AF1B3C]"
+                          : "text-gray-300"
+                      }`}
+                    >
+                      ★
+                    </span>
+                  ))}
+                </div>
               </div>
+
+              {/* Review Text */}
+              <blockquote className="text-gray-700 font-belfius-body leading-relaxed">
+                &ldquo;{review.text}&rdquo;
+              </blockquote>
+            </div>
+          ))}
+        </div>
+
+        {/* Navigation */}
+        <div className="flex items-center justify-center gap-8">
+          {/* Pagination Dots */}
+          <div className="flex gap-2">
+            {[...Array(4)].map((_, index) => (
+              <button
+                key={index}
+                onClick={() => goToSlide(index)}
+                className={`w-3 h-3 rounded-full transition-colors duration-200 ${
+                  index === currentSlide ? "bg-[#AF1B3C]" : "bg-gray-400"
+                }`}
+              />
             ))}
           </div>
-        )}
+
+          {/* Navigation Arrows */}
+          <div className="flex gap-4">
+            <button
+              onClick={prevSlide}
+              className="text-gray-400 hover:text-gray-600 transition-colors duration-200 text-2xl"
+              type="button"
+            >
+              ←
+            </button>
+            <button
+              onClick={nextSlide}
+              className="text-[#AF1B3C] hover:text-red-700 transition-colors duration-200 text-2xl"
+              type="button"
+            >
+              →
+            </button>
+          </div>
+        </div>
       </div>
     </section>
   );

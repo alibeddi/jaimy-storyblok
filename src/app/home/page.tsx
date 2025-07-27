@@ -74,14 +74,14 @@ export default async function Home() {
       <Header blok={headerBlock as HeaderBlok} />
       {/* <Blogs blok={blogsBlock as BlogsBlok} /> */}
       {/* {headerBlock && <Header blok={headerBlock as HeaderBlok} />} */}
-      {/* {heroBlock && <Hero blok={heroBlock as HeroBlok} />} */}
-      {/* {stepsBlock && <Steps blok={stepsBlock as StepsBlok} />} */}
+      {heroBlock && <Hero blok={heroBlock as HeroBlok} />}
+      {<Steps blok={stepsBlock as StepsBlok} />}
       <Slider blok={sliderBlock as SliderBlok} />
+      {<Blogs blok={blogsBlock as BlogsBlok} />}
       <Reviews blok={reviewsBlock as ReviewsBlok} />
       <SocialProof blok={socialProofBlock as SocialProofBlok} />
       <FAQ blok={faqBlock as FAQBlok} />
       <Footer blok={footerBlock as FooterBlok} />
-      {/* {blogsBlock && <Blogs blok={blogsBlock as BlogsBlok} />} */}
       {/* {reviewsBlock && <Reviews blok={reviewsBlock as ReviewsBlok} />} */}
       {/* {socialProofBlock && <SocialProof blok={socialProofBlock as SocialProofBlok} />} */}
       {/* {faqBlock && <FAQ blok={faqBlock as FAQBlok} />} */}
