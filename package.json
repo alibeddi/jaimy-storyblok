@@ -6,7 +6,9 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "generate-types": "tsx scripts/generate-types.ts",
+    "generate-components": "tsx scripts/generate-components.ts"
   },
   "dependencies": {
     "@storyblok/js": "^4.2.1",
@@ -23,7 +25,10 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.4.2",
+    "storyblok": "^4.2.2",
+    "storyblok-schema-types": "^1.3.2",
     "tailwindcss": "^4",
+    "tsx": "^4.20.3",
     "typescript": "^5"
   }
 }

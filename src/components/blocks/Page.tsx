@@ -1,17 +1,11 @@
-import { storyblokEditable } from '@storyblok/react/rsc'
+import { storyblokEditable } from '@storyblok/react/rsc';
+import { PageBlok } from "@/types/storyblok";
 
-interface PageProps {
-  blok: {
-    body?: any[]
-    [key: string]: any
-  }
-}
-
-export default function Page({ blok }: PageProps) {
+export default function Page({ blok }: { blok: PageBlok }) {
   return (
     <main {...storyblokEditable(blok)} className="min-h-screen">
       <div className="container mx-auto px-4 py-8">
-        {blok.body?.map((nestedBlok: any) => (
+        {blok.body?.map((nestedBlok) => (
           <div key={nestedBlok._uid}>
             {/* Nested components will be rendered here */}
             <pre className="p-4 rounded">
@@ -29,5 +23,5 @@ export default function Page({ blok }: PageProps) {
         )}
       </div>
     </main>
-  )
+  );
 }
