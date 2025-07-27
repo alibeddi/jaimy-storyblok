@@ -1,14 +1,20 @@
 import type { Metadata } from "next";
-import { Inter } from 'next/font/google'
+import { Inter } from "next/font/google";
 import { storyblokInit, apiPlugin } from "@storyblok/react/rsc";
 import StoryblokProvider from "../components/StoryblokProvider";
 import "./globals.css";
-import Page from '../components/blocks/Page'
-import Header from '../components/blocks/Header'
-import Hero from '../components/blocks/Hero'
-import Steps from '../components/blocks/Steps'
+import Page from "../components/blocks/Page";
+import Header from "../components/blocks/Header";
+import Hero from "../components/blocks/Hero";
+import Steps from "../components/blocks/Steps";
+import Body from "../components/blocks/Body";
+import Blogs from "../components/blocks/Blogs";
+import Reviews from "../components/blocks/Reviews";
+import SocialProof from "../components/blocks/SocialProof";
+import FAQ from "../components/blocks/FAQ";
+import Footer from "../components/blocks/Footer";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
 // Initialize Storyblok for server-side rendering
 storyblokInit({
@@ -19,13 +25,19 @@ storyblokInit({
     header: Header,
     hero: Hero,
     steps: Steps,
+    body: Body,
+    blogs: Blogs,
+    reviews: Reviews,
+    social_proof: SocialProof,
+    faq: FAQ,
+    footer: Footer,
   },
-})
+});
 
 export const metadata: Metadata = {
-  title: 'Jaimy - Storyblok Project',
-  description: 'A modern website built with Next.js and Storyblok',
-}
+  title: "Jaimy - Storyblok Project",
+  description: "A modern website built with Next.js and Storyblok",
+};
 
 export default function RootLayout({
   children,
