@@ -1,61 +1,79 @@
 import { storyblokEditable } from "@storyblok/react/rsc";
 import { StepsBlok } from "@/types/storyblok";
+import Image from "next/image";
 
 export default function Steps({ blok }: { blok: StepsBlok }) {
+  const steps = [
+    {
+      id: 1,
+      title: "Step 1",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
+      icon: "/icons/event_available.png",
+    },
+    {
+      id: 2,
+      title: "Step 2",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
+      icon: "/icons/message.png",
+    },
+    {
+      id: 3,
+      title: "Step 3",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
+      icon: "/icons/settings.png",
+    },
+  ];
+
   return (
-    <section {...storyblokEditable(blok)} className="py-16 lg:py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-16">
-          {blok?.subtitle && (
-            <p className="text-belfius-red font-medium text-lg mb-4 font-belfius-body">
-              {blok.subtitle}
-            </p>
-          )}
-          {blok?.title && (
-            <h2 className="font-belfius-title text-3xl lg:text-5xl text-gray-900 mb-6">
-              {blok.title}
-            </h2>
-          )}
-        </div>
+    <section
+      {...storyblokEditable(blok)}
+      className="bg-gray-100 min-h-screen relative"
+    >
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-8 py-16">
+        {/* H2 Heading */}
+        <h2 className="text-[#32546D] font-belfius-title text-4xl lg:text-5xl mb-16">
+          {blok?.title}
+        </h2>
 
         {/* Steps Grid */}
-        {blok?.steps && blok.steps.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {blok.steps.map((step, index) => (
-              <div
-                key={index}
-                className="relative bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-shadow duration-300"
-              >
-                {/* Step Number */}
-                <div className="absolute -top-4 -left-4 w-12 h-12 bg-belfius-red rounded-full flex items-center justify-center text-white font-bold text-lg">
-                  {step.step_number}
-                </div>
-
-                {/* Icon */}
-                {step.icon && step.icon.filename && (
-                  <div className="mb-6">
-                    <img
-                      src={step.icon.filename}
-                      alt={step.icon.alt || "Step Icon"}
-                      className="w-16 h-16"
-                    />
-                  </div>
-                )}
-
-                {/* Content */}
-                <div className="mt-4">
-                  <h3 className="font-belfius-title text-xl text-gray-900 mb-4">
-                    {step.title}
-                  </h3>
-                  <p className="text-gray-600 font-belfius-body leading-relaxed">
-                    {step.description}
-                  </p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {steps.map((step, index) => (
+            <div
+              key={step.id}
+              className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 text-center relative"
+            >
+              {/* Icon - Absolutely positioned at the top center */}
+              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                <div className="w-20 h-20 bg-[#AF1B3C] rounded-full flex items-center justify-center shadow-md">
+                  <Image
+                    src={step.icon}
+                    alt={`${step.title} icon`}
+                    width={32}
+                    height={32}
+                    className="w-8 h-8"
+                  />
                 </div>
               </div>
-            ))}
-          </div>
-        )}
+
+              {/* Content with top padding to accommodate the icon */}
+              <div className="pt-12">
+                {/* Step Title */}
+                <h3 className="font-belfius-title text-xl font-bold text-gray-900 mb-6">
+                  {step.title}
+                </h3>
+
+                {/* Description */}
+                <p className="text-gray-600 font-belfius-body leading-relaxed text-sm">
+                  {step.description}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
