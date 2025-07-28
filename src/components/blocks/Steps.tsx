@@ -30,7 +30,7 @@ export default function Steps({ blok }: { blok: StepsBlok }) {
   return (
     <section
       {...storyblokEditable(blok)}
-      className="bg-gray-100 min-h-screen relative"
+      className="bg-gray-100  relative"
     >
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-8 py-16">
