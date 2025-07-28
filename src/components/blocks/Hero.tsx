@@ -1,307 +1,213 @@
 "use client";
 import { storyblokEditable } from "@storyblok/react/rsc";
 import { HeroBlok } from "@/types/storyblok";
-import { useState, useEffect } from "react";
 
 export default function Hero({ blok }: { blok: HeroBlok }) {
-  const [currentSlide, setCurrentSlide] = useState(0);
-
-  // Auto-advance slides
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % 4);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, [currentSlide]);
-
-  // Navigation functions
-  const goToSlide = (index: number) => {
-    setCurrentSlide(index);
-  };
-
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % 4);
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + 4) % 4);
-  };
-
-  const slides = [
-    {
-      id: 1,
-      title: "H1 Plan je ketelonderhoud",
-      description:
-        "Body text Body text Body text Body text Body text Body text Body text Body text Body text Body text Body text Body text Body text Body text Body text Body text",
-      ctaText: "CTA HERE",
-      stats: [
-        { number: "197.432", label: "Projets réalisés", icon: "🏠" },
-        { number: "4.5", label: "Taux de satisfaction", icon: "✓" },
-      ],
-      layout: "hero-1",
-    },
-    {
-      id: 2,
-      title: "Smart Home Control",
-      description:
-        "Control your home security and automation with our intuitive smart panel system.",
-      ctaText: "Learn More",
-      layout: "hero-2",
-    },
-    {
-      id: 3,
-      title: "Comfort & Control",
-      description:
-        "Experience ultimate comfort with our smart home automation system.",
-      ctaText: "Get Started",
-      layout: "hero-3",
-    },
-    {
-      id: 4,
-      title: "Modern Living",
-      description:
-        "Transform your home with cutting-edge technology and design.",
-      ctaText: "Explore Now",
-      layout: "hero-4",
-    },
-  ];
-
-  const currentSlideData = slides[currentSlide];
-
   return (
     <section
       {...storyblokEditable(blok)}
-      className="relative bg-gray-100 min-h-screen"
+      className="relative w-full min-h-screen bg-white overflow-hidden"
     >
-      {/* Hero Section Label */}
-      <div className="absolute top-4 left-4 z-10">
-        <span className="text-gray-500 text-sm">
-          Hero section {currentSlide + 1}
-        </span>
+      {/* Curved Background Image */}
+      <div className="absolute inset-0">
+        <img
+          src="https://api.builder.io/api/v1/image/assets/TEMP/51a0bff854c5067540dc4dca45a29a9b1e335b80?width=8664"
+          alt="Vector"
+          className="absolute -left-1/2 -top-full w-[300vw] h-[300vw] transform rotate-[-129.613deg] object-cover opacity-80"
+          style={{
+            transformOrigin: "center",
+          }}
+        />
       </div>
 
-      {/* Main Content */}
-      <div className="relative w-full h-screen">
-        {/* Background Image with Circular Overlay */}
-        <div className="absolute inset-0">
-          <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 relative">
-            {/* Circular overlay for hero-1 */}
-            {currentSlide === 0 && (
-              <div className="absolute right-1/4 top-1/4 w-96 h-96 bg-white/20 rounded-full blur-sm"></div>
-            )}
-
-            {/* Organic white overlay for hero-2 */}
-            {currentSlide === 1 && (
-              <div className="absolute inset-0">
-                <div
-                  className="absolute top-0 left-0 w-3/4 h-full bg-white"
-                  style={{
-                    clipPath:
-                      "polygon(0 0, 70% 0, 100% 30%, 100% 100%, 0 100%)",
-                  }}
-                ></div>
-              </div>
-            )}
-
-            {/* S-curve overlay for hero-3 */}
-            {currentSlide === 2 && (
-              <div className="absolute inset-0">
-                <div
-                  className="absolute top-0 left-0 w-full h-full bg-white"
-                  style={{
-                    clipPath:
-                      "polygon(0 0, 60% 0, 80% 40%, 100% 60%, 100% 100%, 0 100%)",
-                  }}
-                ></div>
-              </div>
-            )}
-
-            {/* Red organic shape for hero-4 */}
-            {currentSlide === 3 && (
-              <div className="absolute inset-0">
-                <div
-                  className="absolute right-0 bottom-0 w-3/4 h-3/4 bg-[#AF1B3C]"
-                  style={{
-                    clipPath:
-                      "polygon(40% 0, 100% 0, 100% 100%, 0 100%, 0 60%)",
-                  }}
-                ></div>
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Content Container */}
-        <div className="relative z-10 flex items-center justify-center h-full">
-          <div
-            className="max-w-6xl mx-auto px-8 py-16 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
-            style={{ boxShadow: "-5px 7px 17px -2px #00000096" }}
-          >
+      {/* Main Content Container */}
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-16">
+        {/* Semi-transparent Background Card */}
+        <div 
+          className="rounded-[25px] h-[800px] backdrop-blur-sm p-6 lg:p-12"
+          style={{
+            background: "rgba(244, 244, 244, 0.50)",
+            boxShadow: "-5px 7px 17px -2px rgba(0, 0, 0, 0.59)"
+          }}
+        >
+          {/* Content Layout */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
             {/* Left Content */}
-            <div className="space-y-8 px-8 py-12">
-              {/* Title */}
-              <h1 className="font-belfius-title text-4xl lg:text-6xl text-[#32546D] leading-tight">
-                {currentSlideData.title}
+            <div className="space-y-6 lg:space-y-8">
+              {/* H1 Title */}
+              <h1 
+                className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight"
+                style={{
+                  fontFamily: "BelfiusAlternative, -apple-system, Roboto, Helvetica, sans-serif",
+                  fontWeight: 700,
+                  color: "rgba(50,84,109,1)"
+                }}
+              >
+                H1 Plan je ketelonderhoud
               </h1>
 
-              {/* Description */}
-              <p className="text-xl text-gray-600 leading-relaxed max-w-lg font-belfius-body">
-                {currentSlideData.description}
+              {/* Body Text */}
+              <p 
+                className="text-base lg:text-lg leading-relaxed"
+                style={{
+                  fontFamily: "Montserrat, -apple-system, Roboto, Helvetica, sans-serif",
+                  fontWeight: 400,
+                  color: "rgba(0,0,0,1)"
+                }}
+              >
+                Body text Body text Body text Body text Body text Body text Body text Body text Body text Body text Body text Body text Body text Body text Body text Body text 
               </p>
 
               {/* CTA Button */}
-              <div className="flex flex-col sm:flex-row gap-4">
-                <button className="bg-[#AF1B3C] text-white px-8 py-3 rounded-lg font-medium hover:bg-red-700 transition-colors duration-200 font-belfius-body shadow-lg">
-                  {currentSlideData.ctaText}
+              <div className="pt-4">
+                <button 
+                  className="inline-flex items-center justify-center px-8 py-4 rounded-[25px] text-lg font-semibold transition-transform hover:scale-105"
+                  style={{
+                    background: "linear-gradient(90deg, #961E34 0%, #C30B30 101.65%)",
+                    boxShadow: "-5px 7px 17.3px -2px rgba(0, 0, 0, 0.59)",
+                    fontFamily: "Montserrat, -apple-system, Roboto, Helvetica, sans-serif",
+                    fontWeight: 700,
+                    color: "rgba(255,255,255,1)"
+                  }}
+                >
+                  CTA HERE
                 </button>
               </div>
 
-              {/* Stats for hero-1 */}
-              {currentSlide === 0 && (
-                <div className="flex space-x-4">
-                  {currentSlideData.stats?.map((stat, index) => (
-                    <div
-                      key={index}
-                      className="bg-white rounded-lg p-4 border border-red-200 shadow-sm"
-                    >
-                      <div className="flex items-center space-x-2">
-                        <span className="text-2xl">{stat.icon}</span>
-                        <div>
-                          <div className="font-bold text-gray-900">
-                            {stat.number}
-                          </div>
-                          <div className="text-sm text-gray-600">
-                            {stat.label}
-                          </div>
-                        </div>
+              {/* Trust Badges Container */}
+              <div className="flex flex-col sm:flex-row gap-4 lg:gap-6 pt-4">
+                {/* Trustbadge 1 */}
+                <div className="relative flex-1 min-h-[83px]">
+                  <div 
+                    className="absolute inset-0 rounded-[25px]"
+                    style={{
+                      background: "#F4F4F4",
+                      opacity: 0.5,
+                      boxShadow: "-5px 7px 17.3px -2px rgba(0, 0, 0, 0.59)"
+                    }}
+                  />
+                  <div className="relative flex items-center h-full px-4 lg:px-6">
+                    {/* Icon */}
+                    <div className="w-12 h-12 lg:w-14 lg:h-14 bg-[#D9D9D9] rounded-none mr-4 relative flex-shrink-0">
+                      <svg 
+                        className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-9 lg:w-9 lg:h-11" 
+                        viewBox="0 0 37 45" 
+                        fill="none" 
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path 
+                          d="M8.6316 44.0236V28.1801L0.44281 14.8881L9.40301 0.350037H27.4421L36.4023 14.8881L28.2135 28.1801V44.0236L18.4226 40.5819L8.6316 44.0236ZM9.93706 41.9467L18.4226 39.0985L26.908 41.9467V29.4262H9.93706V41.9467ZM10.0557 1.6555L1.86695 14.8881L10.0557 28.1207H26.7894L34.9782 14.8881L26.7894 1.6555H10.0557ZM15.9303 22.1275L9.93706 16.1936L10.8865 15.2441L15.9303 20.288L25.9586 10.2003L26.908 11.0904L15.9303 22.1275Z" 
+                          fill="#AF1B3C"
+                        />
+                      </svg>
+                    </div>
+                    {/* Text */}
+                    <div className="min-w-0">
+                      <div 
+                        className="text-lg lg:text-xl xl:text-2xl font-semibold leading-tight"
+                        style={{
+                          fontFamily: "Montserrat, -apple-system, Roboto, Helvetica, sans-serif",
+                          fontWeight: 700,
+                          color: "rgba(175,27,60,1)"
+                        }}
+                      >
+                        197.432
+                      </div>
+                      <div 
+                        className="text-xs lg:text-sm leading-tight"
+                        style={{
+                          fontFamily: "Montserrat, -apple-system, Roboto, Helvetica, sans-serif",
+                          fontWeight: 400,
+                          color: "rgba(50,84,109,1)"
+                        }}
+                      >
+                        Projets réalisés 
                       </div>
                     </div>
-                  ))}
+                  </div>
                 </div>
-              )}
+
+                {/* Trustbadge 2 */}
+                <div className="relative flex-1 min-h-[83px]">
+                  <div 
+                    className="absolute inset-0 rounded-[25px]"
+                    style={{
+                      background: "#F4F4F4",
+                      opacity: 0.5,
+                      boxShadow: "-5px 7px 17.3px -2px rgba(0, 0, 0, 0.59)"
+                    }}
+                  />
+                  <div className="relative flex items-center h-full px-4 lg:px-6">
+                    {/* Icon */}
+                    <div className="w-12 h-12 lg:w-12 lg:h-12 bg-[#D9D9D9] rounded-none mr-4 relative flex-shrink-0">
+                      <svg 
+                        className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-7 lg:w-9 lg:h-8" 
+                        viewBox="0 0 38 36" 
+                        fill="none" 
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path 
+                          d="M13.35 35.7L10.15 30.25L3.95 29L4.55 22.7L0.5 18L4.55 13.3L3.95 7.04999L10.15 5.74999L13.35 0.299988L19 2.74999L24.65 0.299988L27.9 5.74999L34.1 7.04999L33.45 13.3L37.5 18L33.45 22.7L34.1 29L27.9 30.25L24.65 35.7L19 33.25L13.35 35.7ZM13.85 34.25L19 32.15L24.2 34.25L27.25 29.4L32.85 28.1L32.35 22.3L36.15 18L32.35 13.7L32.85 7.84999L27.25 6.59999L24.2 1.74999L19 3.84999L13.8 1.74999L10.75 6.59999L5.15 7.84999L5.65 13.7L1.85 18L5.65 22.3L5.15 28.1L10.75 29.4L13.85 34.25ZM16.9 23.15L26.4 13.7L25.55 12.95L16.9 21.6L12.45 17.05L11.6 17.9L16.9 23.15Z" 
+                          fill="#AF1B3C"
+                        />
+                      </svg>
+                    </div>
+                    {/* Text */}
+                    <div className="min-w-0">
+                      <div 
+                        className="text-lg lg:text-xl xl:text-2xl font-semibold leading-tight"
+                        style={{
+                          fontFamily: "Montserrat, -apple-system, Roboto, Helvetica, sans-serif",
+                          fontWeight: 700,
+                          color: "rgba(175,27,60,1)"
+                        }}
+                      >
+                        4.5
+                      </div>
+                      <div 
+                        className="text-xs lg:text-sm leading-tight"
+                        style={{
+                          fontFamily: "Montserrat, -apple-system, Roboto, Helvetica, sans-serif",
+                          fontWeight: 400,
+                          color: "rgba(50,84,109,1)"
+                        }}
+                      >
+                        Taux de satisfaction
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            {/* Right Content */}
-            <div className="relative px-8 py-12">
-              {/* Iframe placeholder for hero-1 */}
-              {currentSlide === 0 && (
-                <div className="bg-white rounded-lg shadow-lg p-8 border border-blue-200">
-                  <div className="text-center text-2xl font-bold text-gray-900">
-                    Iframe
+            {/* Right Content - White Card with Iframe */}
+            <div className="flex justify-center lg:justify-end">
+              <div className="w-full max-w-lg aspect-[3/4] lg:aspect-[3/4]">
+                <div 
+                  className="w-full h-full rounded-[25px] bg-white flex items-center justify-center"
+                  style={{
+                    boxShadow: "-5px 7px 17.3px -2px rgba(0, 0, 0, 0.59)"
+                  }}
+                >
+                  <div className="text-center p-8">
+                    <span 
+                      className="text-3xl lg:text-4xl xl:text-5xl font-semibold leading-normal text-center"
+                      style={{
+                        fontFamily: "Montserrat, -apple-system, Roboto, Helvetica, sans-serif",
+                        fontWeight: 700,
+                        color: "rgba(0,0,0,1)"
+                      }}
+                    >
+                      Iframe
+                    </span>
                   </div>
                 </div>
-              )}
-
-              {/* Smart panel for hero-2 */}
-              {currentSlide === 1 && (
-                <div className="relative">
-                  <div className="bg-black rounded-lg p-6 shadow-2xl w-80 h-96">
-                    <div className="bg-white rounded-lg h-full p-4">
-                      <div className="text-center mb-4">
-                        <div className="text-sm text-gray-500">HOME</div>
-                        <div className="text-xs text-gray-400">▼</div>
-                      </div>
-                      <div className="text-center mb-8">
-                        <div className="w-16 h-16 bg-yellow-400 rounded-full mx-auto mb-2 flex items-center justify-center">
-                          <span className="text-2xl">🔒</span>
-                        </div>
-                        <div className="text-lg font-bold">SECURE</div>
-                      </div>
-                      <div className="flex justify-center space-x-4">
-                        <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center">
-                          <span className="text-lg">🏠</span>
-                        </div>
-                        <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center">
-                          <span className="text-lg">💡</span>
-                        </div>
-                        <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center">
-                          <span className="text-lg">🪟</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* AC control for hero-3 */}
-              {currentSlide === 2 && (
-                <div className="relative">
-                  <div className="bg-white rounded-lg shadow-lg p-6 w-80">
-                    <div className="text-center">
-                      <div className="text-2xl mb-4">❄️</div>
-                      <div className="text-lg font-bold">Air Control</div>
-                      <div className="text-sm text-gray-600">
-                        Temperature: 22°C
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* Abstract design for hero-4 */}
-              {currentSlide === 3 && (
-                <div className="relative">
-                  <div className="w-80 h-80 bg-gradient-to-br from-red-400 to-red-600 rounded-full opacity-20"></div>
-                </div>
-              )}
+              </div>
             </div>
           </div>
         </div>
-
-        {/* Navigation Dots */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2">
-          {slides.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => goToSlide(index)}
-              className={`w-3 h-3 rounded-full transition-colors duration-200 ${
-                index === currentSlide ? "bg-[#AF1B3C]" : "bg-gray-300"
-              }`}
-            />
-          ))}
-        </div>
-
-        {/* Arrow Navigation */}
-        <button
-          onClick={prevSlide}
-          className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full shadow-lg z-20 cursor-pointer"
-          type="button"
-        >
-          <svg
-            className="w-6 h-6 text-gray-600"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M15 19l-7-7 7-7"
-            />
-          </svg>
-        </button>
-
-        <button
-          onClick={nextSlide}
-          className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full shadow-lg z-20 cursor-pointer"
-          type="button"
-        >
-          <svg
-            className="w-6 h-6 text-gray-600"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M9 5l7 7-7 7"
-            />
-          </svg>
-        </button>
       </div>
     </section>
   );
 }
+

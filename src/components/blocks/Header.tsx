@@ -5,7 +5,7 @@ export default function Header({ blok }: { blok: HeaderBlok }) {
   return (
     <header
       {...storyblokEditable(blok)}
-      className="bg-white border border-blue-500 w-full h-[150px] flex items-center justify-between px-8"
+      className="bg-white border border-blue-500 w-full h-[90px] flex items-center justify-between px-8"
     >
       {/* Logo Section */}
       <div className="flex items-center">
@@ -13,7 +13,7 @@ export default function Header({ blok }: { blok: HeaderBlok }) {
           <img
             src={blok.logo.filename}
             alt={blok.logo.alt || "Jaimy Logo"}
-            className="h-12 w-auto"
+            className="h-[50px] w-auto"
           />
         ) : (
           <div className="flex items-center">

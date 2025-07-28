@@ -19,6 +19,22 @@
 }
 
 @font-face {
+  font-family: 'BelfiusAlternative';
+  src: url('/fonts/belfius/BelfiusAlternative_regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BelfiusAlternative';
+  src: url('/fonts/belfius/BelfiusAlternative_bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
   font-family: 'Belfius Alternative';
   src: url('/fonts/belfius/BelfiusAlternative_light.otf') format('opentype');
   font-weight: 300;
@@ -91,7 +107,7 @@
   --belfius-grey: #aaacb6;
   --belfius-light-grey: #f4f4f4;
   --belfius-white: #ffffff;
-  
+
   /* Background and Foreground */
   --background: #ffffff;
   --foreground: #171717;
@@ -102,7 +118,7 @@
   --color-foreground: var(--foreground);
   --font-sans: 'Montserrat', var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  
+
   /* Custom Belfius Colors for Tailwind */
   --color-belfius-red: var(--belfius-red-primary);
   --color-belfius-red-secondary: var(--belfius-red-secondary);
