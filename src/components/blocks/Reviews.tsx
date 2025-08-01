@@ -6,7 +6,7 @@ import { useState } from "react";
 export default function Reviews({ blok }: { blok: ReviewsBlok }) {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  // Demo reviews data
+  // Demo reviews data matching the screenshot
   const reviews = [
     {
       name: "Louis Lilet",
@@ -41,69 +41,100 @@ export default function Reviews({ blok }: { blok: ReviewsBlok }) {
   };
 
   return (
-    <section
-      {...storyblokEditable(blok)}
-      className="bg-gray-100 min-h-screen py-16"
-    >
-      <div className="max-w-7xl mx-auto px-8">
+    <section {...storyblokEditable(blok)} className="bg-gray-100 py-16 px-4">
+      <div className="max-w-7xl mx-auto">
         {/* H2 Title */}
-        <h2 className="text-[#32546D] font-belfius-title text-4xl lg:text-5xl mb-16">
+        <h2
+          className="text-gray-800 text-4xl lg:text-5xl font-bold mb-16"
+          style={{
+            fontFamily:
+              "BelfiusAlternative, -apple-system, Roboto, Helvetica, sans-serif",
+            fontWeight: "700",
+          }}
+        >
           {blok?.title || "H2"}
         </h2>
 
-        {/* Reviews Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-          {reviews.map((review, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300"
-            >
-              {/* User Info and Rating */}
-              <div className="flex items-start justify-between mb-6">
-                <div className="flex items-center gap-4">
-                  {/* User Avatar */}
-                  <div className="w-12 h-12 bg-[#AF1B3C] rounded-full flex items-center justify-center">
-                    <span className="text-white font-bold text-lg">
-                      {review.name.charAt(0)}
-                    </span>
-                  </div>
-
-                  {/* User Details */}
-                  <div>
-                    <h4 className="font-belfius-title text-lg font-bold text-gray-900">
-                      {review.name}
-                    </h4>
-                    <p className="text-gray-500 text-sm">{review.location}</p>
-                  </div>
-                </div>
-
-                {/* Star Rating */}
-                <div className="flex gap-1">
-                  {[...Array(5)].map((_, starIndex) => (
-                    <span
-                      key={starIndex}
-                      className={`text-xl ${
-                        starIndex < review.rating
-                          ? "text-[#AF1B3C]"
-                          : "text-gray-300"
-                      }`}
+        {/* Reviews Cards Container */}
+        <div className="mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {reviews.map((review, index) => (
+              <div key={index} className="bg-white rounded-2xl p-8 shadow-lg">
+                {/* User Info and Rating Row */}
+                <div className="flex items-start justify-between mb-6">
+                  <div className="flex items-center gap-4">
+                    {/* User Avatar - Red Circle */}
+                    <div
+                      className="w-12 h-12 rounded-full flex items-center justify-center"
+                      style={{ backgroundColor: "#C02139" }}
                     >
-                      ★
-                    </span>
-                  ))}
-                </div>
-              </div>
+                      <span className="text-white font-bold text-lg">
+                        {review.name.charAt(0)}
+                      </span>
+                    </div>
 
-              {/* Review Text */}
-              <blockquote className="text-gray-700 font-belfius-body leading-relaxed">
-                &ldquo;{review.text}&rdquo;
-              </blockquote>
-            </div>
-          ))}
+                    {/* User Details */}
+                    <div>
+                      <h4
+                        className="font-bold text-gray-900 text-lg mb-1"
+                        style={{
+                          fontFamily:
+                            "Montserrat, -apple-system, Roboto, Helvetica, sans-serif",
+                          fontWeight: "700",
+                        }}
+                      >
+                        {review.name}
+                      </h4>
+                      <p
+                        className="text-gray-600 text-sm"
+                        style={{
+                          fontFamily:
+                            "Montserrat, -apple-system, Roboto, Helvetica, sans-serif",
+                          fontWeight: "400",
+                        }}
+                      >
+                        {review.location}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Star Rating */}
+                  <div className="flex gap-1">
+                    {[...Array(5)].map((_, starIndex) => (
+                      <span
+                        key={starIndex}
+                        className={`text-xl ${
+                          starIndex < review.rating ? "" : "text-gray-300"
+                        }`}
+                        style={{
+                          color:
+                            starIndex < review.rating ? "#C02139" : undefined,
+                        }}
+                      >
+                        {starIndex < review.rating ? "★" : "☆"}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Review Text */}
+                <blockquote
+                  className="text-gray-700 leading-relaxed italic"
+                  style={{
+                    fontFamily:
+                      "Montserrat, -apple-system, Roboto, Helvetica, sans-serif",
+                    fontWeight: "400",
+                  }}
+                >
+                  &ldquo;{review.text}&rdquo;
+                </blockquote>
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* Navigation */}
-        <div className="flex items-center justify-center gap-8">
+        {/* Navigation Controls */}
+        <div className="flex items-center justify-between">
           {/* Pagination Dots */}
           <div className="flex gap-2">
             {[...Array(4)].map((_, index) => (
@@ -111,8 +142,13 @@ export default function Reviews({ blok }: { blok: ReviewsBlok }) {
                 key={index}
                 onClick={() => goToSlide(index)}
                 className={`w-3 h-3 rounded-full transition-colors duration-200 ${
-                  index === currentSlide ? "bg-[#AF1B3C]" : "bg-gray-400"
+                  index === currentSlide ? "" : "bg-gray-400"
                 }`}
+                style={{
+                  backgroundColor:
+                    index === currentSlide ? "#C02139" : undefined,
+                }}
+                aria-label={`Go to slide ${index + 1}`}
               />
             ))}
           </div>
@@ -121,15 +157,23 @@ export default function Reviews({ blok }: { blok: ReviewsBlok }) {
           <div className="flex gap-4">
             <button
               onClick={prevSlide}
-              className="text-gray-400 hover:text-gray-600 transition-colors duration-200 text-2xl"
+              className="transition-colors duration-200 text-2xl font-bold"
+              style={{
+                color: "#C02139",
+              }}
               type="button"
+              aria-label="Previous slide"
             >
               ←
             </button>
             <button
               onClick={nextSlide}
-              className="text-[#AF1B3C] hover:text-red-700 transition-colors duration-200 text-2xl"
+              className="transition-colors duration-200 text-2xl font-bold"
+              style={{
+                color: "#C02139",
+              }}
               type="button"
+              aria-label="Next slide"
             >
               →
             </button>

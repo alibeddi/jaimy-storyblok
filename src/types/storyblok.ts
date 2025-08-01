@@ -214,6 +214,10 @@ export interface SliderBlok extends SbBlokData {
   title?: string;
   subtitle?: string;
   description?: string;
+  featured_image?: {
+    filename: string;
+    alt?: string;
+  };
   content_sections?: Array<{
     heading: string;
     text: string;
@@ -258,4 +262,9 @@ export type StoryblokBlok =
   | FAQBlok
   | FooterBlok
   | SliderBlok
+<<<<<<< Updated upstream
   | PageBlok;
+=======
+  | PageBlok
+  | FeaturesBlok;
+>>>>>>> Stashed changes
