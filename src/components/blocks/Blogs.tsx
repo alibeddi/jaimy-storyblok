@@ -3,6 +3,42 @@ import { BlogsBlok } from "@/types/storyblok";
 import Image from "next/image";
 
 export default function Blogs({ blok }: { blok: BlogsBlok }) {
+  // Demo blog data - you can replace this with actual Storyblok data
+  const blogPosts = [
+    {
+      id: 1,
+      title: "Title Title Title Title Title Title Title Title Title Title Title Title",
+      description: "Body text Body text Body text Body text Body text Body text",
+      image: "/backgrounds/blogs-card-bg.png",
+      isNew: true,
+      category: "Technology"
+    },
+    {
+      id: 2,
+      title: "Title Title Title Title Title Title Title Title Title Title Title Title",
+      description: "Body text Body text Body text Body text Body text",
+      image: "/backgrounds/blogs-card-bg.png",
+      isNew: false,
+      category: "Design"
+    },
+    {
+      id: 3,
+      title: "Title Title Title Title Title Title Title Title Title Title Title Title",
+      description: "Body text Body text Body text Body text Body text",
+      image: "/backgrounds/blogs-card-bg.png",
+      isNew: false,
+      category: "Development"
+    },
+    {
+      id: 4,
+      title: "Title Title Title Title Title Title Title Title Title Title Title Title",
+      description: "Body text Body text Body text Body text Body text",
+      image: "/backgrounds/blogs-card-bg.png",
+      isNew: false,
+      category: "Business"
+    }
+  ];
+
   return (
     <section
       {...storyblokEditable(blok)}
@@ -14,6 +50,7 @@ export default function Blogs({ blok }: { blok: BlogsBlok }) {
         backgroundRepeat: "no-repeat",
       }}
     >
+
       <div className="max-w-7xl mx-auto px-8 relative z-10">
         <div
           className="bg-white/90 rounded-3xl p-12 relative overflow-hidden"
@@ -27,10 +64,12 @@ export default function Blogs({ blok }: { blok: BlogsBlok }) {
             {/* H2 Title */}
             <h2 className="text-[#32546D] font-belfius-title text-4xl lg:text-5xl mb-16 text-center">
               {blok?.title || "Latest Blog Posts"}
+
             </h2>
 
             {/* Two Column Layout */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+
               {/* Main Blog Post */}
               <div className="lg:col-span-1">
                 <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
@@ -52,6 +91,7 @@ export default function Blogs({ blok }: { blok: BlogsBlok }) {
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                       sed do eiusmod tempor incididunt ut labore et dolore magna
                       aliqua.
+
                     </p>
                     <button className="bg-[#AF1B3C] text-white px-6 py-2 rounded-lg hover:bg-red-700 transition-colors duration-200 font-belfius-body">
                       Read More
@@ -59,6 +99,7 @@ export default function Blogs({ blok }: { blok: BlogsBlok }) {
                   </div>
                 </div>
               </div>
+
 
               {/* Smaller Blog Posts */}
               <div className="lg:col-span-1 space-y-6">
@@ -82,6 +123,7 @@ export default function Blogs({ blok }: { blok: BlogsBlok }) {
                         <button className="text-[#AF1B3C] font-belfius-body text-sm hover:text-red-700 transition-colors duration-200">
                           Read More →
                         </button>
+
                       </div>
                     </div>
                   </div>

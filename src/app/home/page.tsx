@@ -68,6 +68,9 @@ export default async function Home() {
   const footerBlock = blocks.find(
     (block: StoryBlock) => block.component === "footer"
   );
+  const featuresBlock = blocks.find(
+    (block: StoryBlock) => block.component === "features"
+  );
 
   return (
     <div>
@@ -76,6 +79,7 @@ export default async function Home() {
       {/* {headerBlock && <Header blok={headerBlock as HeaderBlok} />} */}
       {heroBlock && <Hero blok={heroBlock as HeroBlok} />}
       {<Steps blok={stepsBlock as StepsBlok} />}
+      {/* <Features blok={featuresBlock as FeaturesBlok} /> */}
       <Slider blok={sliderBlock as SliderBlok} />
       {<Blogs blok={blogsBlock as BlogsBlok} />}
       <Reviews blok={reviewsBlock as ReviewsBlok} />
