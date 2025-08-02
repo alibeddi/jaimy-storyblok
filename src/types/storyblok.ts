@@ -262,9 +262,4 @@ export type StoryblokBlok =
   | FAQBlok
   | FooterBlok
   | SliderBlok
-<<<<<<< Updated upstream
   | PageBlok;
-=======
-  | PageBlok
-  | FeaturesBlok;
->>>>>>> Stashed changes
