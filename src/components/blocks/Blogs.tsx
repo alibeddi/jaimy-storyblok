@@ -3,6 +3,47 @@ import { BlogsBlok } from "@/types/storyblok";
 import Image from "next/image";
 
 export default function Blogs({ blok }: { blok: BlogsBlok }) {
+  // Demo blog data - you can replace this with actual Storyblok data
+  const blogPosts = [
+    {
+      id: 1,
+      title:
+        "Title Title Title Title Title Title Title Title Title Title Title Title",
+      description:
+        "Body text Body text Body text Body text Body text Body text",
+      image: "/backgrounds/blogs-card-bg.png",
+      isNew: true,
+      category: "Technology",
+    },
+    {
+      id: 2,
+      title:
+        "Title Title Title Title Title Title Title Title Title Title Title Title",
+      description: "Body text Body text Body text Body text Body text",
+      image: "/backgrounds/blogs-card-bg.png",
+      isNew: false,
+      category: "Design",
+    },
+    {
+      id: 3,
+      title:
+        "Title Title Title Title Title Title Title Title Title Title Title Title",
+      description: "Body text Body text Body text Body text Body text",
+      image: "/backgrounds/blogs-card-bg.png",
+      isNew: false,
+      category: "Development",
+    },
+    {
+      id: 4,
+      title:
+        "Title Title Title Title Title Title Title Title Title Title Title Title",
+      description: "Body text Body text Body text Body text Body text",
+      image: "/backgrounds/blogs-card-bg.png",
+      isNew: false,
+      category: "Business",
+    },
+  ];
+
   return (
     <section {...storyblokEditable(blok)} className="bg-gray-50 py-16 lg:py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

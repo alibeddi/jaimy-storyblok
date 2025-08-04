@@ -236,6 +236,23 @@ export interface SliderBlok extends SbBlokData {
   background_color?: string;
 }
 
+export interface FeaturesBlok extends SbBlokData {
+  component: "features";
+  title?: string;
+  subtitle?: string;
+  description?: string;
+  features?: Array<{
+    title: string;
+    description: string;
+    icon?: {
+      filename: string;
+      alt?: string;
+    };
+  }>;
+  layout?: "grid-2" | "grid-3";
+  background_color?: string;
+}
+
 export interface PageBlok extends SbBlokData {
   component: "page";
   body?: Array<
@@ -248,6 +265,7 @@ export interface PageBlok extends SbBlokData {
     | FAQBlok
     | FooterBlok
     | SliderBlok
+    | FeaturesBlok
   >;
 }
 
@@ -262,9 +280,6 @@ export type StoryblokBlok =
   | FAQBlok
   | FooterBlok
   | SliderBlok
-<<<<<<< Updated upstream
-  | PageBlok;
-=======
   | PageBlok
   | FeaturesBlok;
->>>>>>> Stashed changes
+
