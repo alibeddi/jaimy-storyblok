@@ -5,7 +5,6 @@ export default function Slider({ blok }: { blok: SliderBlok }) {
   return (
     <section
       {...storyblokEditable(blok)}
-
       className="relative w-full min-h-screen bg-gray-100 flex items-center justify-center py-8 px-4"
     >
       {/* Main Card Container */}
@@ -101,10 +100,8 @@ export default function Slider({ blok }: { blok: SliderBlok }) {
                   CTA HERE
                 </button>
               )}
-
             </div>
           </div>
-
 
           {/* Right Image Area */}
           <div className="flex items-center justify-center">
@@ -128,7 +125,6 @@ export default function Slider({ blok }: { blok: SliderBlok }) {
                   }}
                 />
               )}
-
             </div>
           </div>
         </div>

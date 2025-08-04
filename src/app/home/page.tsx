@@ -63,14 +63,13 @@ export default async function Home() {
     (block: StoryBlock) => block.component === "social_proof"
   );
   const faqBlock = blocks.find(
-    (block: StoryBlock) => block.component === "faq"
+    (block: StoryBlock) => block.component === "FAQ"
   );
   const footerBlock = blocks.find(
     (block: StoryBlock) => block.component === "footer"
   );
-  const featuresBlock = blocks.find(
-    (block: StoryBlock) => block.component === "features"
-  );
+  console.log("blocks", blocks);
+  console.log("faqBlock", faqBlock);
 
   return (
     <div>
@@ -84,7 +83,7 @@ export default async function Home() {
       {<Blogs blok={blogsBlock as BlogsBlok} />}
       <Reviews blok={reviewsBlock as ReviewsBlok} />
       <SocialProof blok={socialProofBlock as SocialProofBlok} />
-      <FAQ blok={faqBlock as FAQBlok} />
+      {faqBlock && <FAQ blok={faqBlock as FAQBlok} />}
       <Footer blok={footerBlock as FooterBlok} />
       {/* {reviewsBlock && <Reviews blok={reviewsBlock as ReviewsBlok} />} */}
       {/* {socialProofBlock && <SocialProof blok={socialProofBlock as SocialProofBlok} />} */}
