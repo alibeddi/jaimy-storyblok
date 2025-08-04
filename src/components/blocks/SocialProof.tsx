@@ -10,7 +10,7 @@ export default function SocialProof({ blok }: { blok: SocialProofBlok }) {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="mb-16">
           {blok?.subtitle && (
             <p className="text-belfius-red font-medium text-lg mb-4 font-belfius-body">
               {blok.subtitle}
@@ -22,7 +22,7 @@ export default function SocialProof({ blok }: { blok: SocialProofBlok }) {
             </h2>
           )}
           {blok?.description && (
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto font-belfius-body">
+            <p className="text-xl text-gray-600 max-w-3xl font-belfius-body">
               {blok.description}
             </p>
           )}
@@ -48,9 +48,9 @@ export default function SocialProof({ blok }: { blok: SocialProofBlok }) {
         )}
 
         {blok?.layout === "stats-only" && blok?.statistics && (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="flex flex-wrap justify-center gap-8">
             {blok.statistics.map((stat, index) => (
-              <div key={index} className="text-center">
+              <div key={index} className="text-center min-w-[200px]">
                 <div className="font-belfius-title text-4xl lg:text-6xl text-belfius-red mb-2">
                   {stat.number}
                 </div>
@@ -92,9 +92,9 @@ export default function SocialProof({ blok }: { blok: SocialProofBlok }) {
 
             {/* Statistics */}
             {blok?.statistics && blok.statistics.length > 0 && (
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="flex flex-wrap justify-center gap-8">
                 {blok.statistics.map((stat, index) => (
-                  <div key={index} className="text-center">
+                  <div key={index} className="text-center min-w-[200px]">
                     <div className="font-belfius-title text-4xl lg:text-6xl text-belfius-red mb-2">
                       {stat.number}
                     </div>
@@ -106,32 +106,6 @@ export default function SocialProof({ blok }: { blok: SocialProofBlok }) {
                         {stat.description}
                       </div>
                     )}
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {/* Testimonials */}
-            {blok?.testimonials && blok.testimonials.length > 0 && (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {blok.testimonials.map((testimonial, index) => (
-                  <div
-                    key={index}
-                    className="bg-white rounded-2xl shadow-lg p-6"
-                  >
-                    <blockquote className="text-gray-700 mb-4 font-belfius-body italic">
-                      &ldquo;{testimonial.text}&rdquo;
-                    </blockquote>
-                    <div className="font-belfius-body">
-                      <div className="font-medium text-gray-900">
-                        {testimonial.author}
-                      </div>
-                      {testimonial.company && (
-                        <div className="text-gray-600">
-                          {testimonial.company}
-                        </div>
-                      )}
-                    </div>
                   </div>
                 ))}
               </div>
@@ -144,9 +118,9 @@ export default function SocialProof({ blok }: { blok: SocialProofBlok }) {
           <div className="space-y-16">
             {/* Statistics */}
             {blok?.statistics && blok.statistics.length > 0 && (
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="flex flex-wrap justify-center gap-8">
                 {blok.statistics.map((stat, index) => (
-                  <div key={index} className="text-center">
+                  <div key={index} className="text-center min-w-[200px]">
                     <div className="font-belfius-title text-4xl lg:text-6xl text-belfius-red mb-2">
                       {stat.number}
                     </div>
@@ -158,32 +132,6 @@ export default function SocialProof({ blok }: { blok: SocialProofBlok }) {
                         {stat.description}
                       </div>
                     )}
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {/* Testimonials */}
-            {blok?.testimonials && blok.testimonials.length > 0 && (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {blok.testimonials.map((testimonial, index) => (
-                  <div
-                    key={index}
-                    className="bg-white rounded-2xl shadow-lg p-6"
-                  >
-                    <blockquote className="text-gray-700 mb-4 font-belfius-body italic">
-                      &ldquo;{testimonial.text}&rdquo;
-                    </blockquote>
-                    <div className="font-belfius-body">
-                      <div className="font-medium text-gray-900">
-                        {testimonial.author}
-                      </div>
-                      {testimonial.company && (
-                        <div className="text-gray-600">
-                          {testimonial.company}
-                        </div>
-                      )}
-                    </div>
                   </div>
                 ))}
               </div>
