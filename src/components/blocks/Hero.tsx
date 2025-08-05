@@ -1,67 +1,71 @@
 "use client";
 import { storyblokEditable } from "@storyblok/react/rsc";
 import { HeroBlok } from "@/types/storyblok";
+import IframeComponent from "./IframeComponent";
 
 export default function Hero({ blok }: { blok: HeroBlok }) {
+    console.log(blok);
   return (
     <section
       {...storyblokEditable(blok)}
-      className="relative w-full min-h-screen bg-white overflow-hidden"
+      className="relative w-full bg-white overflow-hidden hero-large-screen"
     >
-      {/* Curved Background Image */}
-      <div className="absolute inset-0">
-        <img
-          src="https://api.builder.io/api/v1/image/assets/TEMP/51a0bff854c5067540dc4dca45a29a9b1e335b80?width=8664"
-          alt="Vector"
-          className="absolute -left-1/2 -top-full w-[300vw] h-[300vw] transform rotate-[-129.613deg] object-cover opacity-80"
-          style={{
-            transformOrigin: "center",
-          }}
-        />
-      </div>
-
+     {/* Background Image - Hidden on mobile, visible on larger screens */}
+          <div
+            className="absolute inset-0 hidden md:block"
+            style={{
+              backgroundImage: "url(/backgrounds/Hero_bg.png)",
+              backgroundSize: "contain",
+              backgroundPosition: "bottom right",
+              backgroundRepeat: "no-repeat",
+              maxWidth: "100%",
+              right: "0%",
+              left: "0%"
+            }}
+          />
       {/* Main Content Container */}
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-16">
+      <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-16 hero-container-large flex items-center">
+        
         {/* Semi-transparent Background Card */}
         <div 
-          className="rounded-[25px] h-[800px] backdrop-blur-sm p-6 lg:p-12"
+          className="rounded-[25px] p-4 sm:p-6 md:p-8 lg:p-10 xl:p-12 w-full"
           style={{
             background: "rgba(244, 244, 244, 0.50)",
             boxShadow: "-5px 7px 17px -2px rgba(0, 0, 0, 0.59)"
           }}
         >
-          {/* Content Layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+          {/* Content Layout - Better breakpoint management */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-10 xl:gap-12">
             {/* Left Content */}
-            <div className="space-y-6 lg:space-y-8">
+            <div className="flex flex-col justify-center space-y-4 sm:space-y-5 md:space-y-6 lg:space-y-8">
               {/* H1 Title */}
               <h1 
-                className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight"
+                className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold leading-tight"
                 style={{
                   fontFamily: "BelfiusAlternative, -apple-system, Roboto, Helvetica, sans-serif",
                   fontWeight: 700,
                   color: "rgba(50,84,109,1)"
                 }}
               >
-                H1 Plan je ketelonderhoud
+                {blok?.headline || "H1 Plan je ketelonderhoud"}
               </h1>
 
               {/* Body Text */}
               <p 
-                className="text-base lg:text-lg leading-relaxed"
+                className="text-sm sm:text-base md:text-base lg:text-lg leading-relaxed"
                 style={{
                   fontFamily: "Montserrat, -apple-system, Roboto, Helvetica, sans-serif",
                   fontWeight: 400,
                   color: "rgba(0,0,0,1)"
                 }}
               >
-                Body text Body text Body text Body text Body text Body text Body text Body text Body text Body text Body text Body text Body text Body text Body text Body text 
+                {blok?.description || "Body text Body text Body text Body text Body text Body text Body text Body text Body text Body text Body text Body text Body text Body text Body text Body text"}
               </p>
 
               {/* CTA Button */}
-              <div className="pt-4">
+              <div className="pt-2 md:pt-3 lg:pt-4">
                 <button 
-                  className="inline-flex items-center justify-center px-8 py-4 rounded-[25px] text-lg font-semibold transition-transform hover:scale-105"
+                  className="inline-flex items-center justify-center px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 rounded-[25px] text-base sm:text-base md:text-lg font-semibold transition-transform hover:scale-105 w-full sm:w-auto"
                   style={{
                     background: "linear-gradient(90deg, #961E34 0%, #C30B30 101.65%)",
                     boxShadow: "-5px 7px 17.3px -2px rgba(0, 0, 0, 0.59)",
@@ -70,14 +74,14 @@ export default function Hero({ blok }: { blok: HeroBlok }) {
                     color: "rgba(255,255,255,1)"
                   }}
                 >
-                  CTA HERE
+                  {blok?.primary_button?.[0]?.label || "CTA HERE"}
                 </button>
               </div>
 
-              {/* Trust Badges Container */}
-              <div className="flex flex-col sm:flex-row gap-4 lg:gap-6 pt-4">
+              {/* Trust Badges Container - Force horizontal layout on medium+ screens */}
+              <div className="flex flex-col sm:flex-row md:flex-row gap-3 sm:gap-3 md:gap-4 lg:gap-6 pt-2 md:pt-3 lg:pt-4">
                 {/* Trustbadge 1 */}
-                <div className="relative flex-1 min-h-[83px]">
+                <div className="relative flex-1 min-h-[70px] sm:min-h-[75px] md:min-h-[80px] lg:min-h-[83px]">
                   <div 
                     className="absolute inset-0 rounded-[25px]"
                     style={{
@@ -86,11 +90,11 @@ export default function Hero({ blok }: { blok: HeroBlok }) {
                       boxShadow: "-5px 7px 17.3px -2px rgba(0, 0, 0, 0.59)"
                     }}
                   />
-                  <div className="relative flex items-center h-full px-4 lg:px-6">
+                  <div className="relative flex items-center h-full px-3 sm:px-3 md:px-4 lg:px-6">
                     {/* Icon */}
-                    <div className="w-12 h-12 lg:w-14 lg:h-14 bg-[#D9D9D9] rounded-none mr-4 relative flex-shrink-0">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-11 md:h-11 lg:w-12 lg:h-12 xl:w-14 xl:h-14 bg-[#D9D9D9] rounded-none mr-2 sm:mr-3 md:mr-3 lg:mr-4 relative flex-shrink-0">
                       <svg 
-                        className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-9 lg:w-9 lg:h-11" 
+                        className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-5 h-6 sm:w-6 sm:h-7 md:w-7 md:h-8 lg:w-8 lg:h-9 xl:w-9 xl:h-11" 
                         viewBox="0 0 37 45" 
                         fill="none" 
                         xmlns="http://www.w3.org/2000/svg"
@@ -102,9 +106,9 @@ export default function Hero({ blok }: { blok: HeroBlok }) {
                       </svg>
                     </div>
                     {/* Text */}
-                    <div className="min-w-0">
+                    <div className="min-w-0 flex-1">
                       <div 
-                        className="text-lg lg:text-xl xl:text-2xl font-semibold leading-tight"
+                        className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-semibold leading-tight"
                         style={{
                           fontFamily: "Montserrat, -apple-system, Roboto, Helvetica, sans-serif",
                           fontWeight: 700,
@@ -114,7 +118,7 @@ export default function Hero({ blok }: { blok: HeroBlok }) {
                         197.432
                       </div>
                       <div 
-                        className="text-xs lg:text-sm leading-tight"
+                        className="text-xs sm:text-xs md:text-sm lg:text-sm leading-tight"
                         style={{
                           fontFamily: "Montserrat, -apple-system, Roboto, Helvetica, sans-serif",
                           fontWeight: 400,
@@ -128,7 +132,7 @@ export default function Hero({ blok }: { blok: HeroBlok }) {
                 </div>
 
                 {/* Trustbadge 2 */}
-                <div className="relative flex-1 min-h-[83px]">
+                <div className="relative flex-1 min-h-[70px] sm:min-h-[75px] md:min-h-[80px] lg:min-h-[83px]">
                   <div 
                     className="absolute inset-0 rounded-[25px]"
                     style={{
@@ -137,11 +141,11 @@ export default function Hero({ blok }: { blok: HeroBlok }) {
                       boxShadow: "-5px 7px 17.3px -2px rgba(0, 0, 0, 0.59)"
                     }}
                   />
-                  <div className="relative flex items-center h-full px-4 lg:px-6">
+                  <div className="relative flex items-center h-full px-3 sm:px-3 md:px-4 lg:px-6">
                     {/* Icon */}
-                    <div className="w-12 h-12 lg:w-12 lg:h-12 bg-[#D9D9D9] rounded-none mr-4 relative flex-shrink-0">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-11 md:h-11 lg:w-12 lg:h-12 xl:w-12 xl:h-12 bg-[#D9D9D9] rounded-none mr-2 sm:mr-3 md:mr-3 lg:mr-4 relative flex-shrink-0">
                       <svg 
-                        className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-7 lg:w-9 lg:h-8" 
+                        className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-5 h-4 sm:w-6 sm:h-5 md:w-7 md:h-6 lg:w-8 lg:h-7 xl:w-9 xl:h-8" 
                         viewBox="0 0 38 36" 
                         fill="none" 
                         xmlns="http://www.w3.org/2000/svg"
@@ -153,9 +157,9 @@ export default function Hero({ blok }: { blok: HeroBlok }) {
                       </svg>
                     </div>
                     {/* Text */}
-                    <div className="min-w-0">
+                    <div className="min-w-0 flex-1">
                       <div 
-                        className="text-lg lg:text-xl xl:text-2xl font-semibold leading-tight"
+                        className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-semibold leading-tight"
                         style={{
                           fontFamily: "Montserrat, -apple-system, Roboto, Helvetica, sans-serif",
                           fontWeight: 700,
@@ -165,7 +169,7 @@ export default function Hero({ blok }: { blok: HeroBlok }) {
                         4.5
                       </div>
                       <div 
-                        className="text-xs lg:text-sm leading-tight"
+                        className="text-xs sm:text-xs md:text-sm lg:text-sm leading-tight"
                         style={{
                           fontFamily: "Montserrat, -apple-system, Roboto, Helvetica, sans-serif",
                           fontWeight: 400,
@@ -180,27 +184,32 @@ export default function Hero({ blok }: { blok: HeroBlok }) {
               </div>
             </div>
 
-            {/* Right Content - White Card with Iframe */}
-            <div className="flex justify-center lg:justify-end">
-              <div className="w-full max-w-lg aspect-[3/4] lg:aspect-[3/4]">
+            {/* Right Content - Iframe Component */}
+            <div className="flex justify-center md:justify-end items-center">
+              <div className="w-full max-w-sm sm:max-w-md md:max-w-full lg:max-w-lg aspect-[3/4] md:aspect-[3/4]">
                 <div 
-                  className="w-full h-full rounded-[25px] bg-white flex items-center justify-center"
+                  className="w-full h-full rounded-[25px] bg-white overflow-hidden"
                   style={{
                     boxShadow: "-5px 7px 17.3px -2px rgba(0, 0, 0, 0.59)"
                   }}
                 >
-                  <div className="text-center p-8">
-                    <span 
-                      className="text-3xl lg:text-4xl xl:text-5xl font-semibold leading-normal text-center"
-                      style={{
-                        fontFamily: "Montserrat, -apple-system, Roboto, Helvetica, sans-serif",
-                        fontWeight: 700,
-                        color: "rgba(0,0,0,1)"
-                      }}
-                    >
-                      Iframe
-                    </span>
-                  </div>
+                  {/* Iframe Component Integration */}
+                  {blok?.iframe_block ? (
+                    <IframeComponent blok={blok.iframe_block} />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center p-4 sm:p-6 md:p-6 lg:p-8">
+                      <span 
+                        className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semibold leading-normal text-center"
+                        style={{
+                          fontFamily: "Montserrat, -apple-system, Roboto, Helvetica, sans-serif",
+                          fontWeight: 700,
+                          color: "rgba(0,0,0,1)"
+                        }}
+                      >
+                        Iframe
+                      </span>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -210,4 +219,3 @@ export default function Hero({ blok }: { blok: HeroBlok }) {
     </section>
   );
 }
-

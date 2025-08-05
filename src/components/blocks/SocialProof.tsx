@@ -1,6 +1,112 @@
+"use client";
 import { storyblokEditable } from "@storyblok/react/rsc";
 import Image from "next/image";
 import { SocialProofBlok } from "@/types/storyblok";
+import { useEffect, useRef, useState } from "react";
+
+// Counter component with animation
+function AnimatedCounter({ targetNumber, duration = 2000 }: { targetNumber: string; duration?: number }) {
+  const [count, setCount] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+  const counterRef = useRef<HTMLDivElement>(null);
+
+  // Extract numeric value from string (handles formats like "1,000+", "50K", "99%")
+  const getNumericValue = (str: string): number => {
+    const cleanStr = str.replace(/[^0-9.]/g, '');
+    return parseFloat(cleanStr) || 0;
+  };
+
+  // Format the animated number back to match original format
+  const formatNumber = (current: number, original: string): string => {
+    const hasComma = original.includes(',');
+    const hasPlus = original.includes('+');
+    const hasPercent = original.includes('%');
+    const hasK = original.toLowerCase().includes('k');
+    
+    let formatted = Math.floor(current).toString();
+    
+    if (hasComma && current >= 1000) {
+      formatted = current.toLocaleString();
+    }
+    
+    if (hasK) {
+      formatted = Math.floor(current / 1000) + 'K';
+    }
+    
+    if (hasPlus) {
+      formatted += '+';
+    }
+    
+    if (hasPercent) {
+      formatted += '%';
+    }
+    
+    return formatted;
+  };
+
+  const targetValue = getNumericValue(targetNumber);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !isVisible) {
+          setIsVisible(true);
+        }
+      },
+      {
+        threshold: 0.3, // Trigger when 30% of the element is visible
+        rootMargin: '0px 0px -50px 0px' // Start animation slightly before fully visible
+      }
+    );
+
+    if (counterRef.current) {
+      observer.observe(counterRef.current);
+    }
+
+    return () => {
+      if (counterRef.current) {
+        observer.unobserve(counterRef.current);
+      }
+    };
+  }, []); // Remove isVisible from dependency array
+
+  useEffect(() => {
+    if (!isVisible || targetValue === 0) return;
+
+    let startTime: number;
+    let animationFrame: number;
+
+    const animate = (currentTime: number) => {
+      if (!startTime) startTime = currentTime;
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      
+      // Easing function for smooth animation (ease-out)
+      const easeOut = 1 - Math.pow(1 - progress, 3);
+      const currentCount = targetValue * easeOut;
+      
+      setCount(currentCount);
+      
+      if (progress < 1) {
+        animationFrame = requestAnimationFrame(animate);
+      }
+    };
+
+    animationFrame = requestAnimationFrame(animate);
+
+    return () => {
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame);
+      }
+    };
+  }, [isVisible, targetValue, duration]);
+
+  return (
+    <div ref={counterRef} className="font-belfius-title text-4xl lg:text-6xl text-belfius-red mb-2">
+      {formatNumber(count, targetNumber)}
+    </div>
+  );
+}
 
 export default function SocialProof({ blok }: { blok: SocialProofBlok }) {
   return (
@@ -51,9 +157,7 @@ export default function SocialProof({ blok }: { blok: SocialProofBlok }) {
           <div className="flex flex-wrap justify-center gap-8">
             {blok.statistics.map((stat, index) => (
               <div key={index} className="text-center min-w-[200px]">
-                <div className="font-belfius-title text-4xl lg:text-6xl text-belfius-red mb-2">
-                  {stat.number}
-                </div>
+                <AnimatedCounter targetNumber={stat.number} duration={2000 + index * 200} />
                 <div className="font-belfius-body text-lg text-gray-900 mb-2">
                   {stat.label}
                 </div>
@@ -95,9 +199,7 @@ export default function SocialProof({ blok }: { blok: SocialProofBlok }) {
               <div className="flex flex-wrap justify-center gap-8">
                 {blok.statistics.map((stat, index) => (
                   <div key={index} className="text-center min-w-[200px]">
-                    <div className="font-belfius-title text-4xl lg:text-6xl text-belfius-red mb-2">
-                      {stat.number}
-                    </div>
+                    <AnimatedCounter targetNumber={stat.number} duration={2000 + index * 200} />
                     <div className="font-belfius-body text-lg text-gray-900 mb-2">
                       {stat.label}
                     </div>
@@ -121,9 +223,7 @@ export default function SocialProof({ blok }: { blok: SocialProofBlok }) {
               <div className="flex flex-wrap justify-center gap-8">
                 {blok.statistics.map((stat, index) => (
                   <div key={index} className="text-center min-w-[200px]">
-                    <div className="font-belfius-title text-4xl lg:text-6xl text-belfius-red mb-2">
-                      {stat.number}
-                    </div>
+                    <AnimatedCounter targetNumber={stat.number} duration={2000 + index * 200} />
                     <div className="font-belfius-body text-lg text-gray-900 mb-2">
                       {stat.label}
                     </div>

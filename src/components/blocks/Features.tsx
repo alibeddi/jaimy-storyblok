@@ -18,12 +18,17 @@ interface FeaturesProps {
         };
       },
     ];
-    reverse_layout?: boolean;
+    image_position?: 'left' | 'right'; // Enhanced: More intuitive field name
+    reverse_layout?: boolean; // Keep for backward compatibility
   };
 }
 
 export default function Features({ blok }: FeaturesProps) {
   console.log(blok);
+  
+  // Enhanced: Support both new image_position and legacy reverse_layout
+  const imageOnRight = blok.image_position === 'right' || blok.reverse_layout;
+  
   return (
     <section {...storyblokEditable(blok)} className="py-16 lg:py-24 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -31,13 +36,13 @@ export default function Features({ blok }: FeaturesProps) {
         <div className="bg-white rounded-3xl shadow-lg overflow-hidden">
           <div
             className={`grid grid-cols-1 lg:grid-cols-2 items-center ${
-              blok.reverse_layout ? "lg:grid-flow-col-dense" : ""
+              imageOnRight ? "lg:grid-flow-col-dense" : ""
             }`}
           >
             {/* Text Content */}
             <div
               className={`p-8 lg:p-12 xl:p-16 space-y-6 ${
-                blok.reverse_layout ? "lg:col-start-2" : ""
+                imageOnRight ? "lg:col-start-2" : ""
               }`}
             >
               {/* Title */}
@@ -45,6 +50,13 @@ export default function Features({ blok }: FeaturesProps) {
                 <h2 className="font-belfius-title text-2xl lg:text-3xl xl:text-4xl text-gray-900 leading-tight">
                   {blok.title}
                 </h2>
+              )}
+
+              {/* Subtitle */}
+              {blok.subtitle && (
+                <h3 className="font-belfius-title text-lg lg:text-xl text-gray-600 leading-tight">
+                  {blok.subtitle}
+                </h3>
               )}
 
               {/* Description */}
@@ -78,7 +90,7 @@ export default function Features({ blok }: FeaturesProps) {
             {blok.image && blok.image.filename && (
               <div
                 className={`relative ${
-                  blok.reverse_layout ? "lg:col-start-1" : ""
+                  imageOnRight ? "lg:col-start-1" : ""
                 }`}
               >
                 <div className="relative h-full min-h-[400px] lg:min-h-[500px]">
