@@ -214,3 +214,18 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--belfius-red-primary);
 }
+
+@media (min-width: 1350px) {
+  .hero-large-screen {
+    min-height: 100vh;
+  }
+  .hero-container-large {
+    min-height: 100vh;
+  }
+  .blogs-large-screen {
+    min-height: 100vh;
+  }
+  .blogs-container-large {
+    min-height: 100vh;
+  }
+}

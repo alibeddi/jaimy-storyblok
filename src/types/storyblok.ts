@@ -283,3 +283,73 @@ export type StoryblokBlok =
   | PageBlok
   | FeaturesBlok;
 
+// Add this interface to your existing storyblok.ts file
+export interface IframeBlok {
+  _uid: string;
+  component: "iframe_component";
+  title?: string;
+  description?: string;
+  form_id: string; // The dynamic form ID
+  service_type?: 'typeform' | 'jotform' | 'googleforms' | 'custom';
+  base_url?: string; // Base URL for custom form service
+  height?: string;
+  width?: string;
+  allow_fullscreen?: boolean;
+  sandbox?: string;
+  margin_bottom?: string;
+}
+
+export interface HeroBlok {
+  _uid: string;
+  component: "hero";
+  title?: string;
+  description?: string;
+  cta_text?: string;
+  iframe_data?: IframeBlok; // Add this line
+}
+
+// Feature interface for nested feature data
+export interface FeatureItem {
+  _uid: string;
+  component: "feature";
+  title?: string;
+  subtitle?: string;
+  description?: string;
+  cta_text?: string;
+  image?: {
+    filename: string;
+    alt?: string;
+  };
+  icon?: {
+    filename: string;
+    alt?: string;
+  };
+  link?: {
+    cached_url: string;
+    linktype: string;
+  };
+}
+
+// Updated SliderBlok to include feature array
+export interface SliderBlok {
+  _uid: string;
+  component: "slider";
+  title?: string;
+  subtitle?: string;
+  description?: string;
+  featured_image?: {
+    filename: string;
+    alt?: string;
+  };
+  cta_button?: Array<{
+    label: string;
+    link: {
+      cached_url: string;
+      linktype: string;
+    };
+  }>;
+  feature?: FeatureItem[]; // Array of feature items
+  image_position?: 'left' | 'right';
+  reverse_layout?: boolean;
+}
+

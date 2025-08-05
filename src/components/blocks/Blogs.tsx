@@ -3,156 +3,134 @@ import { BlogsBlok } from "@/types/storyblok";
 import Image from "next/image";
 
 export default function Blogs({ blok }: { blok: BlogsBlok }) {
-  // Demo blog data - you can replace this with actual Storyblok data
-  const blogPosts = [
-    {
-      id: 1,
-      title:
-        "Title Title Title Title Title Title Title Title Title Title Title Title",
-      description:
-        "Body text Body text Body text Body text Body text Body text",
-      image: "/backgrounds/blogs-card-bg.png",
-      isNew: true,
-      category: "Technology",
-    },
-    {
-      id: 2,
-      title:
-        "Title Title Title Title Title Title Title Title Title Title Title Title",
-      description: "Body text Body text Body text Body text Body text",
-      image: "/backgrounds/blogs-card-bg.png",
-      isNew: false,
-      category: "Design",
-    },
-    {
-      id: 3,
-      title:
-        "Title Title Title Title Title Title Title Title Title Title Title Title",
-      description: "Body text Body text Body text Body text Body text",
-      image: "/backgrounds/blogs-card-bg.png",
-      isNew: false,
-      category: "Development",
-    },
-    {
-      id: 4,
-      title:
-        "Title Title Title Title Title Title Title Title Title Title Title Title",
-      description: "Body text Body text Body text Body text Body text",
-      image: "/backgrounds/blogs-card-bg.png",
-      isNew: false,
-      category: "Business",
-    },
-  ];
-
-  return (
-    <section {...storyblokEditable(blok)} className="bg-gray-50 py-16 lg:py-24">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="mb-16">
-          {blok?.subtitle && (
-            <p className="text-belfius-red font-medium text-lg mb-4 font-belfius-body">
-              {blok.subtitle}
-            </p>
-          )}
-          {blok?.title && (
-            <h2 className="font-belfius-title text-3xl lg:text-5xl text-gray-900 mb-6">
-              {blok.title}
-            </h2>
-          )}
-          {blok?.description && (
-            <p className="text-xl text-gray-600 max-w-3xl font-belfius-body">
-              {blok.description}
-            </p>
-          )}
-        </div>
-
-        {/* Blog Posts Grid */}
-        {blok?.blog_posts && blok.blog_posts.length > 0 && (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Large Featured Blog Post */}
-            <div className="lg:col-span-2">
-              <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
-                <div className="relative">
-                  {blok.blog_posts[0]?.image?.filename && (
-                    <Image
-                      src={blok.blog_posts[0].image.filename}
-                      alt={blok.blog_posts[0].image.alt || "Blog post image"}
-                      width={600}
-                      height={480}
-                      className="w-full h-64 object-cover object-center"
-                    />
-                  )}
-                  <div className="absolute bottom-4 left-4">
-                    <span className="bg-red-600 text-white px-3 py-1 rounded text-sm font-bold">
-                      NIEUW
-                    </span>
-                  </div>
-                </div>
-                <div className="p-6">
-                  <h3 className="font-belfius-title text-xl lg:text-2xl font-bold text-gray-900 mb-3">
-                    {blok.blog_posts[0]?.title ||
-                      "Title Title Title Title Title Title Title Title Title"}
-                  </h3>
-                  <p className="text-gray-600 font-belfius-body mb-4">
-                    {blok.blog_posts[0]?.excerpt ||
-                      "Body text Body text Body text Body text Body text Body text"}
-                  </p>
-                  {blok.view_all_button && blok.view_all_button.length > 0 && (
-                    <button className="text-belfius-red font-belfius-body hover:text-red-700 transition-colors duration-200">
-                      Read More →
-                    </button>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            {/* Smaller Blog Posts */}
-            <div className="flex flex-col h-full justify-between gap-4">
-              {blok.blog_posts.slice(1, 4).map((post, index) => (
-                <div
-                  key={index}
-                  className="bg-white rounded-2xl shadow-lg overflow-hidden flex-1"
-                >
-                  <div className="flex h-24">
-                    <div className="w-24 h-24 flex-shrink-0 bg-gray-200 overflow-hidden">
-                      {post.image?.filename ? (
-                        <Image
-                          src={post.image.filename}
-                          alt={post.image.alt || "Blog post image"}
-                          width={96}
-                          height={96}
-                          className="w-full h-full object-cover"
-                        />
-                      ) : (
-                        <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                          <span className="text-gray-500 text-xs">Image</span>
-                        </div>
-                      )}
-                    </div>
-                    <div className="p-4 flex-1 flex flex-col justify-between min-h-0">
-                      <div>
-                        <h4 className="font-belfius-title text-lg font-bold text-gray-900 mb-2 line-clamp-2">
-                          {post.title ||
-                            "Title Title Title Title Title Title Title Title Title"}
-                        </h4>
-                        <p className="text-gray-600 font-belfius-body text-sm mb-3 line-clamp-2">
-                          {post.excerpt ||
-                            "Body text Body text Body text Body text"}
-                        </p>
-                      </div>
-                      {blok.view_all_button &&
-                        blok.view_all_button.length > 0 && (
-                          <button className="text-belfius-red font-belfius-body text-sm hover:text-red-700 transition-colors duration-200 self-start">
-                            Read More →
-                          </button>
-                        )}
-                    </div>
-                  </div>
-                </div>
-              ))}
+  // Use actual Storyblok data or fallback to default values
+  const blogPosts = blok?.blog_posts || [];
+  
+  // If no blog posts from Storyblok, show empty state or fallback
+  if (blogPosts.length === 0) {
+    return (
+      <section
+        {...storyblokEditable(blok)}
+        className="bg-[#F4F4F4] py-16 relative blogs-large-screen"
+      >
+        <div className="max-w-7xl mx-auto px-8 relative z-10 blogs-container-large flex items-center">
+          <div className="rounded-3xl p-12 relative overflow-hidden backdrop-blur-md shadow-xl w-full">
+            <div className="relative z-10">
+              <h2 className="text-[#32546D] font-belfius-title text-4xl lg:text-5xl mb-12 text-left">
+                {blok?.title || "H2"}
+              </h2>
+              <p className="text-gray-600 text-center">No blog posts available.</p>
             </div>
           </div>
-        )}
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section
+      {...storyblokEditable(blok)}
+      className="bg-[#F4F4F4] py-16 relative blogs-large-screen"
+    >
+       {/* Background Image - Hidden on mobile, visible on larger screens */}
+          <div
+            className="absolute inset-0 hidden md:block"
+            style={{
+              backgroundImage: "url(/backgrounds/blogs-bg.png)",
+              backgroundSize: "contain",
+              backgroundPosition: "center right",
+              backgroundRepeat: "no-repeat",
+              maxWidth: "100%",
+              right: "0",
+              left: "10%"
+            }}
+          />
+      <div className="max-w-7xl mx-auto px-8 relative z-10 blogs-container-large flex items-center">
+        
+        {/* Main Container - No background, with blur effect */}
+        <div className="rounded-3xl p-12 relative overflow-hidden backdrop-blur-md bg-white/60 w-full">
+         
+
+          {/* Content */}
+          <div className="relative z-10">
+            {/* H2 Title */}
+            <h2 className="text-[#32546D] font-belfius-title text-4xl lg:text-5xl mb-12 text-left">
+              {blok?.title || "H2"}
+            </h2>
+
+            {/* Two Column Layout */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+              {/* Left Column - Main Featured Blog Post */}
+              <div className="space-y-6">
+                {/* Main Blog Card - White background with 60% opacity */}
+                <div className=" rounded-2xl overflow-hidden  transition-all duration-300 ">
+                  {/* Main Image with NEW Tag */}
+                  <div className="relative h-80">
+                    <Image
+                      src={blogPosts[0]?.image?.filename || "/backgrounds/blogs-card-bg.png"}
+                      alt={blogPosts[0]?.image?.alt || blogPosts[0]?.title || "Blog post image"}
+                      fill
+                      className="object-cover"
+                    />
+                    {/* NEW Tag - Show if it's a recent post (you can customize this logic) */}
+                    {blogPosts[0] && (
+                      <div className="absolute bottom-4 left-4 bg-[#AF1B3C] text-white px-3 py-1 rounded-lg text-sm font-bold uppercase">
+                        NEW
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Card Content */}
+                  <div className="p-6">
+                    {/* Main Blog Title */}
+                    <h3 className="font-belfius-title text-2xl font-bold text-gray-900 leading-tight mb-4">
+                      {blogPosts[0]?.title || "Blog Title"}
+                    </h3>
+
+                    {/* Main Blog Body Text */}
+                    <p className="text-gray-800 font-belfius-body text-base leading-relaxed">
+                      {blogPosts[0]?.excerpt || "Blog excerpt"}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Column - Three Smaller Blog Posts */}
+              <div className="space-y-6">
+                {blogPosts.slice(1, 4).map((post, index) => (
+                  <div
+                    key={post.title + index}
+                    className=" rounded-2xl p-6  transition-all duration-300 "
+                  >
+                    <div className="flex gap-4">
+                      {/* Blog Image */}
+                      <div className="flex-shrink-0">
+                        <div className="w-24 h-24 rounded-xl overflow-hidden relative">
+                          <Image
+                            src={post?.image?.filename || "/backgrounds/blogs-card-bg.png"}
+                            alt={post?.image?.alt || post?.title || "Blog post image"}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Blog Content */}
+                      <div className="flex-1">
+                        <h4 className="font-belfius-title text-lg font-bold text-gray-900 leading-tight mb-2">
+                          {post?.title || "Blog Title"}
+                        </h4>
+                        <p className="text-gray-800 font-belfius-body text-sm leading-relaxed">
+                          {post?.excerpt || "Blog excerpt"}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
 
         {/* View All Button */}
         {blok?.view_all_button && blok.view_all_button.length > 0 && (
