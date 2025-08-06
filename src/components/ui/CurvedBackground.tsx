@@ -7,7 +7,6 @@ interface CurvedBackgroundProps {
   height?: string | number;
   className?: string;
   opacity?: number;
-  anchorRight?: boolean; // New prop to control right anchoring
 }
 
 export default function CurvedBackground({
@@ -16,27 +15,15 @@ export default function CurvedBackground({
   width = "1531",
   height = "1146",
   className = "",
-  opacity = 1,
-  anchorRight = true // Default to right anchoring
+  opacity = 1
 }: CurvedBackgroundProps) {
   const svgId = `curved-bg-${Math.random().toString(36).substr(2, 9)}`;
   const patternId = `pattern-${Math.random().toString(36).substr(2, 9)}`;
 
-  // Calculate positioning for right anchoring
-  const containerStyle = anchorRight ? {
-    position: 'absolute' as const,
-    right: 0,
-    top: 0,
-    transformOrigin: 'right center',
-    opacity
-  } : {
-    opacity
-  };
-
   return (
     <div 
-      className={`${anchorRight ? 'absolute right-0 top-0' : ''} ${className}`}
-      style={containerStyle}
+      className={`absolute top-0 right-0 ${className}`}
+      style={{ opacity }}
     >
       <svg 
         width={width} 
@@ -44,7 +31,7 @@ export default function CurvedBackground({
         viewBox="0 0 1531 1146" 
         fill="none" 
         xmlns="http://www.w3.org/2000/svg"
-        preserveAspectRatio={anchorRight ? "xMaxYMid slice" : "xMidYMid meet"}
+        style={{ transform: 'translateX(0%)' }}
       >
         {backgroundImage && (
           <defs>

@@ -12,15 +12,15 @@ export default function Blogs({ blok }: { blok: BlogsBlok }) {
     return (
       <section
         {...storyblokEditable(blok)}
-        className="bg-[#F4F4F4] py-16 relative blogs-large-screen"
+        className="bg-[#F4F4F4] py-8 sm:py-12 md:py-16 lg:py-20 relative overflow-hidden transition-all duration-500 ease-in-out"
       >
-        <div className="max-w-7xl mx-auto px-8 relative z-10 blogs-container-large flex items-center">
-          <div className="rounded-3xl p-12 relative overflow-hidden backdrop-blur-md shadow-xl w-full">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 relative z-10 flex items-center">
+          <div className="rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12 relative overflow-hidden backdrop-blur-md shadow-xl w-full bg-white/70 transition-all duration-300 hover:bg-white/80">
             <div className="relative z-10">
-              <h2 className="text-[#32546D] font-belfius-title text-4xl lg:text-5xl mb-12 text-left">
+              <h2 className="text-[#32546D] font-light text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-6 sm:mb-8 md:mb-12 text-left leading-tight tracking-wide transition-all duration-300">
                 {blok?.title || "H2"}
               </h2>
-              <p className="text-gray-600 text-center">No blog posts available.</p>
+              <p className="text-gray-600 text-center font-light text-sm sm:text-base transition-opacity duration-300">No blog posts available.</p>
             </div>
           </div>
         </div>
@@ -31,66 +31,51 @@ export default function Blogs({ blok }: { blok: BlogsBlok }) {
   return (
     <section
       {...storyblokEditable(blok)}
-      className="bg-[#F4F4F4] py-16 relative overflow-hidden blogs-large-screen"
+      className="bg-[#F4F4F4] py-8 sm:py-12 md:py-16 lg:py-20 relative overflow-hidden transition-all duration-500 ease-in-out"
     >
-       {/* Background Image - Hidden on mobile, visible on larger screens
-          <div
-            className="absolute inset-0 hidden md:block"
-            style={{
-              backgroundImage: "url(/backgrounds/blogs-bg.png)",
-              backgroundSize: "contain",
-              backgroundPosition: "center right",
-              backgroundRepeat: "no-repeat",
-              maxWidth: "100%",
-              right: "0",
-              left: "10%"
-            }}
-          /> */}
-          <CurvedBackground className="absolute inset-0 hidden md:block "  anchorRight={true} width={'80%'} height={'100%'} fillColor={'#B9203B'}/>
-      <div className="max-w-7xl mx-auto px-8 relative z-10 blogs-container-large flex items-center">
-        
-        {/* Main Container - No background, with blur effect */}
-        <div className="rounded-3xl p-12 relative overflow-hidden backdrop-blur-md bg-white/60 w-full">
-         
-
+       <CurvedBackground className="absolute inset-0 hidden md:block " width={'100%'} height={'100%'} fillColor={'#B9203B'}/>
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 relative z-10 flex items-center">
+        {/* Main Container - Responsive with smooth transitions */}
+        <div className="rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12 relative overflow-hidden backdrop-blur-md bg-white/70 w-full transition-all duration-300 hover:bg-white/80 hover:shadow-2xl">
           {/* Content */}
           <div className="relative z-10">
-            {/* H2 Title */}
-            <h2 className="text-[#32546D] font-belfius-title text-4xl lg:text-5xl mb-12 text-left">
+            {/* H2 Title - Responsive typography */}
+            <h2 className="text-[#32546D] font-light text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl mb-6 sm:mb-8 md:mb-12 text-left leading-tight tracking-wide transition-all duration-300 hover:text-[#2a4a5f]">
               {blok?.title || "H2"}
             </h2>
 
-            {/* Two Column Layout */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* Responsive Grid Layout */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12">
               {/* Left Column - Main Featured Blog Post */}
-              <div className="space-y-6">
-                {/* Main Blog Card - White background with 60% opacity */}
-                <div className=" rounded-2xl overflow-hidden  transition-all duration-300 ">
+              <div className="space-y-4 sm:space-y-6">
+                {/* Main Blog Card */}
+                <div className="rounded-xl sm:rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-lg group">
                   {/* Main Image with NEW Tag */}
-                  <div className="relative h-80">
+                  <div className="relative h-48 sm:h-64 md:h-80">
                     <Image
                       src={blogPosts[0]?.image?.filename || "/backgrounds/blogs-card-bg.png"}
                       alt={blogPosts[0]?.image?.alt || blogPosts[0]?.title || "Blog post image"}
                       fill
-                      className="object-cover"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
-                    {/* NEW Tag - Show if it's a recent post (you can customize this logic) */}
+                    {/* NEW Tag */}
                     {blogPosts[0] && (
-                      <div className="absolute bottom-4 left-4 bg-[#AF1B3C] text-white px-3 py-1 rounded-lg text-sm font-bold uppercase">
+                      <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 bg-[#AF1B3C] text-white px-2 sm:px-3 py-1 rounded-lg text-xs sm:text-sm font-medium uppercase tracking-wider transition-all duration-300 hover:bg-[#8f1530]">
                         NEW
                       </div>
                     )}
                   </div>
 
                   {/* Card Content */}
-                  <div className="p-6">
+                  <div className="p-4 sm:p-6 bg-white/90">
                     {/* Main Blog Title */}
-                    <h3 className="font-belfius-title text-2xl font-bold text-gray-900 leading-tight mb-4">
+                    <h3 className="font-light text-lg sm:text-xl md:text-2xl text-gray-900 leading-tight mb-3 sm:mb-4 transition-colors duration-300 hover:text-[#AF1B3C] cursor-pointer">
                       {blogPosts[0]?.title || "Blog Title"}
                     </h3>
 
                     {/* Main Blog Body Text */}
-                    <p className="text-gray-800 font-belfius-body text-base leading-relaxed">
+                    <p className="text-gray-700 font-light text-sm sm:text-base leading-relaxed transition-opacity duration-300 hover:opacity-80">
                       {blogPosts[0]?.excerpt || "Blog excerpt"}
                     </p>
                   </div>
@@ -98,31 +83,31 @@ export default function Blogs({ blok }: { blok: BlogsBlok }) {
               </div>
 
               {/* Right Column - Three Smaller Blog Posts */}
-              <div className="space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 {blogPosts.slice(1, 4).map((post, index) => (
                   <div
                     key={post.title + index}
-                    className=" rounded-2xl p-6  transition-all duration-300 "
+                    className="rounded-xl sm:rounded-2xl p-4 sm:p-6 transition-all duration-300 hover:scale-[1.01] hover:shadow-md bg-white/80 hover:bg-white/90 group cursor-pointer"
                   >
-                    <div className="flex gap-4">
+                    <div className="flex gap-3 sm:gap-4">
                       {/* Blog Image */}
                       <div className="flex-shrink-0">
-                        <div className="w-24 h-24 rounded-xl overflow-hidden relative">
+                        <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-lg sm:rounded-xl overflow-hidden relative">
                           <Image
                             src={post?.image?.filename || "/backgrounds/blogs-card-bg.png"}
                             alt={post?.image?.alt || post?.title || "Blog post image"}
                             fill
-                            className="object-cover"
+                            className="object-cover transition-transform duration-300 group-hover:scale-105"
                           />
                         </div>
                       </div>
 
                       {/* Blog Content */}
-                      <div className="flex-1">
-                        <h4 className="font-belfius-title text-lg font-bold text-gray-900 leading-tight mb-2">
+                      <div className="flex-1 min-w-0">
+                        <h4 className="font-light text-base sm:text-lg text-gray-900 leading-tight mb-2 transition-colors duration-300 group-hover:text-[#AF1B3C] truncate">
                           {post?.title || "Blog Title"}
                         </h4>
-                        <p className="text-gray-800 font-belfius-body text-sm leading-relaxed">
+                        <p className="text-gray-700 font-light text-xs sm:text-sm leading-relaxed line-clamp-2 transition-opacity duration-300 group-hover:opacity-80">
                           {post?.excerpt || "Blog excerpt"}
                         </p>
                       </div>
@@ -134,12 +119,12 @@ export default function Blogs({ blok }: { blok: BlogsBlok }) {
           </div>
         </div>
 
-        {/* View All Button */}
+        {/* View All Button - Responsive */}
         {blok?.view_all_button && blok.view_all_button.length > 0 && (
-          <div className="text-center mt-12">
+          <div className="text-center mt-8 sm:mt-12">
             <a
               href={blok.view_all_button[0].link.cached_url}
-              className="inline-flex items-center px-6 py-3 bg-belfius-red text-white rounded-lg hover:bg-red-700 transition-colors duration-200 font-belfius-body"
+              className="inline-flex items-center px-4 sm:px-6 py-2 sm:py-3 bg-[#AF1B3C] text-white rounded-lg hover:bg-[#8f1530] transition-all duration-300 font-light text-sm sm:text-base hover:scale-105 hover:shadow-lg"
             >
               {blok.view_all_button[0].label}
             </a>
