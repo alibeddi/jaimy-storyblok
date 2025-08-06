@@ -5,57 +5,44 @@ import { SocialProofBlok } from "@/types/storyblok";
 import { useEffect, useRef, useState } from "react";
 
 // Counter component with animation
-function AnimatedCounter({ targetNumber, duration = 2000 }: { targetNumber: string; duration?: number }) {
+function AnimatedCounter({ 
+  targetNumber, 
+  suffix = "", 
+  duration = 2000 
+}: { 
+  targetNumber: number; 
+  suffix?: string; 
+  duration?: number; 
+}) {
   const [count, setCount] = useState(0);
+      console.log('currentCount', count);
+console.log(  targetNumber)
   const [isVisible, setIsVisible] = useState(false);
+  const [hasAnimated, setHasAnimated] = useState(false);
   const counterRef = useRef<HTMLDivElement>(null);
 
-  // Extract numeric value from string (handles formats like "1,000+", "50K", "99%")
-  const getNumericValue = (str: string): number => {
-    const cleanStr = str.replace(/[^0-9.]/g, '');
-    return parseFloat(cleanStr) || 0;
+  // Format the animated number with proper formatting
+  const formatNumber = (current: number): string => {
+    const rounded = Math.floor(current);
+    
+    // Add commas for thousands
+    if (rounded >= 1000) {
+      return rounded.toLocaleString();
+    }
+    
+    return rounded.toString();
   };
-
-  // Format the animated number back to match original format
-  const formatNumber = (current: number, original: string): string => {
-    const hasComma = original.includes(',');
-    const hasPlus = original.includes('+');
-    const hasPercent = original.includes('%');
-    const hasK = original.toLowerCase().includes('k');
-    
-    let formatted = Math.floor(current).toString();
-    
-    if (hasComma && current >= 1000) {
-      formatted = current.toLocaleString();
-    }
-    
-    if (hasK) {
-      formatted = Math.floor(current / 1000) + 'K';
-    }
-    
-    if (hasPlus) {
-      formatted += '+';
-    }
-    
-    if (hasPercent) {
-      formatted += '%';
-    }
-    
-    return formatted;
-  };
-
-  const targetValue = getNumericValue(targetNumber);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting && !isVisible) {
+        if (entry.isIntersecting && !hasAnimated) {
           setIsVisible(true);
         }
       },
       {
-        threshold: 0.3, // Trigger when 30% of the element is visible
-        rootMargin: '0px 0px -50px 0px' // Start animation slightly before fully visible
+        threshold: 0.1,
+        rootMargin: '0px 0px -20px 0px'
       }
     );
 
@@ -68,10 +55,16 @@ function AnimatedCounter({ targetNumber, duration = 2000 }: { targetNumber: stri
         observer.unobserve(counterRef.current);
       }
     };
-  }, []); // Remove isVisible from dependency array
+  }, [hasAnimated]);
 
   useEffect(() => {
-    if (!isVisible || targetValue === 0) return;
+    
+    setHasAnimated(true);
+    
+    if (targetNumber === 0) {
+      setCount(0);
+      return;
+    }
 
     let startTime: number;
     let animationFrame: number;
@@ -81,14 +74,15 @@ function AnimatedCounter({ targetNumber, duration = 2000 }: { targetNumber: stri
       const elapsed = currentTime - startTime;
       const progress = Math.min(elapsed / duration, 1);
       
-      // Easing function for smooth animation (ease-out)
       const easeOut = 1 - Math.pow(1 - progress, 3);
-      const currentCount = targetValue * easeOut;
+      const currentCount = targetNumber * easeOut;
       
       setCount(currentCount);
       
       if (progress < 1) {
         animationFrame = requestAnimationFrame(animate);
+      } else {
+        setCount(targetNumber);
       }
     };
 
@@ -99,11 +93,11 @@ function AnimatedCounter({ targetNumber, duration = 2000 }: { targetNumber: stri
         cancelAnimationFrame(animationFrame);
       }
     };
-  }, [isVisible, targetValue, duration]);
+  }, [isVisible, targetNumber, duration, hasAnimated]);
 
   return (
     <div ref={counterRef} className="font-belfius-title text-4xl lg:text-6xl text-belfius-red mb-2">
-      {formatNumber(count, targetNumber)}
+      {formatNumber(count)}{suffix}
     </div>
   );
 }
@@ -116,7 +110,7 @@ export default function SocialProof({ blok }: { blok: SocialProofBlok }) {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="mb-16">
+        <div className="mb-16 text-left">
           {blok?.subtitle && (
             <p className="text-belfius-red font-medium text-lg mb-4 font-belfius-body">
               {blok.subtitle}
@@ -128,107 +122,34 @@ export default function SocialProof({ blok }: { blok: SocialProofBlok }) {
             </h2>
           )}
           {blok?.description && (
-            <p className="text-xl text-gray-600 max-w-3xl font-belfius-body">
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto font-belfius-body">
               {blok.description}
             </p>
           )}
         </div>
-
-        {/* Content based on layout */}
-        {blok?.layout === "logos-only" && blok?.logos && (
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 items-center">
-            {blok.logos.map((logo, index) => (
-              <div key={index} className="flex justify-center">
-                {logo.logo.filename && (
-                  <Image
-                    src={logo.logo.filename}
-                    alt={logo.logo.alt || logo.company_name || "Company Logo"}
-                    width={120}
-                    height={60}
-                    className="h-12 w-auto opacity-60 hover:opacity-100 transition-opacity duration-200"
-                  />
-                )}
-              </div>
-            ))}
-          </div>
-        )}
-
-        {blok?.layout === "stats-only" && blok?.statistics && (
-          <div className="flex flex-wrap justify-center gap-8">
-            {blok.statistics.map((stat, index) => (
-              <div key={index} className="text-center min-w-[200px]">
-                <AnimatedCounter targetNumber={stat.number} duration={2000 + index * 200} />
-                <div className="font-belfius-body text-lg text-gray-900 mb-2">
-                  {stat.label}
-                </div>
-                {stat.description && (
-                  <div className="text-gray-600 font-belfius-body">
-                    {stat.description}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        )}
-
-        {blok?.layout === "mixed" && (
-          <div className="space-y-16">
-            {/* Logos */}
-            {blok?.logos && blok.logos.length > 0 && (
-              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 items-center">
-                {blok.logos.map((logo, index) => (
-                  <div key={index} className="flex justify-center">
-                    {logo.logo.filename && (
-                      <Image
-                        src={logo.logo.filename}
-                        alt={
-                          logo.logo.alt || logo.company_name || "Company Logo"
-                        }
-                        width={120}
-                        height={60}
-                        className="h-12 w-auto opacity-60 hover:opacity-100 transition-opacity duration-200"
-                      />
-                    )}
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {/* Statistics */}
-            {blok?.statistics && blok.statistics.length > 0 && (
-              <div className="flex flex-wrap justify-center gap-8">
-                {blok.statistics.map((stat, index) => (
-                  <div key={index} className="text-center min-w-[200px]">
-                    <AnimatedCounter targetNumber={stat.number} duration={2000 + index * 200} />
-                    <div className="font-belfius-body text-lg text-gray-900 mb-2">
-                      {stat.label}
-                    </div>
-                    {stat.description && (
-                      <div className="text-gray-600 font-belfius-body">
-                        {stat.description}
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        )}
-
         {/* Fallback: Show content even when layout is not set */}
         {!blok?.layout && (
           <div className="space-y-16">
             {/* Statistics */}
             {blok?.statistics && blok.statistics.length > 0 && (
-              <div className="flex flex-wrap justify-center gap-8">
+              <div className="flex flex-wrap justify-center gap-8 lg:gap-12">
                 {blok.statistics.map((stat, index) => (
-                  <div key={index} className="text-center min-w-[200px]">
-                    <AnimatedCounter targetNumber={stat.number} duration={2000 + index * 200} />
+                  <div key={index} className="text-center min-w-[200px] max-w-[250px]">
+                    {/* Animated Number */}
+                    <AnimatedCounter 
+                      targetNumber={Number(stat.number) || 0} 
+                      suffix={stat.suffix || ""} 
+                      duration={2000 + index * 200} 
+                    />
+                    
+                    {/* Label */}
                     <div className="font-belfius-body text-lg text-gray-900 mb-2">
                       {stat.label}
                     </div>
+                    
+                    {/* Description */}
                     {stat.description && (
-                      <div className="text-gray-600 font-belfius-body">
+                      <div className="text-gray-600 font-belfius-body text-sm">
                         {stat.description}
                       </div>
                     )}
@@ -237,26 +158,6 @@ export default function SocialProof({ blok }: { blok: SocialProofBlok }) {
               </div>
             )}
 
-            {/* Logos */}
-            {blok?.logos && blok.logos.length > 0 && (
-              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 items-center">
-                {blok.logos.map((logo, index) => (
-                  <div key={index} className="flex justify-center">
-                    {logo.logo.filename && (
-                      <Image
-                        src={logo.logo.filename}
-                        alt={
-                          logo.logo.alt || logo.company_name || "Company Logo"
-                        }
-                        width={120}
-                        height={60}
-                        className="h-12 w-auto opacity-60 hover:opacity-100 transition-opacity duration-200"
-                      />
-                    )}
-                  </div>
-                ))}
-              </div>
-            )}
           </div>
         )}
       </div>

@@ -1,6 +1,7 @@
 import { storyblokEditable } from "@storyblok/react/rsc";
 import { BlogsBlok } from "@/types/storyblok";
 import Image from "next/image";
+import CurvedBackground from "../ui/CurvedBackground";
 
 export default function Blogs({ blok }: { blok: BlogsBlok }) {
   // Use actual Storyblok data or fallback to default values
@@ -30,9 +31,9 @@ export default function Blogs({ blok }: { blok: BlogsBlok }) {
   return (
     <section
       {...storyblokEditable(blok)}
-      className="bg-[#F4F4F4] py-16 relative blogs-large-screen"
+      className="bg-[#F4F4F4] py-16 relative overflow-hidden blogs-large-screen"
     >
-       {/* Background Image - Hidden on mobile, visible on larger screens */}
+       {/* Background Image - Hidden on mobile, visible on larger screens
           <div
             className="absolute inset-0 hidden md:block"
             style={{
@@ -44,7 +45,8 @@ export default function Blogs({ blok }: { blok: BlogsBlok }) {
               right: "0",
               left: "10%"
             }}
-          />
+          /> */}
+          <CurvedBackground className="absolute inset-0 hidden md:block "  anchorRight={true} width={'80%'} height={'100%'} fillColor={'#B9203B'}/>
       <div className="max-w-7xl mx-auto px-8 relative z-10 blogs-container-large flex items-center">
         
         {/* Main Container - No background, with blur effect */}

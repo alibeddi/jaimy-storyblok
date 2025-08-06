@@ -12,7 +12,8 @@ export async function GET(request: Request) {
   }
 
   // Enable Draft Mode
-await draftMode().enable()
+  const draft = await draftMode()
+  draft.enable()
 
   // Redirect to the path from the fetched post
   redirect(`/${slug}`)

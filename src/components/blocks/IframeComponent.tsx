@@ -1,3 +1,4 @@
+"use client";
 import { storyblokEditable } from "@storyblok/react/rsc";
 import { IframeBlok } from "@/types/storyblok";
 import { useEffect, useState } from "react";
@@ -18,7 +19,7 @@ const FORM_SERVICES = {
   },
   custom: {
     baseUrl: "",
-    urlPattern: (formId: string, baseUrl: string) => `${baseUrl}?formId=${formId}`
+    urlPattern: (formId: string, baseUrl: string) => `${baseUrl}/${formId}`
   }
 };
 
@@ -26,7 +27,6 @@ export default function IframeComponent({ blok }: { blok: IframeBlok }) {
   const [iframeUrl, setIframeUrl] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
-  console.log(blok,'blok');
 
   // Generate iframe URL based on formId and service type
   useEffect(() => {
@@ -36,26 +36,55 @@ export default function IframeComponent({ blok }: { blok: IframeBlok }) {
       
       let newUrl = "";
       
-      if (serviceType === 'custom' && blok?.base_url) {
-        newUrl = service.urlPattern(blok.form_id, blok.base_url);
-      } else if (serviceType !== 'custom') {
-        newUrl = service.urlPattern(blok.form_id);
+      try {
+        if (serviceType === 'custom' && blok?.base_url) {
+          newUrl = service.urlPattern(blok.form_id, blok.base_url);
+        } else if (serviceType !== 'custom') {
+          newUrl = service.urlPattern(blok.form_id, service.baseUrl);
+        }
+        
+        if (newUrl) {
+          setIframeUrl(newUrl);
+          setIsLoading(true);
+          setHasError(false);
+        } else {
+          setHasError(true);
+          setIsLoading(false);
+        }
+      } catch (error) {
+        console.error('Error generating iframe URL:', error);
+        setHasError(true);
+        setIsLoading(false);
       }
-      
-      setIframeUrl(newUrl);
-      setIsLoading(true);
-      setHasError(false);
+    } else {
+      setHasError(true);
+      setIsLoading(false);
     }
   }, [blok?.form_id, blok?.base_url, blok?.service_type]);
 
   const handleLoad = () => {
     setIsLoading(false);
+    setHasError(false);
   };
 
   const handleError = () => {
     setIsLoading(false);
     setHasError(true);
   };
+
+  // Don't render if no form_id is provided
+  if (!blok?.form_id) {
+    return (
+      <section
+        
+        className="bg-[#F4F4F4] py-16 relative"
+      >
+        <div className="max-w-4xl mx-auto px-8 text-center">
+          <p className="text-gray-600">No form ID provided</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section
@@ -73,14 +102,14 @@ export default function IframeComponent({ blok }: { blok: IframeBlok }) {
         {/* Iframe Container */}
         <div className="bg-white rounded-2xl shadow-lg overflow-hidden relative">
           {/* Loading State */}
-          {isLoading && (
+          {isLoading && !hasError && (
             <div 
               className="absolute inset-0 flex items-center justify-center bg-gray-100 z-10"
               style={{ height: `${blok?.height || 600}px` }}
             >
               <div className="text-center">
                 <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#AF1B3C] mx-auto mb-4"></div>
-                <p className="text-gray-600">Loading form {blok?.form_id}...</p>
+                <p className="text-gray-600">Loading form...</p>
               </div>
             </div>
           )}
@@ -88,28 +117,37 @@ export default function IframeComponent({ blok }: { blok: IframeBlok }) {
           {/* Error State */}
           {hasError && (
             <div 
-              className="p-8 text-center bg-red-50"
+              className="p-8 text-center bg-red-50 flex items-center justify-center"
               style={{ height: `${blok?.height || 600}px` }}
             >
-              <p className="text-red-600 font-belfius-body mb-2">
-                Failed to load form with ID: {blok?.form_id}
-              </p>
-              <p className="text-gray-600 text-sm mb-4">
-                Service: {blok?.service_type || 'custom'}
-              </p>
-              <button 
-                onClick={() => window.location.reload()}
-                className="bg-[#AF1B3C] text-white px-4 py-2 rounded hover:bg-[#8B1538] transition-colors"
-              >
-                Retry
-              </button>
+              <div>
+                <p className="text-red-600 font-belfius-body mb-2">
+                  Failed to load form
+                </p>
+                <p className="text-gray-600 text-sm mb-4">
+                  Form ID: {blok?.form_id} | Service: {blok?.service_type || 'custom'}
+                </p>
+                <button 
+                  onClick={() => {
+                    setHasError(false);
+                    setIsLoading(true);
+                    // Trigger re-render by updating a dependency
+                    const currentUrl = iframeUrl;
+                    setIframeUrl('');
+                    setTimeout(() => setIframeUrl(currentUrl), 100);
+                  }}
+                  className="bg-[#AF1B3C] text-white px-4 py-2 rounded hover:bg-[#8B1538] transition-colors"
+                >
+                  Retry
+                </button>
+              </div>
             </div>
           )}
           
           {/* Iframe */}
           {iframeUrl && !hasError && (
             <iframe
-              key={`${blok?.service_type}-${blok?.form_id}`} // Force re-render when form_id or service changes
+              key={`${blok?.service_type}-${blok?.form_id}`}
               src={iframeUrl}
               width="100%"
               height={blok?.height || "600"}
@@ -117,7 +155,7 @@ export default function IframeComponent({ blok }: { blok: IframeBlok }) {
               allowFullScreen={blok?.allow_fullscreen !== false}
               sandbox={blok?.sandbox || "allow-scripts allow-forms allow-same-origin allow-popups allow-top-navigation"}
               className="w-full"
-              title={`${blok?.service_type || 'Custom'} Form ${blok?.form_id}`}
+              title={`${blok?.service_type || 'Custom'} Form`}
               onLoad={handleLoad}
               onError={handleError}
             />
