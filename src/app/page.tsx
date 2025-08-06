@@ -24,8 +24,7 @@ export default async function Home() {
       {headerBlock && <Header blok={headerBlock} />}
       {heroBlock && <Hero blok={heroBlock} />}
       {stepsBlock && <Steps blok={stepsBlock} />}
-      {featuresBlock && <Features blok={featuresBlock} />} {/* Add this */}
-
+      {featuresBlock && <Features blok={featuresBlock} />}
     </div>
   )
 }
