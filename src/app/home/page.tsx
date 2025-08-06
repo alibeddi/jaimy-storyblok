@@ -9,7 +9,7 @@ import Footer from "@/components/blocks/Footer";
 import Header from "@/components/blocks/Header";
 import Hero from "@/components/blocks/Hero";
 import Steps from "@/components/blocks/Steps";
-import Features from "@/components/blocks/Features";
+
 
 import { getStoryblokApi } from "@storyblok/react/rsc";
 import { draftMode } from "next/headers";
@@ -90,7 +90,7 @@ export default async function Home() {
 }
 
 async function fetchData() {
-  const { isEnabled } = await draftMode();
+  // const { isEnabled } = await draftMode();
 
   const sbParams = {
     version: "draft",

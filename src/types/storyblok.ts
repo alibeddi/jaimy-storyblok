@@ -74,6 +74,16 @@ export interface HeroBlok extends SbBlokData {
     filename: string;
     alt?: string;
   };
+  iframe_block?: IframeBlok;
+  trust_badges?: Array<{
+    value: string;
+    description: string;
+    icon?: {
+      filename: string;
+      alt?: string;
+    };
+    icon_svg?: string; // For custom SVG code
+  }>;
 }
 
 export interface StepsBlok extends SbBlokData {
@@ -153,9 +163,14 @@ export interface SocialProofBlok extends SbBlokData {
     company_name?: string;
   }>;
   statistics?: Array<{
-    number: string;
+    number: number;        // Changed from string to number
+    suffix?: string;       // New field for K+, %, etc.
     label: string;
     description?: string;
+    icon?: {
+      filename: string;
+      alt?: string;
+    };
   }>;
   testimonials?: Array<{
     text: string;
@@ -284,7 +299,7 @@ export type StoryblokBlok =
   | FeaturesBlok;
 
 // Add this interface to your existing storyblok.ts file
-export interface IframeBlok {
+export interface IframeBlok extends SbBlokData {
   _uid: string;
   component: "iframe_component";
   title?: string;
@@ -299,14 +314,15 @@ export interface IframeBlok {
   margin_bottom?: string;
 }
 
-export interface HeroBlok {
-  _uid: string;
-  component: "hero";
-  title?: string;
-  description?: string;
-  cta_text?: string;
-  iframe_data?: IframeBlok; // Add this line
-}
+// Remove this duplicate interface:
+// export interface HeroBlok {
+//   _uid: string;
+//   component: "hero";
+//   title?: string;
+//   description?: string;
+//   cta_text?: string;
+//   iframe_data?: IframeBlok;
+// }
 
 // Feature interface for nested feature data
 export interface FeatureItem {
@@ -341,11 +357,10 @@ export interface SliderBlok {
     filename: string;
     alt?: string;
   };
-  cta_button?: Array<{
+ cta_button?: Array<{
     label: string;
     link: {
       cached_url: string;
-      linktype: string;
     };
   }>;
   feature?: FeatureItem[]; // Array of feature items

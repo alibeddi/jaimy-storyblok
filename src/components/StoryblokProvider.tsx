@@ -10,7 +10,7 @@ import Reviews from "./blocks/Reviews";
 import SocialProof from "./blocks/SocialProof";
 import FAQ from "./blocks/FAQ";
 import Footer from "./blocks/Footer";
-import Features from "./blocks/Features"; // Add this import
+// import Features from "./blocks/Features"; // Add this import
 
 
 // Initialize Storyblok for client-side

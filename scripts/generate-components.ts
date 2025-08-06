@@ -946,7 +946,7 @@ function generateComponents() {
     fs.mkdirSync(componentsDir, { recursive: true });
   }
 
-  componentTemplates.forEach(({ name, interface, template }) => {
+  componentTemplates.forEach(({ name, template }) => {
     const filePath = path.join(componentsDir, `${name}.tsx`);
 
     fs.writeFileSync(filePath, template);
