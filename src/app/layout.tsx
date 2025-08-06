@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { storyblokInit, apiPlugin } from "@storyblok/react/rsc";
 import StoryblokProvider from "../components/StoryblokProvider";
+import GoogleAnalytics from "../components/analytics/GoogleAnalytics";
+import FacebookPixel from "../components/analytics/FacebookPixel";
+import { AnalyticsProvider } from "../components/analytics/AnalyticsContext";
 import "./globals.css";
 import Page from "../components/blocks/Page";
 import Header from "../components/blocks/Header";
@@ -13,7 +16,10 @@ import Reviews from "../components/blocks/Reviews";
 import SocialProof from "../components/blocks/SocialProof";
 import FAQ from "../components/blocks/FAQ";
 import Footer from "../components/blocks/Footer";
-import Features from "@/components/blocks/Features"; // Add this import
+import Features from "@/components/blocks/Features";
+import AnalyticsButton from "../components/blocks/AnalyticsButton";
+import AnalyticsForm from "../components/blocks/AnalyticsForm";
+import AnalyticsVideo from "../components/blocks/AnalyticsVideo";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,7 +38,10 @@ storyblokInit({
     social_proof: SocialProof,
     faq: FAQ,
     footer: Footer,
-    features: Features, // Add this component
+    features: Features,
+    analytics_button: AnalyticsButton,
+    analytics_form: AnalyticsForm,
+    analytics_video: AnalyticsVideo,
   },
 });
 
@@ -49,6 +58,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Analytics Scripts */}
+        <GoogleAnalytics
+          trackingId={process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID || ""}
+        />
+        <FacebookPixel
+          pixelId={process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID || ""}
+        />
+
         {/* Preload Belfius Fonts */}
         <link
           rel="preload"
@@ -72,8 +89,10 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
       </head>
-      <body>
-        <StoryblokProvider>{children}</StoryblokProvider>
+      <body className={inter.className}>
+        <AnalyticsProvider>
+          <StoryblokProvider>{children}</StoryblokProvider>
+        </AnalyticsProvider>
       </body>
     </html>
   );
