@@ -1,3 +1,4 @@
+ /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useRef, useEffect } from "react";
@@ -90,7 +91,7 @@ export default function AnalyticsVideo({ blok }: AnalyticsVideoProps) {
   }, [analytics, blok]);
 
   return (
-    <div {...storyblokEditable(blok)} className="max-w-4xl mx-auto">
+    <div {...storyblokEditable(blok as any)} className="max-w-4xl mx-auto">
       {blok.title && (
         <h3 className="text-xl font-semibold mb-4 text-gray-900">
           {blok.title}

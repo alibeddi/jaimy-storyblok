@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import Script from "next/script";
@@ -9,8 +10,8 @@ interface GoogleAnalyticsProps {
 
 declare global {
   interface Window {
-    gtag: (...args: any[]) => void;
     dataLayer: any[];
+    gtag: (...args: any[]) => void;
   }
 }
 
@@ -19,8 +20,8 @@ export default function GoogleAnalytics({ trackingId }: GoogleAnalyticsProps) {
     // Initialize dataLayer if it doesn't exist
     if (typeof window !== "undefined") {
       window.dataLayer = window.dataLayer || [];
-      window.gtag = function gtag() {
-        window.dataLayer.push(arguments);
+      window.gtag = function gtag(...args: any[]) {
+        window.dataLayer.push(args);
       };
       window.gtag("js", new Date());
       window.gtag("config", trackingId, {
@@ -36,8 +37,8 @@ export default function GoogleAnalytics({ trackingId }: GoogleAnalyticsProps) {
   return (
     <>
       <Script
-        strategy="afterInteractive"
         src={`https://www.googletagmanager.com/gtag/js?id=${trackingId}`}
+        strategy="afterInteractive"
       />
       <Script
         id="google-analytics"
@@ -57,7 +58,7 @@ export default function GoogleAnalytics({ trackingId }: GoogleAnalyticsProps) {
   );
 }
 
-// Utility functions for tracking events
+// Event tracking functions
 export const trackGA4Event = (
   eventName: string,
   parameters?: Record<string, any>
@@ -69,26 +70,28 @@ export const trackGA4Event = (
 
 export const trackGA4PageView = (url: string, title?: string) => {
   if (typeof window !== "undefined" && window.gtag) {
-    window.gtag("config", process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID, {
+    window.gtag("event", "page_view", {
       page_location: url,
       page_title: title,
     });
   }
 };
 
-// Common e-commerce events
+// E-commerce tracking functions
 export const trackGA4Purchase = (
   transactionId: string,
   value: number,
   currency: string = "EUR",
   items: any[] = []
 ) => {
-  trackGA4Event("purchase", {
-    transaction_id: transactionId,
-    value,
-    currency,
-    items,
-  });
+  if (typeof window !== "undefined" && window.gtag) {
+    window.gtag("event", "purchase", {
+      transaction_id: transactionId,
+      value,
+      currency,
+      items,
+    });
+  }
 };
 
 export const trackGA4AddToCart = (
@@ -96,11 +99,13 @@ export const trackGA4AddToCart = (
   value: number,
   items: any[] = []
 ) => {
-  trackGA4Event("add_to_cart", {
-    currency,
-    value,
-    items,
-  });
+  if (typeof window !== "undefined" && window.gtag) {
+    window.gtag("event", "add_to_cart", {
+      currency,
+      value,
+      items,
+    });
+  }
 };
 
 export const trackGA4ViewItem = (
@@ -108,9 +113,11 @@ export const trackGA4ViewItem = (
   value: number,
   items: any[] = []
 ) => {
-  trackGA4Event("view_item", {
-    currency,
-    value,
-    items,
-  });
+  if (typeof window !== "undefined" && window.gtag) {
+    window.gtag("event", "view_item", {
+      currency,
+      value,
+      items,
+    });
+  }
 };

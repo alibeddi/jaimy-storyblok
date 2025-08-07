@@ -1,3 +1,4 @@
+ /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { storyblokEditable } from "@storyblok/react/rsc";
@@ -69,7 +70,7 @@ export default function AnalyticsButton({ blok }: AnalyticsButtonProps) {
 
   return (
     <button
-      {...storyblokEditable(blok)}
+      {...storyblokEditable(blok as any)}
       className={getButtonStyles()}
       onClick={handleClick}
     >
