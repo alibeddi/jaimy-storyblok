@@ -37,17 +37,18 @@ export default function CurvedBackground({
           <defs>
             <pattern 
               id={patternId} 
-              patternUnits="userSpaceOnUse" 
-              width="100%" 
-              height="100%"
+              patternUnits="objectBoundingBox" 
+              width="1" 
+              height="1"
+              patternContentUnits="objectBoundingBox"
             >
               <image 
                 href={backgroundImage} 
                 x="0" 
-                y="0" 
-                width="1531" 
-                height="1146" 
-                preserveAspectRatio="xMaxYMid slice"
+                y="0.1" 
+                width="0.8" 
+                height="1" 
+                // preserveAspectRatio="xMidYMid slice"
               />
             </pattern>
           </defs>

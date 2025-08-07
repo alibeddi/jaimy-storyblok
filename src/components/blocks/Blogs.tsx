@@ -35,7 +35,7 @@ export default function Blogs({ blok }: { blok: BlogsBlok }) {
     >
        <CurvedBackground className="absolute inset-0 hidden md:block " width={'100%'} height={'100%'} fillColor={'#B9203B'}/>
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 relative z-10 flex items-center">
+      <div className="max-w-[90%]  mx-auto px-4 sm:px-6 md:px-8 relative z-10 flex items-center">
         {/* Main Container - Responsive with smooth transitions */}
         <div className="rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12 relative overflow-hidden backdrop-blur-md bg-white/70 w-full transition-all duration-300 hover:bg-white/80 hover:shadow-2xl">
           {/* Content */}
