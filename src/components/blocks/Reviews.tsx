@@ -40,7 +40,12 @@ export default function Reviews({ blok }: { blok: ReviewsBlok }) {
     return () => window.removeEventListener('resize', updateCardsPerSlide);
   }, []);
 
-  // Don't render the component if no reviews
+  // Reset slide when cards per slide changes
+  useEffect(() => {
+    setCurrentSlide(0);
+  }, [cardsPerSlide]);
+
+  // Don't render the component if no reviews - MOVED AFTER ALL HOOKS
   if (!reviews || reviews.length === 0) {
     return (
       <section 
@@ -78,11 +83,6 @@ export default function Reviews({ blok }: { blok: ReviewsBlok }) {
     setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
   };
 
-  // Reset slide when cards per slide changes
-  useEffect(() => {
-    setCurrentSlide(0);
-  }, [cardsPerSlide]);
-
   // Touch handlers for mobile swipe
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchStart(e.targetTouches[0].clientX);
@@ -99,10 +99,10 @@ export default function Reviews({ blok }: { blok: ReviewsBlok }) {
     const isLeftSwipe = distance > 50;
     const isRightSwipe = distance < -50;
 
-    if (isLeftSwipe && totalSlides > 1) {
+    if (isLeftSwipe && currentSlide < totalSlides - 1) {
       nextSlide();
     }
-    if (isRightSwipe && totalSlides > 1) {
+    if (isRightSwipe && currentSlide > 0) {
       prevSlide();
     }
   };
