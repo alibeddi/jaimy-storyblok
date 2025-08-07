@@ -33,7 +33,7 @@ export default function Steps({ blok }: { blok: StepsBlok }) {
       className="bg-gray-100  relative"
     >
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-8 py-16">
+      <div className="max-w-[90%] mx-auto px-8 py-16">
         {/* H2 Heading */}
         <h2 className="text-[#32546D] font-belfius-title text-4xl lg:text-5xl mb-16">
           {blok?.title}

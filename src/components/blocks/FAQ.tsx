@@ -11,7 +11,7 @@ export default function FAQ({ blok }: { blok: FAQBlok }) {
       {...storyblokEditable(blok)}
       className={`py-16 lg:py-24 ${blok?.background_color === "gray" ? "bg-gray-50" : "bg-white"}`}
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[90%]  mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-16">
           {blok?.subtitle && (
