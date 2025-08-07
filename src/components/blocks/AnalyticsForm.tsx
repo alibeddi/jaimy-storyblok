@@ -1,3 +1,4 @@
+ /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState } from "react";
@@ -101,7 +102,7 @@ export default function AnalyticsForm({ blok }: AnalyticsFormProps) {
   if (isSuccess) {
     return (
       <div
-        {...storyblokEditable(blok)}
+        {...storyblokEditable(blok as any)}
         className="max-w-md mx-auto p-6 bg-green-50 border border-green-200 rounded-lg"
       >
         <h3 className="text-lg font-semibold text-green-800 mb-2">Success!</h3>
@@ -114,7 +115,7 @@ export default function AnalyticsForm({ blok }: AnalyticsFormProps) {
 
   return (
     <div
-      {...storyblokEditable(blok)}
+      {...storyblokEditable(blok as any)}
       className="max-w-md mx-auto p-6 bg-white border border-gray-200 rounded-lg shadow-sm"
     >
       {blok.title && (

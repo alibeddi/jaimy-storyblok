@@ -1,6 +1,7 @@
+ /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { useRef } from "react";
+import { RefObject, useRef } from "react";
 import { storyblokEditable } from "@storyblok/react/rsc";
 import {
   useAnalytics,
@@ -28,7 +29,7 @@ export default function HeroWithAnalytics({ blok }: HeroWithAnalyticsProps) {
   const heroRef = useRef<HTMLElement>(null);
 
   // Track when hero section becomes visible
-  useVisibilityTracking(heroRef, "hero_section_viewed", {
+  useVisibilityTracking(heroRef as RefObject<HTMLElement>, "hero_section_viewed", {
     section: "hero",
     title: blok.title,
   });
@@ -59,7 +60,7 @@ export default function HeroWithAnalytics({ blok }: HeroWithAnalyticsProps) {
   return (
     <section
       ref={heroRef}
-      {...storyblokEditable(blok)}
+      {...storyblokEditable(blok as any)}
       className="relative min-h-screen flex items-center justify-center text-white"
       style={{
         backgroundImage: blok.background_image

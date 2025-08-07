@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import Script from "next/script";
@@ -7,9 +8,19 @@ interface FacebookPixelProps {
   pixelId: string;
 }
 
+// Proper typing for Facebook Pixel function
+interface FacebookPixelFunction {
+  (...args: any[]): void;
+  q?: any[];
+  push?: FacebookPixelFunction;
+  loaded?: boolean;
+  version?: string;
+  queue?: any[];
+}
+
 declare global {
   interface Window {
-    fbq: (...args: any[]) => void;
+    fbq: FacebookPixelFunction;
     _fbq: any;
   }
 }
@@ -20,8 +31,8 @@ export default function FacebookPixel({ pixelId }: FacebookPixelProps) {
       // Initialize Facebook Pixel
       window.fbq =
         window.fbq ||
-        function () {
-          (window.fbq.q = window.fbq.q || []).push(arguments);
+        function (...args: any[]) {
+          (window.fbq.q = window.fbq.q || []).push(args);
         };
       if (!window._fbq) window._fbq = window.fbq;
       window.fbq.push = window.fbq;
@@ -64,14 +75,13 @@ export default function FacebookPixel({ pixelId }: FacebookPixelProps) {
           width="1"
           style={{ display: "none" }}
           src={`https://www.facebook.com/tr?id=${pixelId}&ev=PageView&noscript=1`}
-          alt=""
         />
       </noscript>
     </>
   );
 }
 
-// Utility functions for tracking Facebook Pixel events
+// Event tracking functions
 export const trackFBEvent = (
   eventName: string,
   parameters?: Record<string, any>
@@ -90,18 +100,19 @@ export const trackFBCustomEvent = (
   }
 };
 
-// Common Facebook Pixel standard events
+// E-commerce tracking functions
 export const trackFBPurchase = (
   value: number,
   currency: string = "EUR",
   contentIds?: string[]
 ) => {
-  trackFBEvent("Purchase", {
-    value,
-    currency,
-    content_ids: contentIds,
-    content_type: "product",
-  });
+  if (typeof window !== "undefined" && window.fbq) {
+    window.fbq("track", "Purchase", {
+      value,
+      currency,
+      content_ids: contentIds,
+    });
+  }
 };
 
 export const trackFBAddToCart = (
@@ -109,12 +120,13 @@ export const trackFBAddToCart = (
   currency: string = "EUR",
   contentIds?: string[]
 ) => {
-  trackFBEvent("AddToCart", {
-    value,
-    currency,
-    content_ids: contentIds,
-    content_type: "product",
-  });
+  if (typeof window !== "undefined" && window.fbq) {
+    window.fbq("track", "AddToCart", {
+      value,
+      currency,
+      content_ids: contentIds,
+    });
+  }
 };
 
 export const trackFBViewContent = (
@@ -122,25 +134,29 @@ export const trackFBViewContent = (
   currency: string = "EUR",
   contentIds?: string[]
 ) => {
-  trackFBEvent("ViewContent", {
-    value,
-    currency,
-    content_ids: contentIds,
-    content_type: "product",
-  });
+  if (typeof window !== "undefined" && window.fbq) {
+    window.fbq("track", "ViewContent", {
+      value,
+      currency,
+      content_ids: contentIds,
+    });
+  }
 };
 
 export const trackFBLead = (value?: number, currency: string = "EUR") => {
-  trackFBEvent("Lead", {
-    value,
-    currency,
-  });
+  if (typeof window !== "undefined" && window.fbq) {
+    window.fbq("track", "Lead", { value, currency });
+  }
 };
 
 export const trackFBContact = () => {
-  trackFBEvent("Contact");
+  if (typeof window !== "undefined" && window.fbq) {
+    window.fbq("track", "Contact");
+  }
 };
 
 export const trackFBCompleteRegistration = () => {
-  trackFBEvent("CompleteRegistration");
+  if (typeof window !== "undefined" && window.fbq) {
+    window.fbq("track", "CompleteRegistration");
+  }
 };
