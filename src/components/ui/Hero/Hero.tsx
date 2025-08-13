@@ -140,6 +140,5 @@ const Hero: React.FC<ExtendedHeroProps> = ({
   );
 };
 
-Hero.Connected = Connected;
-
 export default Hero;
+export { Connected as HeroConnected };

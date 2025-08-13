@@ -37,10 +37,6 @@ const Row: React.FC<ExtendedRowProps> = ({
   backgroundOpacity,
   textAlign = "default",
   paddingY = "default",
-  gap = "default",
-  align = "stretch",
-  justify = "start",
-  wrap = true,
   ...rest
 }) => {
   const spacingMap = {
@@ -79,10 +75,10 @@ const Row: React.FC<ExtendedRowProps> = ({
 
   const rootClasses = cn(
     "w-full relative overflow-hidden",
-    spacingMap[spacing],
-    appearanceMap[appearance],
-    textAlignMap[textAlign],
-    paddingYMap[paddingY],
+    spacingMap[spacing as keyof typeof spacingMap],
+    appearanceMap[appearance as keyof typeof appearanceMap],
+    textAlignMap[textAlign as keyof typeof textAlignMap],
+    paddingYMap[paddingY as keyof typeof paddingYMap],
     backgroundColor && backgroundColor !== "default" && `bg-${backgroundColor}`,
     className
   );

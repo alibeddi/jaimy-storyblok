@@ -1,10 +1,4 @@
-import {
-  ReactNode,
-  ComponentType,
-  HTMLAttributes,
-  ButtonHTMLAttributes,
-  AnchorHTMLAttributes,
-} from "react";
+import { ReactNode } from "react";
 
 // Base component props that all UI components can extend
 export interface BaseUIProps {
@@ -215,6 +209,13 @@ export interface HeroProps extends BaseUIProps {
 export type BannerVariant = "full" | "constrained" | "connector";
 export type ContentWidth = "1/4" | "1/3" | "1/2" | "2/3" | "3/4" | "full";
 
+// Storyblok content item interface
+export interface StoryblokContentItem {
+  _uid?: string;
+  component?: string;
+  [key: string]: unknown;
+}
+
 export interface BannerProps extends BaseUIProps {
   variant?: BannerVariant;
   type?:
@@ -228,7 +229,7 @@ export interface BannerProps extends BaseUIProps {
   iconType?: IconType;
   iconColor?: IconColor;
   iconMobileDisable?: boolean;
-  content?: unknown[];
+  content?: StoryblokContentItem[];
   contentWidth?: ContentWidth;
   contentWidthTablet?: ContentWidth;
   image?: {
@@ -239,7 +240,7 @@ export interface BannerProps extends BaseUIProps {
     filename: string;
     alt?: string;
   };
-  uspBar?: unknown[];
+  uspBar?: StoryblokContentItem[];
   preset?: string;
   backgroundImage?: string;
   overlay?: boolean;
@@ -264,6 +265,7 @@ export interface IconProps extends BaseUIProps {
   color?: IconColor;
   size?: IconSize;
   shape?: "none" | "circle" | "square";
+  onClick?: () => void;
 }
 
 // Utility types

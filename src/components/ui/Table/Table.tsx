@@ -73,7 +73,7 @@ const Table: React.FC<ExtendedTableProps> = ({
                       column.align === "right" && "text-right"
                     )}
                   >
-                    {row[column.key]}
+                    {String(row[column.key] || "")}
                   </td>
                 ))}
               </tr>

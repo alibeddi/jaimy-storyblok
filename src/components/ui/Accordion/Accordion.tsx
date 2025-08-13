@@ -2,7 +2,11 @@
 
 import React, { createContext, useState, useCallback } from "react";
 import { cn } from "@/lib/utils";
-import { AccordionProps, AccordionContextType } from "@/types/ui";
+import {
+  AccordionProps,
+  AccordionContextType,
+  AccordionItemProps,
+} from "@/types/ui";
 
 export const AccordionContext = createContext<AccordionContextType>({
   dark: false,
@@ -76,7 +80,10 @@ const Accordion: React.FC<AccordionProps> = ({
       <div className={rootClasses}>
         {React.Children.map(children, (child, index) =>
           React.isValidElement(child)
-            ? React.cloneElement(child, { index })
+            ? React.cloneElement(
+                child as React.ReactElement<AccordionItemProps>,
+                { index }
+              )
             : child
         )}
       </div>

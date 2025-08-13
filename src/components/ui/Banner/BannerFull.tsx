@@ -2,7 +2,13 @@
 
 import React from "react";
 import { cn } from "@/lib/utils";
-import { BannerProps, ContentWidth } from "@/types/ui";
+import {
+  BannerProps,
+  ContentWidth,
+  StoryblokContentItem,
+  IconColor,
+  IconType,
+} from "@/types/ui";
 import Icon from "../Icon/Icon";
 import Image from "../Image/Image";
 
@@ -36,7 +42,6 @@ const BannerFull: React.FC<BannerProps> = ({
   image,
   imageMobile,
   uspBar = [],
-  preset,
   className,
   children,
 }) => {
@@ -59,8 +64,8 @@ const BannerFull: React.FC<BannerProps> = ({
           <Icon
             className="absolute z-10 md:top-16 md:right-0 right-8 top-8 w-16 h-16 md:w-32 md:h-32"
             variant={iconVariant}
-            type={iconType}
-            color={iconColor}
+            type={iconType as IconType}
+            color={iconColor as IconColor}
             size="default"
           />
         )}
@@ -86,16 +91,16 @@ const BannerFull: React.FC<BannerProps> = ({
 
       <div className={contentClassName}>
         {children}
-        {content?.map((child: unknown) => (
-          <div key={child._uid || Math.random()}>
+        {content?.map((child: StoryblokContentItem, index: number) => (
+          <div key={child._uid || index}>
             {/* Content would be rendered here with Storyblok components */}
             {JSON.stringify(child)}
           </div>
         ))}
       </div>
 
-      {uspBar?.map((bar: unknown) => (
-        <div key={bar._uid || Math.random()} data-banner-usp>
+      {uspBar?.map((bar: StoryblokContentItem, index: number) => (
+        <div key={bar._uid || index} data-banner-usp>
           {/* USP bar content */}
         </div>
       ))}

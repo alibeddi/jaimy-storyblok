@@ -62,7 +62,7 @@ const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>(
         )}
 
         <InputComponent
-          ref={ref}
+          ref={ref as React.Ref<HTMLInputElement & HTMLTextAreaElement>}
           id={inputId}
           name={name}
           type={type === "textarea" ? undefined : type}

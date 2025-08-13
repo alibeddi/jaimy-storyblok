@@ -6,7 +6,7 @@ import { Clock } from "lucide-react";
 import { BlogCardProps } from "@/types/ui";
 import Image from "../Image/Image";
 
-const BlogCard: React.FC<BlogCardProps> = ({ blok, className, ...rest }) => {
+const BlogCard: React.FC<BlogCardProps> = ({ blok, ...rest }) => {
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString("en-US", {

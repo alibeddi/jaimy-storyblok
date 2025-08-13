@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { ButtonProps } from "@/types/ui";
+import { ButtonProps, IconColor, IconType, IconSize } from "@/types/ui";
 import Icon from "../Icon/Icon";
 
 const Button: React.FC<ButtonProps> = ({
@@ -23,7 +23,6 @@ const Button: React.FC<ButtonProps> = ({
   submit = false,
   children,
   relation = [],
-  disableNofollow = false,
   disabled = false,
   ...rest
 }) => {
@@ -76,7 +75,12 @@ const Button: React.FC<ButtonProps> = ({
   );
 
   const iconElement = hasIcon ? (
-    <Icon variant={icon} color={iconColor} type={iconType} size={iconSize} />
+    <Icon
+      variant={icon}
+      color={iconColor as IconColor}
+      type={iconType as IconType}
+      size={iconSize as IconSize}
+    />
   ) : null;
 
   // Link variant

@@ -4,10 +4,10 @@ import React from "react";
 import { cn } from "@/lib/utils";
 import { ExtendedColumnsProps } from "@/types/ui";
 
-const isTouchDevice = () => {
-  if (typeof window === "undefined") return false;
-  return "ontouchstart" in window || navigator.maxTouchPoints > 0;
-};
+// const isTouchDevice = () => {
+//   if (typeof window === "undefined") return false;
+//   return "ontouchstart" in window || navigator.maxTouchPoints > 0;
+// };
 
 const ConditionalWrapper: React.FC<{
   condition: boolean;
@@ -43,14 +43,12 @@ const Columns: React.FC<ExtendedColumnsProps> = ({
   squeezeDesktop = "default",
   justifyContent = "default",
   alignContent = "default",
-  touchSlide = false,
-  touchSlideColumnSize = "default",
   connectorToggle = false,
   connectorColor = "default",
   marginBottom = "default",
   ...rest
 }) => {
-  const sliderEnabled = touchSlide && isTouchDevice();
+  // const sliderEnabled = touchSlide && isTouchDevice();
 
   const mobileCols: Record<string, string> = {
     default: "grid-cols-1",

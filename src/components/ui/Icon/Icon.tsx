@@ -7,7 +7,6 @@ import { IconProps } from "@/types/ui";
 
 const Icon: React.FC<IconProps> = ({
   className,
-  children,
   color = "default",
   variant,
   type = "default",
@@ -42,7 +41,7 @@ const Icon: React.FC<IconProps> = ({
     return null;
   }
 
-  const hasShape = shape !== "none" && shape !== "default";
+  // const hasShape = shape !== "none" && shape !== "default";
 
   const sizeClasses = {
     xs: "w-3 h-3",
