@@ -13,7 +13,9 @@
   "dependencies": {
     "@storyblok/js": "^4.2.1",
     "@storyblok/react": "^5.4.1",
+    "classnames": "^2.5.1",
     "clsx": "^2.1.1",
+    "formik": "^2.4.6",
     "lucide-react": "^0.539.0",
     "next": "15.4.2",
     "react": "19.1.0",

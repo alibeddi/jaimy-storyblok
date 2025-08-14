@@ -1,4 +1,5 @@
-import { storyblokEditable } from "@storyblok/react/rsc";
+ /* eslint-disable @typescript-eslint/no-explicit-any */
+    import { storyblokEditable } from "@storyblok/react/rsc";
 import { StepsBlok } from "@/types/storyblok";
 import Image from "next/image";
 
@@ -41,7 +42,8 @@ export default function Steps({ blok }: { blok: StepsBlok }) {
 
         {/* Steps Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {steps.map((step, index) => (
+    
+          {steps.map((step) => ( // Remove index parameter if not needed
             <div
               key={step.id}
               className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 text-center relative"

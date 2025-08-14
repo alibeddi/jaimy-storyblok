@@ -63,6 +63,9 @@ export type HeadingType = "heading" | "title" | "subtitle";
 export type TextAlign = "left" | "center" | "right" | "justify";
 export type TextColor = "primary" | "secondary" | "white" | "gray" | "black";
 
+// Add FontWeight type definition
+export type FontWeight = "normal" | "bold" | "light" | "medium" | "semibold" | "300" | "400" | "500" | "600" | "700";
+
 export interface HeadingProps extends BaseUIProps {
   tag?: HeadingTag;
   size?: SizeVariant;
@@ -152,14 +155,43 @@ export interface ImageProps extends BaseUIProps {
   objectFit?: "contain" | "cover" | "fill" | "none" | "scale-down";
 }
 
+// Add this new interface for BlokImage component
+export interface BlokImageProps extends BaseUIProps {
+  asset?: {
+    filename: string;
+    alt?: string;
+    width?: number;
+    height?: number;
+    focus?: string;
+  };
+  aspectDesktop?: string;
+  aspectTablet?: string;
+  aspectMobile?: string;
+  preset?: string;
+  maxWidth?: string | number;
+  width?: number | string;
+  height?: number | string;
+  priority?: boolean;
+  layout?: string;
+}
+
 // List component types
 export interface ListProps extends BaseUIProps {
   ordered?: boolean;
   spacing?: SpacingVariant;
+  color?: TextColor;
+  weight?: FontWeight;
 }
 
 export interface ListItemProps extends BaseUIProps {
   marker?: string;
+  text?: string;
+  iconColor?: IconColor | string;
+  iconVariant?: string;
+  iconType?: IconType | string;
+  iconPosition?: IconPosition | string;
+  iconSpacing?: SpacingVariant | string;
+  iconSize?: IconSize | string;
 }
 
 // Table component types
@@ -190,6 +222,10 @@ export interface TableColumnProps extends BaseUIProps {
 export interface RichTextProps extends BaseUIProps {
   content: unknown; // Storyblok rich text content
   maxWidth?: string;
+  size?: SizeVariant;
+  color?: TextColor;
+  textAlign?: TextAlign;
+  marginBottom?: SpacingVariant;
 }
 
 // Hero component types
@@ -376,6 +412,14 @@ export interface FormFieldProps extends BaseUIProps {
 // Hero component types (extended)
 export interface ExtendedHeroProps extends HeroProps {
   backgroundVideo?: string;
+  // Add Connected component props
+  imagePosition?: "left" | "right";
+  flipContentMobile?: boolean;
+  contentWidth?: string;
+  disabled?: boolean;
+  largeColumnDesktop?: "left" | "right";
+  largeColumnMobile?: "left" | "right";
+  color?: string;
 }
 
 // Hr component types
