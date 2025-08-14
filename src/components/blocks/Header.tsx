@@ -1,5 +1,6 @@
 import { storyblokEditable } from "@storyblok/react/rsc";
 import { HeaderBlok } from "@/types/storyblok";
+import Image from 'next/image';
 
 export default function Header({ blok }: { blok: HeaderBlok }) {
   return (
@@ -10,10 +11,13 @@ export default function Header({ blok }: { blok: HeaderBlok }) {
       {/* Logo Section */}
       <div className="flex items-center">
         {blok.logo && blok.logo.filename ? (
-          <img
+          <Image
             src={blok.logo.filename}
             alt={blok.logo.alt || "Jaimy Logo"}
+            width={200}
+            height={50}
             className="h-[50px] w-auto"
+            priority
           />
         ) : (
           <div className="flex items-center">

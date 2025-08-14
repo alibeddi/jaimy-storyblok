@@ -1,6 +1,6 @@
 "use client";
 import { storyblokEditable } from "@storyblok/react/rsc";
-import Image from "next/image";
+
 import { SocialProofBlok } from "@/types/storyblok";
 import { useEffect, useRef, useState } from "react";
 

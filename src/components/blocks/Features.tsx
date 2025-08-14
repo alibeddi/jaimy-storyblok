@@ -1,4 +1,5 @@
 import { storyblokEditable } from "@storyblok/react/rsc";
+import Image from 'next/image';
 
 interface FeaturesProps {
   blok: {
@@ -94,10 +95,12 @@ export default function Features({ blok }: FeaturesProps) {
                 }`}
               >
                 <div className="relative h-full min-h-[400px] lg:min-h-[500px]">
-                  <img
+                  <Image
                     src={blok.image.filename}
                     alt={blok.image.alt || blok.title || "Feature image"}
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 50vw"
                   />
                 </div>
               </div>
