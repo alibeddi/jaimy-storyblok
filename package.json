@@ -13,9 +13,13 @@
   "dependencies": {
     "@storyblok/js": "^4.2.1",
     "@storyblok/react": "^5.4.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.539.0",
     "next": "15.4.2",
     "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react-dom": "19.1.0",
+    "storyblok-rich-text-react-renderer": "^3.0.1",
+    "tailwind-merge": "^3.3.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
