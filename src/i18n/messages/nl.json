@@ -1,0 +1,108 @@
+{
+  "common": {
+    "loading": "Laden...",
+    "error": "Er is een fout opgetreden",
+    "retry": "Opnieuw proberen",
+    "cancel": "Annuleren",
+    "save": "Opslaan",
+    "submit": "Verzenden",
+    "next": "Volgende",
+    "previous": "Vorige",
+    "close": "Sluiten",
+    "open": "Openen",
+    "yes": "Ja",
+    "no": "Nee",
+    "home": "Home",
+    "about": "Over ons",
+    "contact": "Contact",
+    "services": "Diensten",
+    "blog": "Blog",
+    "readMore": "Lees meer",
+    "learnMore": "Meer informatie",
+    "getStarted": "Aan de slag",
+    "backToHome": "Terug naar home"
+  },
+  "navigation": {
+    "home": "Home",
+    "about": "Over ons",
+    "services": "Diensten",
+    "blog": "Blog",
+    "contact": "Contact",
+    "language": "Taal"
+  },
+  "forms": {
+    "required": "Dit veld is verplicht",
+    "email": "E-mail",
+    "name": "Naam",
+    "firstName": "Voornaam",
+    "lastName": "Achternaam",
+    "phone": "Telefoon",
+    "message": "Bericht",
+    "subject": "Onderwerp",
+    "company": "Bedrijf",
+    "address": "Adres",
+    "city": "Stad",
+    "postalCode": "Postcode",
+    "country": "Land",
+    "invalidEmail": "Voer een geldig e-mailadres in",
+    "invalidPhone": "Voer een geldig telefoonnummer in",
+    "success": "Formulier succesvol verzonden!",
+    "error": "Er is een fout opgetreden bij het verzenden van het formulier. Probeer het opnieuw.",
+    "sending": "Verzenden...",
+    "pleaseWait": "Even geduld..."
+  },
+  "hero": {
+    "title": "Welkom op ons platform",
+    "subtitle": "Ontdek geweldige oplossingen voor uw bedrijf",
+    "cta": "Begin vandaag nog"
+  },
+  "features": {
+    "title": "Onze functies",
+    "subtitle": "Alles wat u nodig heeft om te slagen"
+  },
+  "testimonials": {
+    "title": "Wat onze klanten zeggen",
+    "subtitle": "Echte feedback van echte klanten"
+  },
+  "faq": {
+    "title": "Veelgestelde vragen",
+    "subtitle": "Vind antwoorden op veelgestelde vragen"
+  },
+  "blog": {
+    "title": "Laatste nieuws & inzichten",
+    "subtitle": "Blijf op de hoogte van onze laatste artikelen",
+    "readTime": "min leestijd",
+    "publishedOn": "Gepubliceerd op",
+    "author": "Auteur",
+    "tags": "Tags",
+    "relatedPosts": "Gerelateerde berichten",
+    "searchPlaceholder": "Zoek artikelen...",
+    "noResults": "Geen artikelen gevonden",
+    "loadMore": "Meer artikelen laden"
+  },
+  "footer": {
+    "copyright": "Alle rechten voorbehouden.",
+    "privacyPolicy": "Privacybeleid",
+    "termsOfService": "Servicevoorwaarden",
+    "cookiePolicy": "Cookiebeleid"
+  },
+  "errors": {
+    "404": {
+      "title": "Pagina niet gevonden",
+      "description": "De pagina die u zoekt bestaat niet.",
+      "backToHome": "Terug naar home"
+    },
+    "500": {
+      "title": "Serverfout",
+      "description": "Er is iets misgegaan aan onze kant.",
+      "retry": "Opnieuw proberen"
+    }
+  },
+  "dates": {
+    "today": "Vandaag",
+    "yesterday": "Gisteren",
+    "daysAgo": "{count, plural, =1 {1 dag geleden} other {# dagen geleden}}",
+    "weeksAgo": "{count, plural, =1 {1 week geleden} other {# weken geleden}}",
+    "monthsAgo": "{count, plural, =1 {1 maand geleden} other {# maanden geleden}}"
+  }
+}
