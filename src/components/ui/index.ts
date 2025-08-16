@@ -47,6 +47,10 @@ export { default as BlogCard } from "./BlogCard/BlogCard";
 export { default as RichText } from "./RichText/RichText";
 export { default as ReviewStars } from "./ReviewStars/ReviewStars";
 
+// I18n Components
+export { default as LanguageSwitcher } from "./LanguageSwitcher/LanguageSwitcher";
+export { default as ErrorBoundary } from "./ErrorBoundary/ErrorBoundary";
+
 // Re-export types
 export type {
   ButtonProps,

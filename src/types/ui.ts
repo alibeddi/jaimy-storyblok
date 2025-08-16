@@ -1,5 +1,8 @@
 import { ReactNode } from "react";
 
+// Import i18n types
+export type { LanguageSwitcherProps } from "./i18n";
+
 // Base component props that all UI components can extend
 export interface BaseUIProps {
   className?: string;
@@ -64,7 +67,17 @@ export type TextAlign = "left" | "center" | "right" | "justify";
 export type TextColor = "primary" | "secondary" | "white" | "gray" | "black";
 
 // Add FontWeight type definition
-export type FontWeight = "normal" | "bold" | "light" | "medium" | "semibold" | "300" | "400" | "500" | "600" | "700";
+export type FontWeight =
+  | "normal"
+  | "bold"
+  | "light"
+  | "medium"
+  | "semibold"
+  | "300"
+  | "400"
+  | "500"
+  | "600"
+  | "700";
 
 export interface HeadingProps extends BaseUIProps {
   tag?: HeadingTag;
