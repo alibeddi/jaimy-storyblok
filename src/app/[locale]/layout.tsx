@@ -4,7 +4,7 @@ import {Inter} from 'next/font/google'
 import {notFound} from 'next/navigation'
 import {getMessages} from 'next-intl/server'
 import '../globals.css'
-import LanguageSwitcher from '@/components/LanguageSwitcher'
+// Removed global switcher; header contains the inline switcher matching design
 import { storyblokInit, apiPlugin } from "@storyblok/react/rsc";
 import StoryblokProvider from "@/components/StoryblokProvider";
 import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
@@ -80,9 +80,6 @@ export default async function LocaleLayout({
       <body className={inter.className}>
         <AnalyticsProvider>
           <NextIntlClientProvider messages={messages} locale={locale} timeZone="Europe/Brussels">
-            <div style={{padding: '8px 12px'}}>
-              <LanguageSwitcher />
-            </div>
             <StoryblokProvider>{children}</StoryblokProvider>
           </NextIntlClientProvider>
         </AnalyticsProvider>
