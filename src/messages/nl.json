@@ -1,0 +1,9 @@
+{
+  "common": {
+    "language": "Nederlands",
+    "hello": "Hallo"
+  },
+  "home": {
+    "title": "Welkom"
+  }
+}

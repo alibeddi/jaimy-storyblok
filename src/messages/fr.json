@@ -1,0 +1,9 @@
+{
+  "common": {
+    "language": "Français",
+    "hello": "Bonjour"
+  },
+  "home": {
+    "title": "Bienvenue"
+  }
+}
