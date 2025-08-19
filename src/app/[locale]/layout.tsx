@@ -1,9 +1,11 @@
+import Script from "next/script";
+import "../globals.css";
+// Removed global switcher; header contains the inline switcher matching design
 import { NextIntlClientProvider } from "next-intl";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { notFound } from "next/navigation";
 import { getMessages } from "next-intl/server";
-import Script from "next/script";
 import "../globals.css";
 // Removed global switcher; header contains the inline switcher matching design
 import { storyblokInit, apiPlugin } from "@storyblok/react/rsc";
@@ -37,6 +39,7 @@ storyblokInit({
     hero: Hero,
     steps: Steps,
     slider: Body,
+    body: Body,
     blogs: Blogs,
     reviews: Reviews,
     social_proof: SocialProof,
@@ -61,7 +64,7 @@ export const metadata: Metadata = {
   description: "A modern website built with Next.js and Storyblok",
 };
 
-export default async function LocaleLayout({
+export default async function RootLayout({
   children,
   params,
 }: {

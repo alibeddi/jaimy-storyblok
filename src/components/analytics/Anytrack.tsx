@@ -2,7 +2,7 @@
 
 import Script from "next/script";
 import { useEffect } from "react";
-import { AnytrackGlobal, getAnytrack } from "./AnytrackUtils";
+import { AnytrackGlobal, getAnytrack, callAnytrack } from "./AnytrackUtils";
 
 interface AnytrackProps {
   trackingId: string;
@@ -22,27 +22,27 @@ export default function Anytrack({
   useEffect(() => {
     // Initialize Anytrack when component mounts
     if (typeof window !== "undefined") {
-      const at: AnytrackGlobal | undefined = getAnytrack();
+      const at: AnytrackGlobal | undefined = (():
+        | AnytrackGlobal
+        | undefined => {
+        const api = getAnytrack();
+        return typeof api === "function" ? undefined : api;
+      })();
       if (at?.init) {
         at.init(trackingId);
+      } else {
+        // Fallback to queue-style API
+        callAnytrack("init", trackingId);
       }
 
       // Configure tracking options
-      if (enableFormTracking && at?.enableFormTracking) {
-        at.enableFormTracking();
-      }
+      if (enableFormTracking) callAnytrack("enableFormTracking");
 
-      if (enableScrollTracking && at?.enableScrollTracking) {
-        at.enableScrollTracking();
-      }
+      if (enableScrollTracking) callAnytrack("enableScrollTracking");
 
-      if (enableClickTracking && at?.enableClickTracking) {
-        at.enableClickTracking();
-      }
+      if (enableClickTracking) callAnytrack("enableClickTracking");
 
-      if (enableConversionTracking && at?.enableConversionTracking) {
-        at.enableConversionTracking();
-      }
+      if (enableConversionTracking) callAnytrack("enableConversionTracking");
     }
   }, [
     trackingId,
@@ -62,9 +62,11 @@ export default function Anytrack({
         onLoad={() => {
           // Script loaded, initialize Anytrack
           if (typeof window !== "undefined") {
-            const at: AnytrackGlobal | undefined = getAnytrack();
-            if (at?.init) {
-              at.init(trackingId);
+            const api = getAnytrack();
+            if (typeof api === "function") {
+              callAnytrack("init", trackingId);
+            } else if (api?.init) {
+              api.init(trackingId);
             }
           }
         }}

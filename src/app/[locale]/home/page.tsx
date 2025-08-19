@@ -10,9 +10,8 @@ import Header from "@/components/blocks/Header";
 import Hero from "@/components/blocks/Hero";
 import Steps from "@/components/blocks/Steps";
 
-
 import { getStoryblokApi } from "@storyblok/react/rsc";
-import { draftMode } from "next/headers";
+import { getStoryblokQueryParams } from "@/lib/storyblok";
 import {
   HeaderBlok,
   HeroBlok,
@@ -39,7 +38,7 @@ export default async function Home() {
     data as { story?: { content?: { body?: StoryBlock[] } } }
   ).story?.content;
   const blocks = storyContent?.body || [];
-  console.log("storyContent", storyContent);
+
   // Find specific blocks
   const headerBlock = blocks.find(
     (block: StoryBlock) => block.component === "header"
@@ -68,37 +67,31 @@ export default async function Home() {
   const footerBlock = blocks.find(
     (block: StoryBlock) => block.component === "footer"
   );
-  console.log("blocks", blocks);
-  console.log("faqBlock", faqBlock);
 
   return (
     <div>
       <Header blok={headerBlock as HeaderBlok} />
-    
+
       {heroBlock && <Hero blok={heroBlock as HeroBlok} />}
       {<Steps blok={stepsBlock as StepsBlok} />}
-    
+
       <Slider blok={sliderBlock as SliderBlok} />
       {<Blogs blok={blogsBlock as BlogsBlok} />}
       <Reviews blok={reviewsBlock as ReviewsBlok} />
       <SocialProof blok={socialProofBlock as SocialProofBlok} />
       {faqBlock && <FAQ blok={faqBlock as FAQBlok} />}
       <Footer blok={footerBlock as FooterBlok} />
-    
     </div>
   );
 }
 
 async function fetchData() {
-  // const { isEnabled } = await draftMode();
-
-  const sbParams = {
-    version: "draft",
-    // version: isEnabled ? "draft" : ("published" as const),
-  };
-
+  const {version, language} = await getStoryblokQueryParams()
   const storyblokApi = getStoryblokApi();
   return storyblokApi.get("cdn/stories/home", {
-    version: sbParams.version as "draft" | "published",
+    version,
+    language,
   });
 }
+
+

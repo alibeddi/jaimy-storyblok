@@ -15,57 +15,121 @@ export interface AnytrackGlobal {
   trackPurchase?: (value: number, currency?: string, orderId?: string) => void;
 }
 
-export const getAnytrack = (): AnytrackGlobal | undefined => {
+export type AnytrackAPI = AnytrackGlobal | ((...args: unknown[]) => void);
+
+export const getAnytrack = (): AnytrackAPI | undefined => {
   if (typeof window === "undefined") return undefined;
   const w = window as unknown as {
-    anytrack?: AnytrackGlobal;
-    AnyTrack?: AnytrackGlobal;
+    anytrack?: AnytrackAPI;
+    AnyTrack?: AnytrackAPI;
   };
   return w.anytrack ?? w.AnyTrack;
+};
+
+export const callAnytrack = (method: string, ...args: unknown[]) => {
+  const api = getAnytrack();
+  if (!api) return;
+  if (typeof api === "function") {
+    // Queue-style API: AnyTrack('method', ...args)
+    api(method, ...args);
+    return;
+  }
+  // Object-style API
+  switch (method) {
+    case "track":
+      api.track?.(
+        args[0] as string,
+        args[1] as Record<string, unknown> | undefined
+      );
+      break;
+    case "identify":
+      api.identify?.(
+        args[0] as string,
+        args[1] as Record<string, unknown> | undefined
+      );
+      break;
+    case "page":
+      api.page?.(
+        args[0] as string | undefined,
+        args[1] as Record<string, unknown> | undefined
+      );
+      break;
+    case "setUserProperties":
+      api.setUserProperties?.(args[0] as Record<string, unknown>);
+      break;
+    case "trackConversion":
+      api.trackConversion?.(
+        args[0] as number | undefined,
+        args[1] as string | undefined
+      );
+      break;
+    case "trackLead":
+      api.trackLead?.(
+        args[0] as number | undefined,
+        args[1] as string | undefined
+      );
+      break;
+    case "trackPurchase":
+      api.trackPurchase?.(
+        args[0] as number,
+        (args[1] as string | undefined) ?? "EUR",
+        args[2] as string | undefined
+      );
+      break;
+    case "init":
+      api.init?.(args[0] as string);
+      break;
+    case "enableFormTracking":
+      api.enableFormTracking?.();
+      break;
+    case "enableScrollTracking":
+      api.enableScrollTracking?.();
+      break;
+    case "enableClickTracking":
+      api.enableClickTracking?.();
+      break;
+    case "enableConversionTracking":
+      api.enableConversionTracking?.();
+      break;
+  }
 };
 
 export const anytrackTrack = (
   event: string,
   properties?: Record<string, unknown>
 ) => {
-  const at = getAnytrack();
-  if (at) at.track(event, properties);
+  callAnytrack("track", event, properties);
 };
 
 export const anytrackIdentify = (
   userId: string,
   traits?: Record<string, unknown>
 ) => {
-  const at = getAnytrack();
-  if (at) at.identify(userId, traits);
+  callAnytrack("identify", userId, traits);
 };
 
 export const anytrackPage = (
   pageName?: string,
   properties?: Record<string, unknown>
 ) => {
-  const at = getAnytrack();
-  if (at) at.page(pageName, properties);
+  callAnytrack("page", pageName, properties);
 };
 
 export const anytrackSetUserProperties = (
   properties: Record<string, unknown>
 ) => {
-  const at = getAnytrack();
-  if (at) at.setUserProperties?.(properties);
+  callAnytrack("setUserProperties", properties);
 };
 
 export const anytrackTrackConversion = (
   value?: number,
   currency: string = "EUR"
 ) => {
-  const at = getAnytrack();
-  if (at) at.trackConversion?.(value, currency);
+  callAnytrack("trackConversion", value, currency);
 };
 
 export const anytrackTrackLead = (value?: number, currency: string = "EUR") => {
-  const at = getAnytrack();
-  if (at) at.trackLead?.(value, currency);
+  callAnytrack("trackLead", value, currency);
 };
 
 export const anytrackTrackPurchase = (
@@ -73,8 +137,7 @@ export const anytrackTrackPurchase = (
   currency: string = "EUR",
   orderId?: string
 ) => {
-  const at = getAnytrack();
-  if (at) at.trackPurchase?.(value, currency, orderId);
+  callAnytrack("trackPurchase", value, currency, orderId);
 };
 
 // Form tracking utilities

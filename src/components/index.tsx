@@ -1,7 +1,7 @@
-import React from 'react';
-import { storyblokEditable } from '@storyblok/react';
-import { componentMap } from './blok-map';
-import { SbBlokData } from '@storyblok/react';
+import React from "react";
+import { storyblokEditable } from "@storyblok/react";
+import { componentMap } from "./blok-map";
+import { SbBlokData } from "@storyblok/react";
 
 interface BlokData extends SbBlokData {
   component: string;
@@ -17,18 +17,18 @@ const Blok: React.FC<BlokProps> = ({ blok }) => {
 
   if (!Component) {
     console.error(
-      'Unknown component:',
+      "Unknown component:",
       blok.component,
-      'Available components:',
+      "Available components:",
       Object.keys(componentMap)
     );
     return (
       <div
         style={{
-          padding: '10px',
-          background: '#f8d7da',
-          color: '#721c24',
-          border: '1px solid #f5c6cb',
+          padding: "10px",
+          background: "#f8d7da",
+          color: "#721c24",
+          border: "1px solid #f5c6cb",
         }}
       >
         Unknown component: {blok.component}
