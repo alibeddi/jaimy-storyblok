@@ -2,6 +2,7 @@
 
 import Script from "next/script";
 import { useEffect } from "react";
+import { AnytrackGlobal, getAnytrack } from "./AnytrackUtils";
 
 interface AnytrackProps {
   trackingId: string;
@@ -21,25 +22,25 @@ export default function Anytrack({
   useEffect(() => {
     // Initialize Anytrack when component mounts
     if (typeof window !== "undefined") {
-      const at: any = (window as any).anytrack || (window as any).AnyTrack;
-      if (at && typeof at.init === "function") {
+      const at: AnytrackGlobal | undefined = getAnytrack();
+      if (at?.init) {
         at.init(trackingId);
       }
 
       // Configure tracking options
-      if (enableFormTracking && (at as any)?.enableFormTracking) {
+      if (enableFormTracking && at?.enableFormTracking) {
         at.enableFormTracking();
       }
 
-      if (enableScrollTracking && (at as any)?.enableScrollTracking) {
+      if (enableScrollTracking && at?.enableScrollTracking) {
         at.enableScrollTracking();
       }
 
-      if (enableClickTracking && (at as any)?.enableClickTracking) {
+      if (enableClickTracking && at?.enableClickTracking) {
         at.enableClickTracking();
       }
 
-      if (enableConversionTracking && (at as any)?.enableConversionTracking) {
+      if (enableConversionTracking && at?.enableConversionTracking) {
         at.enableConversionTracking();
       }
     }
@@ -61,9 +62,8 @@ export default function Anytrack({
         onLoad={() => {
           // Script loaded, initialize Anytrack
           if (typeof window !== "undefined") {
-            const at: any =
-              (window as any).anytrack || (window as any).AnyTrack;
-            if (at && typeof at.init === "function") {
+            const at: AnytrackGlobal | undefined = getAnytrack();
+            if (at?.init) {
               at.init(trackingId);
             }
           }
@@ -87,14 +87,14 @@ declare global {
   interface Window {
     anytrack: {
       init: (trackingId: string) => void;
-      track: (event: string, properties?: Record<string, any>) => void;
-      identify: (userId: string, traits?: Record<string, any>) => void;
-      page: (pageName?: string, properties?: Record<string, any>) => void;
+      track: (event: string, properties?: Record<string, unknown>) => void;
+      identify: (userId: string, traits?: Record<string, unknown>) => void;
+      page: (pageName?: string, properties?: Record<string, unknown>) => void;
       enableFormTracking: () => void;
       enableScrollTracking: () => void;
       enableClickTracking: () => void;
       enableConversionTracking: () => void;
-      setUserProperties: (properties: Record<string, any>) => void;
+      setUserProperties: (properties: Record<string, unknown>) => void;
       trackConversion: (value?: number, currency?: string) => void;
       trackLead: (value?: number, currency?: string) => void;
       trackPurchase: (

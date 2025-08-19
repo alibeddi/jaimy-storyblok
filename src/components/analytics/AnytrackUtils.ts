@@ -1,14 +1,32 @@
 // Anytrack utility functions for tracking events
 
-const getAnytrack = () => {
+export interface AnytrackGlobal {
+  init: (trackingId: string) => void;
+  track: (event: string, properties?: Record<string, unknown>) => void;
+  identify: (userId: string, traits?: Record<string, unknown>) => void;
+  page: (pageName?: string, properties?: Record<string, unknown>) => void;
+  enableFormTracking?: () => void;
+  enableScrollTracking?: () => void;
+  enableClickTracking?: () => void;
+  enableConversionTracking?: () => void;
+  setUserProperties?: (properties: Record<string, unknown>) => void;
+  trackConversion?: (value?: number, currency?: string) => void;
+  trackLead?: (value?: number, currency?: string) => void;
+  trackPurchase?: (value: number, currency?: string, orderId?: string) => void;
+}
+
+export const getAnytrack = (): AnytrackGlobal | undefined => {
   if (typeof window === "undefined") return undefined;
-  // Support both possible globals
-  return (window as any).anytrack || (window as any).AnyTrack;
+  const w = window as unknown as {
+    anytrack?: AnytrackGlobal;
+    AnyTrack?: AnytrackGlobal;
+  };
+  return w.anytrack ?? w.AnyTrack;
 };
 
 export const anytrackTrack = (
   event: string,
-  properties?: Record<string, any>
+  properties?: Record<string, unknown>
 ) => {
   const at = getAnytrack();
   if (at) at.track(event, properties);
@@ -16,7 +34,7 @@ export const anytrackTrack = (
 
 export const anytrackIdentify = (
   userId: string,
-  traits?: Record<string, any>
+  traits?: Record<string, unknown>
 ) => {
   const at = getAnytrack();
   if (at) at.identify(userId, traits);
@@ -24,15 +42,17 @@ export const anytrackIdentify = (
 
 export const anytrackPage = (
   pageName?: string,
-  properties?: Record<string, any>
+  properties?: Record<string, unknown>
 ) => {
   const at = getAnytrack();
   if (at) at.page(pageName, properties);
 };
 
-export const anytrackSetUserProperties = (properties: Record<string, any>) => {
+export const anytrackSetUserProperties = (
+  properties: Record<string, unknown>
+) => {
   const at = getAnytrack();
-  if (at) at.setUserProperties(properties);
+  if (at) at.setUserProperties?.(properties);
 };
 
 export const anytrackTrackConversion = (
@@ -40,12 +60,12 @@ export const anytrackTrackConversion = (
   currency: string = "EUR"
 ) => {
   const at = getAnytrack();
-  if (at) at.trackConversion(value, currency);
+  if (at) at.trackConversion?.(value, currency);
 };
 
 export const anytrackTrackLead = (value?: number, currency: string = "EUR") => {
   const at = getAnytrack();
-  if (at) at.trackLead(value, currency);
+  if (at) at.trackLead?.(value, currency);
 };
 
 export const anytrackTrackPurchase = (
@@ -54,14 +74,14 @@ export const anytrackTrackPurchase = (
   orderId?: string
 ) => {
   const at = getAnytrack();
-  if (at) at.trackPurchase(value, currency, orderId);
+  if (at) at.trackPurchase?.(value, currency, orderId);
 };
 
 // Form tracking utilities
 export const trackFormSubmission = (
   formName: string,
   success: boolean,
-  formData?: Record<string, any>
+  formData?: Record<string, unknown>
 ) => {
   anytrackTrack("form_submitted", {
     form_name: formName,
@@ -86,7 +106,7 @@ export const trackFormFieldInteraction = (
 export const trackButtonClick = (
   buttonText: string,
   buttonLocation: string,
-  additionalProps?: Record<string, any>
+  additionalProps?: Record<string, unknown>
 ) => {
   anytrackTrack("button_clicked", {
     button_text: buttonText,
@@ -196,7 +216,7 @@ export const trackOutboundLink = (
 // Custom event tracking with validation
 export const trackCustomEvent = (
   eventName: string,
-  properties?: Record<string, any>
+  properties?: Record<string, unknown>
 ) => {
   // Validate event name format
   if (!eventName || typeof eventName !== "string") {
@@ -207,7 +227,7 @@ export const trackCustomEvent = (
   // Sanitize properties (remove undefined values)
   const sanitizedProperties = properties
     ? Object.fromEntries(
-        Object.entries(properties).filter(([_, value]) => value !== undefined)
+        Object.entries(properties).filter((entry) => entry[1] !== undefined)
       )
     : undefined;
 

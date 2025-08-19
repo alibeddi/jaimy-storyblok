@@ -2,11 +2,8 @@
 
 import React, { useEffect, useRef } from "react";
 import { storyblokEditable } from "@storyblok/react";
-import {
-  trackCustomEvent,
-  trackButtonClick,
-  trackFormSubmission,
-} from "@/components/analytics/AnytrackUtils";
+import { trackCustomEvent } from "@/components/analytics/AnytrackUtils";
+import { SbBlokData } from "@storyblok/react";
 
 interface AnytrackTrackerBlok {
   component: string;
@@ -20,13 +17,13 @@ interface AnytrackTrackerBlok {
     | "on_video_play"
     | "on_video_complete";
   scroll_threshold?: number;
-  event_properties?: Record<string, any>;
+  event_properties?: Record<string, unknown>;
   target_selector?: string;
   video_selector?: string;
   form_selector?: string;
   button_selector?: string;
   delay_ms?: number;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 interface AnytrackTrackerProps {
@@ -142,10 +139,11 @@ const AnytrackTracker: React.FC<AnytrackTrackerProps> = ({ blok }) => {
   }, [blok]);
 
   // This component doesn't render anything visible
+  const editable = storyblokEditable(blok as unknown as SbBlokData);
   return (
     <div
       ref={elementRef}
-      {...storyblokEditable(blok)}
+      {...editable}
       style={{ display: "none" }}
       data-anytrack-tracker={blok.event_name}
     />
@@ -153,4 +151,3 @@ const AnytrackTracker: React.FC<AnytrackTrackerProps> = ({ blok }) => {
 };
 
 export default AnytrackTracker;
-

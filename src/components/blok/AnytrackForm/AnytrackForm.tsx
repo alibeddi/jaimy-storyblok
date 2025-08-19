@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { storyblokEditable } from "@storyblok/react";
+import { SbBlokData, storyblokEditable } from "@storyblok/react";
 import {
   trackFormSubmission,
   trackFormFieldInteraction,
@@ -38,8 +38,8 @@ interface AnytrackFormBlok {
   lead_value?: number;
   lead_currency?: string;
   custom_event_name?: string;
-  custom_event_properties?: Record<string, any>;
-  [key: string]: any;
+  custom_event_properties?: Record<string, unknown>;
+  [key: string]: unknown;
 }
 
 interface AnytrackFormProps {
@@ -47,7 +47,7 @@ interface AnytrackFormProps {
 }
 
 const AnytrackForm: React.FC<AnytrackFormProps> = ({ blok }) => {
-  const [formData, setFormData] = useState<Record<string, any>>({});
+  const [formData, setFormData] = useState<Record<string, unknown>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<
     "idle" | "success" | "error"
@@ -55,7 +55,7 @@ const AnytrackForm: React.FC<AnytrackFormProps> = ({ blok }) => {
 
   useEffect(() => {
     // Initialize form data with empty values
-    const initialData: Record<string, any> = {};
+    const initialData: Record<string, unknown> = {};
     blok.form_fields.forEach((field) => {
       if (field.type === "checkbox") {
         initialData[field.name] = false;
@@ -74,7 +74,7 @@ const AnytrackForm: React.FC<AnytrackFormProps> = ({ blok }) => {
 
   const handleInputChange = (
     name: string,
-    value: any,
+    value: unknown,
     action: "focus" | "blur" | "change"
   ) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -129,11 +129,13 @@ const AnytrackForm: React.FC<AnytrackFormProps> = ({ blok }) => {
         setFormData({});
         setSubmitStatus("idle");
       }, 3000);
-    } catch (error) {
+    } catch (error: unknown) {
       console.error("Form submission error:", error);
 
       // Track failed form submission
-      trackFormSubmission(blok.form_title, false, { error: error.message });
+      const errorMessage =
+        error instanceof Error ? error.message : String(error);
+      trackFormSubmission(blok.form_title, false, { error: errorMessage });
       setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);
@@ -141,39 +143,49 @@ const AnytrackForm: React.FC<AnytrackFormProps> = ({ blok }) => {
   };
 
   const renderField = (field: AnytrackFormBlok["form_fields"][0]) => {
-    const commonProps = {
-      id: field.name,
-      name: field.name,
-      value: formData[field.name] || "",
-      onChange: (
-        e: React.ChangeEvent<
-          HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-        >
-      ) => handleInputChange(field.name, e.target.value, "change"),
-      onFocus: () =>
-        handleInputChange(field.name, formData[field.name], "focus"),
-      onBlur: () => handleInputChange(field.name, formData[field.name], "blur"),
-      required: field.required,
-      className:
-        "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent",
-    };
+    const baseClassName =
+      "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent";
 
     switch (field.type) {
       case "textarea":
         return (
           <textarea
-            {...commonProps}
+            id={field.name}
+            name={field.name}
+            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+              handleInputChange(field.name, e.target.value, "change")
+            }
+            onFocus={() =>
+              handleInputChange(field.name, formData[field.name], "focus")
+            }
+            onBlur={() =>
+              handleInputChange(field.name, formData[field.name], "blur")
+            }
+            required={field.required}
             rows={4}
             placeholder={field.placeholder}
-            className={`${commonProps.className} resize-vertical`}
+            value={String(formData[field.name] ?? "")}
+            className={`${baseClassName} resize-vertical`}
           />
         );
 
       case "select":
         return (
           <select
-            {...commonProps}
-            className={`${commonProps.className} cursor-pointer`}
+            id={field.name}
+            name={field.name}
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+              handleInputChange(field.name, e.target.value, "change")
+            }
+            onFocus={() =>
+              handleInputChange(field.name, formData[field.name], "focus")
+            }
+            onBlur={() =>
+              handleInputChange(field.name, formData[field.name], "blur")
+            }
+            required={field.required}
+            value={String(formData[field.name] ?? "")}
+            className={`${baseClassName} cursor-pointer`}
           >
             {field.options?.map((option, index) => (
               <option key={index} value={option}>
@@ -189,7 +201,7 @@ const AnytrackForm: React.FC<AnytrackFormProps> = ({ blok }) => {
             type="checkbox"
             id={field.name}
             name={field.name}
-            checked={formData[field.name] || false}
+            checked={Boolean(formData[field.name])}
             onChange={(e) =>
               handleInputChange(field.name, e.target.checked, "change")
             }
@@ -233,16 +245,32 @@ const AnytrackForm: React.FC<AnytrackFormProps> = ({ blok }) => {
       default:
         return (
           <input
-            {...commonProps}
+            id={field.name}
+            name={field.name}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              handleInputChange(field.name, e.target.value, "change")
+            }
+            onFocus={() =>
+              handleInputChange(field.name, formData[field.name], "focus")
+            }
+            onBlur={() =>
+              handleInputChange(field.name, formData[field.name], "blur")
+            }
+            required={field.required}
             type={field.type}
             placeholder={field.placeholder}
+            value={String(formData[field.name] ?? "")}
+            className={baseClassName}
           />
         );
     }
   };
 
   return (
-    <div {...storyblokEditable(blok)} className="max-w-md mx-auto">
+    <div
+      {...storyblokEditable(blok as unknown as SbBlokData)}
+      className="max-w-md mx-auto"
+    >
       <form onSubmit={handleSubmit} className="space-y-6">
         {blok.form_title && (
           <h3 className="text-lg font-semibold text-gray-900">
@@ -299,4 +327,3 @@ const AnytrackForm: React.FC<AnytrackFormProps> = ({ blok }) => {
 };
 
 export default AnytrackForm;
-
