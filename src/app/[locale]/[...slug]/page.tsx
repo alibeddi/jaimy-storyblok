@@ -1,3 +1,6 @@
+ /* eslint-disable @typescript-eslint/no-explicit-any */
+
+
 export const dynamic = "force-dynamic";
 
 import { getStoryblokApi } from "@storyblok/react/rsc";
@@ -12,10 +15,12 @@ interface StoryBlock {
   [key: string]: unknown;
 }
 
-interface PageProps {
+interface Props {
   params: {
+    locale: string;
     slug: string[];
   };
+  searchParams?: { [key: string]: string | string[] | undefined };
 }
 
 interface BlokData extends SbBlokData {
@@ -23,7 +28,7 @@ interface BlokData extends SbBlokData {
   _uid: string;
 }
 
-export default async function DynamicPage({ params }: PageProps) {
+export default async function DynamicPage({ params }: any) {
   const slug = params.slug ? params.slug.join("/") : "home";
 
   try {
@@ -62,7 +67,7 @@ async function fetchStoryblokData(slug: string) {
   return storyblokApi.get(`cdn/stories/${slug}`, { version: sbParams.version });
 }
 
-export async function generateMetadata({ params }: PageProps) {
+export async function generateMetadata({ params }: any) {
   const slug = params.slug ? params.slug.join("/") : "home";
 
   try {
