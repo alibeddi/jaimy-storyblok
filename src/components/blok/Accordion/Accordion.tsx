@@ -1,7 +1,7 @@
 import React from 'react';
 import { storyblokEditable } from '@storyblok/react';
 import AccordionUI from '../../ui/Accordion';
-import Blok from '../../index';
+import NestedBlok from '../../NestedBlok'; // Use NestedBlok instead of Blok
 import cn from 'classnames';
 import { SbBlokData } from '@storyblok/react';
 
@@ -69,8 +69,9 @@ const Accordion: React.FC<AccordionProps> = ({ blok }) => {
         multiple={blok.multiple}
         {...storyblokEditable(blok)}
       >
+        
         {blok.children?.map((child, index) => (
-          <Blok key={child._uid} blok={{ ...child, index }} />
+          <NestedBlok key={child._uid} blok={{ ...child, index }} />
         ))}
       </AccordionUI>
     </>

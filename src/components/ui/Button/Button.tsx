@@ -24,6 +24,7 @@ const Button: React.FC<ButtonProps> = ({
   children,
   relation = [],
   disabled = false,
+  disableNofollow, // Add this line to destructure the prop
   ...rest
 }) => {
   const hasIcon = icon && icon !== "none" && icon !== "default";
@@ -85,11 +86,16 @@ const Button: React.FC<ButtonProps> = ({
 
   // Link variant
   if (type === "link" && to) {
+    // Calculate rel attribute based on disableNofollow
+    const relValue = disableNofollow 
+      ? relation?.filter(r => r !== 'nofollow').join(" ") || undefined
+      : relation?.join(" ") || undefined;
+    
     return (
       <Link
         href={to}
         target={target}
-        rel={relation?.join(" ") || undefined}
+        rel={relValue}
         className={cn(
           "inline-flex items-center gap-2 text-sm text-foreground hover:text-foreground/80 transition-colors",
           iconPosition === "right" && "flex-row-reverse",

@@ -1,4 +1,3 @@
-"use client";
 
 import React from "react";
 import { cn } from "@/lib/utils";
@@ -11,6 +10,7 @@ import {
 } from "@/types/ui";
 import Icon from "../Icon/Icon";
 import Image from "../Image/Image";
+import { StoryblokComponent } from "@storyblok/react"; // Add this import
 
 const contentWidths: Record<ContentWidth, string> = {
   "1/4": "w-full md:w-1/4",
@@ -66,8 +66,8 @@ const BannerConstrained: React.FC<BannerProps> = ({
           {children}
           {content?.map((child: StoryblokContentItem, index: number) => (
             <div key={child._uid || index}>
-              {/* Content would be rendered here with Storyblok components */}
-              {JSON.stringify(child)}
+              {/* Render Storyblok components properly instead of JSON */}
+              <StoryblokComponent blok={child} />
             </div>
           ))}
         </div>

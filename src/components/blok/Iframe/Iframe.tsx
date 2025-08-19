@@ -1,4 +1,4 @@
- /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import { storyblokEditable } from '@storyblok/react';
 import cn from 'classnames';
@@ -36,12 +36,24 @@ const Iframe: React.FC<IframeProps> = ({ blok }) => {
 		'w-full flex justify-center': true,
 	});
 
+	// Use form_id instead of formId to match Storyblok data structure
 	const formId = blok.formId || '';
 	const width = blok.width || '100%';
-	const height = blok.height || '400';
+	const height = blok.height || '600px'; // Increased default height for better form visibility
 	const locale = blok.locale || 'fr';
 	const sandbox =
 		blok.sandbox || 'allow-same-origin allow-scripts allow-popups allow-forms';
+
+	// Don't render if no form ID is provided
+	if (!formId) {
+		return (
+			<div {...storyblokEditable(blok)} className={className}>
+				<div className="p-4 text-center text-gray-500 border border-dashed border-gray-300 rounded">
+					No form ID provided
+				</div>
+			</div>
+		);
+	}
 
 	return (
 		<div {...storyblokEditable(blok)} className={className}>
@@ -51,8 +63,16 @@ const Iframe: React.FC<IframeProps> = ({ blok }) => {
 				width={width}
 				height={height}
 				sandbox={sandbox}
-				className="rounded border"
+				className="rounded border w-full min-h-[400px] max-w-full"
 				title="Embedded form"
+				style={{
+					width: width,
+					height: height,
+					minHeight: '400px', // Ensure minimum height for form visibility
+					maxWidth: '100%', // Prevent overflow
+					border: 'none', // Clean appearance
+				}}
+				loading="lazy" // Improve performance
 			></iframe>
 		</div>
 	);

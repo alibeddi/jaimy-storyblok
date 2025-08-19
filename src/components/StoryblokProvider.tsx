@@ -10,6 +10,11 @@ import Reviews from "./blocks/Reviews";
 import SocialProof from "./blocks/SocialProof";
 import FAQ from "./blocks/FAQ";
 import Footer from "./blocks/Footer";
+import Accordion from "./blok/Accordion";
+import Banner from "./blok/Banner";
+import Iframe from "./blok/Iframe";
+import ButtonGroup from "./blok/ButtonGroup";
+// Import any other components you have
 
 // Initialize Storyblok for client-side
 storyblokInit({
@@ -26,6 +31,10 @@ storyblokInit({
     social_proof: SocialProof,
     faq: FAQ,
     footer: Footer,
+    accordion: Accordion,  
+   banner: Banner,
+   iframe:Iframe,
+   button_group: ButtonGroup
   },
 });
 

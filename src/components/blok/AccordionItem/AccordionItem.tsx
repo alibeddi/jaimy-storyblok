@@ -1,7 +1,7 @@
 import React from 'react';
 import { storyblokEditable } from '@storyblok/react';
 import AccordionItemUI from '../../ui/Accordion/AccordionItem';
-import Blok from '../../index';
+import NestedBlok from '../../NestedBlok';
 import { SbBlokData } from '@storyblok/react';
 
 interface ChildBlok extends SbBlokData {
@@ -28,7 +28,7 @@ const AccordionItem: React.FC<AccordionItemProps> = ({ blok }) => {
       {...storyblokEditable(blok)}
     >
       {blok.children?.map((child) => (
-        <Blok key={child._uid} blok={child} />
+        <NestedBlok key={child._uid} blok={child} />
       ))}
     </AccordionItemUI>
   );

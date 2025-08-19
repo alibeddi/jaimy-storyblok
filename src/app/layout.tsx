@@ -20,6 +20,11 @@ import Features from "@/components/blocks/Features";
 import AnalyticsButton from "../components/blocks/AnalyticsButton";
 import AnalyticsForm from "../components/blocks/AnalyticsForm";
 import AnalyticsVideo from "../components/blocks/AnalyticsVideo";
+import Banner from "@/components/blok/Banner";
+import Author from "@/components/blok/Author";
+import Accordion from "@/components/blok/Accordion";
+import Iframe from "@/components/blok/Iframe";
+import ButtonGroup from "@/components/blok/ButtonGroup";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -42,6 +47,12 @@ storyblokInit({
     analytics_button: AnalyticsButton,
     analytics_form: AnalyticsForm,
     analytics_video: AnalyticsVideo,
+    banner: Banner,
+    author: Author,
+    accordion: Accordion,
+    iframe: Iframe,
+    button_group: ButtonGroup
+    // iframe_card: IframeCard,
   },
 });
 

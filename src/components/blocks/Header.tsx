@@ -10,10 +10,10 @@ export default function Header({ blok }: { blok: HeaderBlok }) {
     >
       {/* Logo Section */}
       <div className="flex items-center">
-        {blok.logo && blok.logo.filename ? (
+        {blok?.logo && blok?.logo.filename ? (
           <Image
-            src={blok.logo.filename}
-            alt={blok.logo.alt || "Jaimy Logo"}
+            src={blok?.logo.filename}
+            alt={blok?.logo.alt || "Jaimy Logo"}
             width={200}
             height={50}
             className="h-[50px] w-auto"

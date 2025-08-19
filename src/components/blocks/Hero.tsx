@@ -38,7 +38,7 @@ export default function Hero({ blok }: { blok: HeroBlok }) {
                 color: "rgba(50,84,109,1)"
               }}
             >
-              {blok?.headline || "H1 Plan je ketelonderhoud"}
+              {blok?.headline || "--"}
             </h1>
 
             {/* Body Text - Mobile centered */}

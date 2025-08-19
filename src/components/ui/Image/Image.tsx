@@ -17,6 +17,11 @@ const Image: React.FC<ImageProps> = ({
   objectFit = "cover",
   ...rest
 }) => {
+  // Add validation for empty src
+  if (!src || src.trim() === "") {
+    return null;
+  }
+
   const imageClasses = cn(
     "transition-opacity duration-300",
     {

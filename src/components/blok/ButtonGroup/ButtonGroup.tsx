@@ -2,7 +2,7 @@
 import React from 'react';
 import ButtonGroupUI from '../../ui/ButtonGroup';
 import { storyblokEditable } from '@storyblok/react';
-import Blok from '../../index';
+import NestedBlok from '../../NestedBlok';
 
 interface ChildBlok {
 	component: string;
@@ -27,7 +27,7 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ({ blok }) => {
 		<div {...storyblokEditable(blok)}>
 			<ButtonGroupUI align={blok.align} orientation={blok.orientation}>
 				{blok.children?.map((child) => {
-					return <Blok blok={child} key={child._uid} />;
+					return <NestedBlok blok={child} key={child._uid} />;
 				})}
 			</ButtonGroupUI>
 		</div>
