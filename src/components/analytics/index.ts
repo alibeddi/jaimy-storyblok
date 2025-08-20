@@ -1,28 +1,33 @@
-// Main analytics components
-export { default as GoogleAnalytics } from "./GoogleAnalytics";
-export { default as FacebookPixel } from "./FacebookPixel";
+// Main analytics components (GA/FB removed; using Anytrack only)
+export { default as Anytrack } from "./Anytrack";
 export {
   AnalyticsProvider,
   useAnalytics,
   useVisibilityTracking,
 } from "./AnalyticsContext";
 
-// Analytics utility functions
-export {
-  trackGA4Event,
-  trackGA4PageView,
-  trackGA4Purchase,
-  trackGA4AddToCart,
-  trackGA4ViewItem,
-} from "./GoogleAnalytics";
+// Analytics utility functions (GA/FB removed)
 
+// Anytrack utility functions
 export {
-  trackFBEvent,
-  trackFBCustomEvent,
-  trackFBPurchase,
-  trackFBAddToCart,
-  trackFBViewContent,
-  trackFBLead,
-  trackFBContact,
-  trackFBCompleteRegistration,
-} from "./FacebookPixel";
+  anytrackTrack,
+  anytrackIdentify,
+  anytrackPage,
+  anytrackSetUserProperties,
+  anytrackTrackConversion,
+  anytrackTrackLead,
+  anytrackTrackPurchase,
+  trackFormSubmission,
+  trackFormFieldInteraction,
+  trackButtonClick,
+  trackScrollDepth,
+  trackTimeOnPage,
+  trackAddToCart,
+  trackRemoveFromCart,
+  trackViewProduct,
+  trackVideoPlay,
+  trackVideoComplete,
+  trackDownload,
+  trackOutboundLink,
+  trackCustomEvent,
+} from "./AnytrackUtils";

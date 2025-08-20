@@ -1,24 +1,16 @@
- /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import React, { createContext, useContext, useEffect, ReactNode } from "react";
 import { usePathname } from "next/navigation";
+// GA4 and Facebook Pixel removed per consolidation into Anytrack
 import {
-  trackGA4Event,
-  trackGA4PageView,
-  trackGA4Purchase,
-  trackGA4AddToCart,
-  trackGA4ViewItem,
-} from "./GoogleAnalytics";
-import {
-  trackFBEvent,
-  trackFBCustomEvent,
-  trackFBPurchase,
-  trackFBAddToCart,
-  trackFBViewContent,
-  trackFBLead,
-  trackFBContact,
-} from "./FacebookPixel";
+  anytrackTrack,
+  anytrackPage,
+  anytrackTrackConversion,
+  anytrackTrackLead,
+  anytrackTrackPurchase,
+} from "./AnytrackUtils";
 
 interface AnalyticsContextType {
   // Page tracking
@@ -89,11 +81,8 @@ export function AnalyticsProvider({ children }: AnalyticsProviderProps) {
     const currentUrl = url || window.location.href;
     const currentTitle = title || document.title;
 
-    // Track in GA4
-    trackGA4PageView(currentUrl, currentTitle);
-
-    // Track in Facebook Pixel
-    trackFBEvent("PageView");
+    // Track in Anytrack
+    anytrackPage(currentTitle, { url: currentUrl });
   };
 
   const trackPurchase = (data: PurchaseData) => {
@@ -105,60 +94,37 @@ export function AnalyticsProvider({ children }: AnalyticsProviderProps) {
       contentIds,
     } = data;
 
-    // Track in GA4
-    trackGA4Purchase(transactionId, value, currency, items);
-
-    // Track in Facebook Pixel
-    trackFBPurchase(value, currency, contentIds);
+    // Track in Anytrack
+    anytrackTrackPurchase(value, currency, transactionId);
   };
 
   const trackAddToCart = (data: AddToCartData) => {
     const { value, currency = "EUR", items = [], contentIds } = data;
 
-    // Track in GA4
-    trackGA4AddToCart(currency, value, items);
-
-    // Track in Facebook Pixel
-    trackFBAddToCart(value, currency, contentIds);
+    // Track in Anytrack
+    anytrackTrack("add_to_cart", { value, currency, items });
   };
 
   const trackViewItem = (data: ViewItemData) => {
     const { value, currency = "EUR", items = [], contentIds } = data;
 
-    // Track in GA4
-    trackGA4ViewItem(currency, value || 0, items);
-
-    // Track in Facebook Pixel
-    trackFBViewContent(value, currency, contentIds);
+    // Track in Anytrack
+    anytrackTrack("view_item", { value, currency, items });
   };
 
   const trackLead = (value?: number, currency: string = "EUR") => {
-    // Track in GA4
-    trackGA4Event("generate_lead", {
-      value,
-      currency,
-    });
-
-    // Track in Facebook Pixel
-    trackFBLead(value, currency);
+    // Track in Anytrack
+    anytrackTrackLead(value, currency);
   };
 
   const trackContact = () => {
-    // Track in GA4
-    trackGA4Event("contact", {
-      engagement_time_msec: 1000,
-    });
-
-    // Track in Facebook Pixel
-    trackFBContact();
+    // Track in Anytrack
+    anytrackTrack("contact", { engagement_time_msec: 1000 });
   };
 
   const trackCustomEvent = (name: string, parameters?: Record<string, any>) => {
-    // Track in GA4
-    trackGA4Event(name, parameters);
-
-    // Track in Facebook Pixel as custom event
-    trackFBCustomEvent(name, parameters);
+    // Track in Anytrack
+    anytrackTrack(name, parameters);
   };
 
   const trackFormSubmission = (formName: string, success: boolean) => {
@@ -168,13 +134,8 @@ export function AnalyticsProvider({ children }: AnalyticsProviderProps) {
       engagement_time_msec: 1000,
     };
 
-    // Track in GA4
-    trackGA4Event(success ? "form_submit" : "form_error", eventData);
-
-    // Track in Facebook Pixel
-    if (success) {
-      trackFBCustomEvent("FormSubmit", { form_name: formName });
-    }
+    // Track in Anytrack
+    anytrackTrack(success ? "form_submit" : "form_error", eventData);
   };
 
   const trackNewsletterSignup = (source?: string) => {
@@ -183,12 +144,8 @@ export function AnalyticsProvider({ children }: AnalyticsProviderProps) {
       source: source || "website",
     };
 
-    // Track in GA4
-    trackGA4Event("sign_up", eventData);
-
-    // Track in Facebook Pixel
-    trackFBEvent("CompleteRegistration");
-    trackFBCustomEvent("NewsletterSignup", eventData);
+    // Track in Anytrack
+    anytrackTrack("newsletter_signup", eventData);
   };
 
   const trackVideoPlay = (videoTitle: string, duration?: number) => {
@@ -197,11 +154,8 @@ export function AnalyticsProvider({ children }: AnalyticsProviderProps) {
       video_duration: duration,
     };
 
-    // Track in GA4
-    trackGA4Event("video_play", eventData);
-
-    // Track in Facebook Pixel
-    trackFBCustomEvent("VideoPlay", eventData);
+    // Track in Anytrack
+    anytrackTrack("video_play", eventData);
   };
 
   const trackDownload = (fileName: string, fileType?: string) => {
@@ -211,11 +165,8 @@ export function AnalyticsProvider({ children }: AnalyticsProviderProps) {
       link_url: window.location.href,
     };
 
-    // Track in GA4
-    trackGA4Event("file_download", eventData);
-
-    // Track in Facebook Pixel
-    trackFBCustomEvent("Download", eventData);
+    // Track in Anytrack
+    anytrackTrack("file_download", eventData);
   };
 
   const trackOutboundClick = (url: string, linkText?: string) => {
@@ -225,11 +176,8 @@ export function AnalyticsProvider({ children }: AnalyticsProviderProps) {
       outbound: true,
     };
 
-    // Track in GA4
-    trackGA4Event("click", eventData);
-
-    // Track in Facebook Pixel
-    trackFBCustomEvent("OutboundClick", eventData);
+    // Track in Anytrack
+    anytrackTrack("outbound_click", eventData);
   };
 
   const value: AnalyticsContextType = {

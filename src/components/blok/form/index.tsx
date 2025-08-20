@@ -1,3 +1,4 @@
+'use client'
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useRef, createContext, ChangeEvent, FormEvent, FocusEvent } from 'react';
 import { StoryblokComponent } from '@storyblok/react';

@@ -1,6 +1,7 @@
 import { storyblokEditable } from "@storyblok/react/rsc";
 import { HeaderBlok } from "@/types/storyblok";
-import Image from 'next/image';
+import Image from "next/image";
+import InlineLanguageSwitcher from "@/components/InlineLanguageSwitcher";
 
 export default function Header({ blok }: { blok: HeaderBlok }) {
   return (
@@ -70,24 +71,7 @@ export default function Header({ blok }: { blok: HeaderBlok }) {
 
         {/* Language Selector */}
         <div className="flex items-center">
-          <button className="px-4 py-2 bg-gray-100 rounded-lg text-gray-400 flex items-center space-x-2 border border-dashed border-blue-500">
-            <span>Français</span>
-            <div className="w-6 h-6 bg-[#AF1B3C] rounded-full flex items-center justify-center">
-              <svg
-                className="w-3 h-3 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
-            </div>
-          </button>
+          <InlineLanguageSwitcher />
         </div>
       </div>
     </header>
