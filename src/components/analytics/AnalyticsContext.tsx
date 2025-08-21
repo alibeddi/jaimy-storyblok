@@ -10,6 +10,7 @@ import {
   anytrackTrackConversion,
   anytrackTrackLead,
   anytrackTrackPurchase,
+  debugAnytrackCommands,
 } from "./AnytrackUtils";
 
 interface AnalyticsContextType {
@@ -81,8 +82,14 @@ export function AnalyticsProvider({ children }: AnalyticsProviderProps) {
     const currentUrl = url || window.location.href;
     const currentTitle = title || document.title;
 
-    // Track in Anytrack
-    anytrackPage(currentTitle, { url: currentUrl });
+    try {
+      // Track in Anytrack
+      anytrackPage(currentTitle, { url: currentUrl });
+    } catch (error) {
+      console.error("Anytrack page tracking failed:", error);
+      // Debug AnyTrack commands to understand what's available
+      debugAnytrackCommands();
+    }
   };
 
   const trackPurchase = (data: PurchaseData) => {
@@ -94,8 +101,12 @@ export function AnalyticsProvider({ children }: AnalyticsProviderProps) {
       contentIds,
     } = data;
 
-    // Track in Anytrack
-    anytrackTrackPurchase(value, currency, transactionId);
+    try {
+      // Track in Anytrack
+      anytrackTrackPurchase(value, currency, transactionId);
+    } catch (error) {
+      console.error("Anytrack purchase tracking failed:", error);
+    }
   };
 
   const trackAddToCart = (data: AddToCartData) => {

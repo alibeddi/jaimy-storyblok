@@ -88,17 +88,17 @@
 @font-face {
   font-family: "Belfius Regular";
   src:
-    url("https://d1984299dl26rz.cloudfront.net/fonts/BelfiusNormal_regular.woff2")
+    url("https://d1984299dl26rz.cloudfront.net/fonts/belfius/BelfiusNormal_regular.woff2")
       format("woff2"),
-    url("https://d1984299dl26rz.cloudfront.net/fonts/BelfiusNormal_regular.woff")
+    url("https://d1984299dl26rz.cloudfront.net/fonts/belfius/BelfiusNormal_regular.woff")
       format("woff"),
-    url("https://d1984299dl26rz.cloudfront.net/fonts/BelfiusNormal_regular.ttf")
+    url("https://d1984299dl26rz.cloudfront.net/fonts/belfius/BelfiusNormal_regular.ttf")
       format("truetype"),
-    url("https://d1984299dl26rz.cloudfront.net/fonts/BelfiusNormal_regular.svg")
+    url("https://d1984299dl26rz.cloudfront.net/fonts/belfius/BelfiusNormal_regular.svg")
       format("svg"),
-    url("https://d1984299dl26rz.cloudfront.net/fonts/BelfiusNormal_regular.otf")
+    url("https://d1984299dl26rz.cloudfront.net/fonts/belfius/BelfiusNormal_regular.otf")
       format("opentype"),
-    url("https://d1984299dl26rz.cloudfront.net/fonts/BelfiusNormal_regular.eot")
+    url("https://d1984299dl26rz.cloudfront.net/fonts/belfius/BelfiusNormal_regular.eot")
       format("embedded-opentype");
   font-style: normal;
   font-display: swap;
@@ -108,17 +108,17 @@
 @font-face {
   font-family: "Belfius Bold";
   src:
-    url("https://d1984299dl26rz.cloudfront.net/fonts/BelfiusNormal_bold.woff2")
+    url("https://d1984299dl26rz.cloudfront.net/fonts/belfius/BelfiusNormal_bold.woff2")
       format("woff2"),
-    url("https://d1984299dl26rz.cloudfront.net/fonts/BelfiusNormal_bold.woff")
+    url("https://d1984299dl26rz.cloudfront.net/fonts/belfius/BelfiusNormal_bold.woff")
       format("woff"),
-    url("https://d1984299dl26rz.cloudfront.net/fonts/BelfiusNormal_bold.ttf")
+    url("https://d1984299dl26rz.cloudfront.net/fonts/belfius/BelfiusNormal_bold.ttf")
       format("truetype"),
-    url("https://d1984299dl26rz.cloudfront.net/fonts/BelfiusNormal_bold.svg")
+    url("https://d1984299dl26rz.cloudfront.net/fonts/belfius/BelfiusNormal_bold.svg")
       format("svg"),
-    url("https://d1984299dl26rz.cloudfront.net/fonts/BelfiusNormal_bold.otf")
+    url("https://d1984299dl26rz.cloudfront.net/fonts/belfius/BelfiusNormal_bold.otf")
       format("opentype"),
-    url("https://d1984299dl26rz.cloudfront.net/fonts/BelfiusNormal_bold.eot")
+    url("https://d1984299dl26rz.cloudfront.net/fonts/belfius/BelfiusNormal_bold.eot")
       format("embedded-opentype");
   font-style: normal;
   font-display: swap;
