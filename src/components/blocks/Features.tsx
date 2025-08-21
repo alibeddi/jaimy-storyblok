@@ -1,5 +1,8 @@
 import { storyblokEditable } from "@storyblok/react/rsc";
 import Image from 'next/image';
+import Button from "../blok/Button";
+import { ButtonBlok } from "../blok/Button/Button";
+
 
 interface FeaturesProps {
   blok: {
@@ -10,22 +13,15 @@ interface FeaturesProps {
       filename: string;
       alt?: string;
     };
-    cta_button?: [
-      {
-        label: string;
-        link: {
-          cached_url: string;
-          linktype: string;
-        };
-      },
-    ];
+    button?:ButtonBlok
+    
     image_position?: 'left' | 'right'; // Enhanced: More intuitive field name
     reverse_layout?: boolean; // Keep for backward compatibility
   };
 }
 
 export default function Features({ blok }: FeaturesProps) {
-  console.log(blok);
+  console.log(blok,'features blok');
   
   // Enhanced: Support both new image_position and legacy reverse_layout
   const imageOnRight = blok.image_position === 'right' || blok.reverse_layout;
@@ -75,15 +71,19 @@ export default function Features({ blok }: FeaturesProps) {
               )}
 
               {/* CTA Button */}
-              {blok.cta_button && blok.cta_button[0] && (
-                <div className="pt-2">
-                  <a
-                    href={blok.cta_button[0].link?.cached_url}
-                    className="inline-block bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 font-belfius-cta text-sm uppercase tracking-wide"
-                  >
-                    {blok.cta_button[0].label}
-                  </a>
-                </div>
+              {blok.button && blok.button[0] && (
+                // <div className="pt-2">
+                //   <a
+                //     href={blok.cta_button[0].link?.cached_url}
+                //     className="inline-block bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 font-belfius-cta text-sm uppercase tracking-wide"
+                //   >
+                //     {blok.cta_button[0].label}
+                //   </a>
+                // </div>
+                <Button 
+               className=""
+               blok={blok.button[0]}
+                />
               )}
             </div>
 

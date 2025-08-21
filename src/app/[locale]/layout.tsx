@@ -28,13 +28,14 @@ import AnalyticsForm from "@/components/blocks/AnalyticsForm";
 import AnalyticsVideo from "@/components/blocks/AnalyticsVideo";
 import AnytrackTracker from "@/components/blok/AnytrackTracker";
 import AnytrackForm from "@/components/blok/AnytrackForm";
+import Iframe from "@/components/blok/Iframe";
 
 // Initialize Storyblok for server-side rendering
 storyblokInit({
   accessToken: process.env.NEXT_PUBLIC_STORYBLOK_API_TOKEN!,
   use: [apiPlugin],
   components: {
-    page: Page,
+    // page: Page,
     header: Header,
     hero: Hero,
     steps: Steps,
@@ -45,12 +46,13 @@ storyblokInit({
     social_proof: SocialProof,
     faq: FAQ,
     footer: Footer,
-    features: Features,
+    feature: Features,
     analytics_button: AnalyticsButton,
     analytics_form: AnalyticsForm,
     analytics_video: AnalyticsVideo,
     anytrack_tracker: AnytrackTracker,
     anytrack_form: AnytrackForm,
+    iframe: Iframe,
   },
   apiOptions: {
     region: "eu",
@@ -86,7 +88,7 @@ export default async function RootLayout({
           strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html:
-              '!function(e,t,n,s,a){(a=t.createElement(n)).async=!0,a.src="https://assets.anytrack.io/fAFVGeG8J0x8.js",(t=t.getElementsByTagName(n)[0]).parentNode.insertBefore(a,t),e[s]=e[s]||function(){(e[s].q=e[s].q||[]).push(arguments)}}(window,document,"script","AnyTrack");',
+              '!function(e,t,n,s,a){(a=t.createElement(n)).async=!0,a.src="https://assets.anytrack.io/3zytzF8eQ1RA.js",(t=t.getElementsByTagName(n)[0]).parentNode.insertBefore(a,t),e[s]=e[s]||function(){(e[s].q=e[s].q||[]).push(arguments)}}(window,document,"script","AnyTrack");',
           }}
         />
       </head>

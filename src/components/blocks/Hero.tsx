@@ -1,12 +1,13 @@
 "use client";
 import { storyblokEditable } from "@storyblok/react/rsc";
-import { HeroBlok } from "@/types/storyblok";
+import { HeroBlok, IframeBlok } from "@/types/storyblok";
 import IframeComponent from "./IframeComponent";
 import Image from "next/image";
 import CurvedBackground from "../ui/CurvedBackground";
+import { StoryblokComponent } from "@storyblok/react";
 
 export default function Hero({ blok }: { blok: HeroBlok }) {
-  console.log(blok);
+
   return (
     <section
       {...storyblokEditable(blok)}
@@ -15,7 +16,7 @@ export default function Hero({ blok }: { blok: HeroBlok }) {
       {/* CurvedBackground with Hero image from Storyblok - Hidden on mobile, visible on larger screens */}
       <div className="hidden md:block">
         <CurvedBackground 
-          backgroundImage={blok?.hero_image?.filename || "/backgrounds/Hero_bg.png"}
+          backgroundImage={blok?.hero_image?.filename || ""}
           width="100%"
           height="100%"
           className=" absolute inset-0 hidden md:block "
@@ -23,7 +24,18 @@ export default function Hero({ blok }: { blok: HeroBlok }) {
         />
       </div>
 
-      {/* Main Content Container */}
+      
+      <div className="hidden md:block">
+        <CurvedBackground 
+          fillColor="#f0f4f8" 
+          width="100%"
+          height="100%"
+          className=" absolute inset-0 hidden md:block "
+          opacity={0.9}
+        />
+      </div>
+
+
       <div className="relative w-full max-w-[90%] mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 md:py-16 lg:py-20 transition-all duration-500 ease-in-out">
         
         {/* Mobile Layout - No card container, centered content */}
@@ -129,15 +141,22 @@ export default function Hero({ blok }: { blok: HeroBlok }) {
 
             {/* Iframe Component - Mobile */}
             <div className="w-full max-w-sm pt-6">
-              <div 
-                className="w-full aspect-[3/4] rounded-2xl bg-white overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
-                style={{
-                  boxShadow: "0 8px 24px rgba(0, 0, 0, 0.12)"
-                }}
-              >
-                {blok?.iframe_block ? (
-                  <IframeComponent blok={blok.iframe_block} />
-                ) : (
+              {blok?.iframe_block ? (
+                <div 
+                  className="w-full aspect-[3/4] rounded-2xl bg-white overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
+                  style={{
+                    boxShadow: "0 8px 24px rgba(0, 0, 0, 0.12)"
+                  }}
+                >
+                  <StoryblokComponent blok={blok.iframe_block?.[0] as IframeBlok} />
+                </div>
+              ) : (
+                <div 
+                  className="w-full aspect-[3/4] rounded-2xl bg-white overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
+                  style={{
+                    boxShadow: "0 8px 24px rgba(0, 0, 0, 0.12)"
+                  }}
+                >
                   <div className="w-full h-full flex items-center justify-center p-6">
                     <span 
                       className="text-2xl font-light text-center transition-colors duration-300"
@@ -150,8 +169,8 @@ export default function Hero({ blok }: { blok: HeroBlok }) {
                       Iframe
                     </span>
                   </div>
-                )}
-              </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -192,7 +211,7 @@ export default function Hero({ blok }: { blok: HeroBlok }) {
                     color: "rgba(0,0,0,1)"
                   }}
                 >
-                  {blok?.description || "Body text Body text Body text Body text Body text Body text Body text Body text Body text Body text Body text Body text Body text Body text Body text"}
+                  {blok?.description || "Body text Body text Body text Body text Body text Body text Body text Body text Body text Body text Body text Body text Body text Body text Body text Body text Body text Body text Body text Body text"}
                 </p>
 
                 {/* CTA Button */}
@@ -261,7 +280,7 @@ export default function Hero({ blok }: { blok: HeroBlok }) {
                               color: "rgba(50,84,109,1)"
                             }}
                           >
-                            {badge.description}
+                            {badge.label}
                           </div>
                         </div>
                       </div>
@@ -272,16 +291,25 @@ export default function Hero({ blok }: { blok: HeroBlok }) {
 
               {/* Right Content - Iframe Component */}
               <div className="flex justify-center lg:justify-end items-center">
-                <div className="w-full max-w-md lg:max-w-lg aspect-[3/4]">
-                  <div 
-                    className="w-full h-full rounded-2xl bg-white overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
-                    style={{
-                      boxShadow: "0 8px 24px rgba(0, 0, 0, 0.12)"
-                    }}
-                  >
-                    {blok?.iframe_block ? (
-                      <IframeComponent blok={blok.iframe_block} />
-                    ) : (
+                {blok?.iframe_block ? (
+                  <div className="w-full max-w-md lg:max-w-lg aspect-[3/4]">
+                    {/* <div 
+                      className="w-full h-full rounded-2xl bg-white overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
+                      style={{
+                        boxShadow: "0 8px 24px rgba(0, 0, 0, 0.12)"
+                      }}
+                    > */}
+                      <StoryblokComponent blok={blok.iframe_block?.[0] as IframeBlok} />
+                    </div>
+                  // </div>
+                ) : (
+                  <div className="w-full max-w-md lg:max-w-lg aspect-[3/4]">
+                    <div 
+                      className="w-full h-full rounded-2xl bg-white overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
+                      style={{
+                        boxShadow: "0 8px 24px rgba(0, 0, 0, 0.12)"
+                      }}
+                    >
                       <div className="w-full h-full flex items-center justify-center p-6 lg:p-8">
                         <span 
                           className="text-2xl lg:text-3xl xl:text-4xl font-light leading-normal text-center transition-colors duration-300"
@@ -294,9 +322,9 @@ export default function Hero({ blok }: { blok: HeroBlok }) {
                           Iframe
                         </span>
                       </div>
-                    )}
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             </div>
           </div>

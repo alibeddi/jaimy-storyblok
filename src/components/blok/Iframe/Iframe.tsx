@@ -35,7 +35,7 @@ const Iframe: React.FC<IframeProps> = ({ blok }) => {
 		[marginBottomClasses[blok.margin_bottom || 'default']]: true,
 		'w-full flex justify-center': true,
 	});
-
+	
 	const formId = blok.formId || '';
 	const width = blok.width || '100%';
 	const height = blok.height || '400';
@@ -46,14 +46,16 @@ const Iframe: React.FC<IframeProps> = ({ blok }) => {
 	return (
 		<div {...storyblokEditable(blok)} className={className}>
 			<iframe
-				id="formsIframe"
-				src={`https://forms.fixxer.eu/${locale}/${formId}`}
-				width={width}
-				height={height}
-				sandbox={sandbox}
-				className="rounded border"
-				title="Embedded form"
-			></iframe>
+  id="formsIframe"
+  src={`https://forms.fixxer.eu/${locale}/${formId}`}
+  width={width}
+  height={height}
+  sandbox={sandbox}
+  className="rounded border-0 overflow-hidden"
+  style={{ overflow: "hidden" }}
+  scrolling="no"
+  title="Embedded form"
+/>
 		</div>
 	);
 };

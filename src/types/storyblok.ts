@@ -78,6 +78,8 @@ export interface HeroBlok extends SbBlokData {
   trust_badges?: Array<{
     value: string;
     description: string;
+    label: string;
+    suffix?: string;
     icon?: {
       filename: string;
       alt?: string;
@@ -304,7 +306,7 @@ export interface IframeBlok extends SbBlokData {
   component: "iframe_component";
   title?: string;
   description?: string;
-  form_id: string; // The dynamic form ID
+  formId: string; // The dynamic form ID
   service_type?: 'typeform' | 'jotform' | 'googleforms' | 'custom';
   base_url?: string; // Base URL for custom form service
   height?: string;

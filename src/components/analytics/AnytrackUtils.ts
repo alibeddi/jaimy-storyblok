@@ -23,7 +23,20 @@ export const getAnytrack = (): AnytrackAPI | undefined => {
     anytrack?: AnytrackAPI;
     AnyTrack?: AnytrackAPI;
   };
-  return w.anytrack ?? w.AnyTrack;
+  const api = w.anytrack ?? w.AnyTrack;
+
+  // Debug logging to understand the API structure
+  if (api && typeof window !== "undefined") {
+    console.log("Anytrack API found:", {
+      type: typeof api,
+      isFunction: typeof api === "function",
+      hasInit: typeof api === "object" && "init" in api,
+      hasTrack: typeof api === "object" && "track" in api,
+      hasPage: typeof api === "object" && "page" in api,
+    });
+  }
+
+  return api;
 };
 
 export const callAnytrack = (method: string, ...args: unknown[]) => {
@@ -31,7 +44,46 @@ export const callAnytrack = (method: string, ...args: unknown[]) => {
   if (!api) return;
   if (typeof api === "function") {
     // Queue-style API: AnyTrack('method', ...args)
-    api(method, ...args);
+    if (method === "page") {
+      const pageName = args[0] as string | undefined;
+      const properties = (args[1] as Record<string, unknown> | undefined) || {};
+      const merged = { title: pageName, ...properties };
+      // Try different page tracking commands that AnyTrack might support
+      try {
+        api("page", merged);
+      } catch {
+        try {
+          api("pageview", merged);
+        } catch {
+          // Fallback to generic tracking
+          api("track", "page_view", merged);
+        }
+      }
+      return;
+    }
+    if (method === "track") {
+      const eventName = args[0] as string;
+      const properties = args[1] as Record<string, unknown> | undefined;
+      // Try different tracking commands
+      try {
+        api("track", eventName, properties);
+      } catch {
+        try {
+          api(eventName, properties);
+        } catch {
+          // Fallback to generic event
+          api("event", eventName, properties);
+        }
+      }
+      return;
+    }
+    // For other methods, try the method name first, then fallback
+    try {
+      api(method, ...args);
+    } catch {
+      // If method fails, try as a generic event
+      api("event", method, args.length > 0 ? args[0] : {});
+    }
     return;
   }
   // Object-style API
@@ -48,12 +100,17 @@ export const callAnytrack = (method: string, ...args: unknown[]) => {
         args[1] as Record<string, unknown> | undefined
       );
       break;
-    case "page":
-      api.page?.(
-        args[0] as string | undefined,
-        args[1] as Record<string, unknown> | undefined
-      );
+    case "page": {
+      const pageName = args[0] as string | undefined;
+      const properties = args[1] as Record<string, unknown> | undefined;
+      if (api.page) {
+        api.page(pageName, properties);
+      } else {
+        const merged = { title: pageName, ...(properties || {}) };
+        api.track?.("pageview", merged);
+      }
       break;
+    }
     case "setUserProperties":
       api.setUserProperties?.(args[0] as Record<string, unknown>);
       break;
@@ -295,4 +352,56 @@ export const trackCustomEvent = (
     : undefined;
 
   anytrackTrack(eventName, sanitizedProperties);
+};
+
+// Debug function to test AnyTrack commands
+export const debugAnytrackCommands = () => {
+  const api = getAnytrack();
+  if (!api) {
+    console.log("Anytrack API not found");
+    return;
+  }
+
+  console.log("Testing AnyTrack commands...");
+
+  if (typeof api === "function") {
+    // Test queue-style API
+    const testCommands = ["page", "pageview", "track", "event", "init"];
+    testCommands.forEach((cmd) => {
+      try {
+        console.log(`Testing command: ${cmd}`);
+        api(cmd, { test: true, timestamp: Date.now() });
+        console.log(`✓ Command "${cmd}" executed successfully`);
+      } catch (error) {
+        console.log(`✗ Command "${cmd}" failed:`, error);
+      }
+    });
+  } else {
+    // Test object-style API
+    console.log("Object-style API methods:", Object.keys(api));
+    if (api.init) {
+      try {
+        api.init("test");
+        console.log("✓ init method works");
+      } catch (error) {
+        console.log("✗ init method failed:", error);
+      }
+    }
+    if (api.page) {
+      try {
+        api.page("test-page", { test: true });
+        console.log("✓ page method works");
+      } catch (error) {
+        console.log("✗ page method failed:", error);
+      }
+    }
+    if (api.track) {
+      try {
+        api.track("test-event", { test: true });
+        console.log("✓ track method works");
+      } catch (error) {
+        console.log("✗ track method failed:", error);
+      }
+    }
+  }
 };

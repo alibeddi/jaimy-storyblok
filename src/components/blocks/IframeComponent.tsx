@@ -27,10 +27,10 @@ export default function IframeComponent({ blok }: { blok: IframeBlok }) {
   const [iframeUrl, setIframeUrl] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
-
+ 
   // Generate iframe URL based on formId and service type
   useEffect(() => {
-    if (blok?.form_id) {
+    if (blok?.formId) {
       const serviceType = blok?.service_type || 'custom';
       const service = FORM_SERVICES[serviceType as keyof typeof FORM_SERVICES];
       
@@ -38,9 +38,9 @@ export default function IframeComponent({ blok }: { blok: IframeBlok }) {
       
       try {
         if (serviceType === 'custom' && blok?.base_url) {
-          newUrl = service.urlPattern(blok.form_id, blok.base_url);
+          newUrl = service.urlPattern(blok.formId, blok.base_url);
         } else if (serviceType !== 'custom') {
-          newUrl = service.urlPattern(blok.form_id, service.baseUrl);
+          newUrl = service.urlPattern(blok.formId, service.baseUrl);
         }
         
         if (newUrl) {
@@ -60,7 +60,7 @@ export default function IframeComponent({ blok }: { blok: IframeBlok }) {
       setHasError(true);
       setIsLoading(false);
     }
-  }, [blok?.form_id, blok?.base_url, blok?.service_type]);
+  }, [blok?.formId, blok?.base_url, blok?.service_type]);
 
   const handleLoad = () => {
     setIsLoading(false);
@@ -73,7 +73,7 @@ export default function IframeComponent({ blok }: { blok: IframeBlok }) {
   };
 
   // Don't render if no form_id is provided
-  if (!blok?.form_id) {
+  if (!blok?.formId) {
     return (
       <section
         
@@ -125,7 +125,7 @@ export default function IframeComponent({ blok }: { blok: IframeBlok }) {
                   Failed to load form
                 </p>
                 <p className="text-gray-600 text-sm mb-4">
-                  Form ID: {blok?.form_id} | Service: {blok?.service_type || 'custom'}
+                  Form ID: {blok?.formId} | Service: {blok?.service_type || 'custom'}
                 </p>
                 <button 
                   onClick={() => {
@@ -147,7 +147,7 @@ export default function IframeComponent({ blok }: { blok: IframeBlok }) {
           {/* Iframe */}
           {iframeUrl && !hasError && (
             <iframe
-              key={`${blok?.service_type}-${blok?.form_id}`}
+              key={`${blok?.service_type}-${blok?.formId}`}
               src={iframeUrl}
               width="100%"
               height={blok?.height || "600"}

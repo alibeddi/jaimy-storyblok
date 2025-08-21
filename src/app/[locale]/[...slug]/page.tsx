@@ -1,13 +1,12 @@
- /* eslint-disable @typescript-eslint/no-explicit-any */
-
-
-export const dynamic = "force-dynamic";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { getStoryblokApi } from "@storyblok/react/rsc";
 import { draftMode } from "next/headers";
 import { notFound } from "next/navigation";
 import Blok from "@/components";
 import { SbBlokData } from "@storyblok/react";
+
+export const dynamic = "force-dynamic";
 
 interface StoryBlock {
   component: string;
@@ -16,10 +15,10 @@ interface StoryBlock {
 }
 
 interface Props {
-  params: {
+  params: Promise<{
     locale: string;
     slug: string[];
-  };
+  }>;
   searchParams?: { [key: string]: string | string[] | undefined };
 }
 
@@ -28,14 +27,13 @@ interface BlokData extends SbBlokData {
   _uid: string;
 }
 
-export default async function DynamicPage({ params }: any) {
-  const slug = params.slug ? params.slug.join("/") : "home";
+export default async function DynamicPage({ params }: Props) {
+  const { slug, locale } = await params;
+  const slugPath = slug?.length ? slug.join("/") : "home";
 
   try {
-    const { data } = await fetchStoryblokData(slug);
-    const storyContent = (
-      data as { story?: { content?: { body?: StoryBlock[] } } }
-    ).story?.content;
+    const { data } = await fetchStoryblokData(slugPath, locale);
+    const storyContent = data?.story?.content;
 
     if (!storyContent) {
       notFound();
@@ -45,7 +43,7 @@ export default async function DynamicPage({ params }: any) {
 
     return (
       <div>
-        {blocks.map((blok) => (
+        {blocks.map((blok: any) => (
           <Blok key={(blok as SbBlokData)._uid} blok={blok as BlokData} />
         ))}
       </div>
@@ -56,22 +54,25 @@ export default async function DynamicPage({ params }: any) {
   }
 }
 
-async function fetchStoryblokData(slug: string) {
+async function fetchStoryblokData(slug: string, locale: string) {
   const { isEnabled } = await draftMode();
 
-  const sbParams = {
-    version: (isEnabled ? "draft" : "published") as "draft" | "published",
-  };
+  const version = (isEnabled ? "draft" : "published") as "draft" | "published";
 
   const storyblokApi = getStoryblokApi();
-  return storyblokApi.get(`cdn/stories/${slug}`, { version: sbParams.version });
+  return storyblokApi.get(`cdn/stories/${slug}`, {
+    version,
+    language: locale,
+    fallback_lang: "fr",
+  });
 }
 
-export async function generateMetadata({ params }: any) {
-  const slug = params.slug ? params.slug.join("/") : "home";
+export async function generateMetadata({ params }: Props) {
+  const { slug, locale } = await params;
+  const slugPath = slug?.length ? slug.join("/") : "home";
 
   try {
-    const { data } = await fetchStoryblokData(slug);
+    const { data } = await fetchStoryblokData(slugPath, locale);
     const story = data?.story;
 
     return {
