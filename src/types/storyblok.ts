@@ -121,6 +121,14 @@ export interface HeaderBlok extends SbBlokData {
       cached_url: string;
     };
   }>;
+  search_placeholder?: string;
+  search_enabled?: boolean;
+  language_dropdown_enabled?: boolean;
+  language_dropdown_title?: string;
+  supported_languages?: Array<{
+    code: string;
+    label: string;
+  }>;
 }
 
 export interface BlogsBlok extends SbBlokData {
@@ -215,13 +223,20 @@ export interface FooterBlok extends SbBlokData {
   social_links?: Array<{
     platform: string;
     url: string;
-    icon?: string;
+    icon?: {filename: string;
+    alt?: string;};
   }>;
-  contact_info?: {
+  contact_info?: Array<{
     email?: string;
     phone?: string;
     address?: string;
-  };
+  }>;
+  trust_badges?: Array<{
+    label: string;
+    url?: string;
+    background_color?: string;
+    text_color?: string;
+  }>;
   copyright_text?: string;
   background_color?: string;
 }
@@ -369,4 +384,3 @@ export interface SliderBlok {
   image_position?: 'left' | 'right';
   reverse_layout?: boolean;
 }
-

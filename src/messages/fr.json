@@ -6,6 +6,19 @@
   "home": {
     "title": "Bienvenue"
   },
+  "search": {
+    "title": "Recherche",
+    "description": "Rechercher du contenu, des articles et plus encore",
+    "placeholder": "Rechercher ...",
+    "results-for": "Résultats de recherche pour",
+    "no-results": "Aucun résultat trouvé",
+    "no-results-description": "Essayez d'ajuster vos termes de recherche ou parcourez nos catégories de contenu.",
+    "enter-search-term": "Entrez un terme de recherche",
+    "enter-search-description": "Commencez à taper pour rechercher du contenu, des articles et plus encore.",
+    "searching": "Recherche en cours...",
+    "found-results": "{{count}} résultat trouvé",
+    "found-results_plural": "{{count}} résultats trouvés"
+  },
   "errors": {
     "404": {
       "title": "Page introuvable",
