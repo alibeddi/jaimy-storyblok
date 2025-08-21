@@ -84,6 +84,55 @@
   font-display: swap;
 }
 
+/* BelfiusAlternative Font Family - Alternative Font */
+@font-face {
+  font-family: "BelfiusAlternative";
+  src: url("/fonts1/belfius/BelfiusAlternative_light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "BelfiusAlternative";
+  src: url("/fonts1/belfius/BelfiusAlternative_lightitalic.otf") format("opentype");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "BelfiusAlternative";
+  src: url("/fonts1/belfius/BelfiusAlternative_regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "BelfiusAlternative";
+  src: url("/fonts1/belfius/BelfiusAlternative_regularitalic.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "BelfiusAlternative";
+  src: url("/fonts1/belfius/BelfiusAlternative_bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "BelfiusAlternative";
+  src: url("/fonts1/belfius/BelfiusAlternative_bolditalic.otf") format("opentype");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
 /* Legacy Belfius Fonts for Compatibility */
 @font-face {
   font-family: "Belfius Regular";

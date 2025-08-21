@@ -14,7 +14,7 @@ interface StoryBlock {
   [key: string]: unknown;
 }
 
-interface Props {
+interface PageProps {
   params: Promise<{
     locale: string;
     slug: string[];
@@ -27,7 +27,7 @@ interface BlokData extends SbBlokData {
   _uid: string;
 }
 
-export default async function DynamicPage({ params }: Props) {
+export default async function DynamicPage({ params }: PageProps) {
   const { slug, locale } = await params;
   const slugPath = slug?.length ? slug.join("/") : "home";
 
@@ -67,7 +67,7 @@ async function fetchStoryblokData(slug: string, locale: string) {
   });
 }
 
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata({ params }: PageProps) {
   const { slug, locale } = await params;
   const slugPath = slug?.length ? slug.join("/") : "home";
 

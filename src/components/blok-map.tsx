@@ -1,54 +1,55 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
-import Button from "./blok/Button";
-import ButtonGroup from "./blok/ButtonGroup";
-import Teaser from "./blok/Teaser";
-import Feature from "./blok/Feature";
-import Grid from "./blok/Grid";
+import Button from "./blok/general/Button";
+import ButtonGroup from "./blok/general/ButtonGroup";
+import Teaser from "./blok/general/Teaser";
+import Feature from "./blok/general/Feature";
+import Grid from "./blok/general/Grid";
 
-import { Hero as HeroBlok } from "./blocks";
-import Banner from "./blok/Banner";
-import Image from "./blok/Image";
-import Heading from "./blok/Heading";
-import RichText from "./blok/RichText";
-import Columns from "./blok/Columns";
-import Column from "./blok/Column";
-import Row from "./blok/Row";
-import Table from "./blok/Table";
-import TableColumn from "./blok/TableColumn";
-import TableRow from "./blok/TableRow";
-import TableHeader from "./blok/TableHeader";
-import List from "./blok/List";
-import ListItem from "./blok/ListItem";
-import ReviewStars from "./blok/ReviewStars";
-import Hr from "./blok/Hr";
-import Accordion from "./blok/Accordion";
-import AccordionItem from "./blok/AccordionItem";
-import Container from "./blok/Container";
-import Form from "./blok/form";
-import FormStep from "./blok/form-step";
-import FormFieldset from "./blok/form-fieldset";
-import FormGroup from "./blok/form-group";
-import InputField from "./blok/input-field";
-import Blog from "./blok/Blog";
+import Banner from "./blok/general/Banner";
+import Image from "./blok/general/Image";
+import Heading from "./blok/general/Heading";
+import RichText from "./blok/general/RichText";
+import Columns from "./blok/general/Columns";
+import Column from "./blok/general/Column";
+import Row from "./blok/general/Row";
+import Table from "./blok/general/Table";
+import TableColumn from "./blok/general/TableColumn";
+import TableRow from "./blok/general/TableRow";
+import TableHeader from "./blok/general/TableHeader";
+import List from "./blok/general/List";
+import ListItem from "./blok/general/ListItem";
+import ReviewStars from "./blok/general/ReviewStars";
+import Hr from "./blok/general/Hr";
+import Accordion from "./blok/general/Accordion";
+import AccordionItem from "./blok/general/AccordionItem";
+import Container from "./blok/general/Container";
+import Form from "./blok/general/form";
+import FormStep from "./blok/general/form-step";
+import FormFieldset from "./blok/general/form-fieldset";
+import FormGroup from "./blok/general/form-group";
+import InputField from "./blok/general/input-field";
+import Blog from "./blok/general/Blog";
 
-import Author from "./blok/Author";
-import BlogOverview from "./blok/BlogOverview";
+import Author from "./blok/general/Author";
+import BlogOverview from "./blok/general/BlogOverview";
 import BlogCard from "./ui/BlogCard";
-import Iframe from "./blok/Iframe";
+import Iframe from "./blok/general/Iframe";
 import { SbBlokData } from "@storyblok/react";
 // Import the Page component from blocks directory
 import {
   Blogs,
   FAQ,
+  Hero,
   Footer,
   Header,
   Reviews,
   SocialProof,
   Steps,
+  Features,
   Page as PageBlock,
-} from "./blocks";
-import Features from "./blocks/Features";
+} from "./blok/services";
+
 
 type ComponentType = React.ComponentType<any>;
 
@@ -56,7 +57,7 @@ type ComponentType = React.ComponentType<any>;
 export const componentMap: Record<string, ComponentType> = {
   // page: PageBlock,
   header: Header,
-  hero: HeroBlok,
+  hero: Hero,
   steps: Steps,
 
   blogs: Blogs,
