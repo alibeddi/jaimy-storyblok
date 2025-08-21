@@ -1,12 +1,14 @@
- /* eslint-disable @typescript-eslint/no-explicit-any */
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import Button from './blok/Button';
 import ButtonGroup from './blok/ButtonGroup';
 import Teaser from './blok/Teaser';
-import Page from './blok/Page';
+;
 import Feature from './blok/Feature';
 import Grid from './blok/Grid';
-import Hero from './blok/Hero';
+
+import {Hero as HeroBlok} from './blocks';
 import Banner from './blok/Banner';
 import Image from './blok/Image';
 import Heading from './blok/Heading';
@@ -37,21 +39,32 @@ import BlogOverview from './blok/BlogOverview';
 import BlogCard from './ui/BlogCard';
 import Iframe from './blok/Iframe';
 import { SbBlokData } from '@storyblok/react';
+// Import the Page component from blocks directory
+import { Blogs, FAQ, Footer, Header, Reviews, SocialProof, Steps, Page as PageBlock } from './blocks';
 
 type ComponentType = React.ComponentType<any>;
 
 // Component mapping object with proper TypeScript typing
 export const componentMap: Record<string, ComponentType> = {
+  // page: PageBlock, 
+  header: Header,
+  hero: HeroBlok,
+  steps: Steps,
+
+    blogs: Blogs,
+    reviews: Reviews,
+    social_proof: SocialProof,
+    faq: FAQ,
+    footer: Footer,
   button: Button,
   'button-group': ButtonGroup,
   teaser: Teaser,
-  page: Page,
-  feature: Feature,
+  // feature: Feature,
   grid: Grid,
   banner: Banner,
   image: Image,
   heading: Heading,
-  hero: Hero,
+  // hero: Hero,
   'rich-text': RichText,
   columns: Columns,
   column: Column,

@@ -10,13 +10,14 @@ import Reviews from "./blocks/Reviews";
 import SocialProof from "./blocks/SocialProof";
 import FAQ from "./blocks/FAQ";
 import Footer from "./blocks/Footer";
+import Iframe from "./blok/Iframe";
 
 // Initialize Storyblok for client-side
 storyblokInit({
   accessToken: process.env.NEXT_PUBLIC_STORYBLOK_ACCESS_TOKEN,
   use: [apiPlugin],
   components: {
-    page: Page,
+    // page: Page,
     header: Header,
     hero: Hero,
     steps: Steps,
@@ -26,6 +27,7 @@ storyblokInit({
     social_proof: SocialProof,
     faq: FAQ,
     footer: Footer,
+    iframe: Iframe,
   },
 });
 

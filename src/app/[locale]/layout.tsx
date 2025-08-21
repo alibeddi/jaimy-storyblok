@@ -1,3 +1,4 @@
+
 import Script from "next/script";
 import "../globals.css";
 // Removed global switcher; header contains the inline switcher matching design
@@ -28,13 +29,14 @@ import AnalyticsForm from "@/components/blocks/AnalyticsForm";
 import AnalyticsVideo from "@/components/blocks/AnalyticsVideo";
 import AnytrackTracker from "@/components/blok/AnytrackTracker";
 import AnytrackForm from "@/components/blok/AnytrackForm";
+import Iframe from "@/components/blok/Iframe";
 
 // Initialize Storyblok for server-side rendering
 storyblokInit({
   accessToken: process.env.NEXT_PUBLIC_STORYBLOK_API_TOKEN!,
   use: [apiPlugin],
   components: {
-    page: Page,
+    // page: Page,
     header: Header,
     hero: Hero,
     steps: Steps,
@@ -45,12 +47,13 @@ storyblokInit({
     social_proof: SocialProof,
     faq: FAQ,
     footer: Footer,
-    features: Features,
+    // features: Features,
     analytics_button: AnalyticsButton,
     analytics_form: AnalyticsForm,
     analytics_video: AnalyticsVideo,
     anytrack_tracker: AnytrackTracker,
     anytrack_form: AnytrackForm,
+    iframe:Iframe
   },
   apiOptions: {
     region: "eu",
