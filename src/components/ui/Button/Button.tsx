@@ -24,6 +24,7 @@ const Button: React.FC<ButtonProps> = ({
   children,
   relation = [],
   disabled = false,
+  disableNofollow = false,
   ...rest
 }) => {
   const hasIcon = icon && icon !== "none" && icon !== "default";
@@ -113,6 +114,7 @@ const Button: React.FC<ButtonProps> = ({
       onClick={onClick}
       tabIndex={tabIndex}
       disabled={disabled}
+      data-disablenofollow={disableNofollow}
       {...rest}
     >
       {iconPosition === "left" && iconElement}
