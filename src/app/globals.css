@@ -1,112 +1,194 @@
 @import "tailwindcss";
-/* @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap'); */
 
-/* Belfius Custom Fonts */
+/* BelfiusMontserrat Font Family - Primary Font */
 @font-face {
-  font-family: 'Belfius Alternative';
-  src: url('/fonts/belfius/BelfiusAlternative_regular.otf') format('opentype');
-  font-weight: normal;
+  font-family: "BelfiusMontserrat";
+  src: url("/fonts/belfius/BelfiusMontserrat-Light.otf") format("opentype");
+  font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Belfius Alternative';
-  src: url('/fonts/belfius/BelfiusAlternative_bold.otf') format('opentype');
-  font-weight: bold;
+  font-family: "BelfiusMontserrat";
+  src: url("/fonts/belfius/BelfiusMontserrat-LightItalic.otf")
+    format("opentype");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "BelfiusMontserrat";
+  src: url("/fonts/belfius/BelfiusMontserrat-Regular.otf") format("opentype");
+  font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'BelfiusAlternative';
-  src: url('/fonts/belfius/BelfiusAlternative_regular.otf') format('opentype');
-  font-weight: normal;
+  font-family: "BelfiusMontserrat";
+  src: url("/fonts/belfius/BelfiusMontserrat-Italic.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "BelfiusMontserrat";
+  src: url("/fonts/belfius/BelfiusMontserrat-Medium.otf") format("opentype");
+  font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'BelfiusAlternative';
-  src: url('/fonts/belfius/BelfiusAlternative_bold.otf') format('opentype');
+  font-family: "BelfiusMontserrat";
+  src: url("/fonts/belfius/BelfiusMontserrat-MediumItalic.otf")
+    format("opentype");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "BelfiusMontserrat";
+  src: url("/fonts/belfius/BelfiusMontserrat-SemiBold.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "BelfiusMontserrat";
+  src: url("/fonts/belfius/BelfiusMontserrat-SemiBoldItalic.otf")
+    format("opentype");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "BelfiusMontserrat";
+  src: url("/fonts/belfius/BelfiusMontserrat-Bold.otf") format("opentype");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Belfius Alternative';
-  src: url('/fonts/belfius/BelfiusAlternative_light.otf') format('opentype');
-  font-weight: 300;
-  font-style: normal;
+  font-family: "BelfiusMontserrat";
+  src: url("/fonts/belfius/BelfiusMontserrat-BoldItalic.otf") format("opentype");
+  font-weight: 700;
+  font-style: italic;
   font-display: swap;
 }
 
+/* Legacy Belfius Fonts for Compatibility */
 @font-face {
-  font-family: 'Belfius Alternative';
-  src: url('/fonts/belfius/BelfiusAlternative_regularitalic.otf') format('opentype');
+  font-family: "Belfius Regular";
+  src:
+    url("https://d1984299dl26rz.cloudfront.net/fonts/BelfiusNormal_regular.woff2")
+      format("woff2"),
+    url("https://d1984299dl26rz.cloudfront.net/fonts/BelfiusNormal_regular.woff")
+      format("woff"),
+    url("https://d1984299dl26rz.cloudfront.net/fonts/BelfiusNormal_regular.ttf")
+      format("truetype"),
+    url("https://d1984299dl26rz.cloudfront.net/fonts/BelfiusNormal_regular.svg")
+      format("svg"),
+    url("https://d1984299dl26rz.cloudfront.net/fonts/BelfiusNormal_regular.otf")
+      format("opentype"),
+    url("https://d1984299dl26rz.cloudfront.net/fonts/BelfiusNormal_regular.eot")
+      format("embedded-opentype");
+  font-style: normal;
+  font-display: swap;
   font-weight: normal;
-  font-style: italic;
-  font-display: swap;
 }
 
 @font-face {
-  font-family: 'Belfius Alternative';
-  src: url('/fonts/belfius/BelfiusAlternative_bolditalic.otf') format('opentype');
-  font-weight: bold;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Belfius Normal';
-  src: url('/fonts/belfius/BelfiusNormal_regular.otf') format('opentype');
-  font-weight: normal;
+  font-family: "Belfius Bold";
+  src:
+    url("https://d1984299dl26rz.cloudfront.net/fonts/BelfiusNormal_bold.woff2")
+      format("woff2"),
+    url("https://d1984299dl26rz.cloudfront.net/fonts/BelfiusNormal_bold.woff")
+      format("woff"),
+    url("https://d1984299dl26rz.cloudfront.net/fonts/BelfiusNormal_bold.ttf")
+      format("truetype"),
+    url("https://d1984299dl26rz.cloudfront.net/fonts/BelfiusNormal_bold.svg")
+      format("svg"),
+    url("https://d1984299dl26rz.cloudfront.net/fonts/BelfiusNormal_bold.otf")
+      format("opentype"),
+    url("https://d1984299dl26rz.cloudfront.net/fonts/BelfiusNormal_bold.eot")
+      format("embedded-opentype");
   font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Belfius Normal';
-  src: url('/fonts/belfius/BelfiusNormal_bold.otf') format('opentype');
-  font-weight: bold;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Belfius Normal';
-  src: url('/fonts/belfius/BelfiusNormal_light.otf') format('opentype');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Belfius Normal';
-  src: url('/fonts/belfius/BelfiusNormal_regularitalic.otf') format('opentype');
-  font-weight: normal;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Belfius Normal';
-  src: url('/fonts/belfius/BelfiusNormal_bolditalic.otf') format('opentype');
-  font-weight: bold;
-  font-style: italic;
   font-display: swap;
 }
 
 :root {
-  /* Belfius Brand Colors */
+  /* New Color System - matching datasource values */
+  --color-red-light: 230, 35, 54;
+  --color-red-dark: 175, 26, 60;
+  --color-red-gradient: 150, 30, 52; /* Base color for gradient */
+  --color-grey-light: 170, 172, 182;
+  --color-grey-dark: 77, 96, 107;
+  --color-white: 255, 255, 255;
+  --color-black: 0, 0, 0;
+
+  /* Gradient components */
+  --color-red-gradient-start: 150, 30, 52;
+  --color-red-gradient-end: 195, 11, 48;
+  --color-gradient-start: 150, 30, 52;
+  --color-gradient-end: 195, 11, 48;
+
+  /* Legacy primary colors mapped to new red system */
+  --color-primary-100: 255, 202, 207;
+  --color-primary-200: 252, 179, 187;
+  --color-primary-300: 246, 148, 158;
+  --color-primary-400: 230, 35, 54;
+  --color-primary-500: 230, 35, 54;
+  --color-primary-600: 175, 26, 60;
+  --color-primary-700: 136, 28, 40;
+  --color-primary-800: 90, 20, 27;
+  --color-primary-900: 52, 11, 11;
+
+  --color-secondary: 103, 210, 223;
+
+  /* Updated gray system */
+  --color-gray-100: 244, 244, 244;
+  --color-gray-200: 244, 244, 244;
+  --color-gray-300: 244, 244, 244;
+  --color-gray-400: 244, 244, 244;
+  --color-gray-500: 170, 172, 182;
+  --color-gray-600: 77, 96, 107;
+  --color-gray-700: 77, 96, 107;
+  --color-gray-800: 77, 96, 107;
+
+  --color-success-text: 104, 150, 52;
+  --color-success-pastel: 230, 241, 217;
+  --color-success: 130, 188, 65;
+
+  --color-info-text: 82, 168, 178;
+  --color-info-pastel: 224, 246, 248;
+  --color-info: 103, 210, 223;
+
+  --color-warning-text: 192, 144, 41;
+  --color-warning-pastel: 252, 240, 214;
+  --color-warning: 241, 180, 52;
+
+  --color-danger-text: 204, 107, 92;
+  --color-danger-pastel: 255, 230, 227;
+  --color-danger: 255, 134, 116;
+
+  --color-review: 241, 180, 52;
+  --color-gray-medium: 173, 181, 189;
+
+  /* Belfius Brand Colors (Legacy) */
   --belfius-red-primary: #af1b3c;
   --belfius-red-secondary: #e62336;
   --belfius-red-gradient-start: #961e34;
   --belfius-red-gradient-end: #c30b30;
   --belfius-grey: #aaacb6;
   --belfius-light-grey: #f4f4f4;
-  --belfius-white: #ffffff;
 
   /* Background and Foreground */
   --background: #ffffff;
@@ -116,7 +198,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: 'Montserrat', var(--font-geist-sans);
+  --font-sans: "BelfiusMontserrat", "Montserrat", var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 
   /* Custom Belfius Colors for Tailwind */
@@ -126,41 +208,97 @@
   --color-belfius-light-grey: var(--belfius-light-grey);
 }
 
+/* Global Typography - BelfiusMontserrat as default */
+body {
+  font-family: "BelfiusMontserrat", sans-serif;
+  font-weight: 400;
+  background: var(--background);
+  color: var(--foreground);
+  line-height: 1.6;
+}
+
+/* Ensure all headings use BelfiusMontserrat */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "BelfiusMontserrat", sans-serif;
+  font-weight: 600;
+}
+
+/* Ensure paragraphs use BelfiusMontserrat */
+p {
+  font-family: "BelfiusMontserrat", sans-serif;
+  font-weight: 400;
+}
+
 /* Belfius Typography Classes */
 .font-belfius-title {
-  font-family: 'Belfius Alternative', 'Montserrat', sans-serif;
+  font-family: "BelfiusMontserrat", sans-serif;
   font-weight: bold;
 }
 
 .font-belfius-cta {
-  font-family: 'Belfius Normal', 'Montserrat', sans-serif;
+  font-family: "BelfiusMontserrat", sans-serif;
   font-weight: bold;
 }
 
 .font-belfius-step-number {
-  font-family: 'Belfius Normal', 'Montserrat', sans-serif;
+  font-family: "BelfiusMontserrat", sans-serif;
   font-weight: bold;
 }
 
 .font-belfius-step-title {
-  font-family: 'Belfius Normal', 'Montserrat', sans-serif;
+  font-family: "BelfiusMontserrat", sans-serif;
   font-weight: bold;
   text-transform: lowercase;
 }
 
 .font-belfius-body {
-  font-family: 'Belfius Normal', 'Montserrat', sans-serif;
+  font-family: "BelfiusMontserrat", sans-serif;
   font-weight: normal;
 }
 
 .font-belfius-light {
-  font-family: 'Belfius Alternative', 'Montserrat', sans-serif;
+  font-family: "BelfiusMontserrat", sans-serif;
   font-weight: 300;
+}
+
+/* BelfiusMontserrat Utility Classes */
+.font-belfius-light {
+  font-family: "BelfiusMontserrat", sans-serif;
+  font-weight: 300;
+}
+
+.font-belfius-regular {
+  font-family: "BelfiusMontserrat", sans-serif;
+  font-weight: 400;
+}
+
+.font-belfius-medium {
+  font-family: "BelfiusMontserrat", sans-serif;
+  font-weight: 500;
+}
+
+.font-belfius-semibold {
+  font-family: "BelfiusMontserrat", sans-serif;
+  font-weight: 600;
+}
+
+.font-belfius-bold {
+  font-family: "BelfiusMontserrat", sans-serif;
+  font-weight: 700;
 }
 
 /* Belfius Gradient Background */
 .bg-belfius-gradient {
-  background: linear-gradient(135deg, var(--belfius-red-gradient-start) 0%, var(--belfius-red-gradient-end) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--belfius-red-gradient-start) 0%,
+    var(--belfius-red-gradient-end) 100%
+  );
 }
 
 /* Belfius Button Styles */
@@ -190,11 +328,177 @@
   stroke-width: 1;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: 'Montserrat', Arial, Helvetica, sans-serif;
-  line-height: 1.6;
+/* Utility classes for dynamic background colors */
+div.bg-red-light,
+.bg-red-light {
+  background-color: rgb(230, 35, 54) !important;
+}
+
+div.bg-red-dark,
+.bg-red-dark {
+  background-color: rgb(175, 26, 60) !important;
+}
+
+div.bg-red-gradient,
+.bg-red-gradient {
+  background: linear-gradient(
+    135deg,
+    rgb(150, 30, 52),
+    rgb(195, 11, 48)
+  ) !important;
+}
+
+div.bg-grey-light,
+.bg-grey-light {
+  background-color: rgb(170, 172, 182) !important;
+}
+
+div.bg-grey-dark,
+.bg-grey-dark {
+  background-color: rgb(77, 96, 107) !important;
+}
+
+div.bg-white,
+.bg-white {
+  background-color: rgb(255, 255, 255) !important;
+}
+
+div.bg-black,
+.bg-black {
+  background-color: rgb(0, 0, 0) !important;
+}
+
+/* Utility classes for dynamic text colors */
+.text-red-light {
+  color: rgb(var(--color-red-light)) !important;
+}
+
+.text-red-dark {
+  color: rgb(var(--color-red-dark)) !important;
+}
+
+.text-grey-light {
+  color: rgb(var(--color-grey-light)) !important;
+}
+
+.text-grey-dark {
+  color: rgb(var(--color-grey-dark)) !important;
+}
+
+.text-white {
+  color: rgb(var(--color-white)) !important;
+}
+
+.text-black {
+  color: rgb(var(--color-black)) !important;
+}
+
+/* Rich Text Global Styling - BelfiusMontserrat Font */
+/* Apply to all rich text content */
+.rich-text,
+.rich-text *,
+[class*="richText"] *,
+[class*="rich-text"] *,
+div[class*="root"] p,
+div[class*="root"] h1,
+div[class*="root"] h2,
+div[class*="root"] h3,
+div[class*="root"] h4,
+div[class*="root"] h5,
+div[class*="root"] h6,
+div[class*="root"] li,
+div[class*="root"] blockquote,
+div[class*="root"] span,
+div[class*="root"] strong,
+div[class*="root"] em,
+div[class*="root"] a {
+  font-family: "BelfiusMontserrat", sans-serif !important;
+}
+
+/* Specific rich text element styling */
+.rich-text p,
+[class*="richText"] p,
+[class*="rich-text"] p {
+  font-family: "BelfiusMontserrat", sans-serif !important;
+  font-weight: 400;
+}
+
+.rich-text h1,
+.rich-text h2,
+.rich-text h3,
+.rich-text h4,
+.rich-text h5,
+.rich-text h6,
+[class*="richText"] h1,
+[class*="richText"] h2,
+[class*="richText"] h3,
+[class*="richText"] h4,
+[class*="richText"] h5,
+[class*="richText"] h6,
+[class*="rich-text"] h1,
+[class*="rich-text"] h2,
+[class*="rich-text"] h3,
+[class*="rich-text"] h4,
+[class*="rich-text"] h5,
+[class*="rich-text"] h6 {
+  font-family: "BelfiusMontserrat", sans-serif !important;
+  font-weight: 600;
+}
+
+.rich-text strong,
+[class*="richText"] strong,
+[class*="rich-text"] strong {
+  font-family: "BelfiusMontserrat", sans-serif !important;
+  font-weight: 700;
+}
+
+.rich-text em,
+[class*="richText"] em,
+[class*="rich-text"] em {
+  font-family: "BelfiusMontserrat", sans-serif !important;
+  font-style: italic;
+}
+
+.rich-text li,
+[class*="richText"] li,
+[class*="rich-text"] li {
+  font-family: "BelfiusMontserrat", sans-serif !important;
+  font-weight: 400;
+}
+
+.rich-text a,
+[class*="richText"] a,
+[class*="rich-text"] a {
+  font-family: "BelfiusMontserrat", sans-serif !important;
+}
+
+/* CRITICAL: Background color overrides - must be at the end */
+.bg-red-light {
+  background-color: #e62336 !important;
+}
+
+.bg-red-dark {
+  background-color: #af1a3c !important;
+}
+
+.bg-red-gradient {
+  background: linear-gradient(135deg, #961e34, #c30b30) !important;
+}
+
+.bg-grey-light {
+  background-color: #aaacb6 !important;
+}
+
+.bg-grey-dark {
+  background-color: #4d606b !important;
+}
+
+.bg-white {
+  background-color: #ffffff !important;
+}
+
+.bg-black {
+  background-color: #000000 !important;
 }
 
 /* Custom Scrollbar */
@@ -215,6 +519,124 @@ body {
   background: var(--belfius-red-primary);
 }
 
+/* Height utilities for layout */
+html,
+body {
+  height: 100%;
+}
+
+html > body > div:first-of-type {
+  height: 100%;
+}
+
+html > body > div:first-of-type > div:first-of-type {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Form component styles */
+.form-container {
+  width: 100%;
+  max-width: 48rem; /* 3xl */
+  margin: 0 auto;
+  padding: 1.5rem; /* 6 */
+  background-color: white;
+  border-radius: 0.5rem; /* lg */
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.form-field {
+  width: 100%;
+  margin-bottom: 1rem; /* 4 */
+}
+
+.form-label {
+  display: block;
+  color: rgb(31, 41, 55); /* gray-800 */
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 600; /* semibold */
+  margin-bottom: 0.5rem; /* 2 */
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.5rem 1rem; /* px-4 py-2 */
+  outline: none;
+  appearance: none;
+  background-color: white;
+  font-size: 1rem; /* text-base */
+  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+}
+
+.form-input:hover {
+  background-color: rgb(243, 244, 246); /* gray-100 */
+}
+
+.form-input:focus {
+  background-color: rgba(243, 244, 246, 0.1);
+}
+
+.form-input::placeholder {
+  color: rgb(156, 163, 175); /* gray-400 */
+}
+
+.form-input-error {
+  border: 1px solid rgb(239, 68, 68); /* red-500 */
+  background-color: rgb(254, 242, 242); /* red-50 */
+}
+
+.form-error {
+  color: rgb(239, 68, 68); /* red-500 */
+  font-size: 0.875rem; /* text-sm */
+  margin-top: 0.25rem; /* mt-1 */
+}
+
+.form-note {
+  color: rgb(107, 114, 128); /* gray-500 */
+  font-size: 0.75rem; /* text-xs */
+  margin-top: 0.25rem; /* mt-1 */
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 1rem; /* pt-4 */
+  border-top: 1px solid rgb(229, 231, 235); /* border-t border-gray-200 */
+}
+
+.form-button {
+  padding: 0.5rem 1rem; /* px-4 py-2 */
+  border-radius: 0.25rem; /* rounded */
+  outline: none;
+  transition: all 0.2s;
+}
+
+.form-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5); /* focus:ring-2 focus:ring-blue-500 */
+}
+
+.form-button-primary {
+  background-color: rgb(var(--color-primary-500));
+  color: white;
+}
+
+.form-button-primary:hover {
+  background-color: rgb(var(--color-primary-600));
+}
+
+.form-button-secondary {
+  background-color: rgb(229, 231, 235); /* gray-200 */
+  color: rgb(31, 41, 55); /* gray-800 */
+}
+
+.form-button-secondary:hover {
+  background-color: rgb(209, 213, 219); /* gray-300 */
+}
+
 @media (min-width: 1350px) {
   .hero-large-screen {
     min-height: 100vh;
@@ -229,6 +651,6 @@ body {
     min-height: 100vh;
   }
 }
-#formsIframe{
+#formsIframe {
   overflow: hidden;
 }
