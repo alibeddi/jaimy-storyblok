@@ -1,3 +1,4 @@
+ /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -126,7 +127,7 @@ export default function AnytrackDebugger() {
 
       <div className="text-xs text-gray-600">
         <p>Check the browser console for detailed debug information.</p>
-        <p>Network tab will show AnyTrack API calls if they're working.</p>
+        <p>Network tab will show AnyTrack API calls if they are working.</p>
       </div>
     </div>
   );
