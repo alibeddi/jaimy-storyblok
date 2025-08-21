@@ -15,10 +15,10 @@ interface StoryBlock {
 }
 
 interface Props {
-  params: {
+  params: Promise<{
     locale: string;
     slug: string[];
-  };
+  }>;
   searchParams?: { [key: string]: string | string[] | undefined };
 }
 
@@ -28,7 +28,7 @@ interface BlokData extends SbBlokData {
 }
 
 export default async function DynamicPage({ params }: Props) {
-  const { slug, locale } = params; 
+  const { slug, locale } = await params;
   const slugPath = slug?.length ? slug.join("/") : "home";
 
   try {
@@ -57,14 +57,18 @@ export default async function DynamicPage({ params }: Props) {
 async function fetchStoryblokData(slug: string, locale: string) {
   const { isEnabled } = await draftMode();
 
-  const version = isEnabled ? "draft" : "published";
+  const version = (isEnabled ? "draft" : "published") as "draft" | "published";
 
   const storyblokApi = getStoryblokApi();
-  return storyblokApi.get(`cdn/stories/${slug}`, { version });
+  return storyblokApi.get(`cdn/stories/${slug}`, {
+    version,
+    language: locale,
+    fallback_lang: "fr",
+  });
 }
 
 export async function generateMetadata({ params }: Props) {
-  const { slug, locale } = params;
+  const { slug, locale } = await params;
   const slugPath = slug?.length ? slug.join("/") : "home";
 
   try {
