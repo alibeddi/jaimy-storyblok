@@ -1,4 +1,3 @@
-
 import Script from "next/script";
 import "../globals.css";
 // Removed global switcher; header contains the inline switcher matching design
@@ -53,7 +52,7 @@ storyblokInit({
     analytics_video: AnalyticsVideo,
     anytrack_tracker: AnytrackTracker,
     anytrack_form: AnytrackForm,
-    iframe:Iframe
+    iframe: Iframe,
   },
   apiOptions: {
     region: "eu",
@@ -89,7 +88,7 @@ export default async function RootLayout({
           strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html:
-              '!function(e,t,n,s,a){(a=t.createElement(n)).async=!0,a.src="https://assets.anytrack.io/fAFVGeG8J0x8.js",(t=t.getElementsByTagName(n)[0]).parentNode.insertBefore(a,t),e[s]=e[s]||function(){(e[s].q=e[s].q||[]).push(arguments)}}(window,document,"script","AnyTrack");',
+              '!function(e,t,n,s,a){(a=t.createElement(n)).async=!0,a.src="https://assets.anytrack.io/3zytzF8eQ1RA.js",(t=t.getElementsByTagName(n)[0]).parentNode.insertBefore(a,t),e[s]=e[s]||function(){(e[s].q=e[s].q||[]).push(arguments)}}(window,document,"script","AnyTrack");',
           }}
         />
       </head>

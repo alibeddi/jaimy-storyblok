@@ -31,6 +31,14 @@ export const callAnytrack = (method: string, ...args: unknown[]) => {
   if (!api) return;
   if (typeof api === "function") {
     // Queue-style API: AnyTrack('method', ...args)
+    if (method === "page") {
+      const pageName = args[0] as string | undefined;
+      const properties = (args[1] as Record<string, unknown> | undefined) || {};
+      const merged = { title: pageName, ...properties };
+      // Map to a generic pageview event
+      api("track", "pageview", merged);
+      return;
+    }
     api(method, ...args);
     return;
   }
@@ -48,12 +56,17 @@ export const callAnytrack = (method: string, ...args: unknown[]) => {
         args[1] as Record<string, unknown> | undefined
       );
       break;
-    case "page":
-      api.page?.(
-        args[0] as string | undefined,
-        args[1] as Record<string, unknown> | undefined
-      );
+    case "page": {
+      const pageName = args[0] as string | undefined;
+      const properties = args[1] as Record<string, unknown> | undefined;
+      if (api.page) {
+        api.page(pageName, properties);
+      } else {
+        const merged = { title: pageName, ...(properties || {}) };
+        api.track?.("pageview", merged);
+      }
       break;
+    }
     case "setUserProperties":
       api.setUserProperties?.(args[0] as Record<string, unknown>);
       break;

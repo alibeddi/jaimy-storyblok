@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useId, useMemo } from "react";
 
 interface CurvedBackgroundProps {
   fillColor?: string;
@@ -17,8 +17,11 @@ export default function CurvedBackground({
   className = "",
   opacity = 1,
 }: CurvedBackgroundProps) {
-  // const svgId = `curved-bg-${Math.random().toString(36).substr(2, 9)}`;
-  const patternId = `pattern-${Math.random().toString(36).substr(2, 9)}`;
+  const reactId = useId();
+  const patternId = useMemo(
+    () => `pattern-${reactId.replace(/[^a-zA-Z0-9_-]/g, "")}`,
+    [reactId]
+  );
 
   return (
     <div className={`absolute top-0 right-0 ${className}`} style={{ opacity }}>
