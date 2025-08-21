@@ -46,7 +46,7 @@ storyblokInit({
     social_proof: SocialProof,
     faq: FAQ,
     footer: Footer,
-    // features: Features,
+    feature: Features,
     analytics_button: AnalyticsButton,
     analytics_form: AnalyticsForm,
     analytics_video: AnalyticsVideo,

@@ -27,7 +27,7 @@ export default function IframeComponent({ blok }: { blok: IframeBlok }) {
   const [iframeUrl, setIframeUrl] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
-  console.log(blok?.formId)
+ 
   // Generate iframe URL based on formId and service type
   useEffect(() => {
     if (blok?.formId) {

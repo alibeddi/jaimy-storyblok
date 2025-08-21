@@ -17,7 +17,7 @@ interface LinkBlok {
 	cached_url?: string;
 }
 
-interface ButtonBlok {
+export interface ButtonBlok {
 	component: string;
 	icon_variant?: string;
 	icon_color?: IconColor;
@@ -42,6 +42,7 @@ interface ButtonProps {
 }
 
 const Button: React.FC<ButtonProps> = ({ className, blok }) => {
+	console.log(blok,'button blok')
 	const to = blok.link?.url || '#';
 	return (
 		<ButtonUI

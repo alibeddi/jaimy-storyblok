@@ -64,7 +64,7 @@ export const componentMap: Record<string, ComponentType> = {
   social_proof: SocialProof,
   faq: FAQ,
   footer: Footer,
-  features: Features,
+  feature: Features,
   button: Button,
   "button-group": ButtonGroup,
   teaser: Teaser,

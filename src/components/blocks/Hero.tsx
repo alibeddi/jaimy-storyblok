@@ -7,7 +7,7 @@ import CurvedBackground from "../ui/CurvedBackground";
 import { StoryblokComponent } from "@storyblok/react";
 
 export default function Hero({ blok }: { blok: HeroBlok }) {
-  console.log(blok);
+
   return (
     <section
       {...storyblokEditable(blok)}

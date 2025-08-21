@@ -15,8 +15,7 @@ function AnimatedCounter({
   duration?: number; 
 }) {
   const [count, setCount] = useState(0);
-      console.log('currentCount', count);
-console.log(  targetNumber)
+    
   const [isVisible, setIsVisible] = useState(false);
   const [hasAnimated, setHasAnimated] = useState(false);
   const counterRef = useRef<HTMLDivElement>(null);

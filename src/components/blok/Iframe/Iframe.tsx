@@ -35,7 +35,7 @@ const Iframe: React.FC<IframeProps> = ({ blok }) => {
 		[marginBottomClasses[blok.margin_bottom || 'default']]: true,
 		'w-full flex justify-center': true,
 	});
-	console.log(blok);
+	
 	const formId = blok.formId || '';
 	const width = blok.width || '100%';
 	const height = blok.height || '400';
