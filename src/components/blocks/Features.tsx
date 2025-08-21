@@ -13,7 +13,7 @@ interface FeaturesProps {
       filename: string;
       alt?: string;
     };
-    cta_button?:ButtonBlok
+    button?:ButtonBlok
     
     image_position?: 'left' | 'right'; // Enhanced: More intuitive field name
     reverse_layout?: boolean; // Keep for backward compatibility
@@ -71,7 +71,7 @@ export default function Features({ blok }: FeaturesProps) {
               )}
 
               {/* CTA Button */}
-              {blok.cta_button && blok.cta_button[0] && (
+              {blok.button && blok.button[0] && (
                 // <div className="pt-2">
                 //   <a
                 //     href={blok.cta_button[0].link?.cached_url}
@@ -82,7 +82,7 @@ export default function Features({ blok }: FeaturesProps) {
                 // </div>
                 <Button 
                className=""
-               blok={blok.cta_button}
+               blok={blok.button[0]}
                 />
               )}
             </div>

@@ -54,7 +54,7 @@ const Button: React.FC<ButtonProps> = ({ className, blok }) => {
 			iconSize={blok.icon_size}
 			iconSpacing={blok.icon_spacing}
 			type={blok.type}
-			variant={blok.variant}
+			variant={'secondary'}
 			to={to}
 			target={blok.target}
 			relation={blok.relation}
