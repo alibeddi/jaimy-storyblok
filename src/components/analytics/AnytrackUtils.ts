@@ -35,8 +35,15 @@ export const callAnytrack = (method: string, ...args: unknown[]) => {
       const pageName = args[0] as string | undefined;
       const properties = (args[1] as Record<string, unknown> | undefined) || {};
       const merged = { title: pageName, ...properties };
-      // Map to a generic pageview event
-      api("track", "pageview", merged);
+      // Use event name directly instead of 'track' command
+      api("pageview", merged);
+      return;
+    }
+    if (method === "track") {
+      const eventName = args[0] as string;
+      const properties = args[1] as Record<string, unknown> | undefined;
+      // Use event name directly instead of 'track' command
+      api(eventName, properties);
       return;
     }
     api(method, ...args);
