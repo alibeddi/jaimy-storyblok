@@ -105,5 +105,17 @@ export default <Partial<Config>>{
     "mb-6",
     "mb-8",
     "mb-10",
+
+    // Button variant classes
+    "hover:bg-[rgb(var(--color-primary-600))]",
+    "hover:bg-[rgb(var(--color-gray-200))]",
+    "hover:bg-[rgb(var(--color-primary-500))]",
+    "border-[rgb(var(--color-primary-500))]",
+    "text-[rgb(var(--color-primary-500))]",
+    "focus-visible:ring-[rgb(var(--color-primary-500))]",
+    "focus-visible:ring-[rgb(var(--color-gray-500))]",
+    "focus-visible:ring-2",
+    "transition-all",
+    "duration-200",
   ],
 };

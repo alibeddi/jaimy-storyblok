@@ -2,6 +2,7 @@ import { storyblokEditable } from "@storyblok/react/rsc";
 import Image from "next/image";
 import { FooterBlok } from "@/types/storyblok";
 import Link from "next/link";
+import Button from "../general/Button/Button";
 
 export default function Footer({ blok }: { blok: FooterBlok }) {
   const defaultLogo = blok.logo?.filename || "/footer-logo.png";
@@ -135,86 +136,40 @@ export default function Footer({ blok }: { blok: FooterBlok }) {
                 )}
               </div>
               
-              {/* Trust badges */}
+              {/* Footer Buttons */}
               <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
-                {blok.trust_badges?.map((badge, index) => (
-                  <div key={index} className="relative">
-                    {badge.url ? (
-                      <a href={badge.url} target="_blank" rel="noopener noreferrer">
-                        <div
-                          className="w-32 h-10 rounded-full flex items-center justify-center transition-opacity hover:opacity-80"
-                          style={{
-                            background: badge.background_color || "#F4F4F4",
-                            boxShadow: "-5px 7px 17.3px -2px rgba(0, 0, 0, 0.59)"
-                          }}
-                        >
-                          <span
-                            className="text-sm font-bold text-center px-3"
-                            style={{
-                              fontFamily: "BelfiusAlternative, -apple-system, Roboto, Helvetica, sans-serif",
-                              color: badge.text_color || "#BE213A"
-                            }}
-                          >
-                            {badge.label}
-                          </span>
-                        </div>
-                      </a>
-                    ) : (
-                      <div
-                        className="w-32 h-10 rounded-full flex items-center justify-center"
-                        style={{
-                          background: badge.background_color || "#F4F4F4",
-                          boxShadow: "-5px 7px 17.3px -2px rgba(0, 0, 0, 0.59)"
-                        }}
-                      >
-                        <span
-                          className="text-sm font-bold text-center px-3"
-                          style={{
-                            fontFamily: "BelfiusAlternative, -apple-system, Roboto, Helvetica, sans-serif",
-                            color: badge.text_color || "#BE213A"
-                          }}
-                        >
-                          {badge.label}
-                        </span>
-                      </div>
-                    )}
+                {blok.footer_buttons?.map((button, index) => (
+                  <div key={index} className="relative" {...storyblokEditable(button)}>
+                    <Button
+                      blok={button}
+                      className="footer-button"
+                    />
                   </div>
                 )) || (
                   <>
                     <div className="relative">
-                      <div
-                        className="w-32 h-10 rounded-full flex items-center justify-center"
-                        style={{
-                          background: "#F4F4F4",
-                          boxShadow: "-5px 7px 17.3px -2px rgba(0, 0, 0, 0.59)"
+                      <Button
+                        blok={{
+                          component: "button",
+                          title: "Homepage",
+                          type: "button",
+                          variant: "primary",
+                          link: { url: "#" }
                         }}
-                      >
-                        <span
-                          className="text-sm font-bold text-center"
-                          style={{
-                            fontFamily: "BelfiusAlternative, -apple-system, Roboto, Helvetica, sans-serif",
-                            color: "#BE213A"
-                          }}
-                        >
-                          Homepage
-                        </span>
-                      </div>
+                        className="footer-button homepage"
+                      />
                     </div>
                     <div className="relative">
-                      <div
-                        className="w-32 h-10 rounded-full flex items-center justify-center"
-                        style={{
-                          background: "rgba(244, 244, 244, 0.30)",
-                          boxShadow: "-5px 7px 17.3px -2px rgba(0, 0, 0, 0.59)"
+                      <Button
+                        blok={{
+                          component: "button",
+                          title: "Pro Platform",
+                          type: "button",
+                          variant: "tertiary",
+                          link: { url: "#" }
                         }}
-                      >
-                        <span
-                          className="text-sm font-bold text-white text-center"
-                          style={{ fontFamily: "BelfiusAlternative, -apple-system, Roboto, Helvetica, sans-serif" }}
-                        >
-                          Pro Platform
-                        </span>
-                      </div>
+                        className="footer-button pro-platform"
+                      />
                     </div>
                   </>
                 )}
