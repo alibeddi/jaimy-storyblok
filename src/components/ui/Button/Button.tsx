@@ -36,13 +36,14 @@ const Button: React.FC<ButtonProps> = ({
 
   // Variant styles
   const variantStyles = {
-    primary:
-      "bg-[rgb(var(--color-primary-500))] text-white hover:bg-[rgb(var(--color-primary-600))] focus-visible:ring-2 focus-visible:ring-[rgb(var(--color-primary-500))] transition-all duration-200",
-    secondary:
-      "bg-[rgb(var(--color-gray-100))] text-[rgb(var(--color-gray-800))] hover:bg-[rgb(var(--color-gray-200))] border border-[rgb(var(--color-gray-300))] focus-visible:ring-2 focus-visible:ring-[rgb(var(--color-gray-500))] transition-all duration-200",
-    tertiary:
-      "bg-transparent border border-[rgb(var(--color-primary-500))] text-[rgb(var(--color-primary-500))] hover:bg-[rgb(var(--color-primary-500))] hover:text-white focus-visible:ring-2 focus-visible:ring-[rgb(var(--color-primary-500))] transition-all duration-200",
-  };
+  primary:
+    "bg-gradient-to-r from-[#961E34] to-[#C30B30] text-white p-4 rounded-lg transition-all duration-200 hover:opacity-90 focus-visible:ring-2 focus-visible:ring-[#C30B30]",
+  secondary:
+    "bg-[#F4F4F4] text-[#BE213A] p-4 rounded-lg transition-all duration-200 hover:bg-[#e5e5e5] focus-visible:ring-2 focus-visible:ring-[#BE213A]",
+  tertiary:
+    "bg-[rgba(244,244,244,0.3)] text-white p-4 rounded-lg transition-all duration-200 hover:bg-[rgba(244,244,244,0.5)] focus-visible:ring-2 focus-visible:ring-white",
+};
+
 
   // Size styles
   const sizeStyles = {

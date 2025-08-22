@@ -33,8 +33,16 @@ export default function Blogs({ blok }: { blok: BlogsBlok }) {
       {...storyblokEditable(blok)}
       className="bg-[#F4F4F4] py-8 sm:py-12 md:py-16 lg:py-20 relative overflow-hidden transition-all duration-500 ease-in-out"
     >
-       <CurvedBackground className="absolute inset-0 hidden md:block " width={'100%'} height={'100%'} fillColor={'#B9203B'}/>
-      
+       {/* <CurvedBackground className="absolute inset-0 hidden md:block " width={'100%'} height={'100%'} fillColor={'#B9203B'}/> */}
+      <div className="hidden md:block">
+        <CurvedBackground 
+         fillColor={'#B9203B'}
+          width="80%"
+          height="100%"
+          className=" absolute inset-0 hidden md:block "
+          opacity={0.9}
+        />
+      </div>
       <div className="max-w-[90%]  mx-auto px-4 sm:px-6 md:px-8 relative z-10 flex items-center">
         {/* Main Container - Responsive with smooth transitions */}
         <div className="rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12 relative overflow-hidden backdrop-blur-md bg-white/70 w-full transition-all duration-300 hover:bg-white/80 hover:shadow-2xl">

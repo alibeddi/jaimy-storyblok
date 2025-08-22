@@ -137,11 +137,11 @@ export default function Footer({ blok }: { blok: FooterBlok }) {
               </div>
               
               {/* Footer Buttons */}
-              <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
+              <div className="flex flex-col items-center sm:flex-row gap-3 justify-center lg:justify-start">
                 {blok.footer_buttons?.map((button, index) => (
                   <div key={index} className="relative" {...storyblokEditable(button)}>
                     <Button
-                      blok={button}
+                      blok={button} 
                       className="footer-button"
                     />
                   </div>

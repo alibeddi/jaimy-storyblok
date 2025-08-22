@@ -27,6 +27,7 @@ export interface StoryblokComponent<T extends string = string> {
   [key: string]: unknown;
 }
 
+import { ButtonBlok } from "@/components/blok/general/Button/Button";
 // Import the SbBlokData type from Storyblok
 import type { SbBlokData } from "@storyblok/react/rsc";
 
@@ -58,12 +59,7 @@ export interface HeroBlok extends SbBlokData {
   headline?: string;
   subheadline?: string;
   description?: string;
-  primary_button?: Array<{
-    label: string;
-    link: {
-      cached_url: string;
-    };
-  }>;
+  primary_button?: ButtonBlok
   secondary_button?: Array<{
     label: string;
     link: {
@@ -74,7 +70,7 @@ export interface HeroBlok extends SbBlokData {
     filename: string;
     alt?: string;
   };
-  iframe_block?: IframeBlok;
+  iframe_block?: IframeBlok[];
   trust_badges?: Array<{
     value: string;
     description: string;
