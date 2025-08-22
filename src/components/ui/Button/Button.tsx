@@ -37,11 +37,11 @@ const Button: React.FC<ButtonProps> = ({
   // Variant styles
   const variantStyles = {
     primary:
-      "bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-primary",
+      "bg-[rgb(var(--color-primary-500))] text-white hover:bg-[rgb(var(--color-primary-600))] focus-visible:ring-2 focus-visible:ring-[rgb(var(--color-primary-500))] transition-all duration-200",
     secondary:
-      "bg-secondary text-secondary-foreground hover:bg-secondary/80 focus-visible:ring-secondary",
+      "bg-[rgb(var(--color-gray-100))] text-[rgb(var(--color-gray-800))] hover:bg-[rgb(var(--color-gray-200))] border border-[rgb(var(--color-gray-300))] focus-visible:ring-2 focus-visible:ring-[rgb(var(--color-gray-500))] transition-all duration-200",
     tertiary:
-      "bg-transparent border border-input text-foreground hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring",
+      "bg-transparent border border-[rgb(var(--color-primary-500))] text-[rgb(var(--color-primary-500))] hover:bg-[rgb(var(--color-primary-500))] hover:text-white focus-visible:ring-2 focus-visible:ring-[rgb(var(--color-primary-500))] transition-all duration-200",
   };
 
   // Size styles

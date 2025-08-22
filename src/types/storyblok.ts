@@ -231,11 +231,25 @@ export interface FooterBlok extends SbBlokData {
     phone?: string;
     address?: string;
   }>;
-  trust_badges?: Array<{
-    label: string;
-    url?: string;
-    background_color?: string;
-    text_color?: string;
+  footer_buttons?: Array<{
+    component: string;
+    title: string;
+    type: string;
+    variant: string;
+    link: {
+      url?: string;
+      cached_url?: string;
+    };
+    target?: string;
+    preset?: string;
+    icon_variant?: string;
+    icon_color?: string;
+    icon_type?: string;
+    icon_position?: string;
+    icon_size?: string;
+    icon_spacing?: string;
+    relation?: string[];
+    disable_nofollow?: boolean;
   }>;
   copyright_text?: string;
   background_color?: string;

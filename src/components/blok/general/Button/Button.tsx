@@ -1,4 +1,4 @@
- /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import ButtonUI from '../../../ui/Button';
 import { 
@@ -54,7 +54,7 @@ const Button: React.FC<ButtonProps> = ({ className, blok }) => {
 			iconSize={blok.icon_size}
 			iconSpacing={blok.icon_spacing}
 			type={blok.type}
-			variant={'secondary'}
+			variant={blok.variant || 'secondary'}
 			to={to}
 			target={blok.target}
 			relation={blok.relation}
