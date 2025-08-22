@@ -21,6 +21,7 @@ interface IframeProps {
 }
 
 const Iframe: React.FC<IframeProps> = ({ blok }) => {
+	console.log(blok ,'iframe')
 	const marginBottomClasses: Record<SpacingVariant, string> = {
 		none: 'mb-0',
 		xs: 'mb-1',
@@ -33,7 +34,7 @@ const Iframe: React.FC<IframeProps> = ({ blok }) => {
 
 	const className = cn({
 		[marginBottomClasses[blok.margin_bottom || 'default']]: true,
-		'w-full flex justify-center': true,
+		'w-full flex justify-center items-center': true,
 	});
 	
 	const formId = blok.formId || '';

@@ -42,7 +42,7 @@ interface ButtonProps {
 }
 
 const Button: React.FC<ButtonProps> = ({ className, blok }) => {
-	console.log(blok,'button blok')
+
 	const to = blok.link?.url || '#';
 	return (
 		<ButtonUI

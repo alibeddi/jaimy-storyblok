@@ -24,7 +24,7 @@ export default function CurvedBackground({
   );
 
   return (
-    <div className={`absolute top-0 right-0 ${className}`} style={{ opacity }}>
+    <div className={`absolute w-full bottom-0 right-0 ${className}`} style={{ opacity }}>
       <svg
         width={width}
         height={height}
@@ -32,6 +32,7 @@ export default function CurvedBackground({
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         style={{ transform: "translateX(0%)" }}
+        className="absolute bottom-0 right-0 "
       >
         {backgroundImage && (
           <defs>
@@ -46,7 +47,7 @@ export default function CurvedBackground({
                 href={backgroundImage}
                 x="0"
                 y="0.1"
-                width="0.8"
+                width="1"
                 height="1"
                 // preserveAspectRatio="xMidYMid slice"
               />

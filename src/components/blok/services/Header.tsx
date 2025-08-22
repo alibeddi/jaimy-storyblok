@@ -59,7 +59,7 @@ export default function Header({ blok }: { blok: HeaderBlok }) {
   return (
     <header
       {...storyblokEditable(blok)}
-      className="w-full bg-white border-b border-gray-200 shadow-sm relative z-50"
+      className="w-full bg-white shadow-sm relative z-50"
     >
       {/* Desktop Header */}
       <div className="hidden lg:flex items-center justify-between px-4 xl:px-8 py-4 max-w-7xl mx-auto">
