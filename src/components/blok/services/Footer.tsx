@@ -9,7 +9,7 @@ export default function Footer({ blok }: { blok: FooterBlok }) {
   const defaultEmail = blok.contact_info?.[0]?.email || "info@jaimy.be";
   const defaultPhone = blok.contact_info?.[0]?.phone || "+32 (0) 460 20 25 23";
   const defaultCopyright = blok.copyright_text || "© Jaimy by Belfius 2024 | BE0699.693.365 | Karel Rogierplein 11, 1210 Brussel";
-  
+  console.log(blok?.social_links?.[0]?.social_link)
   return (
     <footer
       {...storyblokEditable(blok)}
@@ -85,7 +85,8 @@ export default function Footer({ blok }: { blok: FooterBlok }) {
               </h3>
               <div className="flex gap-3 mb-6 justify-center lg:justify-start">
                 {/* Social Media Icons */}
-                {blok.social_links?.map((social, index) => (
+                {blok?.social_links?.[0]?.social_link?.map((social, index) => (
+              
                   <a
                     key={index}
                     href={social.url}

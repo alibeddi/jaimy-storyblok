@@ -217,10 +217,10 @@ export interface FooterBlok extends SbBlokData {
     }>;
   }>;
   social_links?: Array<{
-    platform: string;
+    social_link: Array<{ platform: string;
     url: string;
     icon?: {filename: string;
-    alt?: string;};
+    alt?: string;};}>;
   }>;
   contact_info?: Array<{
     email?: string;
