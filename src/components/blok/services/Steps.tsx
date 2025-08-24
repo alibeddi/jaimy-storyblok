@@ -41,7 +41,7 @@ export default function Steps({ blok }: { blok: StepsBlok }) {
         </h2>
 
         {/* Steps Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 md:gap-8 gap-16">
     
           {steps.map((step) => ( // Remove index parameter if not needed
             <div

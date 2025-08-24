@@ -360,7 +360,7 @@ export default function Hero({ blok }: { blok: HeroBlok }) {
                   <div className="w-full h-full flex justify-center max-w-md lg:max-w-lg aspect-[3/4]">
                     
                       {/* <StoryblokComponent blok={blok.iframe_block?.[0] as IframeBlok} /> */}
-                      <Iframe blok={blok.iframe_block?.[0]} />
+                      <Iframe blok={blok.iframe_block?.[0] } />
                     </div>
                 
                 ) : (

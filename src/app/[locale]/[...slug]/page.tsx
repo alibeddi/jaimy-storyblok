@@ -14,12 +14,12 @@ interface StoryBlock {
   [key: string]: unknown;
 }
 
-interface PageProps {
+interface Props {
   params: Promise<{
     locale: string;
     slug: string[];
   }>;
-  searchParams?: { [key: string]: string | string[] | undefined };
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 interface BlokData extends SbBlokData {
@@ -27,7 +27,7 @@ interface BlokData extends SbBlokData {
   _uid: string;
 }
 
-export default async function DynamicPage({ params }: PageProps) {
+export default async function DynamicPage({ params }: Props) {
   const { slug, locale } = await params;
   const slugPath = slug?.length ? slug.join("/") : "home";
 
@@ -67,7 +67,7 @@ async function fetchStoryblokData(slug: string, locale: string) {
   });
 }
 
-export async function generateMetadata({ params }: PageProps) {
+export async function generateMetadata({ params }: Props) {
   const { slug, locale } = await params;
   const slugPath = slug?.length ? slug.join("/") : "home";
 

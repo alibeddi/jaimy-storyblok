@@ -3,25 +3,16 @@ import React from 'react';
 import { storyblokEditable } from '@storyblok/react';
 import cn from 'classnames';
 import { SpacingVariant } from '@/types/ui';
+import { IframeBlok } from '@/types/storyblok';
 
-interface IframeBlok {
-	component: string;
-	_uid: string;
-	formId?: string;
-	locale?: string;
-	width?: string;
-	height?: string;
-	sandbox?: string;
-	margin_bottom?: SpacingVariant;
-	[key: string]: any;
-}
+
 
 interface IframeProps {
 	blok: IframeBlok;
 }
 
 const Iframe: React.FC<IframeProps> = ({ blok }) => {
-	console.log(blok ,'iframe')
+
 	const marginBottomClasses: Record<SpacingVariant, string> = {
 		none: 'mb-0',
 		xs: 'mb-1',
@@ -33,7 +24,7 @@ const Iframe: React.FC<IframeProps> = ({ blok }) => {
 	};
 
 	const className = cn({
-		[marginBottomClasses[blok.margin_bottom || 'default']]: true,
+		[marginBottomClasses[blok.margin_bottom as SpacingVariant || 'default']]: true,
 		'w-full flex justify-center items-center': true,
 	});
 	

@@ -3,17 +3,17 @@ import { getTranslations } from "next-intl/server";
 import SearchResults from "./SearchResults";
 
 interface SearchPageProps {
-  params: {
+  params: Promise<{
     locale: string;
-  };
-  searchParams: {
+  }>;
+  searchParams: Promise<{
     q?: string;
-  };
+  }>;
 }
 
 export async function generateMetadata({ searchParams }: SearchPageProps) {
   const t = await getTranslations("search");
-  const query = searchParams.q || "";
+  const query = (await searchParams).q || "";
   
   return {
     title: query ? `${t("results-for")} "${query}"` : t("title"),
@@ -21,8 +21,9 @@ export async function generateMetadata({ searchParams }: SearchPageProps) {
   };
 }
 
-export default function SearchPage({ searchParams, params }: SearchPageProps) {
-  const query = searchParams.q || "";
+export default async function SearchPage({ searchParams, params }: SearchPageProps) {
+  const query = (await searchParams).q || "";
+  const { locale } = await params;
 
   return (
     <div className="min-h-screen bg-white">
@@ -40,7 +41,7 @@ export default function SearchPage({ searchParams, params }: SearchPageProps) {
           </div>
 
           <Suspense fallback={<SearchLoadingSkeleton />}>
-            <SearchResults query={query} locale={params.locale} />
+            <SearchResults query={query} locale={locale} />
           </Suspense>
         </div>
       </div>
