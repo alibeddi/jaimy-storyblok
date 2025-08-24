@@ -35,7 +35,7 @@ export default function SearchResults({ query, locale }: SearchResultsProps) {
       await new Promise(resolve => setTimeout(resolve, 500));
 
       // Mock search results for demonstration
-      const mockResults: SearchResult[] = [
+      const mockResults = [
         {
           id: "1",
           title: "Getting Started with Jaimy",
@@ -62,7 +62,7 @@ export default function SearchResults({ query, locale }: SearchResultsProps) {
         result.excerpt.toLowerCase().includes(searchTerm.toLowerCase())
       );
 
-      setResults(mockResults);
+      setResults(mockResults as SearchResult[]);
     } catch (error) {
       console.error("Search error:", error);
       setResults([]);

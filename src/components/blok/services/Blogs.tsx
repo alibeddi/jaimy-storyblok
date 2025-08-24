@@ -45,7 +45,12 @@ export default function Blogs({ blok }: { blok: BlogsBlok }) {
       </div>
       <div className="max-w-[90%]  mx-auto px-4 sm:px-6 md:px-8 relative z-10 flex items-center">
         {/* Main Container - Responsive with smooth transitions */}
-        <div className="rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12 relative overflow-hidden backdrop-blur-md bg-white/70 w-full transition-all duration-300 hover:bg-white/80 hover:shadow-2xl">
+        <div className="rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12 relative overflow-hidden  bg-white/70 w-full transition-all duration-300 hover:bg-white/80 hover:shadow-2xl"
+        style={{
+              background: "rgba(244, 244, 244, 0.50)",
+              boxShadow: "-5px 7px 17px -2px rgba(0, 0, 0, 0.59)",
+            //   backdropFilter: "blur(10px)"
+            }}>
           {/* Content */}
           <div className="relative z-10">
             {/* H2 Title - Responsive typography */}
@@ -67,12 +72,7 @@ export default function Blogs({ blok }: { blok: BlogsBlok }) {
                       fill
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
-                    {/* NEW Tag */}
-                    {blogPosts[0] && (
-                      <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 bg-[#AF1B3C] text-white px-2 sm:px-3 py-1 rounded-lg text-xs sm:text-sm font-medium uppercase tracking-wider transition-all duration-300 hover:bg-[#8f1530]">
-                        NEW
-                      </div>
-                    )}
+                   
                   </div>
 
                   {/* Card Content */}
