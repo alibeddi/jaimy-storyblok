@@ -11,6 +11,7 @@ import "../globals.css";
 import { storyblokInit, apiPlugin } from "@storyblok/react/rsc";
 import StoryblokProvider from "@/components/StoryblokProvider";
 import { AnalyticsProvider } from "@/components/analytics/AnalyticsContext";
+import { Anytrack } from "@/components/analytics";
 import "../globals.css";
 import Page from "@/components/blok/services/Page";
 import Header from "@/components/blok/services/Header";
@@ -83,17 +84,21 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <head>
-        <Script
-          id="anytrack-inline-bootstrap"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{
-            __html:
-              '!function(e,t,n,s,a){(a=t.createElement(n)).async=!0,a.src="https://assets.anytrack.io/3zytzF8eQ1RA.js",(t=t.getElementsByTagName(n)[0]).parentNode.insertBefore(a,t),e[s]=e[s]||function(){(e[s].q=e[s].q||[]).push(arguments)}}(window,document,"script","AnyTrack");',
-          }}
-        />
+        {process.env.NEXT_PUBLIC_ANYTRACK_ID ? (
+          <Script
+            id="anytrack-inline-bootstrap"
+            strategy="beforeInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `!function(e,t,n,s,a){(a=t.createElement(n)).async=!0,a.src="https://assets.anytrack.io/${process.env.NEXT_PUBLIC_ANYTRACK_ID}.js",(t=t.getElementsByTagName(n)[0]).parentNode.insertBefore(a,t),e[s]=e[s]||function(){(e[s].q=e[s].q||[]).push(arguments)}}(window,document,"script","AnyTrack");`,
+            }}
+          />
+        ) : null}
       </head>
       <body className={inter.className}>
         <AnalyticsProvider>
+          {process.env.NEXT_PUBLIC_ANYTRACK_ID ? (
+            <Anytrack trackingId={process.env.NEXT_PUBLIC_ANYTRACK_ID} />
+          ) : null}
           <NextIntlClientProvider
             messages={messages}
             locale={locale}
