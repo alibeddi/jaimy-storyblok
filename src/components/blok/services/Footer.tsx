@@ -108,7 +108,7 @@ export default function Footer({ blok }: { blok: FooterBlok }) {
                   <>
                     <a href="#" className="hover:opacity-80 transition-opacity duration-200">
                       <Image
-                        src="https://api.builder.io/api/v1/image/assets/TEMP/15d9a13b1a4367826d8f1697ab0490c70d11dada?width=50"
+                        src="/icons/LinkedIn 2.svg"
                         alt="LinkedIn"
                         width={25}
                         height={25}
@@ -117,7 +117,7 @@ export default function Footer({ blok }: { blok: FooterBlok }) {
                     </a>
                     <a href="#" className="hover:opacity-80 transition-opacity duration-200">
                       <Image
-                        src="https://api.builder.io/api/v1/image/assets/TEMP/6110b1f843a357bd36bd96c980f0861568970f3b?width=50"
+                        src="/icons/Facebook F.svg"
                         alt="Facebook"
                         width={25}
                         height={25}
@@ -126,7 +126,7 @@ export default function Footer({ blok }: { blok: FooterBlok }) {
                     </a>
                     <a href="#" className="hover:opacity-80 transition-opacity duration-200">
                       <Image
-                        src="https://api.builder.io/api/v1/image/assets/TEMP/47f631391c5839051cae61781bf270c628afc9f7?width=50"
+                        src="/icons/Instagram.svg"
                         alt="Instagram"
                         width={25}
                         height={25}
