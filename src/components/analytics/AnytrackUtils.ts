@@ -43,20 +43,18 @@ export const callAnytrack = (method: string, ...args: unknown[]) => {
   const api = getAnytrack();
   if (!api) return;
   if (typeof api === "function") {
-    // Queue-style API: AnyTrack('method', ...args)
+    // Queue-style AnyTrack shim only supports limited commands
     if (method === "page") {
       const pageName = args[0] as string | undefined;
       const properties = (args[1] as Record<string, unknown> | undefined) || {};
       const merged = { title: pageName, ...properties };
-      // Try different page tracking commands that AnyTrack might support
       try {
         api("page", merged);
       } catch {
         try {
           api("pageview", merged);
         } catch {
-          // Fallback to generic tracking
-          api("track", "page_view", merged);
+          api("event", "page_view", merged);
         }
       }
       return;
@@ -64,26 +62,19 @@ export const callAnytrack = (method: string, ...args: unknown[]) => {
     if (method === "track") {
       const eventName = args[0] as string;
       const properties = args[1] as Record<string, unknown> | undefined;
-      // Try different tracking commands
+      // On shim, prefer 'event'
       try {
-        api("track", eventName, properties);
+        api("event", eventName, properties);
       } catch {
         try {
           api(eventName, properties);
         } catch {
-          // Fallback to generic event
-          api("event", eventName, properties);
+          // swallow
         }
       }
       return;
     }
-    // For other methods, try the method name first, then fallback
-    try {
-      api(method, ...args);
-    } catch {
-      // If method fails, try as a generic event
-      api("event", method, args.length > 0 ? args[0] : {});
-    }
+    // Ignore unsupported commands on the shim (e.g., init/enable*)
     return;
   }
   // Object-style API
