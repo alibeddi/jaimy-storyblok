@@ -24,16 +24,16 @@ const Iframe: React.FC<IframeProps> = ({ blok }) => {
 	};
 
 	const className = cn({
-		[marginBottomClasses[blok.margin_bottom as SpacingVariant || 'default']]: true,
+		[marginBottomClasses[blok?.margin_bottom as SpacingVariant || 'default']]: true,
 		'w-full flex justify-center items-center': true,
 	});
 	
-	const formId = blok.formId || '';
-	const width = blok.width || '100%';
-	const height = blok.height || '400';
-	const locale = blok.locale || 'fr';
+	const formId = blok?.formId || '';
+	const width = blok?.width || '100%';
+	const height = blok?.height || '400';
+	const locale = blok?.locale || 'fr';
 	const sandbox =
-		blok.sandbox || 'allow-same-origin allow-scripts allow-popups allow-forms';
+		blok?.sandbox || 'allow-same-origin allow-scripts allow-popups allow-forms';
 
 	return (
 		<div {...storyblokEditable(blok)} className={className}>

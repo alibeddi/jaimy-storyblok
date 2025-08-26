@@ -42,14 +42,14 @@ const Columns: React.FC<ColumnsProps> = ({ blok }) => {
 	const childrenWithProps = reversedChildren.map((child) => {
 		const newChild = {
 			...child,
-			group_columns_mobile: blok.columns_mobile,
-			group_columns_tablet: blok.columns_tablet,
-			group_columns_desktop: blok.columns_desktop,
-			touch_slide: blok.touch_slide,
-			touch_slide_column_size: blok.touch_slide_column_size,
-			disable_gutters: blok.connector_toggle,
-			columns: blok.children.length,
-			margin_bottom: blok.margin_bottom,
+			group_columns_mobile: blok?.columns_mobile,
+			group_columns_tablet: blok?.columns_tablet,
+			group_columns_desktop: blok?.columns_desktop,
+			touch_slide: blok?.touch_slide,
+			touch_slide_column_size: blok?.touch_slide_column_size,
+			disable_gutters: blok?.connector_toggle,
+			columns: blok?.children.length,
+			margin_bottom: blok?.margin_bottom,
 		};
 
 		return <Blok key={child._uid} blok={newChild} />;
@@ -58,20 +58,20 @@ const Columns: React.FC<ColumnsProps> = ({ blok }) => {
 	return (
 		<ColumnsUI
 			{...storyblokEditable(blok)}
-			columnsMobile={blok.columns_mobile}
-			columnsTablet={blok.columns_tablet}
-			columnsDesktop={blok.columns_desktop}
-			reverseMobile={blok.reverse_mobile}
-			squeezeMobile={blok.squeeze_mobile}
-			squeezeTablet={blok.squeeze_tablet}
-			squeezeDesktop={blok.squeeze_desktop}
-			justifyContent={blok.justify_content}
-			alignContent={blok.align_content}
-			touchSlide={blok.touch_slide}
-			touchSlideColumnSize={blok.touch_slide_column_size}
-			connectorToggle={blok.connector_toggle}
-			connectorColor={blok.connector_color}
-			marginBottom={blok.margin_bottom}
+			columnsMobile={blok?.columns_mobile}
+			columnsTablet={blok?.columns_tablet}
+			columnsDesktop={blok?.columns_desktop}
+			reverseMobile={blok?.reverse_mobile}
+			squeezeMobile={blok?.squeeze_mobile}
+			squeezeTablet={blok?.squeeze_tablet}
+			squeezeDesktop={blok?.squeeze_desktop}
+			justifyContent={blok?.justify_content}
+			alignContent={blok?.align_content}
+			touchSlide={blok?.touch_slide}
+			touchSlideColumnSize={blok?.touch_slide_column_size}
+			connectorToggle={blok?.connector_toggle}
+			connectorColor={blok?.connector_color}
+			marginBottom={blok?.margin_bottom}
 		>
 			{childrenWithProps}
 		</ColumnsUI>

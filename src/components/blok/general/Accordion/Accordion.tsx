@@ -38,7 +38,7 @@ const Accordion: React.FC<AccordionProps> = ({ blok }) => {
   };
 
   const className = cn({
-    [marginBottomClasses[blok.margin_bottom || 'default']]: true,
+    [marginBottomClasses[blok?.margin_bottom || 'default']]: true,
   });
 
   const structuredData = blok.faq
@@ -65,8 +65,8 @@ const Accordion: React.FC<AccordionProps> = ({ blok }) => {
       )}
       <AccordionUI
         className={className}
-        dark={blok.dark}
-        multiple={blok.multiple}
+        dark={blok?.dark}
+        multiple={blok?.multiple}
         {...storyblokEditable(blok)}
       >
         {blok.children?.map((child, index) => (

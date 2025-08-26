@@ -41,7 +41,7 @@ const List: React.FC<ListProps> = ({ blok }) => {
 	};
 
 	const className = cn({
-		[marginBottomClasses[blok.margin_bottom || 'default']]: blok.margin_bottom,
+		[marginBottomClasses[blok?.margin_bottom || 'default']]: blok?.margin_bottom,
 	});
 
 	return (

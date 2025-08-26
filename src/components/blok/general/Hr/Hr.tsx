@@ -30,15 +30,15 @@ const Hr: React.FC<HrProps> = ({ blok }) => {
 	};
 
 	const className = cn({
-		[marginBottomClasses[blok.margin_bottom || 'default']]: true,
+		[marginBottomClasses[blok?.margin_bottom || 'default']]: true,
 	});
 
 	return (
 		<HrUI
 			className={className}
-			color={blok.hr_color}
-			variant={blok.variant}
-			margin={blok.margin_bottom}
+			color={blok?.hr_color}
+			variant={blok?.variant}
+			margin={blok?.margin_bottom}
 			{...storyblokEditable(blok)}
 		/>
 	);

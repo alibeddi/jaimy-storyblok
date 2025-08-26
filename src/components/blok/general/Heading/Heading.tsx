@@ -30,14 +30,14 @@ const Heading: React.FC<HeadingProps> = ({ className, blok }) => {
 	return (
 		<HeadingUI
 			title={titleContent}
-			id={blok.id}
+			id={blok?.id}
 			className={className}
-			tag={blok.tag}
-			type={blok.type}
+			tag={blok?.tag}
+			type={blok?.type}
 			size={blok.size}
-			color={blok.color}
-			textAlign={blok.text_align}
-			marginBottom={blok.margin_bottom}
+			color={blok?.color}
+			textAlign={blok?.text_align}
+			marginBottom={blok?.margin_bottom}
 			{...storyblokEditable(blok)}
 		>
 			{titleContent}
