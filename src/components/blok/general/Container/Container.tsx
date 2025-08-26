@@ -53,27 +53,27 @@ const Container: React.FC<ContainerProps> = ({ blok }) => {
 		<ContainerUI
 			// Icon props
 			hasIcon={hasIcon}
-			iconVariant={blok.icon_variant}
-			iconType={blok.icon_type}
-			iconColor={blok.icon_color}
-			iconSize={blok.icon_size}
-			iconSpacing={blok.icon_spacing}
+			iconVariant={blok?.icon_variant}
+			iconType={blok?.icon_type}
+			iconColor={blok?.icon_color}
+			iconSize={blok?.icon_size}
+			iconSpacing={blok?.icon_spacing}
 			// Background props
-			backgroundColor={blok.background_color}
-			backgroundImage={blok.background_image}
-			backgroundSize={blok.background_size}
-			backgroundPosition={blok.background_position}
-			backgroundAttachment={blok.background_attachment}
-			backgroundRepeat={blok.background_repeat}
-			backgroundOpacity={blok.background_opacity}
+			backgroundColor={blok?.background_color}
+			backgroundImage={blok?.background_image}
+			backgroundSize={blok?.background_size}
+			backgroundPosition={blok?.background_position}
+			backgroundAttachment={blok?.background_attachment}
+			backgroundRepeat={blok?.background_repeat}
+			backgroundOpacity={blok?.background_opacity}
 			// Advanced props
-			grow={blok.grow} // Now directly pass the boolean value
-			justifyContent={blok.justify_content}
-			alignContent={blok.align_content}
-			textAlign={blok.text_align}
-			paddingX={blok.padding_x}
-			paddingTop={blok.padding_top}
-			paddingBottom={blok.padding_bottom}
+			grow={blok?.grow} // Now directly pass the boolean value
+			justifyContent={blok?.justify_content}
+			alignContent={blok?.align_content}
+			textAlign={blok?.text_align}
+			paddingX={blok?.padding_x}
+			paddingTop={blok?.padding_top}
+			paddingBottom={blok?.padding_bottom}
 			// preset={blok.preset}
 			{...storyblokEditable(blok)}
 		>
