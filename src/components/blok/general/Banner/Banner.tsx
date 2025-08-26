@@ -39,18 +39,18 @@ const Banner: React.FC<BannerProps> = ({ className, blok }) => {
   return (
     <BannerUISelector
       className={className}
-      backgroundColor={blok.background_color}
-      iconVariant={blok.icon_variant}
-      iconType={blok.icon_type}
-      iconColor={blok.icon_color}
-      iconMobileDisable={blok.icon_mobile_disable}
-      contentWidth={blok.content_width}
-      contentWidthTablet={blok.content_width_tablet}
-      image={blok.img}
+      backgroundColor={blok?.background_color}
+      iconVariant={blok?.icon_variant}
+      iconType={blok?.icon_type}
+      iconColor={blok?.icon_color}
+      iconMobileDisable={blok?.icon_mobile_disable}
+      contentWidth={blok?.content_width}
+      contentWidthTablet={blok?.content_width_tablet}
+      image={blok?.img}
       imageMobile={imageMobile}
-      type={blok.type}
-      content={blok.content}
-      uspBar={blok.usp_bar}
+      type={blok?.type}
+      content={blok?.content}
+      uspBar={blok?.usp_bar}
       {...storyblokEditable(blok)}
     />
   );

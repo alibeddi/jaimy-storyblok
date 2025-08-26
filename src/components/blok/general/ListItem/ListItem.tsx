@@ -29,12 +29,12 @@ interface ListItemProps {
 const ListItem: React.FC<ListItemProps> = ({ blok, list }) => {
 	return (
 		<ListItemUI
-			text={blok.text}
+			text={blok?.text}
 			iconColor={
-				blok.icon_color === 'default' ? list?.icon_color : blok.icon_color
+				blok?.icon_color === 'default' ? list?.icon_color : blok?.icon_color
 			}
-			iconVariant={blok.icon_variant}
-			iconType={blok.icon_type}
+			iconVariant={blok?.icon_variant}
+			iconType={blok?.icon_type}
 			iconPosition={list?.icon_position || 'left'}
 			iconSpacing={list?.icon_spacing || 'xs'}
 			iconSize={list?.icon_size || 'sm'}

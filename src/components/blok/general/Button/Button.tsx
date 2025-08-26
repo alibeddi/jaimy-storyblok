@@ -47,20 +47,20 @@ const Button: React.FC<ButtonProps> = ({ className, blok }) => {
 	return (
 		<ButtonUI
 			className={className}
-			icon={blok.icon_variant}
-			iconColor={blok.icon_color}
-			iconType={blok.icon_type}
-			iconPosition={blok.icon_position}
-			iconSize={blok.icon_size}
-			iconSpacing={blok.icon_spacing}
-			type={blok.type}
-			variant={blok.variant || 'secondary'}
+			icon={blok?.icon_variant}
+			iconColor={blok?.icon_color}
+			iconType={blok?.icon_type}
+			iconPosition={blok?.icon_position}
+			iconSize={blok?.icon_size}
+			iconSpacing={blok?.icon_spacing}
+			type={blok?.type}
+			variant={blok?.variant || 'secondary'}
 			to={to}
-			target={blok.target}
-			relation={blok.relation}
-			disableNofollow={blok.disable_nofollow}
+			target={blok?.target}
+			relation={blok?.relation}
+			disableNofollow={blok?.disable_nofollow}
 		>
-			{blok.title}
+			{blok?.title}
 		</ButtonUI>
 	);
 };
