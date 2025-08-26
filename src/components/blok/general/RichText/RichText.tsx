@@ -28,10 +28,10 @@ const RichText: React.FC<RichTextProps> = ({ className, blok }) => {
 		<RichTextUI
 			className={className}
 			content={content}
-			size={blok.size}
-			color={blok.color}
-			textAlign={blok.text_align}
-			marginBottom={blok.margin_bottom}
+			size={blok?.size}
+			color={blok?.color}
+			textAlign={blok?.text_align}
+			marginBottom={blok?.margin_bottom}
 			{...storyblokEditable(blok)}
 		/>
 	);

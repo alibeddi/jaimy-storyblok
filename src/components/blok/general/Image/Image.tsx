@@ -42,12 +42,12 @@ const Image: React.FC<ImageProps> = ({ blok }) => {
 	};
 
 	const className = cn({
-		[marginBottomClasses[blok.margin_bottom || 'default']]: true,
+		[marginBottomClasses[blok?.margin_bottom || 'default']]: true,
 	});
 
 	const imageConfig = {
-		width: blok.img?.width,
-		height: blok.img?.height,
+		width: blok?.img?.width,
+		height: blok?.img?.height,
 		priority: false,
 		layout: 'responsive',
 	};
@@ -55,12 +55,12 @@ const Image: React.FC<ImageProps> = ({ blok }) => {
 	return (
 		<div className={className}>
 			<BlokImage
-				asset={blok.img}
-				aspectDesktop={blok.aspect_ratio_desktop}
-				aspectTablet={blok.aspect_ratio_tablet}
-				aspectMobile={blok.aspect_ratio_mobile}
-				maxWidth={blok.max_width}
-				preset={blok.preset}
+				asset={blok?.img}
+				aspectDesktop={blok?.aspect_ratio_desktop}
+				aspectTablet={blok?.aspect_ratio_tablet}
+				aspectMobile={blok?.aspect_ratio_mobile}
+				maxWidth={blok?.max_width}
+				preset={blok?.preset}
 				{...imageConfig}
 				{...storyblokEditable(blok)}
 			/>

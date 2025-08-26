@@ -29,7 +29,7 @@ const ReviewStars: React.FC<ReviewStarsProps> = ({ blok }) => {
 	};
 
 	const className = cn({
-		[marginBottomClasses[blok.margin_bottom || 'default']]: true,
+		[marginBottomClasses[blok?.margin_bottom || 'default']]: true,
 	});
 
 	return (
