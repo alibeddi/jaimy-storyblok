@@ -5,6 +5,7 @@ import { draftMode } from "next/headers";
 import { notFound } from "next/navigation";
 import Blok from "@/components";
 import { SbBlokData } from "@storyblok/react";
+import { PageBlok } from "@/types/storyblok";
 
 export const dynamic = "force-dynamic";
 
@@ -74,10 +75,59 @@ export async function generateMetadata({ params }: Props) {
   try {
     const { data } = await fetchStoryblokData(slugPath, locale);
     const story = data?.story;
+    const content = story?.content as PageBlok;
+
+    // Handle robots meta tag with enhanced options
+    const getRobotsContent = (robots?: string) => {
+      switch (robots) {
+        case "noindex,nofollow":
+          return "noindex, nofollow";
+        case "index,nofollow":
+          return "index, nofollow";
+        case "noindex,follow":
+          return "noindex, follow";
+        case "noindex":
+          return "noindex";
+        case "nofollow":
+          return "nofollow";
+        default:
+          return "index, follow";
+      }
+    };
+
+    const seo = content?.seo;
+    const title = seo?.title || story?.name || "Page";
+    const description = seo?.description || "Dynamic page content";
+    const ogTitle = seo?.og_title || title;
+    const ogDescription = seo?.og_description || description;
+    const ogImage = seo?.og_image?.filename || "";
+    const twitterTitle = seo?.twitter_title || ogTitle;
+    const twitterDescription = seo?.twitter_description || ogDescription;
+    const twitterImage = seo?.twitter_image?.filename || ogImage;
+    const robotsContent = getRobotsContent(seo?.robots);
+    const canonicalUrl = seo?.canonical_url || "";
+    const keywords = seo?.keywords || "";
 
     return {
-      title: story?.content?.seo_title || story?.name || "Page",
-      description: story?.content?.seo_description || "Dynamic page content",
+      title,
+      description,
+      keywords,
+      robots: robotsContent,
+      openGraph: {
+        title: ogTitle,
+        description: ogDescription,
+        images: ogImage ? [{ url: ogImage }] : [],
+        type: "website",
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: twitterTitle,
+        description: twitterDescription,
+        images: twitterImage ? [twitterImage] : [],
+      },
+      alternates: {
+        canonical: canonicalUrl,
+      },
     };
   } catch {
     return {

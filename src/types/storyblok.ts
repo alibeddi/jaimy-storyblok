@@ -59,7 +59,7 @@ export interface HeroBlok extends SbBlokData {
   headline?: string;
   subheadline?: string;
   description?: string;
-  primary_button?: ButtonBlok
+  primary_button?: ButtonBlok;
   secondary_button?: Array<{
     label: string;
     link: {
@@ -169,8 +169,8 @@ export interface SocialProofBlok extends SbBlokData {
     company_name?: string;
   }>;
   statistics?: Array<{
-    number: number;        // Changed from string to number
-    suffix?: string;       // New field for K+, %, etc.
+    number: number; // Changed from string to number
+    suffix?: string; // New field for K+, %, etc.
     label: string;
     description?: string;
     icon?: {
@@ -217,10 +217,11 @@ export interface FooterBlok extends SbBlokData {
     }>;
   }>;
   social_links?: Array<{
-    social_link: Array<{ platform: string;
-    url: string;
-    icon?: {filename: string;
-    alt?: string;};}>;
+    social_link: Array<{
+      platform: string;
+      url: string;
+      icon?: { filename: string; alt?: string };
+    }>;
   }>;
   contact_info?: Array<{
     email?: string;
@@ -276,8 +277,34 @@ export interface FeaturesBlok extends SbBlokData {
   background_color?: string;
 }
 
+export interface SEOBlok extends SbBlokData {
+  component: "seo";
+  title?: string;
+  description?: string;
+  og_title?: string;
+  og_description?: string;
+  og_image?: {
+    filename: string;
+    alt?: string;
+  };
+  twitter_title?: string;
+  twitter_description?: string;
+  twitter_image?: {
+    filename: string;
+    alt?: string;
+  };
+  robots?:
+    | "index,follow"
+    | "noindex,nofollow"
+    | "index,nofollow"
+    | "noindex,follow";
+  canonical_url?: string;
+  keywords?: string;
+}
+
 export interface PageBlok extends SbBlokData {
   component: "page";
+  seo?: SEOBlok;
   body?: Array<
     | ReviewsBlok
     | HeroBlok
@@ -304,7 +331,8 @@ export type StoryblokBlok =
   | FooterBlok
   | SliderBlok
   | PageBlok
-  | FeaturesBlok;
+  | FeaturesBlok
+  | SEOBlok;
 
 // Add this interface to your existing storyblok.ts file
 export interface IframeBlok extends SbBlokData {
@@ -313,7 +341,7 @@ export interface IframeBlok extends SbBlokData {
   title?: string;
   description?: string;
   formId: string; // The dynamic form ID
-  service_type?: 'typeform' | 'jotform' | 'googleforms' | 'custom';
+  service_type?: "typeform" | "jotform" | "googleforms" | "custom";
   base_url?: string; // Base URL for custom form service
   height?: string;
   width?: string;
@@ -365,13 +393,13 @@ export interface SliderBlok {
     filename: string;
     alt?: string;
   };
- cta_button?: Array<{
+  cta_button?: Array<{
     label: string;
     link: {
       cached_url: string;
     };
   }>;
   feature?: FeatureItem[]; // Array of feature items
-  image_position?: 'left' | 'right';
+  image_position?: "left" | "right";
   reverse_layout?: boolean;
 }

@@ -10,6 +10,7 @@ import "../globals.css";
 // Removed global switcher; header contains the inline switcher matching design
 import { storyblokInit, apiPlugin } from "@storyblok/react/rsc";
 import StoryblokProvider from "@/components/StoryblokProvider";
+import StoryblokBridge from "@/components/StoryblokBridge";
 import { AnalyticsProvider } from "@/components/analytics/AnalyticsContext";
 import { Anytrack } from "@/components/analytics";
 import "../globals.css";
@@ -104,7 +105,10 @@ export default async function RootLayout({
             locale={locale}
             timeZone="Europe/Brussels"
           >
-            <StoryblokProvider>{children}</StoryblokProvider>
+            <StoryblokProvider>
+              <StoryblokBridge />
+              {children}
+            </StoryblokProvider>
           </NextIntlClientProvider>
         </AnalyticsProvider>
       </body>
