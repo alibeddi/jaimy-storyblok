@@ -1,6 +1,5 @@
 "use client";
 import { storyblokInit, apiPlugin } from "@storyblok/react";
-import { useEffect } from "react";
 import "@/types/storyblok-bridge";
 import Page from "./blok/services/Page";
 import Header from "./blok/services/Header";

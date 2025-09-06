@@ -297,7 +297,9 @@ export interface SEOBlok extends SbBlokData {
     | "index,follow"
     | "noindex,nofollow"
     | "index,nofollow"
-    | "noindex,follow";
+    | "noindex,follow"
+    | "noindex"
+    | "nofollow";
   canonical_url?: string;
   keywords?: string;
 }

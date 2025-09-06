@@ -161,7 +161,9 @@ export default function TemplatePage({ blok }: { blok: PageBlok }) {
           </h2>
           <div className="bg-white rounded-lg shadow-md p-6">
             {blok.body
-              ?.filter((block) => block.component === "seo")
+              ?.filter(
+                (block) => (block as { component: string }).component === "seo"
+              )
               .map((nestedBlok) => (
                 <div key={nestedBlok._uid}>
                   <div className="mb-4 p-2 bg-yellow-50 rounded">

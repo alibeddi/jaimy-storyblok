@@ -7,11 +7,16 @@ export default function StoryblokBridge() {
     // Enhanced bridge configuration for real-time preview
     if (typeof window !== "undefined" && window.storyblok) {
       // Force real-time updates
-      window.storyblok.on("input", (payload: any) => {
+      window.storyblok.on("input", (payload: unknown) => {
         console.log("Storyblok input event:", payload);
 
         // Force immediate update without waiting for publish
-        if (payload.action === "input") {
+        if (
+          payload &&
+          typeof payload === "object" &&
+          "action" in payload &&
+          payload.action === "input"
+        ) {
           // Trigger immediate visual update
           const event = new CustomEvent("storyblok:update", {
             detail: payload,
@@ -21,11 +26,16 @@ export default function StoryblokBridge() {
       });
 
       // Handle draft changes
-      window.storyblok.on("change", (payload: any) => {
+      window.storyblok.on("change", (payload: unknown) => {
         console.log("Storyblok change event:", payload);
 
         // Force page refresh for draft changes
-        if (payload.action === "change") {
+        if (
+          payload &&
+          typeof payload === "object" &&
+          "action" in payload &&
+          payload.action === "change"
+        ) {
           setTimeout(() => {
             window.location.reload();
           }, 100);
@@ -33,7 +43,7 @@ export default function StoryblokBridge() {
       });
 
       // Handle published changes
-      window.storyblok.on("published", (payload: any) => {
+      window.storyblok.on("published", (payload: unknown) => {
         console.log("Storyblok published event:", payload);
 
         // Force refresh to show published content
@@ -73,7 +83,7 @@ export default function StoryblokBridge() {
       });
 
       // Handle bridge errors
-      window.storyblok.on("bridge:error", (error: any) => {
+      window.storyblok.on("bridge:error", (error: unknown) => {
         console.error("Storyblok bridge error:", error);
       });
     }

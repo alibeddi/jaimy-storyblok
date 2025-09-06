@@ -50,7 +50,7 @@ export default function InlineEditableText({ blok }: InlineEditableTextProps) {
     }
   };
 
-  const Tag = (blok.tag as keyof JSX.IntrinsicElements) || "p";
+  const Tag = (blok.tag as keyof React.JSX.IntrinsicElements) || "p";
 
   if (isEditing) {
     return (
