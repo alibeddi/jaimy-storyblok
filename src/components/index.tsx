@@ -5,7 +5,7 @@ import { SbBlokData } from "@storyblok/react";
 
 interface BlokData extends SbBlokData {
   component: string;
-  _uid: string;
+  _uid?: string;
 }
 
 interface BlokProps {
