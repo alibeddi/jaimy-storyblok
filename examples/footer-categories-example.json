@@ -1,0 +1,200 @@
+{
+  "component": "footer-categories",
+  "title": "Service Categories",
+  "show_title": false,
+  "text_align": "left",
+  "columns_mobile": "12/12",
+  "columns_tablet": "6/12",
+  "columns_desktop": "2/12",
+  "background_color": "gray-50",
+  "padding_top": "lg",
+  "padding_bottom": "lg",
+  "category_groups": [
+    {
+      "_uid": "heating-group",
+      "title": "HEATING",
+      "categories": [
+        {
+          "_uid": "boiler-gas",
+          "text": "Boiler maintenance gaz",
+          "highlighted": true,
+          "link": {
+            "url": "/services/heating/boiler-maintenance-gas"
+          }
+        },
+        {
+          "_uid": "boiler-oil",
+          "text": "Boiler maintenance oil",
+          "highlighted": false,
+          "link": {
+            "url": "/services/heating/boiler-maintenance-oil"
+          }
+        },
+        {
+          "_uid": "heating-categ-1",
+          "text": "Categ",
+          "highlighted": false
+        },
+        {
+          "_uid": "heating-categ-2",
+          "text": "Categ",
+          "highlighted": false
+        },
+        {
+          "_uid": "heating-categ-3",
+          "text": "Categ",
+          "highlighted": false
+        },
+        {
+          "_uid": "heating-categ-4",
+          "text": "Categ",
+          "highlighted": false
+        }
+      ]
+    },
+    {
+      "_uid": "plumbing-group",
+      "title": "PLUMBING",
+      "categories": [
+        {
+          "_uid": "plumb-categ-1",
+          "text": "Categ",
+          "highlighted": false
+        },
+        {
+          "_uid": "plumb-categ-2",
+          "text": "Categ",
+          "highlighted": false
+        },
+        {
+          "_uid": "plumb-categ-3",
+          "text": "Categ",
+          "highlighted": false
+        },
+        {
+          "_uid": "plumb-categ-4",
+          "text": "Categ",
+          "highlighted": false
+        },
+        {
+          "_uid": "plumb-categ-5",
+          "text": "Categ",
+          "highlighted": false
+        },
+        {
+          "_uid": "plumb-categ-6",
+          "text": "Categ",
+          "highlighted": false
+        }
+      ]
+    },
+    {
+      "_uid": "electrical-group",
+      "title": "ELECTRICAL",
+      "categories": [
+        {
+          "_uid": "elec-categ-1",
+          "text": "Categ",
+          "highlighted": false
+        },
+        {
+          "_uid": "elec-categ-2",
+          "text": "Categ",
+          "highlighted": false
+        },
+        {
+          "_uid": "elec-categ-3",
+          "text": "Categ",
+          "highlighted": false
+        },
+        {
+          "_uid": "elec-categ-4",
+          "text": "Categ",
+          "highlighted": false
+        },
+        {
+          "_uid": "elec-categ-5",
+          "text": "Categ",
+          "highlighted": false
+        },
+        {
+          "_uid": "elec-categ-6",
+          "text": "Categ",
+          "highlighted": false
+        }
+      ]
+    },
+    {
+      "_uid": "maintenance-group",
+      "title": "MAINTENANCE",
+      "categories": [
+        {
+          "_uid": "maint-categ-1",
+          "text": "Categ",
+          "highlighted": false
+        },
+        {
+          "_uid": "maint-categ-2",
+          "text": "Categ",
+          "highlighted": false
+        },
+        {
+          "_uid": "maint-categ-3",
+          "text": "Categ",
+          "highlighted": false
+        },
+        {
+          "_uid": "maint-categ-4",
+          "text": "Categ",
+          "highlighted": false
+        },
+        {
+          "_uid": "maint-categ-5",
+          "text": "Categ",
+          "highlighted": false
+        },
+        {
+          "_uid": "maint-categ-6",
+          "text": "Categ",
+          "highlighted": false
+        }
+      ]
+    },
+    {
+      "_uid": "emergency-group",
+      "title": "EMERGENCY",
+      "categories": [
+        {
+          "_uid": "emerg-categ-1",
+          "text": "Categ",
+          "highlighted": false
+        },
+        {
+          "_uid": "emerg-categ-2",
+          "text": "Categ",
+          "highlighted": false
+        },
+        {
+          "_uid": "emerg-categ-3",
+          "text": "Categ",
+          "highlighted": false
+        },
+        {
+          "_uid": "emerg-categ-4",
+          "text": "Categ",
+          "highlighted": false
+        },
+        {
+          "_uid": "emerg-categ-5",
+          "text": "Categ",
+          "highlighted": false
+        },
+        {
+          "_uid": "emerg-categ-6",
+          "text": "Categ",
+          "highlighted": false
+        }
+      ]
+    }
+  ]
+}

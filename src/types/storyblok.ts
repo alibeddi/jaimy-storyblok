@@ -31,6 +31,33 @@ import { ButtonBlok } from "@/components/blok/general/Button/Button";
 // Import the SbBlokData type from Storyblok
 import type { SbBlokData } from "@storyblok/react/rsc";
 
+// FooterCategories component types
+export interface FooterCategoriesBlok extends SbBlokData {
+  component: "footer-categories";
+  title?: string;
+  show_title?: boolean;
+  category_groups?: Array<{
+    _uid: string;
+    title: string;
+    categories: Array<{
+      _uid: string;
+      text: string;
+      link?: {
+        url?: string;
+        cached_url?: string;
+      };
+      highlighted?: boolean;
+    }>;
+  }>;
+  background_color?: string;
+  padding_top?: string;
+  padding_bottom?: string;
+  text_align?: "left" | "center" | "right";
+  columns_mobile?: string;
+  columns_tablet?: string;
+  columns_desktop?: string;
+}
+
 // Component-specific types based on your Storyblok schema
 export interface ReviewsBlok extends SbBlokData {
   component: "reviews";
