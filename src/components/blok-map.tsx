@@ -35,6 +35,7 @@ import Author from "./blok/general/Author";
 import BlogOverview from "./blok/general/BlogOverview";
 import BlogCard from "./ui/BlogCard";
 import Iframe from "./blok/general/Iframe";
+import FooterCategories from "./blok/general/FooterCategories";
 import { SbBlokData } from "@storyblok/react";
 // Import the Page component from blocks directory
 import {
@@ -49,7 +50,6 @@ import {
   Features,
   Page as PageBlock,
 } from "./blok/services";
-
 
 type ComponentType = React.ComponentType<any>;
 
@@ -100,6 +100,7 @@ export const componentMap: Record<string, ComponentType> = {
   "blog-overview": BlogOverview,
   "blog-card": BlogCard,
   iframe: Iframe,
+  "footer-categories": FooterCategories,
 };
 
 export default componentMap;

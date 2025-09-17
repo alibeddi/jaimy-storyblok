@@ -31,6 +31,33 @@ import { ButtonBlok } from "@/components/blok/general/Button/Button";
 // Import the SbBlokData type from Storyblok
 import type { SbBlokData } from "@storyblok/react/rsc";
 
+// FooterCategories component types
+export interface FooterCategoriesBlok extends SbBlokData {
+  component: "footer-categories";
+  title?: string;
+  show_title?: boolean;
+  category_groups?: Array<{
+    _uid: string;
+    title: string;
+    categories: Array<{
+      _uid: string;
+      text: string;
+      link?: {
+        url?: string;
+        cached_url?: string;
+      };
+      highlighted?: boolean;
+    }>;
+  }>;
+  background_color?: string;
+  padding_top?: string;
+  padding_bottom?: string;
+  text_align?: "left" | "center" | "right";
+  columns_mobile?: string;
+  columns_tablet?: string;
+  columns_desktop?: string;
+}
+
 // Component-specific types based on your Storyblok schema
 export interface ReviewsBlok extends SbBlokData {
   component: "reviews";
@@ -59,7 +86,7 @@ export interface HeroBlok extends SbBlokData {
   headline?: string;
   subheadline?: string;
   description?: string;
-  primary_button?: ButtonBlok
+  primary_button?: ButtonBlok;
   secondary_button?: Array<{
     label: string;
     link: {
@@ -169,8 +196,8 @@ export interface SocialProofBlok extends SbBlokData {
     company_name?: string;
   }>;
   statistics?: Array<{
-    number: number;        // Changed from string to number
-    suffix?: string;       // New field for K+, %, etc.
+    number: number; // Changed from string to number
+    suffix?: string; // New field for K+, %, etc.
     label: string;
     description?: string;
     icon?: {
@@ -217,10 +244,11 @@ export interface FooterBlok extends SbBlokData {
     }>;
   }>;
   social_links?: Array<{
-    social_link: Array<{ platform: string;
-    url: string;
-    icon?: {filename: string;
-    alt?: string;};}>;
+    social_link: Array<{
+      platform: string;
+      url: string;
+      icon?: { filename: string; alt?: string };
+    }>;
   }>;
   contact_info?: Array<{
     email?: string;
@@ -313,7 +341,7 @@ export interface IframeBlok extends SbBlokData {
   title?: string;
   description?: string;
   formId: string; // The dynamic form ID
-  service_type?: 'typeform' | 'jotform' | 'googleforms' | 'custom';
+  service_type?: "typeform" | "jotform" | "googleforms" | "custom";
   base_url?: string; // Base URL for custom form service
   height?: string;
   width?: string;
@@ -365,13 +393,13 @@ export interface SliderBlok {
     filename: string;
     alt?: string;
   };
- cta_button?: Array<{
+  cta_button?: Array<{
     label: string;
     link: {
       cached_url: string;
     };
   }>;
   feature?: FeatureItem[]; // Array of feature items
-  image_position?: 'left' | 'right';
+  image_position?: "left" | "right";
   reverse_layout?: boolean;
 }
