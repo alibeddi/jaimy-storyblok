@@ -1,0 +1,95 @@
+name: Build docker image
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  PREFIX: fixxer-services-platform
+  PROJECT: jaimy-website
+  AWS_REGION: eu-central-1
+  BUILD_ACCOUNT_ID: 339713158735
+  TARGET_ACCOUNT_ID: 905418010637
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ env.BUILD_ACCOUNT_ID }}:role/fixxer-build-role
+          aws-region: ${{ env.AWS_REGION }}
+      
+      - name: Log in to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          platforms: linux/amd64,linux/arm64
+      
+      - name: Check ECR repo exists otherwise create
+        run: |
+          aws ecr describe-repositories --repository-names ${{ env.PREFIX }}/${{ env.PROJECT }} || aws ecr create-repository --repository-name ${{ env.PREFIX }}/${{ env.PROJECT }} --image-tag-mutability IMMUTABLE
+      
+      - name: Get latest hash from SSM
+        id: get-latest-hash
+        run: |
+          LATEST_HASH=$(aws ssm get-parameter --name "/${{ env.PREFIX }}/${{ env.PROJECT }}/build-latest-hash" --query "Parameter.Value" --output text)
+          echo "latest_hash=$LATEST_HASH" >> $GITHUB_OUTPUT
+
+      - name: Get short commit hash
+        id: get-commit-hash
+        run: echo "short-hash=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+      
+      - name: Setup SOPS
+        uses: nhedger/setup-sops@v2
+
+      - name: Get storyblok token
+        id: get-storyblok-token
+        run: |
+          STORYBLOK_TOKEN=$(cat .env | awk -F= '/NEXT_PUBLIC_STORYBLOK_ACCESS_TOKEN/ {print $2}'     )
+          echo "::add-mask::$STORYBLOK_TOKEN"
+          echo "STORYBLOK_TOKEN=$STORYBLOK_TOKEN" >> $GITHUB_ENV
+      - name: Echo Storyblok Token
+        id: echo-sb-token
+        run: |
+          echo ${{env.STORYBLOK_TOKEN}}
+      - name: Build and push image
+        uses: docker/build-push-action@v6
+        with:
+          platforms: linux/amd64,linux/arm64
+          tags: ${{ steps.login-ecr.outputs.registry }}/${{env.PREFIX}}/${{env.PROJECT}}:${{ steps.get-commit-hash.outputs.short-hash }}
+          push: true
+          cache-from: type=registry,ref=${{ steps.login-ecr.outputs.registry }}/${{env.PREFIX}}/${{env.PROJECT}}:${{ steps.get-latest-hash.outputs.latest_hash }}
+          cache-to: type=inline,mode=min
+          secrets: |
+            storyblok_token=${{ env.STORYBLOK_TOKEN }}
+
+      - name: Create SSM parameter
+        run: |
+          aws ssm put-parameter --name "/${{ env.PREFIX }}/${{ env.PROJECT }}/build-latest-hash" --value "${{ steps.get-commit-hash.outputs.short-hash }}" --overwrite --type "String"
+          aws ssm add-tags-to-resource --resource-type "Parameter" --resource-id /${{ env.PREFIX }}/${{ env.PROJECT }}/build-latest-hash \
+          --tags '[{"Key":"Project","Value":"jaimy-website"},{"Key":"Repository","Value":"${{ github.repositoryUrl }}"},{"Key":"Env","Value":"prod"}]'
+
+      - name: Set output tag
+        run: echo "tag=${{ steps.get-commit-hash.outputs.short-hash }}" >> $GITHUB_OUTPUT
+
+      

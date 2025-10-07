@@ -1,0 +1,108 @@
+{
+  "common": {
+    "loading": "Chargement...",
+    "error": "Une erreur s'est produite",
+    "retry": "Réessayer",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "submit": "Envoyer",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "close": "Fermer",
+    "open": "Ouvrir",
+    "yes": "Oui",
+    "no": "Non",
+    "home": "Accueil",
+    "about": "À propos",
+    "contact": "Contact",
+    "services": "Services",
+    "blog": "Blog",
+    "readMore": "Lire la suite",
+    "learnMore": "En savoir plus",
+    "getStarted": "Commencer",
+    "backToHome": "Retour à l'accueil"
+  },
+  "navigation": {
+    "home": "Accueil",
+    "about": "À propos",
+    "services": "Services",
+    "blog": "Blog",
+    "contact": "Contact",
+    "language": "Langue"
+  },
+  "forms": {
+    "required": "Ce champ est requis",
+    "email": "E-mail",
+    "name": "Nom",
+    "firstName": "Prénom",
+    "lastName": "Nom de famille",
+    "phone": "Téléphone",
+    "message": "Message",
+    "subject": "Sujet",
+    "company": "Entreprise",
+    "address": "Adresse",
+    "city": "Ville",
+    "postalCode": "Code postal",
+    "country": "Pays",
+    "invalidEmail": "Veuillez saisir une adresse e-mail valide",
+    "invalidPhone": "Veuillez saisir un numéro de téléphone valide",
+    "success": "Formulaire envoyé avec succès !",
+    "error": "Une erreur s'est produite lors de l'envoi du formulaire. Veuillez réessayer.",
+    "sending": "Envoi en cours...",
+    "pleaseWait": "Veuillez patienter..."
+  },
+  "hero": {
+    "title": "Bienvenue sur notre plateforme",
+    "subtitle": "Découvrez des solutions extraordinaires pour votre entreprise",
+    "cta": "Commencez dès aujourd'hui"
+  },
+  "features": {
+    "title": "Nos fonctionnalités",
+    "subtitle": "Tout ce dont vous avez besoin pour réussir"
+  },
+  "testimonials": {
+    "title": "Ce que disent nos clients",
+    "subtitle": "Témoignages authentiques de vrais clients"
+  },
+  "faq": {
+    "title": "Questions fréquemment posées",
+    "subtitle": "Trouvez des réponses aux questions courantes"
+  },
+  "blog": {
+    "title": "Actualités et perspectives",
+    "subtitle": "Restez informé avec nos derniers articles",
+    "readTime": "min de lecture",
+    "publishedOn": "Publié le",
+    "author": "Auteur",
+    "tags": "Étiquettes",
+    "relatedPosts": "Articles connexes",
+    "searchPlaceholder": "Rechercher des articles...",
+    "noResults": "Aucun article trouvé",
+    "loadMore": "Charger plus d'articles"
+  },
+  "footer": {
+    "copyright": "Tous droits réservés.",
+    "privacyPolicy": "Politique de confidentialité",
+    "termsOfService": "Conditions d'utilisation",
+    "cookiePolicy": "Politique des cookies"
+  },
+  "errors": {
+    "404": {
+      "title": "Page non trouvée",
+      "description": "La page que vous recherchez n'existe pas.",
+      "backToHome": "Retour à l'accueil"
+    },
+    "500": {
+      "title": "Erreur du serveur",
+      "description": "Une erreur s'est produite de notre côté.",
+      "retry": "Réessayer"
+    }
+  },
+  "dates": {
+    "today": "Aujourd'hui",
+    "yesterday": "Hier",
+    "daysAgo": "{count, plural, =1 {Il y a 1 jour} other {Il y a # jours}}",
+    "weeksAgo": "{count, plural, =1 {Il y a 1 semaine} other {Il y a # semaines}}",
+    "monthsAgo": "{count, plural, =1 {Il y a 1 mois} other {Il y a # mois}}"
+  }
+}

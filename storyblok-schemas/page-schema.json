@@ -1,0 +1,105 @@
+{
+    "name": "page",
+    "display_name": "Page",
+    "schema": {
+        "body": {
+            "type": "bloks",
+            "display_name": "Body",
+            "restrict_components": true,
+            "component_whitelist": [
+                "header",
+                "hero",
+                "steps",
+                "features",
+                "slider",
+                "social_proof",
+                "reviews",
+                "blogs",
+                "faq",
+                "iframe_component",
+                "footer"
+            ]
+        },
+        "seo_title": {
+            "type": "text",
+            "display_name": "SEO Title",
+            "description": "Custom title for search engines"
+        },
+        "seo_description": {
+            "type": "textarea",
+            "display_name": "SEO Description",
+            "description": "Meta description for search engines"
+        },
+        "seo_keywords": {
+            "type": "text",
+            "display_name": "SEO Keywords",
+            "description": "Comma-separated keywords"
+        },
+        "robots": {
+            "type": "option",
+            "display_name": "Robots Meta Tag",
+            "description": "Control search engine indexing",
+            "options": [
+                {
+                    "name": "Default (index, follow)",
+                    "value": "default"
+                },
+                {
+                    "name": "No Index",
+                    "value": "noindex"
+                },
+                {
+                    "name": "No Follow",
+                    "value": "nofollow"
+                },
+                {
+                    "name": "No Index, No Follow",
+                    "value": "noindex,nofollow"
+                }
+            ],
+            "default_value": "default"
+        },
+        "canonical_url": {
+            "type": "text",
+            "display_name": "Canonical URL",
+            "description": "Canonical URL for duplicate content"
+        },
+        "og_title": {
+            "type": "text",
+            "display_name": "Open Graph Title",
+            "description": "Title for social media sharing"
+        },
+        "og_description": {
+            "type": "textarea",
+            "display_name": "Open Graph Description"
+        },
+        "og_image": {
+            "type": "asset",
+            "display_name": "Open Graph Image",
+            "filetypes": [
+                "images"
+            ]
+        },
+        "twitter_title": {
+            "type": "text",
+            "display_name": "Twitter Title"
+        },
+        "twitter_description": {
+            "type": "textarea",
+            "display_name": "Twitter Description"
+        },
+        "twitter_image": {
+            "type": "asset",
+            "display_name": "Twitter Image",
+            "filetypes": [
+                "images"
+            ]
+        }
+    },
+    "is_root": true,
+    "is_nestable": false,
+    "all_presets": [],
+    "preset_id": null,
+    "real_name": "page",
+    "component_group_uuid": null
+}

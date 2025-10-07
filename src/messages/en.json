@@ -1,0 +1,34 @@
+{
+  "common": {
+    "language": "English",
+    "hello": "Hello"
+  },
+  "home": {
+    "title": "Welcome"
+  },
+  "search": {
+    "title": "Search",
+    "description": "Search for content, articles, and more",
+    "placeholder": "Search ...",
+    "results-for": "Search results for",
+    "no-results": "No results found",
+    "no-results-description": "Try adjusting your search terms or browse our content categories.",
+    "enter-search-term": "Enter a search term",
+    "enter-search-description": "Start typing to search for content, articles, and more.",
+    "searching": "Searching...",
+    "found-results": "Found {{count}} result",
+    "found-results_plural": "Found {{count}} results"
+  },
+  "errors": {
+    "404": {
+      "title": "Page not found",
+      "description": "The page you are looking for could not be found.",
+      "backToHome": "Back to home"
+    },
+    "500": {
+      "title": "Something went wrong",
+      "description": "An unexpected error occurred. Please try again.",
+      "retry": "Try again"
+    }
+  }
+}

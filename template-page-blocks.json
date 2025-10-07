@@ -1,0 +1,585 @@
+{
+    "story": {
+        "name": "Template Page - All Blocks",
+        "slug": "template-page",
+        "content": {
+            "component": "page",
+            "body": [
+                {
+                    "component": "header",
+                    "_uid": "header-uid",
+                    "logo": {
+                        "filename": "https://a.storyblok.com/f/240359/150x40/logo.png",
+                        "alt": "Company Logo"
+                    },
+                    "navigation": [
+                        {
+                            "label": "Home",
+                            "link": {
+                                "cached_url": "/"
+                            }
+                        },
+                        {
+                            "label": "About",
+                            "link": {
+                                "cached_url": "/about"
+                            }
+                        },
+                        {
+                            "label": "Services",
+                            "link": {
+                                "cached_url": "/services"
+                            }
+                        },
+                        {
+                            "label": "Contact",
+                            "link": {
+                                "cached_url": "/contact"
+                            }
+                        }
+                    ],
+                    "cta_button": [
+                        {
+                            "label": "Get Started",
+                            "link": {
+                                "cached_url": "/get-started"
+                            }
+                        }
+                    ],
+                    "search_enabled": true,
+                    "search_placeholder": "Search...",
+                    "language_dropdown_enabled": true,
+                    "language_dropdown_title": "Language",
+                    "supported_languages": [
+                        {
+                            "code": "en",
+                            "label": "English"
+                        },
+                        {
+                            "code": "fr",
+                            "label": "Français"
+                        },
+                        {
+                            "code": "nl",
+                            "label": "Nederlands"
+                        }
+                    ]
+                },
+                {
+                    "component": "hero",
+                    "_uid": "hero-uid",
+                    "headline": "Welcome to Our Platform",
+                    "subheadline": "Build Amazing Experiences",
+                    "description": "This is a comprehensive template page showing all available blocks. Edit any content by clicking directly on it in preview mode.",
+                    "primary_button": {
+                        "component": "button",
+                        "_uid": "primary-btn-uid",
+                        "text": "Get Started Now",
+                        "link": {
+                            "cached_url": "/signup"
+                        },
+                        "variant": "primary",
+                        "size": "large"
+                    },
+                    "secondary_button": [
+                        {
+                            "label": "Learn More",
+                            "link": {
+                                "cached_url": "/learn-more"
+                            }
+                        }
+                    ],
+                    "hero_image": {
+                        "filename": "https://a.storyblok.com/f/240359/800x600/hero-image.jpg",
+                        "alt": "Hero Image"
+                    },
+                    "trust_badges": [
+                        {
+                            "value": "10K+",
+                            "description": "Happy Customers",
+                            "label": "Customers",
+                            "icon": {
+                                "filename": "https://a.storyblok.com/f/240359/24x24/users-icon.svg",
+                                "alt": "Users Icon"
+                            }
+                        },
+                        {
+                            "value": "99.9%",
+                            "description": "Uptime",
+                            "label": "Reliability",
+                            "suffix": "%"
+                        }
+                    ]
+                },
+                {
+                    "component": "steps",
+                    "_uid": "steps-uid",
+                    "title": "How It Works",
+                    "subtitle": "Simple Steps to Success",
+                    "steps": [
+                        {
+                            "step_number": "1",
+                            "title": "Sign Up",
+                            "description": "Create your account in seconds",
+                            "icon": {
+                                "filename": "https://a.storyblok.com/f/240359/48x48/signup-icon.svg",
+                                "alt": "Sign Up"
+                            }
+                        },
+                        {
+                            "step_number": "2",
+                            "title": "Configure",
+                            "description": "Set up your preferences and settings",
+                            "icon": {
+                                "filename": "https://a.storyblok.com/f/240359/48x48/settings-icon.svg",
+                                "alt": "Configure"
+                            }
+                        },
+                        {
+                            "step_number": "3",
+                            "title": "Launch",
+                            "description": "Go live and start seeing results",
+                            "icon": {
+                                "filename": "https://a.storyblok.com/f/240359/48x48/launch-icon.svg",
+                                "alt": "Launch"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "component": "features",
+                    "_uid": "features-uid",
+                    "title": "Key Features",
+                    "subtitle": "Everything you need to succeed",
+                    "description": "Our platform provides all the tools and features you need to achieve your goals.",
+                    "features": [
+                        {
+                            "title": "Easy to Use",
+                            "description": "Intuitive interface designed for everyone",
+                            "icon": {
+                                "filename": "https://a.storyblok.com/f/240359/48x48/easy-icon.svg",
+                                "alt": "Easy to Use"
+                            }
+                        },
+                        {
+                            "title": "Secure & Reliable",
+                            "description": "Enterprise-grade security and 99.9% uptime",
+                            "icon": {
+                                "filename": "https://a.storyblok.com/f/240359/48x48/security-icon.svg",
+                                "alt": "Secure"
+                            }
+                        },
+                        {
+                            "title": "24/7 Support",
+                            "description": "Our team is here to help you anytime",
+                            "icon": {
+                                "filename": "https://a.storyblok.com/f/240359/48x48/support-icon.svg",
+                                "alt": "Support"
+                            }
+                        }
+                    ],
+                    "layout": "grid-3",
+                    "background_color": "gray"
+                },
+                {
+                    "component": "slider",
+                    "_uid": "slider-uid",
+                    "title": "Content Showcase",
+                    "subtitle": "Dynamic Content Sections",
+                    "description": "This slider component demonstrates how content can be presented dynamically.",
+                    "featured_image": {
+                        "filename": "https://a.storyblok.com/f/240359/800x400/slider-main.jpg",
+                        "alt": "Featured Content"
+                    },
+                    "content_sections": [
+                        {
+                            "heading": "Section One",
+                            "text": "This is the first content section with detailed information.",
+                            "image": {
+                                "filename": "https://a.storyblok.com/f/240359/400x300/section1.jpg",
+                                "alt": "Section 1"
+                            },
+                            "layout": "text-left"
+                        },
+                        {
+                            "heading": "Section Two",
+                            "text": "This is the second content section showcasing different layouts.",
+                            "image": {
+                                "filename": "https://a.storyblok.com/f/240359/400x300/section2.jpg",
+                                "alt": "Section 2"
+                            },
+                            "layout": "text-right"
+                        }
+                    ],
+                    "cta_button": [
+                        {
+                            "label": "View All Content",
+                            "link": {
+                                "cached_url": "/content"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "component": "social_proof",
+                    "_uid": "social-proof-uid",
+                    "title": "Trusted by Industry Leaders",
+                    "subtitle": "Join thousands of satisfied customers",
+                    "description": "See why companies worldwide choose our platform for their business needs.",
+                    "logos": [
+                        {
+                            "logo": {
+                                "filename": "https://a.storyblok.com/f/240359/120x60/company1-logo.png",
+                                "alt": "Company 1"
+                            },
+                            "company_name": "TechCorp"
+                        },
+                        {
+                            "logo": {
+                                "filename": "https://a.storyblok.com/f/240359/120x60/company2-logo.png",
+                                "alt": "Company 2"
+                            },
+                            "company_name": "InnovateCo"
+                        },
+                        {
+                            "logo": {
+                                "filename": "https://a.storyblok.com/f/240359/120x60/company3-logo.png",
+                                "alt": "Company 3"
+                            },
+                            "company_name": "FutureTech"
+                        }
+                    ],
+                    "statistics": [
+                        {
+                            "number": 50,
+                            "suffix": "K+",
+                            "label": "Active Users",
+                            "description": "Growing every day"
+                        },
+                        {
+                            "number": 98,
+                            "suffix": "%",
+                            "label": "Customer Satisfaction",
+                            "description": "Based on surveys"
+                        },
+                        {
+                            "number": 150,
+                            "suffix": "+",
+                            "label": "Countries",
+                            "description": "Worldwide coverage"
+                        }
+                    ],
+                    "testimonials": [
+                        {
+                            "text": "This platform has transformed our business operations completely.",
+                            "author": "John Smith",
+                            "company": "TechCorp"
+                        },
+                        {
+                            "text": "Outstanding support and reliable service. Highly recommended!",
+                            "author": "Sarah Johnson",
+                            "company": "InnovateCo"
+                        }
+                    ],
+                    "layout": "mixed"
+                },
+                {
+                    "component": "reviews",
+                    "_uid": "reviews-uid",
+                    "title": "What Our Customers Say",
+                    "subtitle": "Real feedback from real users",
+                    "description": "Don't just take our word for it - see what our customers have to say about their experience.",
+                    "reviews": [
+                        {
+                            "name": "Alice Wilson",
+                            "role": "Product Manager",
+                            "company": "StartupXYZ",
+                            "rating": 5,
+                            "review_text": "Exceptional service and support. The platform is intuitive and powerful. Our team productivity has increased significantly since we started using it.",
+                            "avatar": {
+                                "filename": "https://a.storyblok.com/f/240359/80x80/avatar1.jpg",
+                                "alt": "Alice Wilson"
+                            },
+                            "date": "2024-01-15"
+                        },
+                        {
+                            "name": "Bob Chen",
+                            "role": "CTO",
+                            "company": "TechFlow",
+                            "rating": 5,
+                            "review_text": "The technical capabilities are outstanding. Integration was seamless and the performance is excellent. Highly recommend for any tech-forward company.",
+                            "avatar": {
+                                "filename": "https://a.storyblok.com/f/240359/80x80/avatar2.jpg",
+                                "alt": "Bob Chen"
+                            },
+                            "date": "2024-01-10"
+                        },
+                        {
+                            "name": "Carol Davis",
+                            "role": "Marketing Director",
+                            "company": "BrandCo",
+                            "rating": 4,
+                            "review_text": "Great platform for managing our marketing campaigns. The analytics features are particularly useful for tracking ROI and optimizing performance.",
+                            "avatar": {
+                                "filename": "https://a.storyblok.com/f/240359/80x80/avatar3.jpg",
+                                "alt": "Carol Davis"
+                            },
+                            "date": "2024-01-05"
+                        }
+                    ],
+                    "layout": "grid-3",
+                    "show_rating": true
+                },
+                {
+                    "component": "blogs",
+                    "_uid": "blogs-uid",
+                    "title": "Latest Blog Posts",
+                    "subtitle": "Stay updated with our insights",
+                    "description": "Read our latest articles, tutorials, and industry insights to stay ahead of the curve.",
+                    "blog_posts": [
+                        {
+                            "title": "Getting Started with Our Platform",
+                            "excerpt": "A comprehensive guide to help you get up and running quickly with all the essential features.",
+                            "author": "Tech Team",
+                            "date": "2024-01-20",
+                            "read_time": "5 min read",
+                            "image": {
+                                "filename": "https://a.storyblok.com/f/240359/400x250/blog1.jpg",
+                                "alt": "Getting Started Guide"
+                            },
+                            "link": {
+                                "cached_url": "/blog/getting-started"
+                            },
+                            "category": "Tutorial"
+                        },
+                        {
+                            "title": "Best Practices for Success",
+                            "excerpt": "Learn from industry experts about the strategies and techniques that drive real results.",
+                            "author": "Strategy Team",
+                            "date": "2024-01-18",
+                            "read_time": "8 min read",
+                            "image": {
+                                "filename": "https://a.storyblok.com/f/240359/400x250/blog2.jpg",
+                                "alt": "Best Practices"
+                            },
+                            "link": {
+                                "cached_url": "/blog/best-practices"
+                            },
+                            "category": "Strategy"
+                        },
+                        {
+                            "title": "Industry Trends 2024",
+                            "excerpt": "Explore the latest trends shaping the industry and how they impact your business strategy.",
+                            "author": "Research Team",
+                            "date": "2024-01-15",
+                            "read_time": "6 min read",
+                            "image": {
+                                "filename": "https://a.storyblok.com/f/240359/400x250/blog3.jpg",
+                                "alt": "Industry Trends"
+                            },
+                            "link": {
+                                "cached_url": "/blog/industry-trends-2024"
+                            },
+                            "category": "Research"
+                        }
+                    ],
+                    "view_all_button": [
+                        {
+                            "label": "View All Posts",
+                            "link": {
+                                "cached_url": "/blog"
+                            }
+                        }
+                    ],
+                    "layout": "grid-3"
+                },
+                {
+                    "component": "faq",
+                    "_uid": "faq-uid",
+                    "title": "Frequently Asked Questions",
+                    "subtitle": "Get answers to common questions",
+                    "description": "Find quick answers to the most commonly asked questions about our platform and services.",
+                    "faq_items": [
+                        {
+                            "question": "How do I get started?",
+                            "answer": "Getting started is easy! Simply sign up for an account, complete the setup wizard, and you'll be ready to go. Our onboarding process takes less than 5 minutes."
+                        },
+                        {
+                            "question": "What support options are available?",
+                            "answer": "We offer 24/7 customer support through live chat, email, and phone. Premium customers also get access to priority support and dedicated account managers."
+                        },
+                        {
+                            "question": "Can I cancel my subscription anytime?",
+                            "answer": "Yes, you can cancel your subscription at any time. There are no long-term contracts or cancellation fees. Your service will continue until the end of your current billing period."
+                        },
+                        {
+                            "question": "Is my data secure?",
+                            "answer": "Absolutely. We use enterprise-grade security measures including encryption, regular security audits, and compliance with industry standards like SOC 2 and GDPR."
+                        },
+                        {
+                            "question": "Do you offer integrations?",
+                            "answer": "Yes, we integrate with over 100 popular tools and services. Our API also allows for custom integrations if you have specific requirements."
+                        }
+                    ],
+                    "layout": "single-column",
+                    "background_color": "gray"
+                },
+                {
+                    "component": "iframe_component",
+                    "_uid": "iframe-uid",
+                    "title": "Contact Form",
+                    "description": "Get in touch with us using the form below",
+                    "formId": "contact-form",
+                    "service_type": "custom",
+                    "base_url": "https://example.com/forms/",
+                    "height": "600px",
+                    "width": "100%",
+                    "allow_fullscreen": true,
+                    "sandbox": "allow-scripts allow-same-origin allow-forms",
+                    "margin_bottom": "2rem"
+                },
+                {
+                    "component": "footer",
+                    "_uid": "footer-uid",
+                    "logo": {
+                        "filename": "https://a.storyblok.com/f/240359/150x40/footer-logo.png",
+                        "alt": "Footer Logo"
+                    },
+                    "company_description": "We're dedicated to providing the best platform for your business needs. Join thousands of satisfied customers worldwide.",
+                    "navigation_sections": [
+                        {
+                            "title": "Product",
+                            "links": [
+                                {
+                                    "label": "Features",
+                                    "link": {
+                                        "cached_url": "/features"
+                                    }
+                                },
+                                {
+                                    "label": "Pricing",
+                                    "link": {
+                                        "cached_url": "/pricing"
+                                    }
+                                },
+                                {
+                                    "label": "Security",
+                                    "link": {
+                                        "cached_url": "/security"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Company",
+                            "links": [
+                                {
+                                    "label": "About Us",
+                                    "link": {
+                                        "cached_url": "/about"
+                                    }
+                                },
+                                {
+                                    "label": "Careers",
+                                    "link": {
+                                        "cached_url": "/careers"
+                                    }
+                                },
+                                {
+                                    "label": "News",
+                                    "link": {
+                                        "cached_url": "/news"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Support",
+                            "links": [
+                                {
+                                    "label": "Help Center",
+                                    "link": {
+                                        "cached_url": "/help"
+                                    }
+                                },
+                                {
+                                    "label": "Contact",
+                                    "link": {
+                                        "cached_url": "/contact"
+                                    }
+                                },
+                                {
+                                    "label": "Documentation",
+                                    "link": {
+                                        "cached_url": "/docs"
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "social_links": [
+                        {
+                            "social_link": [
+                                {
+                                    "platform": "facebook",
+                                    "url": "https://facebook.com/company",
+                                    "icon": {
+                                        "filename": "https://a.storyblok.com/f/240359/24x24/facebook-icon.svg",
+                                        "alt": "Facebook"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "social_link": [
+                                {
+                                    "platform": "twitter",
+                                    "url": "https://twitter.com/company",
+                                    "icon": {
+                                        "filename": "https://a.storyblok.com/f/240359/24x24/twitter-icon.svg",
+                                        "alt": "Twitter"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "social_link": [
+                                {
+                                    "platform": "linkedin",
+                                    "url": "https://linkedin.com/company/company",
+                                    "icon": {
+                                        "filename": "https://a.storyblok.com/f/240359/24x24/linkedin-icon.svg",
+                                        "alt": "LinkedIn"
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "contact_info": [
+                        {
+                            "email": "hello@company.com",
+                            "phone": "+1 (555) 123-4567",
+                            "address": "123 Business Street, City, State 12345"
+                        }
+                    ],
+                    "footer_buttons": [
+                        {
+                            "component": "button",
+                            "_uid": "footer-btn-uid",
+                            "text": "Get Started",
+                            "link": {
+                                "cached_url": "/signup"
+                            },
+                            "variant": "primary",
+                            "size": "medium"
+                        }
+                    ],
+                    "copyright_text": "© 2024 Company Name. All rights reserved."
+                }
+            ],
+            "seo_title": "Template Page - All Available Blocks",
+            "seo_description": "A comprehensive template page showcasing all available Storyblok blocks for easy content creation and editing.",
+            "robots": "noindex"
+        }
+    }
+}

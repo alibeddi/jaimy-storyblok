@@ -1,0 +1,34 @@
+{
+  "common": {
+    "language": "Nederlands",
+    "hello": "Hallo"
+  },
+  "home": {
+    "title": "Welkom"
+  },
+  "search": {
+    "title": "Zoeken",
+    "description": "Zoek naar inhoud, artikelen en meer",
+    "placeholder": "Zoeken ...",
+    "results-for": "Zoekresultaten voor",
+    "no-results": "Geen resultaten gevonden",
+    "no-results-description": "Probeer uw zoektermen aan te passen of blader door onze inhoudscategorieën.",
+    "enter-search-term": "Voer een zoekterm in",
+    "enter-search-description": "Begin met typen om te zoeken naar inhoud, artikelen en meer.",
+    "searching": "Zoeken...",
+    "found-results": "{{count}} resultaat gevonden",
+    "found-results_plural": "{{count}} resultaten gevonden"
+  },
+  "errors": {
+    "404": {
+      "title": "Pagina niet gevonden",
+      "description": "De pagina die u zoekt, kan niet worden gevonden.",
+      "backToHome": "Terug naar home"
+    },
+    "500": {
+      "title": "Er is iets misgegaan",
+      "description": "Er is een onverwachte fout opgetreden. Probeer het opnieuw.",
+      "retry": "Opnieuw proberen"
+    }
+  }
+}

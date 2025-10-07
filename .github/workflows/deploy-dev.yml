@@ -1,0 +1,21 @@
+name: Deploy to dev
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+  
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  update-dev:
+    uses: ./.github/workflows/deploy.yml
+    secrets: inherit
+    with:
+      env: dev
+      env_type: non-prod
+      tenant: jaimy

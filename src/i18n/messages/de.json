@@ -1,0 +1,108 @@
+{
+  "common": {
+    "loading": "Wird geladen...",
+    "error": "Ein Fehler ist aufgetreten",
+    "retry": "Erneut versuchen",
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "submit": "Senden",
+    "next": "Weiter",
+    "previous": "Zurück",
+    "close": "Schließen",
+    "open": "Öffnen",
+    "yes": "Ja",
+    "no": "Nein",
+    "home": "Startseite",
+    "about": "Über uns",
+    "contact": "Kontakt",
+    "services": "Dienstleistungen",
+    "blog": "Blog",
+    "readMore": "Mehr lesen",
+    "learnMore": "Mehr erfahren",
+    "getStarted": "Jetzt starten",
+    "backToHome": "Zurück zur Startseite"
+  },
+  "navigation": {
+    "home": "Startseite",
+    "about": "Über uns",
+    "services": "Dienstleistungen",
+    "blog": "Blog",
+    "contact": "Kontakt",
+    "language": "Sprache"
+  },
+  "forms": {
+    "required": "Dieses Feld ist erforderlich",
+    "email": "E-Mail",
+    "name": "Name",
+    "firstName": "Vorname",
+    "lastName": "Nachname",
+    "phone": "Telefon",
+    "message": "Nachricht",
+    "subject": "Betreff",
+    "company": "Unternehmen",
+    "address": "Adresse",
+    "city": "Stadt",
+    "postalCode": "Postleitzahl",
+    "country": "Land",
+    "invalidEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+    "invalidPhone": "Bitte geben Sie eine gültige Telefonnummer ein",
+    "success": "Formular erfolgreich gesendet!",
+    "error": "Beim Senden des Formulars ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
+    "sending": "Wird gesendet...",
+    "pleaseWait": "Bitte warten..."
+  },
+  "hero": {
+    "title": "Willkommen auf unserer Plattform",
+    "subtitle": "Entdecken Sie erstaunliche Lösungen für Ihr Unternehmen",
+    "cta": "Heute noch starten"
+  },
+  "features": {
+    "title": "Unsere Funktionen",
+    "subtitle": "Alles was Sie zum Erfolg brauchen"
+  },
+  "testimonials": {
+    "title": "Was unsere Kunden sagen",
+    "subtitle": "Echtes Feedback von echten Kunden"
+  },
+  "faq": {
+    "title": "Häufig gestellte Fragen",
+    "subtitle": "Finden Sie Antworten auf häufige Fragen"
+  },
+  "blog": {
+    "title": "Neueste Nachrichten & Einblicke",
+    "subtitle": "Bleiben Sie mit unseren neuesten Artikeln auf dem Laufenden",
+    "readTime": "Min Lesezeit",
+    "publishedOn": "Veröffentlicht am",
+    "author": "Autor",
+    "tags": "Tags",
+    "relatedPosts": "Verwandte Beiträge",
+    "searchPlaceholder": "Artikel suchen...",
+    "noResults": "Keine Artikel gefunden",
+    "loadMore": "Mehr Artikel laden"
+  },
+  "footer": {
+    "copyright": "Alle Rechte vorbehalten.",
+    "privacyPolicy": "Datenschutzrichtlinie",
+    "termsOfService": "Nutzungsbedingungen",
+    "cookiePolicy": "Cookie-Richtlinie"
+  },
+  "errors": {
+    "404": {
+      "title": "Seite nicht gefunden",
+      "description": "Die gesuchte Seite existiert nicht.",
+      "backToHome": "Zurück zur Startseite"
+    },
+    "500": {
+      "title": "Serverfehler",
+      "description": "Auf unserer Seite ist etwas schief gelaufen.",
+      "retry": "Erneut versuchen"
+    }
+  },
+  "dates": {
+    "today": "Heute",
+    "yesterday": "Gestern",
+    "daysAgo": "{count, plural, =1 {vor 1 Tag} other {vor # Tagen}}",
+    "weeksAgo": "{count, plural, =1 {vor 1 Woche} other {vor # Wochen}}",
+    "monthsAgo": "{count, plural, =1 {vor 1 Monat} other {vor # Monaten}}"
+  }
+}

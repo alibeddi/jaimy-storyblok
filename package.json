@@ -1,0 +1,44 @@
+{
+  "name": "jaimytest",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack --port 3000",
+    "dev:https": "next dev --turbopack --port 3001 --experimental-https",
+    "dev:tunnel": "next dev --turbopack --port 3000",
+    "build": "next build",
+    "start": "next start --port 3001",
+    "lint": "next lint",
+    "generate-types": "tsx scripts/generate-types.ts",
+    "generate-components": "tsx scripts/generate-components.ts"
+  },
+  "dependencies": {
+    "@storyblok/js": "^4.2.1",
+    "@storyblok/react": "^5.4.1",
+    "classnames": "^2.5.1",
+    "clsx": "^2.1.1",
+    "formik": "^2.4.6",
+    "lucide-react": "^0.539.0",
+    "next": "^15.5.2",
+    "next-intl": "^4.3.4",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "storyblok-rich-text-react-renderer": "^3.0.1",
+    "tailwind-merge": "^3.3.1"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20.19.11",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "15.4.2",
+    "storyblok": "^4.2.2",
+    "storyblok-schema-types": "^1.3.2",
+    "tailwindcss": "^4",
+    "tsx": "^4.20.3",
+    "typescript": "^5"
+  },
+  "packageManager": "pnpm@10.13.1+sha512.37ebf1a5c7a30d5fabe0c5df44ee8da4c965ca0c5af3dbab28c3a1681b70a256218d05c81c9c0dcf767ef6b8551eb5b960042b9ed4300c59242336377e01cfad"
+}

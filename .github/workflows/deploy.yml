@@ -1,0 +1,50 @@
+name: Promote to env
+
+on:
+  workflow_call:
+    inputs:
+      env:
+        required: true
+        type: string
+      tenant:
+        required: true
+        type: string
+      env_type:
+        required: true
+        type: string
+
+env:
+  AWS_REGION: eu-central-1
+  BUILD_ACCOUNT_ID: 339713158735
+  TF_WORKSPACE: ${{ inputs.tenant }}-${{ inputs.env }}
+  PROJECT: jaimy-website
+
+jobs:
+  promote:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_branch || github.ref}}
+
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ env.BUILD_ACCOUNT_ID }}:role/fixxer-build-role
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Set TF variables
+        run: |
+          echo "TF_WORKSPACE=${{ inputs.env }}" >> $GITHUB_ENV
+          echo "TF_VAR_env_type=${{ inputs.env_type }}" >> $GITHUB_ENV
+          echo "TF_VAR_env=${{ inputs.env }}" >> $GITHUB_ENV
+
+      - name: Deploy app
+        uses: fixxer-eu/action/platform/deploy-app@main
+        with:
+          project: ${{ env.PROJECT }}
+          tenant: ${{ inputs.tenant }}
+          environment: ${{ inputs.env }}
+          env_type: ${{ inputs.env_type }}
+          terraform_version: '~1.12.0'
