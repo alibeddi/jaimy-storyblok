@@ -16,12 +16,17 @@ import Blog from "@/components/blok/general/Blog/Blog";
 import Blogs from "@/components/blok/services/Blogs";
 import Body from "@/components/blok/services/Slider";
 import CategorySection from "@/components/blok/general/CategorySection";
+import Column from "@/components/blok/general/Column";
+import Columns from "@/components/blok/general/Columns";
+import Container from "@/components/blok/general/Container";
 import FAQ from "@/components/blok/services/FAQ";
 import Features from "@/components/blok/services/Features";
 import Footer from "@/components/blok/services/Footer";
 import Header from "@/components/blok/services/Header";
+import Heading from "@/components/blok/general/Heading";
 import Hero from "@/components/blok/services/Hero";
 import Iframe from "@/components/blok/general/Iframe";
+import Row from "@/components/blok/general/Row";
 import { Inter } from "next/font/google";
 import type { Metadata } from "next";
 // Removed global switcher; header contains the inline switcher matching design
@@ -38,6 +43,9 @@ import TrustBadge from "@/components/blok/general/TrustBadge/TrustBadge";
 import { WhoWeAreSection } from "@/components/blok/general/WhoWeAreSection";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
+import RichText from "@/components/blok/general/RichText";
+import ButtonGroup from "@/components/blok/general/ButtonGroup";
+import Button from "@/components/blok/general/Button";
 
 // Initialize Storyblok for server-side rendering
 storyblokInit({
@@ -71,6 +79,14 @@ storyblokInit({
     iframe_component: Iframe,
     "category-section": CategorySection,
     who_we_are_section: WhoWeAreSection,
+    container: Container,
+    columns: Columns,
+    column: Column,
+    row: Row,
+    heading: Heading,
+    rich_text: RichText,
+    button_group: ButtonGroup,
+    button: Button,
   },
   apiOptions: {
     region: "eu",
@@ -119,7 +135,8 @@ export default async function RootLayout({
           <NextIntlClientProvider
             messages={messages}
             locale={locale}
-            timeZone="Europe/Brussels">
+            timeZone="Europe/Brussels"
+          >
             <StoryblokProvider story={undefined}>{children}</StoryblokProvider>
           </NextIntlClientProvider>
         </AnalyticsProvider>
