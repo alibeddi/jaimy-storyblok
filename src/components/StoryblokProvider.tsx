@@ -26,12 +26,16 @@ import Iframe from "./blok/general/Iframe";
 import Page from "./blok/services/Page";
 import Review from "./blok/general/Review/Review";
 import Reviews from "./blok/services/Reviews";
+import Row from "./blok/general/Row";
 import SocialProof from "./blok/services/SocialProof";
 import Step from "./blok/general/Step/Step";
 import Steps from "./blok/services/Steps";
 import Teaser from "./blok/general/Teaser";
 import TrustBadge from "./blok/general/TrustBadge/TrustBadge";
 import { WhoWeAreSection } from "./blok/general/WhoWeAreSection";
+import RichText from "./blok/general/RichText";
+import Button from "./blok/general/Button";
+import ButtonGroup from "./blok/general/ButtonGroup";
 
 // Initialize Storyblok for client-side
 storyblokInit({
@@ -60,11 +64,15 @@ storyblokInit({
     container: Container,
     columns: Columns,
     column: Column,
+    row: Row,
     heading: Heading,
     "category-section": CategorySection,
     who_we_are_section: WhoWeAreSection,
     slider: Body, // Add alias for slider component
     iframe_component: Iframe, // Add alias for iframe component
+    rich_text: RichText,
+    button_group: ButtonGroup,
+    button: Button,
   },
   bridge: true, // Enable bridge for live editing
   apiOptions: {
