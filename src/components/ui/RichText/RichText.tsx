@@ -9,6 +9,10 @@ const RichText: React.FC<RichTextProps> = ({
   className,
   content,
   maxWidth = "100%",
+  size,
+  color,
+  textAlign,
+  marginBottom,
   ...rest
 }) => {
   if (!content) return null;
