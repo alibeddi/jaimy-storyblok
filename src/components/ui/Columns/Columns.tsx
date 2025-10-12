@@ -46,6 +46,8 @@ const Columns: React.FC<ExtendedColumnsProps> = ({
   connectorToggle = false,
   connectorColor = "default",
   marginBottom = "default",
+  touchSlide,
+  touchSlideColumnSize,
   ...rest
 }) => {
   // const sliderEnabled = touchSlide && isTouchDevice();
