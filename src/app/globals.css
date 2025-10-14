@@ -340,6 +340,13 @@ p {
   font-weight: 700 !important;
 }
 
+/* Ensure paragraph font weights inside prose respect utilities */
+.prose-p\:font-bold p { font-weight: 700 !important; }
+.prose-p\:font-semibold p { font-weight: 600 !important; }
+.prose-p\:font-medium p { font-weight: 500 !important; }
+.prose-p\:font-normal p { font-weight: 400 !important; }
+.prose-p\:font-light p { font-weight: 300 !important; }
+
 .font-belfius-regular {
   font-family: "BelfiusMontserrat", sans-serif;
   font-weight: 400;
