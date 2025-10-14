@@ -86,6 +86,7 @@ export interface HeadingProps extends BaseUIProps {
   color?: TextColor;
   textAlign?: TextAlign;
   marginBottom?: SpacingVariant;
+  fontWeight?: FontWeight;
   title?: string;
 }
 
@@ -239,6 +240,7 @@ export interface RichTextProps extends BaseUIProps {
   color?: TextColor;
   textAlign?: TextAlign;
   marginBottom?: SpacingVariant;
+  fontWeight?: FontWeight;
 }
 
 // Hero component types

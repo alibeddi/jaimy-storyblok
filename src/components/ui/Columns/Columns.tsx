@@ -1,8 +1,8 @@
 "use client";
 
+import { ExtendedColumnsProps } from "@/types/ui";
 import React from "react";
 import { cn } from "@/lib/utils";
-import { ExtendedColumnsProps } from "@/types/ui";
 
 // const isTouchDevice = () => {
 //   if (typeof window === "undefined") return false;
@@ -52,31 +52,28 @@ const Columns: React.FC<ExtendedColumnsProps> = ({
 }) => {
   // const sliderEnabled = touchSlide && isTouchDevice();
 
-  const mobileCols: Record<string, string> = {
-    default: "grid-cols-1",
-    "12/12": "grid-cols-1",
-    "6/12": "grid-cols-2",
-    "4/12": "grid-cols-3",
-    "3/12": "grid-cols-4",
-    "2/12": "grid-cols-6",
+  const parseColumns = (value?: string): number => {
+    if (!value || value === "default") return 1;
+    // Accept formats like "6/12", "3/12", "1/3", "1/2", "1/1", "12/12"
+    const match = value.match(/^(\d+)\/(\d+)$/);
+    if (match) {
+      const numerator = parseInt(match[1], 10);
+      const denominator = parseInt(match[2], 10);
+      if (!numerator || !denominator) return 1;
+      // Convert fraction width to number of columns in a 12-grid
+      // e.g., 6/12 => 2 cols, 4/12 => 3 cols, 1/3 => 3 cols
+      const widthRatio = numerator / denominator;
+      const columns = widthRatio > 0 ? Math.round(1 / widthRatio) : 1;
+      return Math.max(1, Math.min(12, columns));
+    }
+    // Fallback for explicit numeric values like "1", "2", ...
+    const asNum = parseInt(value, 10);
+    if (!Number.isNaN(asNum) && asNum >= 1 && asNum <= 12) return asNum;
+    return 1;
   };
 
-  const tabletCols: Record<string, string> = {
-    default: "md:grid-cols-1",
-    "12/12": "md:grid-cols-1",
-    "6/12": "md:grid-cols-2",
-    "4/12": "md:grid-cols-3",
-    "3/12": "md:grid-cols-4",
-    "2/12": "md:grid-cols-6",
-  };
-
-  const desktopCols: Record<string, string> = {
-    default: "lg:grid-cols-1",
-    "12/12": "lg:grid-cols-1",
-    "6/12": "lg:grid-cols-2",
-    "4/12": "lg:grid-cols-3",
-    "3/12": "lg:grid-cols-4",
-    "2/12": "lg:grid-cols-6",
+  const gridColsClass = (cols: number, prefix: string = ""): string => {
+    return `${prefix}grid-cols-${cols}`;
   };
 
   const gapSizeMap: Record<string, string> = {
@@ -122,9 +119,9 @@ const Columns: React.FC<ExtendedColumnsProps> = ({
 
   const gridClasses = cn(
     "grid w-full",
-    mobileCols[columnsMobile],
-    tabletCols[columnsTablet],
-    desktopCols[columnsDesktop],
+    gridColsClass(parseColumns(columnsMobile)),
+    gridColsClass(parseColumns(columnsTablet), "md:"),
+    gridColsClass(parseColumns(columnsDesktop), "lg:"),
     gapSizeMap[squeezeMobile],
     justifyMap[justifyContent],
     alignMap[alignContent],
@@ -144,8 +141,7 @@ const Columns: React.FC<ExtendedColumnsProps> = ({
       condition={connectorToggle}
       wrapper={(children) => (
         <Connected connectorColor={connectorColor}>{children}</Connected>
-      )}
-    >
+      )}>
       <div className={wrapperClasses} {...rest}>
         <div className={gridClasses}>{children}</div>
       </div>

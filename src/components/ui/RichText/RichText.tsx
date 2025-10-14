@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import { render } from "storyblok-rich-text-react-renderer";
-import { cn } from "@/lib/utils";
 import { RichTextProps } from "@/types/ui";
+import { cn } from "@/lib/utils";
+import { render } from "storyblok-rich-text-react-renderer";
 
 const RichText: React.FC<RichTextProps> = ({
   className,
@@ -13,13 +13,32 @@ const RichText: React.FC<RichTextProps> = ({
   color,
   textAlign,
   marginBottom,
+  fontWeight,
   ...rest
 }) => {
   if (!content) return null;
 
+  // Font weight styles for headings and paragraphs inside prose
+  const fontWeightStyles = {
+    normal: "prose-headings:font-normal prose-p:font-normal",
+    bold: "prose-headings:font-bold prose-p:font-bold",
+    light: "prose-headings:font-light prose-p:font-light",
+    medium: "prose-headings:font-medium prose-p:font-medium",
+    semibold: "prose-headings:font-semibold prose-p:font-semibold",
+    "300": "prose-headings:font-light prose-p:font-light",
+    "400": "prose-headings:font-normal prose-p:font-normal",
+    "500": "prose-headings:font-medium prose-p:font-medium",
+    "600": "prose-headings:font-semibold prose-p:font-semibold",
+    "700": "prose-headings:font-bold prose-p:font-bold",
+  } as const;
+
   const baseStyles = cn(
     "prose prose-gray max-w-none",
-    "prose-headings:font-semibold prose-headings:text-foreground",
+    // Use custom font weight if provided, otherwise default to semibold
+    fontWeight
+      ? fontWeightStyles[fontWeight]
+      : "prose-headings:font-semibold prose-p:font-normal",
+    "prose-headings:text-foreground",
     "prose-p:text-foreground prose-p:leading-relaxed",
     "prose-a:text-primary prose-a:no-underline hover:prose-a:underline",
     "prose-strong:text-foreground prose-strong:font-semibold",

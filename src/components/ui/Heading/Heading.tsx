@@ -1,8 +1,8 @@
 "use client";
 
+import { HeadingProps } from "@/types/ui";
 import React from "react";
 import { cn } from "@/lib/utils";
-import { HeadingProps } from "@/types/ui";
 
 const Heading: React.FC<HeadingProps> = ({
   id,
@@ -14,25 +14,27 @@ const Heading: React.FC<HeadingProps> = ({
   textAlign,
   children,
   marginBottom,
+  fontWeight,
   title,
   ...rest
 }) => {
   // Size styles
   const sizeStyles = {
-    xs: "text-xs",
-    sm: "text-sm",
-    default: "text-base",
-    md: "text-lg",
-    lg: "text-xl",
-    xl: "text-2xl",
-    "2xl": "text-3xl",
+    "xx-small": "text-xs",
+    "x-small": "text-sm",
+    small: "text-base",
+    default: "text-lg",
+    medium: "text-xl",
+    large: "text-2xl",
+    "x-large": "text-3xl",
+    "xx-large": "text-4xl",
   };
 
-  // Type styles
+  // Type styles (do NOT include font-* here; weight is controlled by fontWeight)
   const typeStyles = {
-    heading: "font-semibold",
-    title: "font-bold",
-    subtitle: "font-medium",
+    heading: "",
+    title: "",
+    subtitle: "",
   };
 
   // Color styles
@@ -63,23 +65,37 @@ const Heading: React.FC<HeadingProps> = ({
     xl: "mb-10",
   };
 
+  // Font weight styles (use ! to increase specificity over inherited styles)
+  const fontWeightStyles = {
+    normal: "!font-normal",
+    bold: "!font-bold",
+    light: "!font-light",
+    medium: "!font-medium",
+    semibold: "!font-semibold",
+    "300": "!font-light",
+    "400": "!font-normal",
+    "500": "!font-medium",
+    "600": "!font-semibold",
+    "700": "!font-bold",
+  } as const;
+
+  const resolvedWeight = fontWeight || "semibold";
   const headingClassName = cn(
     sizeStyles[size],
     typeStyles[type],
+    fontWeightStyles[resolvedWeight as keyof typeof fontWeightStyles],
     color && colorStyles[color],
     textAlign && alignStyles[textAlign],
     marginBottom && marginStyles[marginBottom],
     className
   );
-
   return (
     <Component
       id={id}
       data-testid="heading"
       className={headingClassName}
       title={title}
-      {...rest}
-    >
+      {...rest}>
       {children}
     </Component>
   );
