@@ -4,6 +4,7 @@
 import type { Config } from "tailwindcss";
 
 export default <Partial<Config>>{
+  plugins: [require("@tailwindcss/typography")],
   safelist: [
     { pattern: /bg-(primary|gray)-(100|200|300|400|500|600|700|800|900)/ },
     { pattern: /bg-(red|grey)-(light|dark|gradient)/ },
@@ -20,6 +21,9 @@ export default <Partial<Config>>{
 
     // Text alignment
     { pattern: /text-(left|center|right)/ },
+    // Flex alignment driven by CMS
+    { pattern: /justify-(start|center|end|between|around|evenly)/ },
+    { pattern: /items-(start|center|end|stretch|baseline)/ },
 
     // Text color patterns
     { pattern: /text-(primary|gray)-(100|200|300|400|500|600|700|800|900)/ },
@@ -41,7 +45,9 @@ export default <Partial<Config>>{
     "border-l",
     "border-r",
 
-    // Border color (CSS variable based)
+    // Border color (token and variable based)
+    { pattern: /border-(primary|gray)-(100|200|300|400|500|600|700|800|900)/ },
+    { pattern: /border-(white|black)/ },
     "border-[rgb(var(--color-gray-300))]",
     "border-[rgb(var(--color-gray-500))]",
     "border-[rgb(var(--color-gray-700))]",
@@ -69,6 +75,9 @@ export default <Partial<Config>>{
     "bg-[rgb(var(--color-white))]",
     "bg-[rgb(var(--color-black))]",
     "bg-[rgb(var(--color-review))]",
+
+    // Token alias sometimes used directly by CMS
+    "bg-review",
 
     // Text colors (CSS variable based)
     "text-[rgb(var(--color-primary-100))]",
@@ -105,6 +114,13 @@ export default <Partial<Config>>{
     "mb-6",
     "mb-8",
     "mb-10",
+    // Padding variants used in Column (px, pt, pb)
+    { pattern: /px-(0|1|2|4|6|8|10|12|16|20)/ },
+    { pattern: /pt-(0|1|2|4|6|8|10|12|16|20)/ },
+    { pattern: /pb-(0|1|2|4|6|8|10|12|16|20)/ },
+    { pattern: /gap-(0|1|2|4|6|8|10)/ },
+    { pattern: /md:gap-(0|1|2|4|6|8|10)/ },
+    { pattern: /lg:gap-(0|1|2|4|6|8|10)/ },
 
     // Button variant classes
     "hover:bg-[rgb(var(--color-primary-600))]",
@@ -117,5 +133,88 @@ export default <Partial<Config>>{
     "focus-visible:ring-2",
     "transition-all",
     "duration-200",
+
+    // Font weight classes
+    "font-normal",
+    "font-bold",
+    "!font-bold",
+    "font-light",
+    "font-medium",
+    "font-semibold",
+
+    // Text size classes for Heading component
+    "text-xs",
+    "text-sm",
+    "text-base",
+    "text-lg",
+    "text-xl",
+    "text-2xl",
+    "text-3xl",
+    "text-4xl",
+
+    // Prose font weight classes
+    "prose-headings:font-normal",
+    "prose-headings:font-bold",
+    "prose-headings:!font-bold",
+    "prose-headings:font-light",
+    "prose-headings:font-medium",
+    "prose-headings:font-semibold",
+    // Also apply weights to paragraphs inside prose
+    "prose-p:font-normal",
+    "prose-p:font-bold",
+    "prose-p:font-light",
+    "prose-p:font-medium",
+    "prose-p:font-semibold",
+
+    // Icon margin override
+    "[&>*]:!mb-0",
+
+    // Gap classes for Columns component
+    "gap-2",
+    "gap-4",
+    "gap-6",
+    "md:gap-2",
+    "md:gap-4",
+    "md:gap-6",
+    "lg:gap-2",
+    "lg:gap-4",
+    "lg:gap-6",
+
+    // Padding classes for Column component
+    "px-0",
+    "px-1",
+    "px-2",
+    "px-4",
+    "px-6",
+    "px-8",
+    "px-10",
+    "px-12",
+    "px-16",
+    "px-20",
+    "pt-0",
+    "pt-1",
+    "pt-2",
+    "pt-4",
+    "pt-6",
+    "pt-8",
+    "pt-10",
+    "pt-12",
+    "pt-16",
+    "pt-20",
+    "pb-0",
+    "pb-1",
+    "pb-2",
+    "pb-4",
+    "pb-6",
+    "pb-8",
+    "pb-10",
+    "pb-12",
+    "pb-16",
+    "pb-20",
+
+    // Grid column counts used by Columns component, with responsive prefixes
+    { pattern: /(grid-cols-(1|2|3|4|5|6|7|8|9|10|11|12))/ },
+    { pattern: /(md:grid-cols-(1|2|3|4|5|6|7|8|9|10|11|12))/ },
+    { pattern: /(lg:grid-cols-(1|2|3|4|5|6|7|8|9|10|11|12))/ },
   ],
 };

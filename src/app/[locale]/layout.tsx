@@ -15,6 +15,8 @@ import AnytrackTracker from "@/components/blok/general/AnytrackTracker";
 import Blog from "@/components/blok/general/Blog/Blog";
 import Blogs from "@/components/blok/services/Blogs";
 import Body from "@/components/blok/services/Slider";
+import Button from "@/components/blok/general/Button";
+import ButtonGroup from "@/components/blok/general/ButtonGroup";
 import CategorySection from "@/components/blok/general/CategorySection";
 import Column from "@/components/blok/general/Column";
 import Columns from "@/components/blok/general/Columns";
@@ -25,8 +27,9 @@ import Footer from "@/components/blok/services/Footer";
 import Header from "@/components/blok/services/Header";
 import Heading from "@/components/blok/general/Heading";
 import Hero from "@/components/blok/services/Hero";
+import Icon from "@/components/blok/general/Icon";
 import Iframe from "@/components/blok/general/Iframe";
-import Row from "@/components/blok/general/Row";
+import Image from "@/components/blok/general/Image";
 import { Inter } from "next/font/google";
 import type { Metadata } from "next";
 // Removed global switcher; header contains the inline switcher matching design
@@ -34,18 +37,17 @@ import { NextIntlClientProvider } from "next-intl";
 import Page from "@/components/blok/services/Page";
 import Review from "@/components/blok/general/Review/Review";
 import Reviews from "@/components/blok/services/Reviews";
+import RichText from "@/components/blok/general/RichText";
+import Row from "@/components/blok/general/Row";
 import Script from "next/script";
 import SocialProof from "@/components/blok/services/SocialProof";
 import Step from "@/components/blok/general/Step/Step";
-import Steps from "@/components/blok/services/Steps";
+import Steps from "@/components/blok/general/Steps";
 import StoryblokProvider from "@/components/StoryblokProvider";
 import TrustBadge from "@/components/blok/general/TrustBadge/TrustBadge";
 import { WhoWeAreSection } from "@/components/blok/general/WhoWeAreSection";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
-import RichText from "@/components/blok/general/RichText";
-import ButtonGroup from "@/components/blok/general/ButtonGroup";
-import Button from "@/components/blok/general/Button";
 
 // Initialize Storyblok for server-side rendering
 storyblokInit({
@@ -135,8 +137,7 @@ export default async function RootLayout({
           <NextIntlClientProvider
             messages={messages}
             locale={locale}
-            timeZone="Europe/Brussels"
-          >
+            timeZone="Europe/Brussels">
             <StoryblokProvider story={undefined}>{children}</StoryblokProvider>
           </NextIntlClientProvider>
         </AnalyticsProvider>

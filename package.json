@@ -15,6 +15,7 @@
   "dependencies": {
     "@storyblok/js": "^4.2.1",
     "@storyblok/react": "^5.4.1",
+    "@tailwindcss/typography": "^0.5.19",
     "classnames": "^2.5.1",
     "clsx": "^2.1.1",
     "formik": "^2.4.6",

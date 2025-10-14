@@ -1,9 +1,9 @@
 "use client";
 
-import React from "react";
-import Link from "next/link";
-import { cn } from "@/lib/utils";
 import { ExtendedColumnProps } from "@/types/ui";
+import Link from "next/link";
+import React from "react";
+import { cn } from "@/lib/utils";
 
 const ConditionalWrapper: React.FC<{
   condition: boolean;
@@ -64,12 +64,12 @@ const Column: React.FC<ExtendedColumnProps> = ({
 
   const paddingMap = {
     none: "0",
-    xs: "1",
-    sm: "2",
-    default: "4",
-    md: "6",
-    lg: "8",
-    xl: "10",
+    "x-small": "2",
+    small: "4",
+    default: "8",
+    medium: "12",
+    large: "16",
+    "x-large": "20",
   };
 
   const px = paddingMap[paddingX as keyof typeof paddingMap]
@@ -129,7 +129,8 @@ const Column: React.FC<ExtendedColumnProps> = ({
     columnMap("md", group_columns_tablet),
     columnMap("lg", group_columns_desktop),
     borderClasses,
-    !disable_gutters && "p-2",
+    // Only apply p-2 if no individual padding is specified
+    !disable_gutters && !px && !pt && !pb && "p-2",
     className
   );
 
@@ -169,8 +170,7 @@ const Column: React.FC<ExtendedColumnProps> = ({
           <Link href={linkUrl} target={target} className={anchorClasses}>
             {children}
           </Link>
-        )}
-      >
+        )}>
         {hasQuote && <QuoteOpen className={quoteOpenClasses} />}
         <div className={contentClasses}>{children}</div>
         {hasQuote && <QuoteClose className={quoteCloseClasses} />}

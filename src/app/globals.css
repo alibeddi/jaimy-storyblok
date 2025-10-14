@@ -321,6 +321,32 @@ p {
   font-weight: 300;
 }
 
+/* Custom prose heading font weights */
+.prose-headings\:font-bold h1,
+.prose-headings\:font-bold h2,
+.prose-headings\:font-bold h3,
+.prose-headings\:font-bold h4,
+.prose-headings\:font-bold h5,
+.prose-headings\:font-bold h6 {
+  font-weight: 700 !important;
+}
+
+.prose-headings\:\!font-bold h1,
+.prose-headings\:\!font-bold h2,
+.prose-headings\:\!font-bold h3,
+.prose-headings\:\!font-bold h4,
+.prose-headings\:\!font-bold h5,
+.prose-headings\:\!font-bold h6 {
+  font-weight: 700 !important;
+}
+
+/* Ensure paragraph font weights inside prose respect utilities */
+.prose-p\:font-bold p { font-weight: 700 !important; }
+.prose-p\:font-semibold p { font-weight: 600 !important; }
+.prose-p\:font-medium p { font-weight: 500 !important; }
+.prose-p\:font-normal p { font-weight: 400 !important; }
+.prose-p\:font-light p { font-weight: 300 !important; }
+
 .font-belfius-regular {
   font-family: "BelfiusMontserrat", sans-serif;
   font-weight: 400;

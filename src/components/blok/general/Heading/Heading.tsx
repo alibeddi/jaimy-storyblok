@@ -1,4 +1,5 @@
 import {
+  FontWeight,
   HeadingTag,
   HeadingType,
   SizeVariant,
@@ -23,6 +24,7 @@ interface HeadingBlok {
   color?: TextColor;
   text_align?: TextAlign;
   margin_bottom?: SpacingVariant;
+  font_weight?: FontWeight;
   [key: string]: any;
 }
 
@@ -47,8 +49,13 @@ const Heading: React.FC<HeadingProps> = ({ className, blok }) => {
       color={blok.color}
       textAlign={blok.text_align}
       marginBottom={blok.margin_bottom}
+      fontWeight={blok.font_weight}
       {...storyblokEditable(blok)}>
-      {isRichText ? <RichText content={blok.title} /> : titleContent}
+      {isRichText ? (
+        <RichText content={blok.title} fontWeight={blok.font_weight} />
+      ) : (
+        titleContent
+      )}
     </HeadingUI>
   );
 };

@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-import { cn } from "@/lib/utils";
 import { RowProps } from "@/types/ui";
+import { cn } from "@/lib/utils";
 
 interface ExtendedRowProps extends RowProps {
   spacing?: string;
@@ -49,7 +49,7 @@ const Row: React.FC<ExtendedRowProps> = ({
     xl: "py-16",
   };
 
-  const appearanceMap = {
+  const appearanceTextMap = {
     default: "",
     primary: "text-white",
     secondary: "",
@@ -76,14 +76,29 @@ const Row: React.FC<ExtendedRowProps> = ({
   const rootClasses = cn(
     "w-full relative overflow-hidden",
     spacingMap[spacing as keyof typeof spacingMap],
-    appearanceMap[appearance as keyof typeof appearanceMap],
+    appearanceTextMap[appearance as keyof typeof appearanceTextMap],
     textAlignMap[textAlign as keyof typeof textAlignMap],
     paddingYMap[paddingY as keyof typeof paddingYMap],
     backgroundColor && backgroundColor !== "default" && `bg-${backgroundColor}`,
     className
   );
 
-  const contentClasses = cn("relative container mx-auto px-4 z-10", {
+  // Content width behavior based on appearance
+  // - default/contained: centered fixed-width container with horizontal padding
+  // - full-width: full width content with padding
+  // - full-bleed: full width content without padding
+  const isContained = appearance === "contained" || appearance === "default";
+  const isFullWidth = appearance === "full-width";
+  const isFullBleed = appearance === "full-bleed";
+
+  const contentClasses = cn("relative z-10", {
+    // Containered layouts
+    "container mx-auto px-4": isContained,
+    // Full width with padding
+    "w-full px-4": isFullWidth,
+    // Full bleed (edge to edge)
+    "w-full": isFullBleed,
+    // Optional narrower max width within any mode
     "max-w-4xl": narrow,
   });
 

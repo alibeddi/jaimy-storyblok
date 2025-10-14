@@ -11,7 +11,6 @@ import {
   Page as PageBlock,
   Reviews,
   SocialProof,
-  Steps,
 } from "./blok/services";
 
 import Accordion from "./blok/general/Accordion";
@@ -35,6 +34,7 @@ import FormStep from "./blok/general/form-step";
 import Grid from "./blok/general/Grid";
 import Heading from "./blok/general/Heading";
 import Hr from "./blok/general/Hr";
+import Icon from "./blok/general/Icon";
 import Iframe from "./blok/general/Iframe";
 import Image from "./blok/general/Image";
 import InputField from "./blok/general/input-field";
@@ -44,6 +44,8 @@ import ReviewStars from "./blok/general/ReviewStars";
 import RichText from "./blok/general/RichText";
 import Row from "./blok/general/Row";
 import { SbBlokData } from "@storyblok/react";
+import Step from "./blok/general/Step";
+import Steps from "./blok/general/Steps";
 import Table from "./blok/general/Table";
 import TableColumn from "./blok/general/TableColumn";
 import TableHeader from "./blok/general/TableHeader";
@@ -58,6 +60,7 @@ export const componentMap: Record<string, ComponentType> = {
   // page: PageBlock,
   header: Header,
   hero: Hero,
+  step: Step,
   steps: Steps,
 
   blogs: Blogs,
@@ -72,7 +75,6 @@ export const componentMap: Record<string, ComponentType> = {
   // feature: Feature,
   grid: Grid,
   banner: Banner,
-  image: Image,
   heading: Heading,
   // hero: Hero,
   "rich-text": RichText,

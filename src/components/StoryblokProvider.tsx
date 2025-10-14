@@ -12,6 +12,8 @@ import Banner from "./blok/general/Banner";
 import Blog from "./blok/general/Blog/Blog";
 import Blogs from "./blok/services/Blogs";
 import Body from "./blok/services/Slider";
+import Button from "./blok/general/Button";
+import ButtonGroup from "./blok/general/ButtonGroup";
 import CategorySection from "./blok/general/CategorySection";
 import Column from "./blok/general/Column";
 import Columns from "./blok/general/Columns";
@@ -26,16 +28,14 @@ import Iframe from "./blok/general/Iframe";
 import Page from "./blok/services/Page";
 import Review from "./blok/general/Review/Review";
 import Reviews from "./blok/services/Reviews";
+import RichText from "./blok/general/RichText";
 import Row from "./blok/general/Row";
 import SocialProof from "./blok/services/SocialProof";
 import Step from "./blok/general/Step/Step";
-import Steps from "./blok/services/Steps";
+import Steps from "./blok/general/Steps";
 import Teaser from "./blok/general/Teaser";
 import TrustBadge from "./blok/general/TrustBadge/TrustBadge";
 import { WhoWeAreSection } from "./blok/general/WhoWeAreSection";
-import RichText from "./blok/general/RichText";
-import Button from "./blok/general/Button";
-import ButtonGroup from "./blok/general/ButtonGroup";
 
 // Initialize Storyblok for client-side
 storyblokInit({
