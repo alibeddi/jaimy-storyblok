@@ -46,6 +46,12 @@ const Columns: React.FC<ExtendedColumnsProps> = ({
   connectorToggle = false,
   connectorColor = "default",
   marginBottom = "default",
+  border = "none",
+  borderColor = "default",
+  borderRadius = "none",
+  shadow = "none",
+  paddingX = "default",
+  paddingY = "default",
   touchSlide,
   touchSlideColumnSize,
   ...rest
@@ -115,7 +121,72 @@ const Columns: React.FC<ExtendedColumnsProps> = ({
     xl: "mb-16",
   };
 
-  const wrapperClasses = cn("w-full", marginBottomMap[marginBottom], className);
+  const paddingXMap: Record<string, string> = {
+    none: "px-0",
+    xs: "px-2",
+    sm: "px-4",
+    default: "",
+    md: "px-8",
+    lg: "px-12",
+    xl: "px-16",
+  };
+
+  const paddingYMap: Record<string, string> = {
+    none: "py-0",
+    xs: "py-2",
+    sm: "py-4",
+    default: "",
+    md: "py-8",
+    lg: "py-12",
+    xl: "py-16",
+  };
+
+  const borderClasses = cn(
+    {
+      "border-t": border === "top",
+      "border-b": border === "bottom",
+      "border-l": border === "left",
+      "border-r": border === "right",
+      border: border === "around",
+      "border-t border-b": border === "top-bottom",
+      "border-l border-r": border === "left-right",
+    },
+    // Apply default border color (gray-300) when borderColor is "default" or when border is set but no specific color
+    border !== "none" &&
+      (borderColor === "default" ? "border-gray-300" : `border-${borderColor}`)
+  );
+
+  const borderRadiusClasses = cn({
+    "rounded-none": borderRadius === "none",
+    "rounded-sm": borderRadius === "small",
+    rounded: borderRadius === "default",
+    "rounded-md": borderRadius === "medium",
+    "rounded-lg": borderRadius === "large",
+    "rounded-xl": borderRadius === "x-large",
+    "rounded-2xl": borderRadius === "xx-large",
+    "rounded-full": borderRadius === "full",
+  });
+
+  const shadowClasses = cn({
+    "shadow-none": shadow === "none",
+    "shadow-sm": shadow === "small",
+    shadow: shadow === "default",
+    "shadow-md": shadow === "medium",
+    "shadow-lg": shadow === "large",
+    "shadow-xl": shadow === "x-large",
+    "shadow-2xl": shadow === "xx-large",
+  });
+
+  const wrapperClasses = cn(
+    "w-full",
+    marginBottomMap[marginBottom],
+    paddingXMap[paddingX as keyof typeof paddingXMap],
+    paddingYMap[paddingY as keyof typeof paddingYMap],
+    borderClasses,
+    borderRadiusClasses,
+    shadowClasses,
+    className
+  );
 
   const gridClasses = cn(
     "grid w-full",

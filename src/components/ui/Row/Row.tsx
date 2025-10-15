@@ -19,7 +19,9 @@ interface ExtendedRowProps extends RowProps {
   backgroundRepeat?: string;
   backgroundOpacity?: string;
   textAlign?: string;
+  paddingX?: string;
   paddingY?: string;
+  maxWidth?: string;
 }
 
 const Row: React.FC<ExtendedRowProps> = ({
@@ -36,7 +38,9 @@ const Row: React.FC<ExtendedRowProps> = ({
   backgroundRepeat,
   backgroundOpacity,
   textAlign = "default",
+  paddingX = "default",
   paddingY = "default",
+  maxWidth = "default",
   ...rest
 }) => {
   const spacingMap = {
@@ -63,6 +67,16 @@ const Row: React.FC<ExtendedRowProps> = ({
     default: "",
   };
 
+  const paddingXMap = {
+    none: "px-0",
+    xs: "px-2",
+    sm: "px-4",
+    default: "",
+    md: "px-8",
+    lg: "px-12",
+    xl: "px-16",
+  };
+
   const paddingYMap = {
     none: "py-0",
     xs: "py-2",
@@ -73,12 +87,29 @@ const Row: React.FC<ExtendedRowProps> = ({
     xl: "py-16",
   };
 
+  const maxWidthMap = {
+    none: "",
+    sm: "max-w-sm",
+    md: "max-w-md",
+    lg: "max-w-lg",
+    xl: "max-w-xl",
+    "2xl": "max-w-2xl",
+    "3xl": "max-w-3xl",
+    "4xl": "max-w-4xl",
+    "5xl": "max-w-5xl",
+    "6xl": "max-w-6xl",
+    "7xl": "max-w-7xl",
+    default: "",
+  };
+
   const rootClasses = cn(
     "w-full relative overflow-hidden",
     spacingMap[spacing as keyof typeof spacingMap],
     appearanceTextMap[appearance as keyof typeof appearanceTextMap],
     textAlignMap[textAlign as keyof typeof textAlignMap],
+    paddingXMap[paddingX as keyof typeof paddingXMap],
     paddingYMap[paddingY as keyof typeof paddingYMap],
+    maxWidthMap[maxWidth as keyof typeof maxWidthMap],
     backgroundColor && backgroundColor !== "default" && `bg-${backgroundColor}`,
     className
   );

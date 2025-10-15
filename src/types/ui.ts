@@ -419,6 +419,8 @@ export interface ExtendedColumnProps extends BaseUIProps {
   disable_gutters?: boolean;
   border?: string;
   borderColor?: string;
+  borderRadius?: string;
+  shadow?: string;
 }
 
 export interface ExtendedColumnsProps extends BaseUIProps {
@@ -436,6 +438,12 @@ export interface ExtendedColumnsProps extends BaseUIProps {
   connectorToggle?: boolean;
   connectorColor?: string;
   marginBottom?: string;
+  border?: string;
+  borderColor?: string;
+  borderRadius?: string;
+  shadow?: string;
+  paddingX?: SpacingVariant;
+  paddingY?: SpacingVariant;
 }
 
 // FormField component types
