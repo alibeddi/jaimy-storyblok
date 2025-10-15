@@ -46,6 +46,8 @@ interface ColumnBlok {
   touch_slide?: boolean;
   border?: string;
   border_color?: string;
+  border_radius?: string;
+  shadow?: string;
   group_columns_mobile?: string;
   group_columns_tablet?: string;
   group_columns_desktop?: string;
@@ -92,6 +94,8 @@ const Column: React.FC<ColumnProps> = ({ blok }) => {
       quoteColor={blok?.quote_color}
       border={blok?.border}
       borderColor={blok?.border_color}
+      borderRadius={blok?.border_radius}
+      shadow={blok?.shadow}
       group_columns_mobile={blok?.group_columns_mobile}
       group_columns_tablet={blok?.group_columns_tablet}
       group_columns_desktop={blok?.group_columns_desktop}

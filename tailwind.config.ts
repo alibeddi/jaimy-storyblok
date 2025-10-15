@@ -212,9 +212,66 @@ export default <Partial<Config>>{
     "pb-16",
     "pb-20",
 
+    // Border radius classes for Column and Columns components
+    "rounded-none",
+    "rounded-sm",
+    "rounded",
+    "rounded-md",
+    "rounded-lg",
+    "rounded-xl",
+    "rounded-2xl",
+    "rounded-full",
+
+    // Shadow classes for Column and Columns components
+    "shadow-none",
+    "shadow-sm",
+    "shadow",
+    "shadow-md",
+    "shadow-lg",
+    "shadow-xl",
+    "shadow-2xl",
+
+    // Max width classes for Row component
+    "max-w-sm",
+    "max-w-md",
+    "max-w-lg",
+    "max-w-xl",
+    "max-w-2xl",
+    "max-w-3xl",
+    "max-w-4xl",
+    "max-w-5xl",
+    "max-w-6xl",
+    "max-w-7xl",
+
+    // Border color classes for Column and Columns components
+    "border-gray-100",
+    "border-gray-200",
+    "border-gray-300",
+    "border-gray-400",
+    "border-gray-500",
+    "border-gray-600",
+    "border-gray-700",
+    "border-gray-800",
+    "border-gray-900",
+    "border-red-500",
+    "border-blue-500",
+    "border-green-500",
+    "border-yellow-500",
+    "border-purple-500",
+    "border-pink-500",
+    "border-indigo-500",
+    "border-black",
+    "border-white",
+
     // Grid column counts used by Columns component, with responsive prefixes
     { pattern: /(grid-cols-(1|2|3|4|5|6|7|8|9|10|11|12))/ },
     { pattern: /(md:grid-cols-(1|2|3|4|5|6|7|8|9|10|11|12))/ },
     { pattern: /(lg:grid-cols-(1|2|3|4|5|6|7|8|9|10|11|12))/ },
+
+    // Border color patterns for dynamic border colors
+    {
+      pattern:
+        /(border-(gray|red|blue|green|yellow|purple|pink|indigo|black|white)-(100|200|300|400|500|600|700|800|900))/,
+    },
   ],
 };

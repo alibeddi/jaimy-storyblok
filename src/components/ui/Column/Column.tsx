@@ -46,7 +46,9 @@ const Column: React.FC<ExtendedColumnProps> = ({
   group_columns_desktop = "default",
   disable_gutters = false,
   border = "none",
-  borderColor = "gray-500",
+  borderColor = "default",
+  borderRadius = "none",
+  shadow = "none",
   ...rest
 }) => {
   const linkUrl = link?.url || link?.cached_url || "";
@@ -100,15 +102,50 @@ const Column: React.FC<ExtendedColumnProps> = ({
     return map[val || "default"];
   };
 
-  const borderClasses = cn({
-    "border-t": border === "top",
-    "border-b": border === "bottom",
-    "border-l": border === "left",
-    "border-r": border === "right",
-    border: border === "around",
-    "border-t border-b": border === "top-bottom",
-    "border-l border-r": border === "left-right",
-    [`border-${borderColor}`]: border !== "none",
+  const borderClasses = cn(
+    {
+      "border-t": border === "top",
+      "border-b": border === "bottom",
+      "border-l": border === "left",
+      "border-r": border === "right",
+      border: border === "around",
+      "border-t border-b": border === "top-bottom",
+      "border-l border-r": border === "left-right",
+    },
+    // Apply default border color (gray-300) when borderColor is "default" or when border is set but no specific color
+    border !== "none" &&
+      (borderColor === "default" ? "border-gray-300" : `border-${borderColor}`)
+  );
+
+  console.log("🔍 Column Border Debug:", {
+    border,
+    borderColor,
+    borderClasses,
+    borderRadius,
+    shadow,
+    finalBorderColor:
+      borderColor === "default" ? "border-gray-300" : `border-${borderColor}`,
+  });
+
+  const borderRadiusClasses = cn({
+    "rounded-none": borderRadius === "none",
+    "rounded-sm": borderRadius === "small",
+    rounded: borderRadius === "default",
+    "rounded-md": borderRadius === "medium",
+    "rounded-lg": borderRadius === "large",
+    "rounded-xl": borderRadius === "x-large",
+    "rounded-2xl": borderRadius === "xx-large",
+    "rounded-full": borderRadius === "full",
+  });
+
+  const shadowClasses = cn({
+    "shadow-none": shadow === "none",
+    "shadow-sm": shadow === "small",
+    shadow: shadow === "default",
+    "shadow-md": shadow === "medium",
+    "shadow-lg": shadow === "large",
+    "shadow-xl": shadow === "x-large",
+    "shadow-2xl": shadow === "xx-large",
   });
 
   const containerClasses = cn(
@@ -129,6 +166,8 @@ const Column: React.FC<ExtendedColumnProps> = ({
     columnMap("md", group_columns_tablet),
     columnMap("lg", group_columns_desktop),
     borderClasses,
+    borderRadiusClasses,
+    shadowClasses,
     // Only apply p-2 if no individual padding is specified
     !disable_gutters && !px && !pt && !pb && "p-2",
     className
