@@ -116,7 +116,7 @@ export default function StoryblokProvider({
     // Listen for custom storyblok input events
     const handleStoryblokInput = (event: CustomEvent) => {
       if (event.detail) {
-        setStory(event.detail);
+        setStory(event.detail as unknown as ISbStoryData);
       }
     };
 
@@ -132,12 +132,12 @@ export default function StoryblokProvider({
           if (event.data && typeof event.data === "object") {
             // Check if it's a Storyblok bridge message
             if (event.data.type === "input" && event.data.story) {
-              setStory(event.data.story);
+              setStory(event.data.story as unknown as ISbStoryData);
             } else if (event.data.type === "change" && event.data.story) {
-              setStory(event.data.story);
+              setStory(event.data.story as unknown as ISbStoryData);
             } else if (event.data.story) {
               // Handle any story data regardless of type
-              setStory(event.data.story);
+              setStory(event.data.story as unknown as ISbStoryData);
             }
           }
         } catch (error) {
@@ -209,7 +209,7 @@ export default function StoryblokProvider({
                 if (event?.story) {
                   // Ensure the story has the correct structure
                   if (event.story.content && event.story.content.body) {
-                    setStory(event.story); // update local state
+                    setStory(event.story as unknown as ISbStoryData); // update local state
 
                     // Force a re-render to show changes immediately
                     window.dispatchEvent(
@@ -236,7 +236,7 @@ export default function StoryblokProvider({
                   location.reload();
                 } else if (event?.action === "change" && event?.story) {
                   // Update story immediately on change
-                  setStory(event.story);
+                  setStory(event.story as unknown as ISbStoryData);
                 }
               } catch (error) {
                 console.error("Error handling publish/change event:", error);
@@ -248,7 +248,7 @@ export default function StoryblokProvider({
             sbBridge.on("customEvent", (event: any) => {
               try {
                 if (event?.type === "input" && event?.story) {
-                  setStory(event.story);
+                  setStory(event.story as unknown as ISbStoryData);
                 }
               } catch (error) {
                 console.error("Error handling custom event:", error);
@@ -279,7 +279,9 @@ export default function StoryblokProvider({
                           // eslint-disable-next-line @typescript-eslint/no-explicit-any
                           sbBridge.pingEditor((payload: any) => {
                             if (payload && payload.story) {
-                              setStory(payload.story);
+                              setStory(
+                                payload.story as unknown as ISbStoryData
+                              );
                             }
                           });
                         } catch (error) {

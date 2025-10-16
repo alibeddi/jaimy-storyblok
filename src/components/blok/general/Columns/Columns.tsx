@@ -3,6 +3,7 @@ import { StoryblokComponent, storyblokEditable } from "@storyblok/react";
 import ColumnsUI from "../../../ui/Columns";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
+import { SpacingVariant } from "@/types/ui";
 
 interface ChildBlok {
   component: string;
@@ -82,8 +83,8 @@ const Columns: React.FC<ColumnsProps> = ({ blok }) => {
       borderColor={blok?.border_color}
       borderRadius={blok?.border_radius}
       shadow={blok?.shadow}
-      paddingX={blok?.padding_x}
-      paddingY={blok?.padding_y}>
+      paddingX={blok?.padding_x as SpacingVariant}
+      paddingY={blok?.padding_y as SpacingVariant}>
       {childrenWithProps}
     </ColumnsUI>
   );

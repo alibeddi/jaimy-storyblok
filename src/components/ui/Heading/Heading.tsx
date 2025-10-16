@@ -81,7 +81,7 @@ const Heading: React.FC<HeadingProps> = ({
 
   const resolvedWeight = fontWeight || "semibold";
   const headingClassName = cn(
-    sizeStyles[size],
+    sizeStyles[size as keyof typeof sizeStyles],
     typeStyles[type],
     fontWeightStyles[resolvedWeight as keyof typeof fontWeightStyles],
     color && colorStyles[color],
