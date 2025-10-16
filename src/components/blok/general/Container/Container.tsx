@@ -66,7 +66,12 @@ const Container: React.FC<ContainerProps> = ({ blok }) => {
 
   return (
     <ContainerUI
-      maxWidth={blok?.max_width}
+      maxWidth={
+        blok?.max_width &&
+        ["sm", "md", "lg", "xl", "2xl", "full"].includes(blok.max_width)
+          ? (blok.max_width as "sm" | "md" | "lg" | "xl" | "2xl" | "full")
+          : undefined
+      }
       padding={blok?.padding}
       // Icon props
       hasIcon={hasIcon}
