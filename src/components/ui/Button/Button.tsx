@@ -12,6 +12,8 @@ const Button: React.FC<ButtonProps> = ({
   border = "none",
   borderColor = "default",
   borderRadius = "default",
+  shadow = "none",
+  cursor = "pointer",
   icon,
   iconColor = "default",
   iconType = "default",
@@ -92,12 +94,35 @@ const Button: React.FC<ButtonProps> = ({
     "rounded-full": borderRadius === "full",
   });
 
+  const shadowClasses = cn({
+    "shadow-none": shadow === "none",
+    "shadow-sm": shadow === "small",
+    shadow: shadow === "default",
+    "shadow-md": shadow === "medium",
+    "shadow-lg": shadow === "large",
+    "shadow-xl": shadow === "x-large",
+    "shadow-2xl": shadow === "xx-large",
+  });
+
+  const cursorClasses = cn({
+    "cursor-pointer": cursor === "pointer",
+    "cursor-default": cursor === "default",
+    "cursor-not-allowed": cursor === "not-allowed",
+    "cursor-wait": cursor === "wait",
+    "cursor-text": cursor === "text",
+    "cursor-move": cursor === "move",
+    "cursor-help": cursor === "help",
+    "cursor-auto": cursor === "auto",
+  });
+
   const buttonClassName = cn(
     baseStyles,
     variantStyles[variant],
     sizeStyles[size],
     borderClasses,
     borderRadiusClasses,
+    shadowClasses,
+    cursorClasses,
     hasSpacing && spacingStyles[iconSpacing],
     iconPosition === "right" && "flex-row-reverse",
     className

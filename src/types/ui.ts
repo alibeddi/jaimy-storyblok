@@ -47,6 +47,23 @@ export interface ButtonProps extends BaseUIProps {
     | "x-large"
     | "xx-large"
     | "full";
+  shadow?:
+    | "none"
+    | "small"
+    | "default"
+    | "medium"
+    | "large"
+    | "x-large"
+    | "xx-large";
+  cursor?:
+    | "default"
+    | "pointer"
+    | "not-allowed"
+    | "wait"
+    | "text"
+    | "move"
+    | "help"
+    | "auto";
   icon?: string;
   iconColor?: IconColor;
   iconType?: IconType;

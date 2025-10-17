@@ -33,6 +33,8 @@ export interface ButtonBlok {
   border?: string;
   border_color?: string;
   border_radius?: string;
+  shadow?: string;
+  cursor?: string;
   target?: ButtonTarget;
   link: LinkBlok;
   preset?: string;
@@ -65,6 +67,8 @@ const Button: React.FC<SBButtonProps> = ({ className, blok }) => {
       borderRadius={
         (blok?.border_radius as UIButtonProps["borderRadius"]) || undefined
       }
+      shadow={(blok?.shadow as UIButtonProps["shadow"]) || undefined}
+      cursor={(blok?.cursor as UIButtonProps["cursor"]) || undefined}
       to={to}
       target={blok?.target}
       relation={blok?.relation}
