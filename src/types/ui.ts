@@ -36,6 +36,17 @@ export interface ButtonProps extends BaseUIProps {
   variant?: ButtonVariant;
   type?: ButtonType;
   size?: SizeVariant;
+  border?: string; // e.g., "none" | "default" | "2" | "4"
+  borderColor?: string; // e.g., "gray-300", "primary-500"
+  borderRadius?:
+    | "none"
+    | "small"
+    | "default"
+    | "medium"
+    | "large"
+    | "x-large"
+    | "xx-large"
+    | "full";
   icon?: string;
   iconColor?: IconColor;
   iconType?: IconType;

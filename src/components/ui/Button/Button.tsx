@@ -8,6 +8,10 @@ import Icon from "../Icon/Icon";
 
 const Button: React.FC<ButtonProps> = ({
   className,
+  size = "default",
+  border = "none",
+  borderColor = "default",
+  borderRadius = "default",
   icon,
   iconColor = "default",
   iconType = "default",
@@ -36,14 +40,13 @@ const Button: React.FC<ButtonProps> = ({
 
   // Variant styles
   const variantStyles = {
-  primary:
-    "bg-gradient-to-r from-[#961E34] to-[#C30B30] text-white p-4 rounded-lg transition-all duration-200 hover:opacity-90 focus-visible:ring-2 focus-visible:ring-[#C30B30]",
-  secondary:
-    "bg-[#F4F4F4] text-[#BE213A] p-4 rounded-lg transition-all duration-200 hover:bg-[#e5e5e5] focus-visible:ring-2 focus-visible:ring-[#BE213A]",
-  tertiary:
-    "bg-[rgba(244,244,244,0.3)] text-white p-4 rounded-lg transition-all duration-200 hover:bg-[rgba(244,244,244,0.5)] focus-visible:ring-2 focus-visible:ring-white",
-};
-
+    primary:
+      "bg-gradient-to-r from-[#961E34] to-[#C30B30] text-white p-4 rounded-lg transition-all duration-200 hover:opacity-90 focus-visible:ring-2 focus-visible:ring-[#C30B30]",
+    secondary:
+      "bg-[#F4F4F4] text-[#BE213A] p-4 rounded-lg transition-all duration-200 hover:bg-[#e5e5e5] focus-visible:ring-2 focus-visible:ring-[#BE213A]",
+    tertiary:
+      "bg-[rgba(244,244,244,0.3)] text-white p-4 rounded-lg transition-all duration-200 hover:bg-[rgba(244,244,244,0.5)] focus-visible:ring-2 focus-visible:ring-white",
+  };
 
   // Size styles
   const sizeStyles = {
@@ -67,10 +70,34 @@ const Button: React.FC<ButtonProps> = ({
     xl: hasIcon && iconPosition === "left" ? "gap-4" : "",
   };
 
+  const borderClasses = cn(
+    {
+      border: border && border !== "none",
+      "border-2": border === "2",
+      "border-4": border === "4",
+    },
+    border &&
+      border !== "none" &&
+      (borderColor === "default" ? "border-gray-300" : `border-${borderColor}`)
+  );
+
+  const borderRadiusClasses = cn({
+    "rounded-none": borderRadius === "none",
+    "rounded-sm": borderRadius === "small",
+    rounded: borderRadius === "default",
+    "rounded-md": borderRadius === "medium",
+    "rounded-lg": borderRadius === "large",
+    "rounded-xl": borderRadius === "x-large",
+    "rounded-2xl": borderRadius === "xx-large",
+    "rounded-full": borderRadius === "full",
+  });
+
   const buttonClassName = cn(
     baseStyles,
     variantStyles[variant],
-    sizeStyles["default"], // Default size, can be made configurable
+    sizeStyles[size],
+    borderClasses,
+    borderRadiusClasses,
     hasSpacing && spacingStyles[iconSpacing],
     iconPosition === "right" && "flex-row-reverse",
     className
