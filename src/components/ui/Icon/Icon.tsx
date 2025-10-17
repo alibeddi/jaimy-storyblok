@@ -61,9 +61,26 @@ const Icon: React.FC<IconProps> = ({
     black: "text-black",
   };
 
+  const colorStr = String(color || "default");
+  const knownColorClass =
+    colorStr !== "default" &&
+    colorClasses[colorStr as keyof typeof colorClasses];
+
+  // Allow tailwind palette names like "red-500", "zinc-400", "primary-600"
+  const tailwindColorClass =
+    !knownColorClass &&
+    /^[a-z-]+\d{0,3}$/i.test(colorStr) &&
+    `text-${colorStr}`;
+
+  // Allow hex or rgb(a) colors via inline style fallback
+  const isHex = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(colorStr);
+  const isRgb = /^rgba?\(/i.test(colorStr);
+  const inlineStyle =
+    isHex || isRgb ? ({ color: colorStr } as React.CSSProperties) : undefined;
+
   const classNames = cn(
     sizeClasses[size],
-    color !== "default" && colorClasses[color as keyof typeof colorClasses],
+    knownColorClass || tailwindColorClass,
     {
       "fill-current": type === "solid",
       "stroke-2": type === "outline",
@@ -73,7 +90,14 @@ const Icon: React.FC<IconProps> = ({
     className
   );
 
-  return <IconComponent className={classNames} onClick={onClick} {...rest} />;
+  return (
+    <IconComponent
+      className={classNames}
+      style={inlineStyle}
+      onClick={onClick}
+      {...rest}
+    />
+  );
 };
 
 export default Icon;
