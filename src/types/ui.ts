@@ -389,10 +389,16 @@ export interface CategorySectionProps extends BaseUIProps {
 
 // Column and Columns component types (extended)
 export interface ExtendedColumnProps extends BaseUIProps {
+  // Layout & flex controls
+  display?: string;
   flexDirection?: string;
   textAlign?: TextAlign;
   justifyContent?: string;
+  alignItems?: string;
   alignContent?: string;
+  justifyItems?: string;
+  flexWrap?: string;
+  gap?: string;
   paddingX?: SpacingVariant;
   paddingTop?: SpacingVariant;
   paddingBottom?: SpacingVariant;
