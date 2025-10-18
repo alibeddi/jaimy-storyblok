@@ -52,7 +52,7 @@ export default function Reviews({ blok }: { blok: ReviewsBlok }) {
     return (
       <section
         {...storyblokEditable(blok)}
-        className="py-16 px-6 transition-all duration-500 ease-in-out"
+        className=" px-6 transition-all duration-500 ease-in-out"
         style={{ background: "#F4F4F4" }}>
         <div className="max-w-7xl mx-auto text-center">
           <h2
@@ -157,7 +157,7 @@ export default function Reviews({ blok }: { blok: ReviewsBlok }) {
     } else if (cardsPerSlide === 2) {
       return "w-full max-w-xs sm:max-w-sm";
     } else {
-      return "w-full max-w-xs";
+      return "max-w-lg";
     }
   };
 
@@ -181,41 +181,10 @@ export default function Reviews({ blok }: { blok: ReviewsBlok }) {
     <section
       {...storyblokEditable(blok)}
       className="py-16 px-6 transition-all duration-500 ease-in-out"
-      style={{ background: "#F4F4F4" }}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}>
       <div className="max-w-7xl mx-auto">
-        {/* Header Section */}
-        <div className="text-center mb-6 sm:mb-8 md:mb-12 lg:mb-16">
-          {/* H2 Title */}
-          <h2
-            data-blok-field="title"
-            className="text-4xl text-left mb-10 lg:text-5xl xl:text-6xl 2xl:text-6xl font-light leading-tight tracking-wide transition-all duration-300 hover:text-gray-700"
-            style={{
-              fontFamily:
-                "BelfiusAlternative, -apple-system, Roboto, Helvetica, sans-serif",
-
-              color: "rgba(50,84,109,1)",
-            }}>
-            {blok?.title || "Customer Reviews"}
-          </h2>
-
-          {/* Description */}
-          {blok?.description && (
-            <p
-              data-blok-field="description"
-              className="text-gray-500 text-xs sm:text-sm md:text-base leading-relaxed max-w-lg sm:max-w-xl lg:max-w-2xl mx-auto mt-2 sm:mt-3 md:mt-4 transition-opacity duration-300 hover:opacity-90 px-2"
-              style={{
-                fontFamily:
-                  "Montserrat, -apple-system, Roboto, Helvetica, sans-serif",
-                fontWeight: "300",
-              }}>
-              {blok.description}
-            </p>
-          )}
-        </div>
-
         {/* Reviews Cards Container - Fully Responsive */}
         <div className="mb-4 sm:mb-6 md:mb-8 lg:mb-12">
           <div className={`${getGridClasses()} ${getGapClasses()}`}>

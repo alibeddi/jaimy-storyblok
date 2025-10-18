@@ -25,12 +25,14 @@ import Header from "./blok/services/Header";
 import Heading from "./blok/general/Heading";
 import { Hero } from "./blok/services";
 import Iframe from "./blok/general/Iframe";
+import Image from "./blok/general/Image";
 import Page from "./blok/services/Page";
 import Review from "./blok/general/Review/Review";
 import Reviews from "./blok/services/Reviews";
 import RichText from "./blok/general/RichText";
 import Row from "./blok/general/Row";
 import SocialProof from "./blok/services/SocialProof";
+import Stars from "./blok/general/Stars";
 import Step from "./blok/general/Step/Step";
 import Steps from "./blok/general/Steps";
 import Teaser from "./blok/general/Teaser";
@@ -65,6 +67,8 @@ storyblokInit({
     columns: Columns,
     column: Column,
     row: Row,
+    stars: Stars,
+    image: Image,
     heading: Heading,
     "category-section": CategorySection,
     who_we_are_section: WhoWeAreSection,

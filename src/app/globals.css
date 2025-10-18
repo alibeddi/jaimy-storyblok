@@ -249,12 +249,20 @@
   --color-foreground: var(--foreground);
   --font-sans: "BelfiusMontserrat", "Montserrat", var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  
+  /* Custom Font Families for Heading Component */
+  --font-belfius-montserrat: "BelfiusMontserrat", sans-serif;
+  --font-belfius-alternative: "BelfiusAlternative", sans-serif;
 
   /* Custom Belfius Colors for Tailwind */
   --color-belfius-red: var(--belfius-red-primary);
   --color-belfius-red-secondary: var(--belfius-red-secondary);
   --color-belfius-grey: var(--belfius-grey);
   --color-belfius-light-grey: var(--belfius-light-grey);
+  
+  /* Font Family Map for Tailwind v4 */
+  --font-family-belfius-montserrat: var(--font-belfius-montserrat);
+  --font-family-belfius-alternative: var(--font-belfius-alternative);
 }
 
 /* Global Typography - BelfiusMontserrat as default */
@@ -313,6 +321,31 @@ p {
 .font-belfius-light {
   font-family: "BelfiusMontserrat", sans-serif;
   font-weight: 300;
+}
+
+/* Font Family Utility Classes for Heading Component */
+.font-belfius-montserrat,
+h1.font-belfius-montserrat,
+h2.font-belfius-montserrat,
+h3.font-belfius-montserrat,
+h4.font-belfius-montserrat,
+h5.font-belfius-montserrat,
+h6.font-belfius-montserrat,
+span.font-belfius-montserrat,
+div.font-belfius-montserrat {
+  font-family: "BelfiusMontserrat", sans-serif !important;
+}
+
+.font-belfius-alternative,
+h1.font-belfius-alternative,
+h2.font-belfius-alternative,
+h3.font-belfius-alternative,
+h4.font-belfius-alternative,
+h5.font-belfius-alternative,
+h6.font-belfius-alternative,
+span.font-belfius-alternative,
+div.font-belfius-alternative {
+  font-family: "BelfiusAlternative", sans-serif !important;
 }
 
 /* BelfiusMontserrat Utility Classes */

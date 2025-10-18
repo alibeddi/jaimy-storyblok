@@ -15,19 +15,26 @@ const Heading: React.FC<HeadingProps> = ({
   children,
   marginBottom,
   fontWeight,
+  fontFamily,
   title,
   ...rest
 }) => {
-  // Size styles
+  // Size styles - expanded with larger options
   const sizeStyles = {
-    "xx-small": "text-xs",
-    "x-small": "text-sm",
-    small: "text-base",
-    default: "text-lg",
-    medium: "text-xl",
-    large: "text-2xl",
-    "x-large": "text-3xl",
-    "xx-large": "text-4xl",
+    xs: "text-xs",
+    sm: "text-sm",
+    default: "text-base",
+    md: "text-lg",
+    lg: "text-xl",
+    xl: "text-2xl",
+    "2xl": "text-3xl",
+    "3xl": "text-4xl",
+    "4xl": "text-5xl",
+    "5xl": "text-6xl",
+    "6xl": "text-7xl",
+    "7xl": "text-8xl",
+    "8xl": "text-9xl",
+    "9xl": "text-[10rem]",
   };
 
   // Type styles (do NOT include font-* here; weight is controlled by fontWeight)
@@ -79,6 +86,15 @@ const Heading: React.FC<HeadingProps> = ({
     "700": "!font-bold",
   } as const;
 
+  // Font family styles
+  const fontFamilyStyles = {
+    "belfius-montserrat": "font-belfius-montserrat",
+    "belfius-alternative": "font-belfius-alternative",
+    sans: "font-sans",
+    serif: "font-serif",
+    mono: "font-mono",
+  } as const;
+
   const colorStr = String(color || "default");
   const knownColorClass =
     colorStr !== "default" && (colorStyles as Record<string, string>)[colorStr];
@@ -113,20 +129,43 @@ const Heading: React.FC<HeadingProps> = ({
     sizeStyles[size as keyof typeof sizeStyles],
     typeStyles[type],
     fontWeightStyles[resolvedWeight as keyof typeof fontWeightStyles],
+
+    color && colorStyles[color],
+
+    fontFamily && fontFamilyStyles[fontFamily as keyof typeof fontFamilyStyles],
     colorClassImportant,
+
+    colorClassImportant,
+
     textAlign && alignStyles[textAlign],
     marginBottom && marginStyles[marginBottom],
     className
   );
+  // Fallback inline styles for font family
+  const fontFamilyStyle = fontFamily
+    ? {
+        fontFamily:
+          fontFamily === "belfius-montserrat"
+            ? '"BelfiusMontserrat", sans-serif'
+            : fontFamily === "belfius-alternative"
+              ? '"BelfiusAlternative", sans-serif'
+              : fontFamily === "sans"
+                ? "sans-serif"
+                : fontFamily === "serif"
+                  ? "serif"
+                  : fontFamily === "mono"
+                    ? "monospace"
+                    : undefined,
+      }
+    : {};
   return (
     <Component
       id={id}
       data-testid="heading"
       className={headingClassName}
-      style={inlineStyle}
+      style={{ ...inlineStyle, ...fontFamilyStyle }}
       title={title}
-      {...rest}
-    >
+      {...rest}>
       {children}
     </Component>
   );

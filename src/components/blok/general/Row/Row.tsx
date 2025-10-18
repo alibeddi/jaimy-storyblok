@@ -46,24 +46,7 @@ const Row: React.FC<RowProps> = ({ blok }) => {
   const childrenWithProps = blok.children?.map((child) => (
     <StoryblokComponent key={child._uid} blok={child} />
   ));
-  console.log("🔍 Row Debug:", {
-    spacing: blok.spacing,
-    narrow: blok.narrow,
-    appearance: blok.appearance,
-    background_color: blok.background_color,
-    text_align: blok.text_align,
-    padding_x: blok.padding_x,
-    padding_y: blok.padding_y,
-    max_width: blok.max_width,
-    display: blok.display,
-    flex_direction: blok.flex_direction,
-    justify_content: blok.justify_content,
-    align_items: blok.align_items,
-    align_content: blok.align_content,
-    justify_items: blok.justify_items,
-    flex_wrap: blok.flex_wrap,
-    gap: blok.gap,
-  });
+
   return (
     <div {...storyblokEditable(blok)}>
       <RowUI
@@ -88,8 +71,7 @@ const Row: React.FC<RowProps> = ({ blok }) => {
         alignContent={blok.align_content}
         justifyItems={blok.justify_items}
         flexWrap={blok.flex_wrap}
-        gap={blok.gap}
-      >
+        gap={blok.gap}>
         {childrenWithProps}
       </RowUI>
     </div>

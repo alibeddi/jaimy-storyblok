@@ -39,11 +39,14 @@ const Image: React.FC<ImageProps> = ({
         <NextImage
           src={src!}
           alt={alt}
-          fill
           className={imageClasses}
           style={{
             objectFit: objectFit,
           }}
+          width={typeof width === "string" ? parseInt(width) : parseInt("100%")}
+          height={
+            typeof height === "string" ? parseInt(height) : parseInt("100%")
+          }
           loading={loading}
           priority={priority}
           placeholder={placeholder ? "blur" : undefined}

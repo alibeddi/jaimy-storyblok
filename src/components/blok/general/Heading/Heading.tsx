@@ -1,4 +1,5 @@
 import {
+  FontFamily,
   FontWeight,
   HeadingTag,
   HeadingType,
@@ -25,6 +26,8 @@ interface HeadingBlok {
   text_align?: TextAlign;
   margin_bottom?: SpacingVariant;
   font_weight?: FontWeight;
+  font_family?: FontFamily;
+  FontFamily?: FontFamily;
   [key: string]: any;
 }
 
@@ -37,7 +40,6 @@ const Heading: React.FC<HeadingProps> = ({ className, blok }) => {
   // Check if title is a rich text object or a simple string
   const isRichText = typeof blok.title === "object" && blok.title !== null;
   const titleContent = typeof blok.title === "string" ? blok.title : "";
-
   return (
     <HeadingUI
       title={titleContent}
@@ -50,6 +52,7 @@ const Heading: React.FC<HeadingProps> = ({ className, blok }) => {
       textAlign={blok.text_align}
       marginBottom={blok.margin_bottom}
       fontWeight={blok.font_weight}
+      fontFamily={blok.FontFamily || blok.font_family}
       {...storyblokEditable(blok)}>
       {isRichText ? (
         <RichText content={blok.title} fontWeight={blok.font_weight} />

@@ -41,6 +41,7 @@ import RichText from "@/components/blok/general/RichText";
 import Row from "@/components/blok/general/Row";
 import Script from "next/script";
 import SocialProof from "@/components/blok/services/SocialProof";
+import Stars from "@/components/blok/general/Stars";
 import Step from "@/components/blok/general/Step/Step";
 import Steps from "@/components/blok/general/Steps";
 import StoryblokProvider from "@/components/StoryblokProvider";
@@ -77,6 +78,8 @@ storyblokInit({
     iframe: Iframe,
     trust_badge: TrustBadge,
     features: Features,
+    stars: Stars,
+    image: Image,
 
     iframe_component: Iframe,
     "category-section": CategorySection,

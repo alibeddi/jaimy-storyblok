@@ -142,7 +142,19 @@ export default <Partial<Config>>{
     "font-medium",
     "font-semibold",
 
-    // Text size classes for Heading component
+    // Font family classes
+    "font-belfius-montserrat",
+    "font-belfius-alternative",
+    "font-sans",
+    "font-serif",
+    "font-mono",
+
+    // Font family patterns for dynamic generation
+    {
+      pattern: /font-(belfius-montserrat|belfius-alternative|sans|serif|mono)/,
+    },
+
+    // Text size classes for Heading component - expanded
     "text-xs",
     "text-sm",
     "text-base",
@@ -151,6 +163,12 @@ export default <Partial<Config>>{
     "text-2xl",
     "text-3xl",
     "text-4xl",
+    "text-5xl",
+    "text-6xl",
+    "text-7xl",
+    "text-8xl",
+    "text-9xl",
+    "text-[10rem]",
 
     // Prose font weight classes
     "prose-headings:font-normal",

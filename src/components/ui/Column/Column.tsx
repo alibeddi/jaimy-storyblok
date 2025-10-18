@@ -122,16 +122,6 @@ const Column: React.FC<ExtendedColumnProps> = ({
       (borderColor === "default" ? "border-gray-300" : `border-${borderColor}`)
   );
 
-  console.log("🔍 Column Border Debug:", {
-    border,
-    borderColor,
-    borderClasses,
-    borderRadius,
-    shadow,
-    finalBorderColor:
-      borderColor === "default" ? "border-gray-300" : `border-${borderColor}`,
-  });
-
   const borderRadiusClasses = cn({
     "rounded-none": borderRadius === "none",
     "rounded-sm": borderRadius === "small",

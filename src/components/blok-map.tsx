@@ -8,7 +8,6 @@ import {
   Footer,
   Header,
   Hero,
-  Page as PageBlock,
   Reviews,
   SocialProof,
 } from "./blok/services";
@@ -26,7 +25,6 @@ import CategorySection from "./blok/general/CategorySection";
 import Column from "./blok/general/Column";
 import Columns from "./blok/general/Columns";
 import Container from "./blok/general/Container";
-import Feature from "./blok/general/Feature";
 import Form from "./blok/general/form";
 import FormFieldset from "./blok/general/form-fieldset";
 import FormGroup from "./blok/general/form-group";
@@ -34,7 +32,6 @@ import FormStep from "./blok/general/form-step";
 import Grid from "./blok/general/Grid";
 import Heading from "./blok/general/Heading";
 import Hr from "./blok/general/Hr";
-import Icon from "./blok/general/Icon";
 import Iframe from "./blok/general/Iframe";
 import Image from "./blok/general/Image";
 import InputField from "./blok/general/input-field";
@@ -43,7 +40,7 @@ import ListItem from "./blok/general/ListItem";
 import ReviewStars from "./blok/general/ReviewStars";
 import RichText from "./blok/general/RichText";
 import Row from "./blok/general/Row";
-import { SbBlokData } from "@storyblok/react";
+import Stars from "./blok/general/Stars";
 import Step from "./blok/general/Step";
 import Steps from "./blok/general/Steps";
 import Table from "./blok/general/Table";
@@ -62,6 +59,8 @@ export const componentMap: Record<string, ComponentType> = {
   hero: Hero,
   step: Step,
   steps: Steps,
+  stars: Stars,
+  image: Image,
 
   blogs: Blogs,
   reviews: Reviews,
