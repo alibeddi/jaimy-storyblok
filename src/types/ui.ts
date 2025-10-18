@@ -36,6 +36,34 @@ export interface ButtonProps extends BaseUIProps {
   variant?: ButtonVariant;
   type?: ButtonType;
   size?: SizeVariant;
+  border?: string; // e.g., "none" | "default" | "2" | "4"
+  borderColor?: string; // e.g., "gray-300", "primary-500"
+  borderRadius?:
+    | "none"
+    | "small"
+    | "default"
+    | "medium"
+    | "large"
+    | "x-large"
+    | "xx-large"
+    | "full";
+  shadow?:
+    | "none"
+    | "small"
+    | "default"
+    | "medium"
+    | "large"
+    | "x-large"
+    | "xx-large";
+  cursor?:
+    | "default"
+    | "pointer"
+    | "not-allowed"
+    | "wait"
+    | "text"
+    | "move"
+    | "help"
+    | "auto";
   icon?: string;
   iconColor?: IconColor;
   iconType?: IconType;
@@ -389,10 +417,16 @@ export interface CategorySectionProps extends BaseUIProps {
 
 // Column and Columns component types (extended)
 export interface ExtendedColumnProps extends BaseUIProps {
+  // Layout & flex controls
+  display?: string;
   flexDirection?: string;
   textAlign?: TextAlign;
   justifyContent?: string;
+  alignItems?: string;
   alignContent?: string;
+  justifyItems?: string;
+  flexWrap?: string;
+  gap?: string;
   paddingX?: SpacingVariant;
   paddingTop?: SpacingVariant;
   paddingBottom?: SpacingVariant;

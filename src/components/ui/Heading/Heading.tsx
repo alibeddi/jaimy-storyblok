@@ -79,12 +79,41 @@ const Heading: React.FC<HeadingProps> = ({
     "700": "!font-bold",
   } as const;
 
+  const colorStr = String(color || "default");
+  const knownColorClass =
+    colorStr !== "default" && (colorStyles as Record<string, string>)[colorStr];
+  const tailwindColorClass =
+    !knownColorClass && /^[a-z-]+\d{0,3}$/i.test(colorStr)
+      ? `text-${colorStr}`
+      : undefined;
+  const isHex = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(colorStr);
+  const isRgb = /^rgba?\(/i.test(colorStr);
+  const tokenMatch = colorStr.match(
+    /^(primary|secondary|gray)-(100|200|300|400|500|600|700|800|900)$/i
+  );
+  const inlineStyle = (() => {
+    if (isHex || isRgb) return { color: colorStr } as React.CSSProperties;
+    if (tokenMatch) {
+      const family = tokenMatch[1].toLowerCase();
+      const shade = tokenMatch[2];
+      return {
+        color: `rgb(var(--color-${family}-${shade}))`,
+      } as React.CSSProperties;
+    }
+    return undefined;
+  })();
+
   const resolvedWeight = fontWeight || "semibold";
+  const colorClassImportant =
+    knownColorClass || tailwindColorClass
+      ? `!${knownColorClass || tailwindColorClass}`
+      : undefined;
+
   const headingClassName = cn(
     sizeStyles[size as keyof typeof sizeStyles],
     typeStyles[type],
     fontWeightStyles[resolvedWeight as keyof typeof fontWeightStyles],
-    color && colorStyles[color],
+    colorClassImportant,
     textAlign && alignStyles[textAlign],
     marginBottom && marginStyles[marginBottom],
     className
@@ -94,8 +123,10 @@ const Heading: React.FC<HeadingProps> = ({
       id={id}
       data-testid="heading"
       className={headingClassName}
+      style={inlineStyle}
       title={title}
-      {...rest}>
+      {...rest}
+    >
       {children}
     </Component>
   );

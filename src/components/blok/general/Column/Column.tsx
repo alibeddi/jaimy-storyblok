@@ -24,10 +24,15 @@ interface BackgroundImageBlok {
 interface ColumnBlok {
   component: string;
   children: ChildBlok[];
+  display?: string;
   flex_direction?: string;
   text_align?: TextAlign;
   justify_content?: string;
   align_content?: string;
+  align_items?: string;
+  justify_items?: string;
+  flex_wrap?: string;
+  gap?: string;
   padding_x?: SpacingVariant;
   padding_top?: SpacingVariant;
   padding_bottom?: SpacingVariant;
@@ -74,10 +79,15 @@ const Column: React.FC<ColumnProps> = ({ blok }) => {
   return (
     <ColumnUI
       {...storyblokEditable(blok)}
+      display={blok?.display}
       flexDirection={blok?.flex_direction}
       textAlign={blok?.text_align}
       justifyContent={blok?.justify_content}
+      alignItems={blok?.align_items || blok?.align_content}
       alignContent={blok?.align_content}
+      justifyItems={blok?.justify_items}
+      flexWrap={blok?.flex_wrap}
+      gap={blok?.gap}
       paddingX={blok?.padding_x}
       paddingTop={blok?.padding_top}
       paddingBottom={blok?.padding_bottom}
@@ -99,7 +109,8 @@ const Column: React.FC<ColumnProps> = ({ blok }) => {
       group_columns_mobile={blok?.group_columns_mobile}
       group_columns_tablet={blok?.group_columns_tablet}
       group_columns_desktop={blok?.group_columns_desktop}
-      disable_gutters={blok?.disable_gutters}>
+      disable_gutters={blok?.disable_gutters}
+    >
       {childrenWithProps}
     </ColumnUI>
   );

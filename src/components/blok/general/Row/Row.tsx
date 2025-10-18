@@ -26,6 +26,15 @@ interface RowBlok {
   padding_x?: SpacingVariant;
   padding_y?: SpacingVariant;
   max_width?: string;
+  // Flex & layout - from 'general' group advanced controls
+  display?: string; // "flex" | "grid" | "block"
+  flex_direction?: string; // row | row-reverse | col | col-reverse
+  justify_content?: string; // start | center | end | between | around | evenly
+  align_items?: string; // start | center | end | stretch | baseline
+  align_content?: string; // start | center | end | between | around | evenly
+  justify_items?: string; // grid only, harmless for flex
+  flex_wrap?: string; // wrap | nowrap | wrap-reverse
+  gap?: string; // none | xs | sm | default | md | lg | xl
   [key: string]: any;
 }
 
@@ -46,6 +55,14 @@ const Row: React.FC<RowProps> = ({ blok }) => {
     padding_x: blok.padding_x,
     padding_y: blok.padding_y,
     max_width: blok.max_width,
+    display: blok.display,
+    flex_direction: blok.flex_direction,
+    justify_content: blok.justify_content,
+    align_items: blok.align_items,
+    align_content: blok.align_content,
+    justify_items: blok.justify_items,
+    flex_wrap: blok.flex_wrap,
+    gap: blok.gap,
   });
   return (
     <div {...storyblokEditable(blok)}>
@@ -63,7 +80,16 @@ const Row: React.FC<RowProps> = ({ blok }) => {
         textAlign={blok.text_align}
         paddingX={blok.padding_x}
         paddingY={blok.padding_y}
-        maxWidth={blok.max_width}>
+        maxWidth={blok.max_width}
+        display={blok.display}
+        flexDirection={blok.flex_direction}
+        justifyContent={blok.justify_content}
+        alignItems={blok.align_items}
+        alignContent={blok.align_content}
+        justifyItems={blok.justify_items}
+        flexWrap={blok.flex_wrap}
+        gap={blok.gap}
+      >
         {childrenWithProps}
       </RowUI>
     </div>

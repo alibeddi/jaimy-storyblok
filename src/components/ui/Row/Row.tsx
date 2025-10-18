@@ -22,6 +22,15 @@ interface ExtendedRowProps extends RowProps {
   paddingX?: string;
   paddingY?: string;
   maxWidth?: string;
+  // Flex and layout controls
+  display?: string; // e.g., "block" | "flex" | "grid"
+  flexDirection?: string; // e.g., "row" | "row-reverse" | "col" | "col-reverse"
+  justifyContent?: string; // e.g., "start" | "center" | "end" | "between" | "around" | "evenly"
+  alignItems?: string; // e.g., "start" | "center" | "end" | "stretch" | "baseline"
+  alignContent?: string; // e.g., "start" | "center" | "end" | "between" | "around" | "evenly"
+  justifyItems?: string; // grid only, harmless for flex
+  flexWrap?: string; // e.g., "wrap" | "nowrap" | "wrap-reverse"
+  gap?: string; // overrides RowProps.gap to support more values
 }
 
 const Row: React.FC<ExtendedRowProps> = ({
@@ -41,6 +50,15 @@ const Row: React.FC<ExtendedRowProps> = ({
   paddingX = "default",
   paddingY = "default",
   maxWidth = "default",
+  // Layout & flex controls
+  display,
+  flexDirection,
+  justifyContent,
+  alignItems,
+  alignContent,
+  justifyItems,
+  flexWrap,
+  gap,
   ...rest
 }) => {
   const spacingMap = {
@@ -102,6 +120,84 @@ const Row: React.FC<ExtendedRowProps> = ({
     default: "",
   };
 
+  const displayClass = (() => {
+    if (display === "flex") return "flex";
+    if (display === "grid") return "grid";
+    return undefined; // default block
+  })();
+
+  const flexDirectionMap: Record<string, string> = {
+    row: "flex-row",
+    "row-reverse": "flex-row-reverse",
+    col: "flex-col",
+    column: "flex-col",
+    "col-reverse": "flex-col-reverse",
+    "column-reverse": "flex-col-reverse",
+    default: "",
+  };
+
+  const justifyMap: Record<string, string> = {
+    center: "justify-center",
+    start: "justify-start",
+    end: "justify-end",
+    "flex-start": "justify-start",
+    "flex-end": "justify-end",
+    between: "justify-between",
+    around: "justify-around",
+    evenly: "justify-evenly",
+    "space-between": "justify-between",
+    "space-around": "justify-around",
+    default: "",
+  };
+
+  const alignItemsMap: Record<string, string> = {
+    center: "items-center",
+    start: "items-start",
+    end: "items-end",
+    "flex-start": "items-start",
+    "flex-end": "items-end",
+    stretch: "items-stretch",
+    baseline: "items-baseline",
+    default: "",
+  };
+
+  const alignContentMap: Record<string, string> = {
+    center: "content-center",
+    start: "content-start",
+    end: "content-end",
+    between: "content-between",
+    around: "content-around",
+    evenly: "content-evenly",
+    "space-between": "content-between",
+    "space-around": "content-around",
+    default: "",
+  };
+
+  const justifyItemsMap: Record<string, string> = {
+    start: "justify-items-start",
+    end: "justify-items-end",
+    center: "justify-items-center",
+    stretch: "justify-items-stretch",
+    default: "",
+  };
+
+  const flexWrapMap: Record<string, string> = {
+    wrap: "flex-wrap",
+    nowrap: "flex-nowrap",
+    "wrap-reverse": "flex-wrap-reverse",
+    default: "",
+  };
+
+  const gapMap: Record<string, string> = {
+    none: "gap-0",
+    xs: "gap-2",
+    sm: "gap-4",
+    default: "gap-4",
+    md: "gap-6",
+    lg: "gap-8",
+    xl: "gap-12",
+  };
+
   const rootClasses = cn(
     "w-full relative overflow-hidden",
     spacingMap[spacing as keyof typeof spacingMap],
@@ -122,16 +218,38 @@ const Row: React.FC<ExtendedRowProps> = ({
   const isFullWidth = appearance === "full-width";
   const isFullBleed = appearance === "full-bleed";
 
-  const contentClasses = cn("relative z-10", {
-    // Containered layouts
-    "container mx-auto px-4": isContained,
-    // Full width with padding
-    "w-full px-4": isFullWidth,
-    // Full bleed (edge to edge)
-    "w-full": isFullBleed,
-    // Optional narrower max width within any mode
-    "max-w-4xl": narrow,
-  });
+  const contentClasses = cn(
+    "relative z-10",
+    displayClass,
+    // If any flex options are provided, ensure flex is enabled
+    (justifyContent ||
+      alignItems ||
+      alignContent ||
+      flexWrap ||
+      flexDirection ||
+      gap) &&
+      "flex",
+    flexDirection &&
+      flexDirectionMap[flexDirection as keyof typeof flexDirectionMap],
+    justifyContent && justifyMap[justifyContent as keyof typeof justifyMap],
+    alignItems && alignItemsMap[alignItems as keyof typeof alignItemsMap],
+    alignContent &&
+      alignContentMap[alignContent as keyof typeof alignContentMap],
+    justifyItems &&
+      justifyItemsMap[justifyItems as keyof typeof justifyItemsMap],
+    flexWrap && flexWrapMap[flexWrap as keyof typeof flexWrapMap],
+    gap && gapMap[gap as keyof typeof gapMap],
+    {
+      // Containered layouts
+      "container mx-auto px-4": isContained,
+      // Full width with padding
+      "w-full px-4": isFullWidth,
+      // Full bleed (edge to edge)
+      "w-full": isFullBleed,
+      // Optional narrower max width within any mode
+      "max-w-4xl": narrow,
+    }
+  );
 
   const imageStyle: React.CSSProperties = {};
   if (backgroundImage?.filename) {
