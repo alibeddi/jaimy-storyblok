@@ -23,10 +23,15 @@ const QuoteClose: React.FC<{ className?: string }> = ({ className }) => (
 const Column: React.FC<ExtendedColumnProps> = ({
   children,
   className,
+  display,
   flexDirection = "default",
   textAlign = "left",
   justifyContent = "default",
+  alignItems = "default",
   alignContent = "default",
+  justifyItems = "default",
+  flexWrap = "default",
+  gap = "default",
   paddingX = "default",
   paddingTop = "default",
   paddingBottom = "default",
@@ -138,16 +143,90 @@ const Column: React.FC<ExtendedColumnProps> = ({
     "shadow-2xl": shadow === "xx-large",
   });
 
+  const displayClass = (() => {
+    if (display === "flex") return "flex";
+    if (display === "grid") return "grid";
+    return undefined;
+  })();
+
+  const flexDirectionMap: Record<string, string> = {
+    row: "flex-row",
+    "row-reverse": "flex-row-reverse",
+    col: "flex-col",
+    column: "flex-col",
+    "col-reverse": "flex-col-reverse",
+    "column-reverse": "flex-col-reverse",
+    default: "",
+  };
+
+  const justifyMap: Record<string, string> = {
+    center: "justify-center",
+    start: "justify-start",
+    end: "justify-end",
+    "flex-start": "justify-start",
+    "flex-end": "justify-end",
+    between: "justify-between",
+    around: "justify-around",
+    evenly: "justify-evenly",
+    "space-between": "justify-between",
+    "space-around": "justify-around",
+    default: "",
+  };
+
+  const alignItemsMap: Record<string, string> = {
+    center: "items-center",
+    start: "items-start",
+    end: "items-end",
+    "flex-start": "items-start",
+    "flex-end": "items-end",
+    stretch: "items-stretch",
+    baseline: "items-baseline",
+    default: "",
+  };
+
+  const alignContentMap: Record<string, string> = {
+    center: "content-center",
+    start: "content-start",
+    end: "content-end",
+    between: "content-between",
+    around: "content-around",
+    evenly: "content-evenly",
+    "space-between": "content-between",
+    "space-around": "content-around",
+    default: "",
+  };
+
+  const justifyItemsMap: Record<string, string> = {
+    start: "justify-items-start",
+    end: "justify-items-end",
+    center: "justify-items-center",
+    stretch: "justify-items-stretch",
+    default: "",
+  };
+
+  const flexWrapMap: Record<string, string> = {
+    wrap: "flex-wrap",
+    nowrap: "flex-nowrap",
+    "wrap-reverse": "flex-wrap-reverse",
+    default: "",
+  };
+
+  const gapMap: Record<string, string> = {
+    none: "gap-0",
+    xs: "gap-2",
+    sm: "gap-4",
+    default: "gap-4",
+    md: "gap-6",
+    lg: "gap-8",
+    xl: "gap-12",
+  };
+
   const containerClasses = cn(
-    "flex h-full",
-    {
-      "flex-col": flexDirection === "column",
-      "flex-row": flexDirection === "row",
-      [`text-${textAlign}`]: textAlign !== "left",
-      [`justify-${justifyContent}`]: justifyContent !== "default",
-      [`items-${alignContent}`]: alignContent !== "default",
-      relative: hasQuote,
-    },
+    // Outer wrapper: visuals and spacing only
+    "h-full",
+    // Typography cascades
+    textAlign && textAlign !== "left" && `text-${textAlign}`,
+    // Spacing and visuals
     px,
     pt,
     pb,
@@ -160,6 +239,7 @@ const Column: React.FC<ExtendedColumnProps> = ({
     shadowClasses,
     // Only apply p-2 if no individual padding is specified
     !disable_gutters && !px && !pt && !pb && "p-2",
+    { relative: hasQuote },
     className
   );
 
@@ -167,7 +247,32 @@ const Column: React.FC<ExtendedColumnProps> = ({
     "block h-full w-full",
     effectMap[effect as keyof typeof effectMap]
   );
-  const contentClasses = "h-full w-full";
+  const contentClasses = cn(
+    "h-full w-full",
+    displayClass,
+    // Ensure flex when any flex control is provided (default to flex for Column)
+    (display === "flex" ||
+      !display ||
+      justifyContent !== "default" ||
+      alignItems !== "default" ||
+      alignContent !== "default" ||
+      flexDirection !== "default" ||
+      flexWrap !== "default" ||
+      gap !== "default") &&
+      "flex",
+    flexDirection &&
+      flexDirectionMap[flexDirection as keyof typeof flexDirectionMap],
+    justifyContent && justifyMap[justifyContent as keyof typeof justifyMap],
+    (alignItems && alignItemsMap[alignItems as keyof typeof alignItemsMap]) ||
+      (alignContent &&
+        alignItemsMap[alignContent as keyof typeof alignItemsMap]),
+    alignContent &&
+      alignContentMap[alignContent as keyof typeof alignContentMap],
+    justifyItems &&
+      justifyItemsMap[justifyItems as keyof typeof justifyItemsMap],
+    flexWrap && flexWrapMap[flexWrap as keyof typeof flexWrapMap],
+    gap && gapMap[gap as keyof typeof gapMap]
+  );
 
   const quoteOpenClasses = cn(
     "absolute top-0 left-0 text-6xl leading-none -translate-y-1/2",
@@ -199,7 +304,8 @@ const Column: React.FC<ExtendedColumnProps> = ({
           <Link href={linkUrl} target={target} className={anchorClasses}>
             {children}
           </Link>
-        )}>
+        )}
+      >
         {hasQuote && <QuoteOpen className={quoteOpenClasses} />}
         <div className={contentClasses}>{children}</div>
         {hasQuote && <QuoteClose className={quoteCloseClasses} />}

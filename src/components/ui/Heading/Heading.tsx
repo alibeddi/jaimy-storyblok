@@ -86,8 +86,6 @@ const Heading: React.FC<HeadingProps> = ({
     "700": "!font-bold",
   } as const;
 
-<<<<<<< Updated upstream
-=======
   // Font family styles
   const fontFamilyStyles = {
     "belfius-montserrat": "font-belfius-montserrat",
@@ -96,6 +94,7 @@ const Heading: React.FC<HeadingProps> = ({
     serif: "font-serif",
     mono: "font-mono",
   } as const;
+
   const colorStr = String(color || "default");
   const knownColorClass =
     colorStr !== "default" && (colorStyles as Record<string, string>)[colorStr];
@@ -120,18 +119,24 @@ const Heading: React.FC<HeadingProps> = ({
     return undefined;
   })();
 
->>>>>>> Stashed changes
   const resolvedWeight = fontWeight || "semibold";
+  const colorClassImportant =
+    knownColorClass || tailwindColorClass
+      ? `!${knownColorClass || tailwindColorClass}`
+      : undefined;
+
   const headingClassName = cn(
     sizeStyles[size as keyof typeof sizeStyles],
     typeStyles[type],
     fontWeightStyles[resolvedWeight as keyof typeof fontWeightStyles],
-<<<<<<< Updated upstream
+
     color && colorStyles[color],
-=======
+
     fontFamily && fontFamilyStyles[fontFamily as keyof typeof fontFamilyStyles],
     colorClassImportant,
->>>>>>> Stashed changes
+
+    colorClassImportant,
+
     textAlign && alignStyles[textAlign],
     marginBottom && marginStyles[marginBottom],
     className
@@ -158,10 +163,7 @@ const Heading: React.FC<HeadingProps> = ({
       id={id}
       data-testid="heading"
       className={headingClassName}
-<<<<<<< Updated upstream
-=======
       style={{ ...inlineStyle, ...fontFamilyStyle }}
->>>>>>> Stashed changes
       title={title}
       {...rest}>
       {children}
