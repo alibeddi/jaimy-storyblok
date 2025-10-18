@@ -16,8 +16,22 @@ export type IconType = "default" | "outline" | "solid";
 export type IconSize = "xs" | "sm" | "default" | "lg" | "xl" | "2xl";
 export type IconPosition = "left" | "right";
 
-// Size variants
-export type SizeVariant = "xs" | "sm" | "default" | "md" | "lg" | "xl" | "2xl";
+// Size variants - expanded with larger options
+export type SizeVariant =
+  | "xs"
+  | "sm"
+  | "default"
+  | "md"
+  | "lg"
+  | "xl"
+  | "2xl"
+  | "3xl"
+  | "4xl"
+  | "5xl"
+  | "6xl"
+  | "7xl"
+  | "8xl"
+  | "9xl";
 export type SpacingVariant =
   | "none"
   | "xs"
@@ -79,6 +93,14 @@ export type FontWeight =
   | "600"
   | "700";
 
+// Add FontFamily type definition
+export type FontFamily =
+  | "belfius-montserrat"
+  | "belfius-alternative"
+  | "sans"
+  | "serif"
+  | "mono";
+
 export interface HeadingProps extends BaseUIProps {
   tag?: HeadingTag;
   size?: SizeVariant;
@@ -87,6 +109,7 @@ export interface HeadingProps extends BaseUIProps {
   textAlign?: TextAlign;
   marginBottom?: SpacingVariant;
   fontWeight?: FontWeight;
+  fontFamily?: FontFamily;
   title?: string;
 }
 

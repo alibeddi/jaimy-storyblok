@@ -15,19 +15,26 @@ const Heading: React.FC<HeadingProps> = ({
   children,
   marginBottom,
   fontWeight,
+  fontFamily,
   title,
   ...rest
 }) => {
-  // Size styles
+  // Size styles - expanded with larger options
   const sizeStyles = {
-    "xx-small": "text-xs",
-    "x-small": "text-sm",
-    small: "text-base",
-    default: "text-lg",
-    medium: "text-xl",
-    large: "text-2xl",
-    "x-large": "text-3xl",
-    "xx-large": "text-4xl",
+    xs: "text-xs",
+    sm: "text-sm",
+    default: "text-base",
+    md: "text-lg",
+    lg: "text-xl",
+    xl: "text-2xl",
+    "2xl": "text-3xl",
+    "3xl": "text-4xl",
+    "4xl": "text-5xl",
+    "5xl": "text-6xl",
+    "6xl": "text-7xl",
+    "7xl": "text-8xl",
+    "8xl": "text-9xl",
+    "9xl": "text-[10rem]",
   };
 
   // Type styles (do NOT include font-* here; weight is controlled by fontWeight)
@@ -79,21 +86,82 @@ const Heading: React.FC<HeadingProps> = ({
     "700": "!font-bold",
   } as const;
 
+<<<<<<< Updated upstream
+=======
+  // Font family styles
+  const fontFamilyStyles = {
+    "belfius-montserrat": "font-belfius-montserrat",
+    "belfius-alternative": "font-belfius-alternative",
+    sans: "font-sans",
+    serif: "font-serif",
+    mono: "font-mono",
+  } as const;
+  const colorStr = String(color || "default");
+  const knownColorClass =
+    colorStr !== "default" && (colorStyles as Record<string, string>)[colorStr];
+  const tailwindColorClass =
+    !knownColorClass && /^[a-z-]+\d{0,3}$/i.test(colorStr)
+      ? `text-${colorStr}`
+      : undefined;
+  const isHex = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(colorStr);
+  const isRgb = /^rgba?\(/i.test(colorStr);
+  const tokenMatch = colorStr.match(
+    /^(primary|secondary|gray)-(100|200|300|400|500|600|700|800|900)$/i
+  );
+  const inlineStyle = (() => {
+    if (isHex || isRgb) return { color: colorStr } as React.CSSProperties;
+    if (tokenMatch) {
+      const family = tokenMatch[1].toLowerCase();
+      const shade = tokenMatch[2];
+      return {
+        color: `rgb(var(--color-${family}-${shade}))`,
+      } as React.CSSProperties;
+    }
+    return undefined;
+  })();
+
+>>>>>>> Stashed changes
   const resolvedWeight = fontWeight || "semibold";
   const headingClassName = cn(
     sizeStyles[size as keyof typeof sizeStyles],
     typeStyles[type],
     fontWeightStyles[resolvedWeight as keyof typeof fontWeightStyles],
+<<<<<<< Updated upstream
     color && colorStyles[color],
+=======
+    fontFamily && fontFamilyStyles[fontFamily as keyof typeof fontFamilyStyles],
+    colorClassImportant,
+>>>>>>> Stashed changes
     textAlign && alignStyles[textAlign],
     marginBottom && marginStyles[marginBottom],
     className
   );
+  // Fallback inline styles for font family
+  const fontFamilyStyle = fontFamily
+    ? {
+        fontFamily:
+          fontFamily === "belfius-montserrat"
+            ? '"BelfiusMontserrat", sans-serif'
+            : fontFamily === "belfius-alternative"
+              ? '"BelfiusAlternative", sans-serif'
+              : fontFamily === "sans"
+                ? "sans-serif"
+                : fontFamily === "serif"
+                  ? "serif"
+                  : fontFamily === "mono"
+                    ? "monospace"
+                    : undefined,
+      }
+    : {};
   return (
     <Component
       id={id}
       data-testid="heading"
       className={headingClassName}
+<<<<<<< Updated upstream
+=======
+      style={{ ...inlineStyle, ...fontFamilyStyle }}
+>>>>>>> Stashed changes
       title={title}
       {...rest}>
       {children}

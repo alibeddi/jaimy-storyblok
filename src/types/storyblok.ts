@@ -54,19 +54,14 @@ export interface ReviewsBlok extends SbBlokData {
   background_color?: string;
 }
 
-// Single review blok for nested usage
+// Single review blok for nested usage - now uses general bloks
 export interface ReviewBlok extends SbBlokData {
   component: "review";
-  name: string;
-  role?: string;
-  company?: string;
-  rating: number;
-  review_text: string;
-  avatar?: {
-    filename: string;
-    alt?: string;
-  };
-  date?: string;
+  children?: Array<{
+    component: "heading" | "rich_text" | "image" | "stars";
+    _uid: string;
+    [key: string]: unknown;
+  }>;
 }
 
 export interface HeroBlok extends SbBlokData {

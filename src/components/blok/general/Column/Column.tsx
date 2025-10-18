@@ -70,7 +70,7 @@ const Column: React.FC<ColumnProps> = ({ blok }) => {
 
     return <StoryblokComponent key={child._uid} blok={newChild} />;
   });
-  console.log("blok", blok);
+
   return (
     <ColumnUI
       {...storyblokEditable(blok)}

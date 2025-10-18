@@ -37,6 +37,7 @@ const Row: React.FC<RowProps> = ({ blok }) => {
   const childrenWithProps = blok.children?.map((child) => (
     <StoryblokComponent key={child._uid} blok={child} />
   ));
+<<<<<<< Updated upstream
   console.log("🔍 Row Debug:", {
     spacing: blok.spacing,
     narrow: blok.narrow,
@@ -47,6 +48,9 @@ const Row: React.FC<RowProps> = ({ blok }) => {
     padding_y: blok.padding_y,
     max_width: blok.max_width,
   });
+=======
+
+>>>>>>> Stashed changes
   return (
     <div {...storyblokEditable(blok)}>
       <RowUI
@@ -63,7 +67,19 @@ const Row: React.FC<RowProps> = ({ blok }) => {
         textAlign={blok.text_align}
         paddingX={blok.padding_x}
         paddingY={blok.padding_y}
+<<<<<<< Updated upstream
         maxWidth={blok.max_width}>
+=======
+        maxWidth={blok.max_width}
+        display={blok.display}
+        flexDirection={blok.flex_direction}
+        justifyContent={blok.justify_content}
+        alignItems={blok.align_items}
+        alignContent={blok.align_content}
+        justifyItems={blok.justify_items}
+        flexWrap={blok.flex_wrap}
+        gap={blok.gap}>
+>>>>>>> Stashed changes
         {childrenWithProps}
       </RowUI>
     </div>
