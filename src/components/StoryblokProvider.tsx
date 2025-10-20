@@ -77,6 +77,7 @@ storyblokInit({
     rich_text: RichText,
     button_group: ButtonGroup,
     button: Button,
+    trust_badges: TrustBadge,
   },
   bridge: true, // Enable bridge for live editing
   apiOptions: {

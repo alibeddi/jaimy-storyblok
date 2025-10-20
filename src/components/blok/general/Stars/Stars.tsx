@@ -28,7 +28,7 @@ export default function Stars({ blok, className }: Props) {
       {...storyblokEditable(blok)}
       className={`flex items-center gap-2 ${className || ""}`}>
       <div className="flex-shrink-0">
-        <FigmaStarRating rating={blok.rating} size={blok.size || "md"} />
+        <FigmaStarRating rating={blok.rating} size={blok.size || "sm"} />
       </div>
       {blok.showNumber && (
         <span

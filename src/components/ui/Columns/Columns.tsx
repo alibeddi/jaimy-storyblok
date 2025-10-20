@@ -31,7 +31,19 @@ const Connected: React.FC<{
   return <div className={connectorClasses}>{children}</div>;
 };
 
-const Columns: React.FC<ExtendedColumnsProps> = ({
+type BackgroundImage = { filename?: string; alt?: string };
+
+const Columns: React.FC<
+  ExtendedColumnsProps & {
+    backgroundColor?: string;
+    backgroundImage?: BackgroundImage;
+    backgroundSize?: string;
+    backgroundPosition?: string;
+    backgroundRepeat?: string;
+    backgroundAttachment?: string;
+    backgroundOpacity?: string;
+  }
+> = ({
   children,
   className,
   columnsMobile = "default",
@@ -54,6 +66,13 @@ const Columns: React.FC<ExtendedColumnsProps> = ({
   paddingY = "default",
   touchSlide,
   touchSlideColumnSize,
+  backgroundColor,
+  backgroundImage,
+  backgroundSize,
+  backgroundPosition,
+  backgroundRepeat,
+  backgroundAttachment,
+  backgroundOpacity,
   ...rest
 }) => {
   // const sliderEnabled = touchSlide && isTouchDevice();
@@ -177,8 +196,11 @@ const Columns: React.FC<ExtendedColumnsProps> = ({
     "shadow-2xl": shadow === "xx-large",
   });
 
+  const hasBgColor = backgroundColor && backgroundColor !== "default";
+  const bgColorClass = hasBgColor ? `bg-${backgroundColor}` : "";
+
   const wrapperClasses = cn(
-    "w-full",
+    "w-full relative overflow-hidden",
     marginBottomMap[marginBottom],
     paddingXMap[paddingX as keyof typeof paddingXMap],
     paddingYMap[paddingY as keyof typeof paddingYMap],
@@ -207,6 +229,33 @@ const Columns: React.FC<ExtendedColumnsProps> = ({
     }
   );
 
+  const imageOverlayStyle: React.CSSProperties = {};
+  if (backgroundImage?.filename) {
+    imageOverlayStyle.backgroundImage = `url(${backgroundImage.filename})`;
+    imageOverlayStyle.backgroundSize =
+      backgroundSize && backgroundSize !== "default" ? backgroundSize : "cover";
+    imageOverlayStyle.backgroundPosition =
+      backgroundPosition && backgroundPosition !== "default"
+        ? backgroundPosition
+        : "center";
+    imageOverlayStyle.backgroundRepeat =
+      backgroundRepeat && backgroundRepeat !== "default"
+        ? backgroundRepeat
+        : "no-repeat";
+    imageOverlayStyle.backgroundAttachment =
+      backgroundAttachment && backgroundAttachment !== "default"
+        ? backgroundAttachment
+        : "scroll";
+  }
+
+  const colorOverlayStyle: React.CSSProperties = {};
+  if (backgroundOpacity) {
+    colorOverlayStyle.opacity = parseInt(backgroundOpacity, 10) / 100;
+  }
+
+  const shouldRenderImageOverlay = Boolean(backgroundImage?.filename);
+  const shouldRenderColorOverlay = Boolean(hasBgColor);
+
   return (
     <ConditionalWrapper
       condition={connectorToggle}
@@ -214,7 +263,17 @@ const Columns: React.FC<ExtendedColumnsProps> = ({
         <Connected connectorColor={connectorColor}>{children}</Connected>
       )}>
       <div className={wrapperClasses} {...rest}>
-        <div className={gridClasses}>{children}</div>
+        {shouldRenderImageOverlay && (
+          <div
+            className={"absolute inset-0 z-0"}
+            style={imageOverlayStyle}></div>
+        )}
+        {shouldRenderColorOverlay && (
+          <div
+            className={cn("absolute inset-0 z-0", bgColorClass)}
+            style={colorOverlayStyle}></div>
+        )}
+        <div className={cn("relative z-10", gridClasses)}>{children}</div>
       </div>
     </ConditionalWrapper>
   );
