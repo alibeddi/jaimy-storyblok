@@ -48,6 +48,7 @@ import TableColumn from "./blok/general/TableColumn";
 import TableHeader from "./blok/general/TableHeader";
 import TableRow from "./blok/general/TableRow";
 import Teaser from "./blok/general/Teaser";
+import TrustBadge from "./blok/general/TrustBadge/TrustBadge";
 import { WhoWeAreSection } from "./blok/general/WhoWeAreSection";
 
 type ComponentType = React.ComponentType<any>;
@@ -61,7 +62,7 @@ export const componentMap: Record<string, ComponentType> = {
   steps: Steps,
   stars: Stars,
   image: Image,
-
+  trust_badges: TrustBadge,
   blogs: Blogs,
   reviews: Reviews,
   social_proof: SocialProof,

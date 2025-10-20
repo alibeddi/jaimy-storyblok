@@ -76,11 +76,10 @@ storyblokInit({
     anytrack_tracker: AnytrackTracker,
     anytrack_form: AnytrackForm,
     iframe: Iframe,
-    trust_badge: TrustBadge,
+    trust_badges: TrustBadge,
     features: Features,
     stars: Stars,
     image: Image,
-
     iframe_component: Iframe,
     "category-section": CategorySection,
     who_we_are_section: WhoWeAreSection,

@@ -18,40 +18,53 @@ export default function Review({ blok, className }: Props) {
   return (
     <div
       {...storyblokEditable(blok)}
-      className={`bg-white p-8 transition-all duration-300 ease-in-out hover:scale-[1.03] group transform-gpu mx-auto relative ${className || ""}`}
+      className={`bg-white p-4 sm:p-6 md:p-8 transition-all duration-300 ease-in-out mx-auto relative ${className || ""}`}
       style={{
-        borderRadius: "12px",
-        boxShadow: "9px 8px 20px rgba(0, 0, 0, 0.25)",
+        borderRadius: "14px",
+        boxShadow: "0 10px 24px rgba(0,0,0,0.10)",
         willChange: "transform",
-        minHeight: "250px", // increased height
-        // maxWidth: "700px", // increased width
       }}>
-      {/* Top row: Image + Heading + Stars */}
-      <div className="flex items-center gap-4">
-        {imageBlok && (
-          <div className="w-12 h-12 rounded-full overflow-hidden flex-shrink-0">
-            <StoryblokComponent blok={imageBlok} />
+      {/* Top row: Avatar + Name at left, Stars at right */}
+      <div className="flex items-center justify-between gap-3 sm:gap-4 md:gap-6">
+        <div className="flex items-center gap-3 sm:gap-4 md:gap-5 flex-1 min-w-0">
+          {/* Avatar */}
+          <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full overflow-hidden flex-shrink-0">
+            {imageBlok ? (
+              <StoryblokComponent blok={imageBlok} />
+            ) : (
+              <div
+                className="w-full h-full rounded-full"
+                style={{ background: "#BE213A" }}
+              />
+            )}
+          </div>
+
+          {/* Name */}
+          <div className="leading-tight truncate">
+            {headingBlok && (
+              <div className="text-base sm:text-lg md:text-xl font-semibold text-black truncate">
+                <StoryblokComponent blok={headingBlok} />
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Stars on the right (never overlaps due to shrink-0) */}
+        {starsBlok && (
+          <div className="flex-shrink-0 ml-2 sm:ml-3 md:ml-4 self-start">
+            <StoryblokComponent blok={starsBlok} />
           </div>
         )}
-
-        <div className="flex flex-col gap-0 ">
-          {headingBlok && (
-            <div className="text-lg font-semibold">
-              <StoryblokComponent blok={headingBlok} />
-            </div>
-          )}
-          {starsBlok && (
-            <div className="mt-1">
-              <StoryblokComponent blok={starsBlok} />
-            </div>
-          )}
-        </div>
       </div>
 
-      {/* Description */}
+      {/* Review text */}
       {richtextBlok && (
-        <div className="mt-6 text-base">
-          <StoryblokComponent blok={richtextBlok} />
+        <div className="mt-3 sm:mt-4 md:mt-5 text-sm sm:text-base md:text-lg text-black">
+          <div className="italic">
+            <span className="mr-1">“</span>
+            <StoryblokComponent blok={richtextBlok} />
+            <span className="ml-1">”</span>
+          </div>
         </div>
       )}
     </div>

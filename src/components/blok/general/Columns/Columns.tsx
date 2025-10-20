@@ -34,6 +34,14 @@ interface ColumnsBlok {
   shadow?: string;
   padding_x?: string;
   padding_y?: string;
+  // Background props similar to Row
+  background_color?: string;
+  background_image?: { filename?: string; alt?: string };
+  background_size?: string;
+  background_position?: string;
+  background_repeat?: string;
+  background_attachment?: string;
+  background_opacity?: string;
   [key: string]: any;
 }
 
@@ -42,9 +50,15 @@ interface ColumnsProps {
 }
 
 const Columns: React.FC<ColumnsProps> = ({ blok }) => {
+  const childBlocks =
+    (blok as unknown as { children?: ChildBlok[]; body?: ChildBlok[] })
+      .children ??
+    (blok as unknown as { children?: ChildBlok[]; body?: ChildBlok[] }).body ??
+    [];
+
   const reversedChildren = blok.reverse_mobile
-    ? [...blok.children].reverse()
-    : blok.children;
+    ? [...childBlocks].reverse()
+    : childBlocks;
 
   const childrenWithProps = reversedChildren.map((child) => {
     const newChild = {
@@ -55,7 +69,7 @@ const Columns: React.FC<ColumnsProps> = ({ blok }) => {
       touch_slide: blok?.touch_slide,
       touch_slide_column_size: blok?.touch_slide_column_size,
       disable_gutters: blok?.connector_toggle,
-      columns: blok.children.length,
+      columns: childBlocks.length,
       margin_bottom: blok?.margin_bottom,
     };
 
@@ -84,7 +98,14 @@ const Columns: React.FC<ColumnsProps> = ({ blok }) => {
       borderRadius={blok?.border_radius}
       shadow={blok?.shadow}
       paddingX={blok?.padding_x as SpacingVariant}
-      paddingY={blok?.padding_y as SpacingVariant}>
+      paddingY={blok?.padding_y as SpacingVariant}
+      backgroundColor={blok?.background_color}
+      backgroundImage={blok?.background_image}
+      backgroundSize={blok?.background_size}
+      backgroundPosition={blok?.background_position}
+      backgroundRepeat={blok?.background_repeat}
+      backgroundAttachment={blok?.background_attachment}
+      backgroundOpacity={blok?.background_opacity}>
       {childrenWithProps}
     </ColumnsUI>
   );

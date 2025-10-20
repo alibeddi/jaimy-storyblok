@@ -65,7 +65,13 @@ interface ColumnProps {
 }
 
 const Column: React.FC<ColumnProps> = ({ blok }) => {
-  const childrenWithProps = blok.children?.map((child) => {
+  const childBlocks =
+    (blok as unknown as { children?: ChildBlok[]; body?: ChildBlok[] })
+      .children ??
+    (blok as unknown as { children?: ChildBlok[]; body?: ChildBlok[] }).body ??
+    [];
+
+  const childrenWithProps = childBlocks?.map((child) => {
     const newChild = {
       ...child,
       disable_gutters: true,
@@ -109,8 +115,7 @@ const Column: React.FC<ColumnProps> = ({ blok }) => {
       group_columns_mobile={blok?.group_columns_mobile}
       group_columns_tablet={blok?.group_columns_tablet}
       group_columns_desktop={blok?.group_columns_desktop}
-      disable_gutters={blok?.disable_gutters}
-    >
+      disable_gutters={blok?.disable_gutters}>
       {childrenWithProps}
     </ColumnUI>
   );

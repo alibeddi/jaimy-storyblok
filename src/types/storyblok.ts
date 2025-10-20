@@ -433,15 +433,17 @@ export interface TrustBadgeItem {
 
 export interface TrustBadgeBlok extends SbBlokData {
   component: "trust_badge";
-  value?: string;
-  description?: string;
-  label?: string;
-  suffix?: string;
-  icon?: {
-    filename: string;
-    alt?: string;
-  };
-  icon_svg?: string;
+  // Preferred: nested bloks for content slots
+  children?: Array<{
+    component: "heading" | "rich_text" | "image";
+    _uid: string;
+    [key: string]: unknown;
+  }>;
+  body?: Array<{
+    component: "heading" | "rich_text" | "image";
+    _uid: string;
+    [key: string]: unknown;
+  }>;
 }
 
 // Remove this duplicate interface:

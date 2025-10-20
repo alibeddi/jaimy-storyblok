@@ -134,9 +134,9 @@ export default function Reviews({ blok }: { blok: ReviewsBlok }) {
       if (cardsPerSlide === 1 || totalReviews === 1) {
         return "grid grid-cols-1 place-items-center max-w-sm mx-auto";
       } else if (cardsPerSlide === 2 || totalReviews === 2) {
-        return "grid grid-cols-1 sm:grid-cols-2 place-items-center max-w-2xl mx-auto";
+        return "grid grid-cols-1 md:grid-cols-2 place-items-center max-w-2xl mx-auto";
       } else {
-        return "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 place-items-center max-w-4xl mx-auto";
+        return "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center max-w-4xl mx-auto";
       }
     }
 
@@ -144,9 +144,9 @@ export default function Reviews({ blok }: { blok: ReviewsBlok }) {
     if (cardsPerSlide === 1) {
       return "grid grid-cols-1 place-items-center";
     } else if (cardsPerSlide === 2) {
-      return "grid grid-cols-1 sm:grid-cols-2 place-items-center";
+      return "grid grid-cols-1 md:grid-cols-2 place-items-center";
     } else {
-      return "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 place-items-center";
+      return "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center";
     }
   };
 
@@ -180,7 +180,7 @@ export default function Reviews({ blok }: { blok: ReviewsBlok }) {
   return (
     <section
       {...storyblokEditable(blok)}
-      className="py-16 px-6 transition-all duration-500 ease-in-out"
+      className="py-6 px-6 transition-all duration-500 ease-in-out"
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}>
