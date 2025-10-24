@@ -9,11 +9,19 @@ import Icon from "../Icon/Icon";
 const Button: React.FC<ButtonProps> = ({
   className,
   size = "default",
+  sizeTablet,
+  sizeDesktop,
   border = "none",
   borderColor = "default",
   borderRadius = "default",
+  borderRadiusTablet,
+  borderRadiusDesktop,
   shadow = "none",
+  shadowTablet,
+  shadowDesktop,
   cursor = "pointer",
+  cursorTablet,
+  cursorDesktop,
   icon,
   iconColor = "default",
   iconType = "default",
@@ -51,7 +59,7 @@ const Button: React.FC<ButtonProps> = ({
   };
 
   // Size styles
-  const sizeStyles = {
+  const sizeStyles: Record<string, string> = {
     xs: "h-7 px-2 text-xs",
     sm: "h-8 px-3 text-sm",
     default: "h-10 px-4 py-2",
@@ -59,6 +67,13 @@ const Button: React.FC<ButtonProps> = ({
     lg: "h-12 px-8 text-lg",
     xl: "h-14 px-10 text-xl",
     "2xl": "h-16 px-12 text-2xl",
+    "3xl": "h-18 px-14 text-[22px]",
+    "4xl": "h-20 px-16 text-[24px]",
+    "5xl": "h-24 px-18 text-[26px]",
+    "6xl": "h-28 px-20 text-[28px]",
+    "7xl": "h-32 px-24 text-[30px]",
+    "8xl": "h-36 px-28 text-[32px]",
+    "9xl": "h-40 px-32 text-[34px]",
   };
 
   // Icon spacing styles
@@ -94,6 +109,21 @@ const Button: React.FC<ButtonProps> = ({
     "rounded-full": borderRadius === "full",
   });
 
+  const borderRadiusFor = (val?: typeof borderRadius): string | undefined => {
+    if (!val) return undefined;
+    const map: Record<string, string> = {
+      none: "rounded-none",
+      small: "rounded-sm",
+      default: "rounded",
+      medium: "rounded-md",
+      large: "rounded-lg",
+      "x-large": "rounded-xl",
+      "xx-large": "rounded-2xl",
+      full: "rounded-full",
+    };
+    return map[val] || undefined;
+  };
+
   const shadowClasses = cn({
     "shadow-none": shadow === "none",
     "shadow-sm": shadow === "small",
@@ -103,6 +133,20 @@ const Button: React.FC<ButtonProps> = ({
     "shadow-xl": shadow === "x-large",
     "shadow-2xl": shadow === "xx-large",
   });
+
+  const shadowFor = (val?: typeof shadow): string | undefined => {
+    if (!val) return undefined;
+    const map: Record<string, string> = {
+      none: "shadow-none",
+      small: "shadow-sm",
+      default: "shadow",
+      medium: "shadow-md",
+      large: "shadow-lg",
+      "x-large": "shadow-xl",
+      "xx-large": "shadow-2xl",
+    };
+    return map[val] || undefined;
+  };
 
   const cursorClasses = cn({
     "cursor-pointer": cursor === "pointer",
@@ -115,14 +159,39 @@ const Button: React.FC<ButtonProps> = ({
     "cursor-auto": cursor === "auto",
   });
 
+  const cursorFor = (val?: typeof cursor): string | undefined => {
+    if (!val) return undefined;
+    const map: Record<string, string> = {
+      pointer: "cursor-pointer",
+      default: "cursor-default",
+      "not-allowed": "cursor-not-allowed",
+      wait: "cursor-wait",
+      text: "cursor-text",
+      move: "cursor-move",
+      help: "cursor-help",
+      auto: "cursor-auto",
+    };
+    return map[val] || undefined;
+  };
+
   const buttonClassName = cn(
     baseStyles,
     variantStyles[variant],
     sizeStyles[size],
+    sizeTablet && sizeStyles[sizeTablet] && `md:${sizeStyles[sizeTablet]}`,
+    sizeDesktop && sizeStyles[sizeDesktop] && `lg:${sizeStyles[sizeDesktop]}`,
     borderClasses,
     borderRadiusClasses,
+    borderRadiusFor(borderRadiusTablet) &&
+      `md:${borderRadiusFor(borderRadiusTablet)}`,
+    borderRadiusFor(borderRadiusDesktop) &&
+      `lg:${borderRadiusFor(borderRadiusDesktop)}`,
     shadowClasses,
+    shadowFor(shadowTablet) && `md:${shadowFor(shadowTablet)}`,
+    shadowFor(shadowDesktop) && `lg:${shadowFor(shadowDesktop)}`,
     cursorClasses,
+    cursorFor(cursorTablet) && `md:${cursorFor(cursorTablet)}`,
+    cursorFor(cursorDesktop) && `lg:${cursorFor(cursorDesktop)}`,
     hasSpacing && spacingStyles[iconSpacing],
     iconPosition === "right" && "flex-row-reverse",
     className

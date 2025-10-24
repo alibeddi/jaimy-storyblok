@@ -29,12 +29,21 @@ export interface ButtonBlok {
   title: string;
   type: ButtonType;
   variant: ButtonVariant;
-  size?: "xs" | "sm" | "default" | "md" | "lg" | "xl" | "2xl";
   border?: string;
   border_color?: string;
   border_radius?: string;
   shadow?: string;
   cursor?: string;
+  // Responsive fields
+  size?: string;
+  size_tablet?: string;
+  size_desktop?: string;
+  shadow_tablet?: string;
+  shadow_desktop?: string;
+  border_radius_tablet?: string;
+  border_radius_desktop?: string;
+  cursor_tablet?: string;
+  cursor_desktop?: string;
   target?: ButtonTarget;
   link: LinkBlok;
   preset?: string;
@@ -50,6 +59,27 @@ interface SBButtonProps {
 
 const Button: React.FC<SBButtonProps> = ({ className, blok }) => {
   const to = blok?.link?.url || "#";
+
+  // Use individual responsive fields directly
+  const mobileStyles = {
+    size: blok?.size,
+    shadow: blok?.shadow,
+    border_radius: blok?.border_radius,
+    cursor: blok?.cursor,
+  };
+  const tabletStyles = {
+    size: blok?.size_tablet,
+    shadow: blok?.shadow_tablet,
+    border_radius: blok?.border_radius_tablet,
+    cursor: blok?.cursor_tablet,
+  };
+  const desktopStyles = {
+    size: blok?.size_desktop,
+    shadow: blok?.shadow_desktop,
+    border_radius: blok?.border_radius_desktop,
+    cursor: blok?.cursor_desktop,
+  };
+
   return (
     <ButtonUI
       className={className}
@@ -61,14 +91,37 @@ const Button: React.FC<SBButtonProps> = ({ className, blok }) => {
       iconSpacing={blok?.icon_spacing}
       type={blok?.type}
       variant={blok?.variant || "secondary"}
-      size={blok?.size}
+      size={(mobileStyles?.size as UIButtonProps["size"]) || undefined}
+      sizeTablet={(tabletStyles?.size as UIButtonProps["size"]) || undefined}
+      sizeDesktop={(desktopStyles?.size as UIButtonProps["size"]) || undefined}
       border={blok?.border}
       borderColor={blok?.border_color}
       borderRadius={
-        (blok?.border_radius as UIButtonProps["borderRadius"]) || undefined
+        (mobileStyles?.border_radius as UIButtonProps["borderRadius"]) ||
+        undefined
       }
-      shadow={(blok?.shadow as UIButtonProps["shadow"]) || undefined}
-      cursor={(blok?.cursor as UIButtonProps["cursor"]) || undefined}
+      borderRadiusTablet={
+        (tabletStyles?.border_radius as UIButtonProps["borderRadius"]) ||
+        undefined
+      }
+      borderRadiusDesktop={
+        (desktopStyles?.border_radius as UIButtonProps["borderRadius"]) ||
+        undefined
+      }
+      shadow={(mobileStyles?.shadow as UIButtonProps["shadow"]) || undefined}
+      shadowTablet={
+        (tabletStyles?.shadow as UIButtonProps["shadow"]) || undefined
+      }
+      shadowDesktop={
+        (desktopStyles?.shadow as UIButtonProps["shadow"]) || undefined
+      }
+      cursor={(mobileStyles?.cursor as UIButtonProps["cursor"]) || undefined}
+      cursorTablet={
+        (tabletStyles?.cursor as UIButtonProps["cursor"]) || undefined
+      }
+      cursorDesktop={
+        (desktopStyles?.cursor as UIButtonProps["cursor"]) || undefined
+      }
       to={to}
       target={blok?.target}
       relation={blok?.relation}
