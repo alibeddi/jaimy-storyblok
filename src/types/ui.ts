@@ -50,6 +50,8 @@ export interface ButtonProps extends BaseUIProps {
   variant?: ButtonVariant;
   type?: ButtonType;
   size?: SizeVariant;
+  sizeTablet?: SizeVariant;
+  sizeDesktop?: SizeVariant;
   border?: string; // e.g., "none" | "default" | "2" | "4"
   borderColor?: string; // e.g., "gray-300", "primary-500"
   borderRadius?:
@@ -61,6 +63,8 @@ export interface ButtonProps extends BaseUIProps {
     | "x-large"
     | "xx-large"
     | "full";
+  borderRadiusTablet?: ButtonProps["borderRadius"];
+  borderRadiusDesktop?: ButtonProps["borderRadius"];
   shadow?:
     | "none"
     | "small"
@@ -69,6 +73,8 @@ export interface ButtonProps extends BaseUIProps {
     | "large"
     | "x-large"
     | "xx-large";
+  shadowTablet?: ButtonProps["shadow"];
+  shadowDesktop?: ButtonProps["shadow"];
   cursor?:
     | "default"
     | "pointer"
@@ -78,6 +84,8 @@ export interface ButtonProps extends BaseUIProps {
     | "move"
     | "help"
     | "auto";
+  cursorTablet?: ButtonProps["cursor"];
+  cursorDesktop?: ButtonProps["cursor"];
   icon?: string;
   iconColor?: IconColor;
   iconType?: IconType;
