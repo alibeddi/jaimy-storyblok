@@ -262,9 +262,8 @@ const Row: React.FC<ExtendedRowProps> = ({
       backgroundRepeat !== "default" ? backgroundRepeat : "no-repeat";
     imageStyle.backgroundAttachment =
       backgroundAttachment !== "default" ? backgroundAttachment : "scroll";
-    imageStyle.opacity = backgroundOpacity
-      ? parseInt(backgroundOpacity, 10) / 100
-      : 1;
+    const parsedOpacity = backgroundOpacity ? parseInt(backgroundOpacity, 10) : NaN;
+    imageStyle.opacity = !isNaN(parsedOpacity) ? parsedOpacity / 100 : 1;
   }
 
   return (

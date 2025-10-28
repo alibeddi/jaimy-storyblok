@@ -54,6 +54,7 @@ storyblokInit({
     reviews: Reviews,
     review: Review,
     trust_badge: TrustBadge,
+    trust_badges: TrustBadge,
     step: Step,
     social_proof: SocialProof,
     feature: Features,

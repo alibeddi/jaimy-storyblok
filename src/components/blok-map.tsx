@@ -104,6 +104,8 @@ export const componentMap: Record<string, ComponentType> = {
   "blog-overview": BlogOverview,
   "blog-card": BlogCard,
   iframe: Iframe,
+  trust_badge: TrustBadge,
+  trust_badges: TrustBadge,
 };
 
 export default componentMap;
