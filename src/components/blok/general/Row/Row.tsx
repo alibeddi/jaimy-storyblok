@@ -1,9 +1,10 @@
 import { SpacingVariant, TextAlign } from "@/types/ui";
-import { StoryblokComponent, storyblokEditable } from "@storyblok/react";
+import { storyblokEditable } from "@storyblok/react";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import RowUI from "../../../ui/Row"; // Fixed case sensitivity
+import Blok from "@/components/Blok";
 
 interface RowBlok {
   component: string;
@@ -44,7 +45,7 @@ interface RowProps {
 
 const Row: React.FC<RowProps> = ({ blok }) => {
   const childrenWithProps = blok.children?.map((child) => (
-    <StoryblokComponent key={child._uid} blok={child} />
+    <Blok key={child._uid} blok={child} />
   ));
 
   return (

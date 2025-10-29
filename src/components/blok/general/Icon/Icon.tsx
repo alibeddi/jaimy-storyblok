@@ -18,10 +18,7 @@ interface IconProps {
 }
 
 const Icon: React.FC<IconProps> = ({ blok }) => {
-  console.log("🔍 Icon Debug:", { blok });
-
   if (!blok.variant) {
-    console.log("❌ Icon: No variant provided");
     return null;
   }
 

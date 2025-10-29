@@ -25,6 +25,7 @@ import CategorySection from "./blok/general/CategorySection";
 import Column from "./blok/general/Column";
 import Columns from "./blok/general/Columns";
 import Container from "./blok/general/Container";
+import Divider from "./blok/general/Divider";
 import Form from "./blok/general/form";
 import FormFieldset from "./blok/general/form-fieldset";
 import FormGroup from "./blok/general/form-group";
@@ -62,7 +63,6 @@ export const componentMap: Record<string, ComponentType> = {
   steps: Steps,
   stars: Stars,
   image: Image,
-  trust_badges: TrustBadge,
   blogs: Blogs,
   reviews: Reviews,
   social_proof: SocialProof,
@@ -89,6 +89,7 @@ export const componentMap: Record<string, ComponentType> = {
   "list-item": ListItem,
   "review-stars": ReviewStars,
   hr: Hr,
+  divider: Divider,
   accordion: Accordion,
   "accordion-item": AccordionItem,
   container: Container,
@@ -106,6 +107,22 @@ export const componentMap: Record<string, ComponentType> = {
   iframe: Iframe,
   trust_badge: TrustBadge,
   trust_badges: TrustBadge,
+  // Aliases for underscore versions (Storyblok uses both formats)
+  rich_text: RichText,
+  button_group: ButtonGroup,
+  form_step: FormStep,
+  form_fieldset: FormFieldset,
+  form_group: FormGroup,
+  input_field: InputField,
+  table_column: TableColumn,
+  table_row: TableRow,
+  table_header: TableHeader,
+  list_item: ListItem,
+  review_stars: ReviewStars,
+  accordion_item: AccordionItem,
+  category_section: CategorySection,
+  blog_overview: BlogOverview,
+  blog_card: BlogCard,
 };
 
 export default componentMap;

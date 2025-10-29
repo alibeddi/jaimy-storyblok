@@ -1,9 +1,10 @@
-import { StoryblokComponent, storyblokEditable } from "@storyblok/react";
+import { storyblokEditable } from "@storyblok/react";
 
 import ColumnsUI from "../../../ui/Columns";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import { SpacingVariant } from "@/types/ui";
+import Blok from "@/components/Blok";
 
 interface ChildBlok {
   component: string;
@@ -73,7 +74,7 @@ const Columns: React.FC<ColumnsProps> = ({ blok }) => {
       margin_bottom: blok?.margin_bottom,
     };
 
-    return <StoryblokComponent key={child._uid} blok={newChild} />;
+    return <Blok key={child._uid} blok={newChild} />;
   });
 
   return (
