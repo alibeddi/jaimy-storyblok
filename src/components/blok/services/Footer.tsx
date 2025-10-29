@@ -124,42 +124,42 @@ export default function Footer({ blok }: { blok: FooterBlok }) {
                     )}
                   </a>
                 )) || (
-                  <>
-                    <a
-                      href="#"
-                      className="hover:opacity-80 transition-opacity duration-200">
-                      <Image
-                        src="/icons/LinkedIn 2.svg"
-                        alt="LinkedIn"
-                        width={25}
-                        height={25}
-                        className="w-6 h-6"
-                      />
-                    </a>
-                    <a
-                      href="#"
-                      className="hover:opacity-80 transition-opacity duration-200">
-                      <Image
-                        src="/icons/Facebook F.svg"
-                        alt="Facebook"
-                        width={25}
-                        height={25}
-                        className="w-6 h-6"
-                      />
-                    </a>
-                    <a
-                      href="#"
-                      className="hover:opacity-80 transition-opacity duration-200">
-                      <Image
-                        src="/icons/Instagram.svg"
-                        alt="Instagram"
-                        width={25}
-                        height={25}
-                        className="w-6 h-6"
-                      />
-                    </a>
-                  </>
-                )}
+                    <>
+                      <a
+                        href="#"
+                        className="hover:opacity-80 transition-opacity duration-200">
+                        <Image
+                          src="/icons/LinkedIn 2.svg"
+                          alt="LinkedIn"
+                          width={25}
+                          height={25}
+                          className="w-6 h-6"
+                        />
+                      </a>
+                      <a
+                        href="#"
+                        className="hover:opacity-80 transition-opacity duration-200">
+                        <Image
+                          src="/icons/Facebook F.svg"
+                          alt="Facebook"
+                          width={25}
+                          height={25}
+                          className="w-6 h-6"
+                        />
+                      </a>
+                      <a
+                        href="#"
+                        className="hover:opacity-80 transition-opacity duration-200">
+                        <Image
+                          src="/icons/Instagram.svg"
+                          alt="Instagram"
+                          width={25}
+                          height={25}
+                          className="w-6 h-6"
+                        />
+                      </a>
+                    </>
+                  )}
               </div>
 
               {/* Footer Buttons */}
@@ -172,33 +172,33 @@ export default function Footer({ blok }: { blok: FooterBlok }) {
                     <Button blok={button} className="footer-button" />
                   </div>
                 )) || (
-                  <>
-                    <div className="relative">
-                      <Button
-                        blok={{
-                          component: "button",
-                          title: "Homepage",
-                          type: "button",
-                          variant: "primary",
-                          link: { url: "#" },
-                        }}
-                        className="footer-button homepage"
-                      />
-                    </div>
-                    <div className="relative">
-                      <Button
-                        blok={{
-                          component: "button",
-                          title: "Pro Platform",
-                          type: "button",
-                          variant: "tertiary",
-                          link: { url: "#" },
-                        }}
-                        className="footer-button pro-platform"
-                      />
-                    </div>
-                  </>
-                )}
+                    <>
+                      <div className="relative">
+                        <Button
+                          blok={{
+                            component: "button",
+                            title: "Homepage",
+                            type: "button",
+                            variant: "primary",
+                            link: { url: "#" },
+                          }}
+                          className="footer-button homepage"
+                        />
+                      </div>
+                      <div className="relative">
+                        <Button
+                          blok={{
+                            component: "button",
+                            title: "Pro Platform",
+                            type: "button",
+                            variant: "tertiary",
+                            link: { url: "#" },
+                          }}
+                          className="footer-button pro-platform"
+                        />
+                      </div>
+                    </>
+                  )}
               </div>
             </div>
           </div>
@@ -222,36 +222,36 @@ export default function Footer({ blok }: { blok: FooterBlok }) {
                 </Link>
               ))
             ) || (
-              <>
-                <a
-                  href="#"
-                  className="text-white text-base hover:text-gray-200 transition-colors duration-200"
-                  style={{
-                    fontFamily:
-                      "Montserrat, -apple-system, Roboto, Helvetica, sans-serif",
-                  }}>
-                  Terms
-                </a>
-                <a
-                  href="#"
-                  className="text-white text-base hover:text-gray-200 transition-colors duration-200"
-                  style={{
-                    fontFamily:
-                      "Montserrat, -apple-system, Roboto, Helvetica, sans-serif",
-                  }}>
-                  Policy
-                </a>
-                <a
-                  href="#"
-                  className="text-white text-base hover:text-gray-200 transition-colors duration-200"
-                  style={{
-                    fontFamily:
-                      "Montserrat, -apple-system, Roboto, Helvetica, sans-serif",
-                  }}>
-                  Cookies
-                </a>
-              </>
-            )}
+                <>
+                  <a
+                    href="#"
+                    className="text-white text-base hover:text-gray-200 transition-colors duration-200"
+                    style={{
+                      fontFamily:
+                        "Montserrat, -apple-system, Roboto, Helvetica, sans-serif",
+                    }}>
+                    Terms
+                  </a>
+                  <a
+                    href="#"
+                    className="text-white text-base hover:text-gray-200 transition-colors duration-200"
+                    style={{
+                      fontFamily:
+                        "Montserrat, -apple-system, Roboto, Helvetica, sans-serif",
+                    }}>
+                    Policy
+                  </a>
+                  <a
+                    href="#"
+                    className="text-white text-base hover:text-gray-200 transition-colors duration-200"
+                    style={{
+                      fontFamily:
+                        "Montserrat, -apple-system, Roboto, Helvetica, sans-serif",
+                    }}>
+                    Cookies
+                  </a>
+                </>
+              )}
           </div>
 
           {/* Copyright */}

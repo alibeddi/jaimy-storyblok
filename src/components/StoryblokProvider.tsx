@@ -18,6 +18,7 @@ import CategorySection from "./blok/general/CategorySection";
 import Column from "./blok/general/Column";
 import Columns from "./blok/general/Columns";
 import Container from "./blok/general/Container";
+import Divider from "./blok/general/Divider";
 import FAQ from "./blok/services/FAQ";
 import Features from "./blok/services/Features";
 import Footer from "./blok/services/Footer";
@@ -65,6 +66,7 @@ storyblokInit({
     iframe: Iframe,
     features: Features,
     container: Container,
+    divider: Divider,
     columns: Columns,
     column: Column,
     row: Row,
@@ -78,7 +80,6 @@ storyblokInit({
     rich_text: RichText,
     button_group: ButtonGroup,
     button: Button,
-    trust_badges: TrustBadge,
   },
   bridge: true, // Enable bridge for live editing
   apiOptions: {

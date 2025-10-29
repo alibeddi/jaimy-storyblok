@@ -4,7 +4,7 @@ import React from "react";
 import { RowProps } from "@/types/ui";
 import { cn } from "@/lib/utils";
 
-interface ExtendedRowProps extends RowProps {
+interface ExtendedRowProps extends Omit<RowProps, "gap"> {
   spacing?: string;
   narrow?: boolean;
   appearance?: string;
@@ -198,6 +198,14 @@ const Row: React.FC<ExtendedRowProps> = ({
     xl: "gap-12",
   };
 
+  // Check if backgroundColor is a hex/rgb/gradient value
+  const isCustomBgColor =
+    backgroundColor &&
+    (backgroundColor.startsWith("#") ||
+      backgroundColor.startsWith("rgb") ||
+      backgroundColor.startsWith("linear-gradient") ||
+      backgroundColor.startsWith("radial-gradient"));
+
   const rootClasses = cn(
     "w-full relative overflow-hidden",
     spacingMap[spacing as keyof typeof spacingMap],
@@ -206,7 +214,10 @@ const Row: React.FC<ExtendedRowProps> = ({
     paddingXMap[paddingX as keyof typeof paddingXMap],
     paddingYMap[paddingY as keyof typeof paddingYMap],
     maxWidthMap[maxWidth as keyof typeof maxWidthMap],
-    backgroundColor && backgroundColor !== "default" && `bg-${backgroundColor}`,
+    backgroundColor &&
+    backgroundColor !== "default" &&
+    !isCustomBgColor &&
+    `bg-${backgroundColor}`,
     className
   );
 
@@ -228,15 +239,15 @@ const Row: React.FC<ExtendedRowProps> = ({
       flexWrap ||
       flexDirection ||
       gap) &&
-      "flex",
+    "flex",
     flexDirection &&
-      flexDirectionMap[flexDirection as keyof typeof flexDirectionMap],
+    flexDirectionMap[flexDirection as keyof typeof flexDirectionMap],
     justifyContent && justifyMap[justifyContent as keyof typeof justifyMap],
     alignItems && alignItemsMap[alignItems as keyof typeof alignItemsMap],
     alignContent &&
-      alignContentMap[alignContent as keyof typeof alignContentMap],
+    alignContentMap[alignContent as keyof typeof alignContentMap],
     justifyItems &&
-      justifyItemsMap[justifyItems as keyof typeof justifyItemsMap],
+    justifyItemsMap[justifyItems as keyof typeof justifyItemsMap],
     flexWrap && flexWrapMap[flexWrap as keyof typeof flexWrapMap],
     gap && gapMap[gap as keyof typeof gapMap],
     {
@@ -266,8 +277,16 @@ const Row: React.FC<ExtendedRowProps> = ({
     imageStyle.opacity = !isNaN(parsedOpacity) ? parsedOpacity / 100 : 1;
   }
 
+  // Prepare inline styles for custom background color or gradient
+  const customBgStyle: React.CSSProperties = isCustomBgColor
+    ? backgroundColor?.startsWith("linear-gradient") ||
+      backgroundColor?.startsWith("radial-gradient")
+      ? { backgroundImage: backgroundColor }
+      : { backgroundColor }
+    : {};
+
   return (
-    <section className={rootClasses} {...rest}>
+    <section className={rootClasses} style={customBgStyle} {...rest}>
       {backgroundImage?.filename && (
         <div className="absolute inset-0 z-0" style={imageStyle}></div>
       )}

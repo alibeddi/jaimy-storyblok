@@ -6,9 +6,9 @@ import type { Config } from "tailwindcss";
 export default <Partial<Config>>{
   plugins: [require("@tailwindcss/typography")],
   safelist: [
-    { pattern: /bg-(primary|gray)-(100|200|300|400|500|600|700|800|900)/ },
+    { pattern: /bg-(primary|secondary|gray|red|blue|green|yellow|purple|pink|indigo|orange)-(50|100|200|300|400|500|600|700|800|900|950)/ },
     { pattern: /bg-(red|grey)-(light|dark|gradient)/ },
-    { pattern: /bg-(white|black)/ },
+    { pattern: /bg-(white|black|transparent)/ },
 
     // Explicit background classes
     "bg-red-light",
@@ -26,9 +26,9 @@ export default <Partial<Config>>{
     { pattern: /items-(start|center|end|stretch|baseline)/ },
 
     // Text color patterns
-    { pattern: /text-(primary|gray)-(100|200|300|400|500|600|700|800|900)/ },
+    { pattern: /text-(primary|secondary|gray|red|blue|green|yellow|purple|pink|indigo|orange)-(50|100|200|300|400|500|600|700|800|900|950)/ },
     { pattern: /text-(red|grey)-(light|dark)/ },
-    { pattern: /text-(white|black)/ },
+    { pattern: /text-(white|black|transparent)/ },
 
     // Explicit text color classes
     "text-red-light",
@@ -46,8 +46,8 @@ export default <Partial<Config>>{
     "border-r",
 
     // Border color (token and variable based)
-    { pattern: /border-(primary|gray)-(100|200|300|400|500|600|700|800|900)/ },
-    { pattern: /border-(white|black)/ },
+    { pattern: /border-(primary|secondary|gray|red|blue|green|yellow|purple|pink|indigo|orange)-(50|100|200|300|400|500|600|700|800|900|950)/ },
+    { pattern: /border-(white|black|transparent)/ },
     "border-[rgb(var(--color-gray-300))]",
     "border-[rgb(var(--color-gray-500))]",
     "border-[rgb(var(--color-gray-700))]",

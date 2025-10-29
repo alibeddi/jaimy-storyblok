@@ -21,10 +21,16 @@ interface ExtendedContainerProps extends ContainerProps {
   backgroundAttachment?: string;
   backgroundRepeat?: string;
   backgroundOpacity?: string | number;
-  // Advanced props
-  grow?: boolean;
+  // Flex & layout props
+  display?: string; // "flex" | "grid" | "block"
+  flexDirection?: string; // row | row-reverse | col | col-reverse
   justifyContent?: string;
+  alignItems?: string; // start | center | end | stretch | baseline
   alignContent?: string;
+  justifyItems?: string; // grid only
+  flexWrap?: string; // wrap | nowrap | wrap-reverse
+  gap?: string; // none | xs | sm | default | md | lg | xl
+  grow?: boolean;
   textAlign?: string;
   paddingX?: string;
   paddingTop?: string;
@@ -53,10 +59,16 @@ const Container: React.FC<ExtendedContainerProps> = ({
   backgroundAttachment,
   backgroundRepeat,
   backgroundOpacity,
-  // Advanced props
-  grow = false,
+  // Flex & layout props
+  display,
+  flexDirection,
   justifyContent,
+  alignItems,
   alignContent,
+  justifyItems,
+  flexWrap,
+  gap,
+  grow = false,
   textAlign,
   paddingX,
   paddingTop,
@@ -127,21 +139,90 @@ const Container: React.FC<ExtendedContainerProps> = ({
     xl: "py-10",
   };
 
-  // Justify and alignment styles
-  const justifyStyles = {
+  // Display class
+  const displayClass = (() => {
+    if (display === "flex") return "flex";
+    if (display === "grid") return "grid";
+    return undefined; // default block
+  })();
+
+  // Flex direction mapping
+  const flexDirectionMap: Record<string, string> = {
+    row: "flex-row",
+    "row-reverse": "flex-row-reverse",
+    col: "flex-col",
+    column: "flex-col",
+    "col-reverse": "flex-col-reverse",
+    "column-reverse": "flex-col-reverse",
+    default: "",
+  };
+
+  // Justify content mapping
+  const justifyStyles: Record<string, string> = {
     start: "justify-start",
     center: "justify-center",
     end: "justify-end",
+    "flex-start": "justify-start",
+    "flex-end": "justify-end",
     between: "justify-between",
     around: "justify-around",
     evenly: "justify-evenly",
+    "space-between": "justify-between",
+    "space-around": "justify-around",
+    default: "",
   };
 
-  const alignStyles = {
+  // Align items mapping
+  const alignItemsMap: Record<string, string> = {
     start: "items-start",
     center: "items-center",
     end: "items-end",
+    "flex-start": "items-start",
+    "flex-end": "items-end",
     stretch: "items-stretch",
+    baseline: "items-baseline",
+    default: "",
+  };
+
+  // Align content mapping
+  const alignStyles: Record<string, string> = {
+    start: "content-start",
+    center: "content-center",
+    end: "content-end",
+    between: "content-between",
+    around: "content-around",
+    evenly: "content-evenly",
+    "space-between": "content-between",
+    "space-around": "content-around",
+    default: "",
+  };
+
+  // Justify items mapping (for grid)
+  const justifyItemsMap: Record<string, string> = {
+    start: "justify-items-start",
+    end: "justify-items-end",
+    center: "justify-items-center",
+    stretch: "justify-items-stretch",
+    default: "",
+  };
+
+  // Flex wrap mapping
+  const flexWrapMap: Record<string, string> = {
+    wrap: "flex-wrap",
+    nowrap: "flex-nowrap",
+    "wrap-reverse": "flex-wrap-reverse",
+    default: "",
+  };
+
+  // Gap mapping
+  const gapMap: Record<string, string> = {
+    none: "gap-0",
+    xs: "gap-2",
+    sm: "gap-4",
+    default: "gap-4",
+    md: "gap-6",
+    lg: "gap-8",
+    xl: "gap-12",
   };
 
   const textAlignStyles = {
@@ -168,13 +249,37 @@ const Container: React.FC<ExtendedContainerProps> = ({
     backgroundOpacity &&
     backgroundOpacity !== "default";
 
+  // Check if backgroundColor is a custom value (hex/rgb/gradient)
+  const isCustomBgColor =
+    backgroundColor &&
+    (backgroundColor.startsWith("#") ||
+      backgroundColor.startsWith("rgb") ||
+      backgroundColor.startsWith("linear-gradient") ||
+      backgroundColor.startsWith("radial-gradient"));
+
   const containerClasses = cn(
     "mx-auto",
     maxWidthStyles[maxWidth],
-    grow && "flex-grow",
+    displayClass,
+    // If any flex options are provided, ensure flex is enabled
+    (justifyContent ||
+      alignItems ||
+      alignContent ||
+      flexWrap ||
+      flexDirection ||
+      gap) &&
+    "flex",
+    flexDirection &&
+    flexDirectionMap[flexDirection as keyof typeof flexDirectionMap],
     justifyContent &&
-      justifyStyles[justifyContent as keyof typeof justifyStyles],
+    justifyStyles[justifyContent as keyof typeof justifyStyles],
+    alignItems && alignItemsMap[alignItems as keyof typeof alignItemsMap],
     alignContent && alignStyles[alignContent as keyof typeof alignStyles],
+    justifyItems &&
+    justifyItemsMap[justifyItems as keyof typeof justifyItemsMap],
+    flexWrap && flexWrapMap[flexWrap as keyof typeof flexWrapMap],
+    gap && gapMap[gap as keyof typeof gapMap],
+    grow && "flex-grow",
     textAlign && textAlignStyles[textAlign as keyof typeof textAlignStyles],
     paddingX
       ? paddingXMap[paddingX as keyof typeof paddingXMap]
@@ -182,20 +287,33 @@ const Container: React.FC<ExtendedContainerProps> = ({
     paddingTop && paddingYMap[paddingTop as keyof typeof paddingYMap],
     paddingBottom && paddingYMap[paddingBottom as keyof typeof paddingYMap],
     backgroundColor &&
-      backgroundColor !== "default" &&
-      !hasOpacity &&
-      `bg-${backgroundColor}`,
+    backgroundColor !== "default" &&
+    !hasOpacity &&
+    !isCustomBgColor &&
+    `bg-${backgroundColor}`,
     className
   );
 
   const backgroundLayerClasses = cn(
     "absolute inset-0 -z-10",
-    backgroundColor && backgroundColor !== "default" && `bg-${backgroundColor}`
+    backgroundColor &&
+    backgroundColor !== "default" &&
+    !isCustomBgColor &&
+    `bg-${backgroundColor}`
   );
 
   const opacityStyle = hasOpacity
     ? { opacity: parseInt(String(backgroundOpacity), 10) / 100 }
     : {};
+
+  // Prepare inline styles for custom background color or gradient
+  const customBgStyle: React.CSSProperties =
+    isCustomBgColor && !hasOpacity
+      ? backgroundColor?.startsWith("linear-gradient") ||
+        backgroundColor?.startsWith("radial-gradient")
+        ? { backgroundImage: backgroundColor }
+        : { backgroundColor }
+      : {};
 
   const iconElement =
     hasIcon && iconVariant ? (
@@ -208,11 +326,20 @@ const Container: React.FC<ExtendedContainerProps> = ({
       />
     ) : null;
 
-  const content = hasIcon ? (
+  // When hasIcon and no custom display is set, use default icon layout
+  // Otherwise, render children directly to respect flex/grid settings
+  const hasCustomLayout = display || flexDirection || justifyContent || alignItems || gap;
+
+  const content = hasIcon && !hasCustomLayout ? (
     <div className="flex items-start">
       {iconElement}
       <div className="flex-1">{children}</div>
     </div>
+  ) : hasIcon ? (
+    <>
+      {iconElement}
+      {children}
+    </>
   ) : (
     children
   );
@@ -233,7 +360,7 @@ const Container: React.FC<ExtendedContainerProps> = ({
   return (
     <div
       className={containerClasses}
-      style={{ ...style, ...backgroundStyles }}
+      style={{ ...style, ...backgroundStyles, ...customBgStyle }}
       {...rest}
     >
       {content}

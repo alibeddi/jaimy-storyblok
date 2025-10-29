@@ -5,11 +5,12 @@ import {
   SpacingVariant,
   TextAlign,
 } from "@/types/ui";
-import { StoryblokComponent, storyblokEditable } from "@storyblok/react";
+import { storyblokEditable } from "@storyblok/react";
 
 import ContainerUI from "../../../ui/Container";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
+import Blok from "@/components/Blok";
 
 interface ChildBlok {
   component: string;
@@ -39,9 +40,16 @@ interface ContainerBlok {
   background_attachment?: string;
   background_repeat?: string;
   background_opacity?: string | number;
-  grow?: boolean; // Changed from string to boolean
+  grow?: boolean;
+  // Flex & layout properties
+  display?: string; // "flex" | "grid" | "block"
+  flex_direction?: string; // row | row-reverse | col | col-reverse
   justify_content?: string;
+  align_items?: string; // start | center | end | stretch | baseline
   align_content?: string;
+  justify_items?: string; // grid only
+  flex_wrap?: string; // wrap | nowrap | wrap-reverse
+  gap?: string; // none | xs | sm | default | md | lg | xl
   text_align?: TextAlign;
   padding_x?: SpacingVariant;
   padding_top?: SpacingVariant;
@@ -57,18 +65,11 @@ interface ContainerProps {
 const Container: React.FC<ContainerProps> = ({ blok }) => {
   const hasIcon = blok.icon_type && blok.icon_type !== "default";
 
-  console.log("🔍 Container Debug:", {
-    max_width: blok.max_width,
-    padding: blok.padding,
-    background_color: blok.background_color,
-    text_align: blok.text_align,
-  });
-
   return (
     <ContainerUI
       maxWidth={
         blok?.max_width &&
-        ["sm", "md", "lg", "xl", "2xl", "full"].includes(blok.max_width)
+          ["sm", "md", "lg", "xl", "2xl", "full"].includes(blok.max_width)
           ? (blok.max_width as "sm" | "md" | "lg" | "xl" | "2xl" | "full")
           : undefined
       }
@@ -88,18 +89,24 @@ const Container: React.FC<ContainerProps> = ({ blok }) => {
       backgroundAttachment={blok?.background_attachment}
       backgroundRepeat={blok?.background_repeat}
       backgroundOpacity={blok.background_opacity}
-      // Advanced props
-      grow={blok.grow} // Now directly pass the boolean value
-      justifyContent={blok.justify_content}
-      alignContent={blok.align_content}
-      textAlign={blok.text_align}
-      paddingX={blok.padding_x}
-      paddingTop={blok.padding_top}
-      paddingBottom={blok.padding_bottom}
+      // Flex & layout props
+      display={blok?.display}
+      flexDirection={blok?.flex_direction}
+      justifyContent={blok?.justify_content}
+      alignItems={blok?.align_items}
+      alignContent={blok?.align_content}
+      justifyItems={blok?.justify_items}
+      flexWrap={blok?.flex_wrap}
+      gap={blok?.gap}
+      grow={blok?.grow}
+      textAlign={blok?.text_align}
+      paddingX={blok?.padding_x}
+      paddingTop={blok?.padding_top}
+      paddingBottom={blok?.padding_bottom}
       // preset={blok.preset}
       {...storyblokEditable(blok)}>
       {blok.children?.map((child) => (
-        <StoryblokComponent key={child._uid} blok={child} />
+        <Blok key={child._uid} blok={child} />
       ))}
     </ContainerUI>
   );
