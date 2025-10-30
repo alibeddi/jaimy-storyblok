@@ -34,6 +34,7 @@ export interface ButtonBlok {
   border_radius?: string;
   shadow?: string;
   cursor?: string;
+  no_wrap?: boolean; // Prevent text wrapping
   // Responsive fields
   size?: string;
   size_tablet?: string;
@@ -122,6 +123,7 @@ const Button: React.FC<SBButtonProps> = ({ className, blok }) => {
       cursorDesktop={
         (desktopStyles?.cursor as UIButtonProps["cursor"]) || undefined
       }
+      noWrap={blok?.no_wrap}
       to={to}
       target={blok?.target}
       relation={blok?.relation}

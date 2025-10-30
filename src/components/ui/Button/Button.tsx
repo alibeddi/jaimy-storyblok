@@ -39,6 +39,7 @@ const Button: React.FC<ButtonProps> = ({
   relation = [],
   disabled = false,
   disableNofollow = false,
+  noWrap = true, // Default to true - buttons should not wrap by default
   ...rest
 }) => {
   const hasIcon = icon && icon !== "none" && icon !== "default";
@@ -94,8 +95,8 @@ const Button: React.FC<ButtonProps> = ({
       "border-4": border === "4",
     },
     border &&
-      border !== "none" &&
-      (borderColor === "default" ? "border-gray-300" : `border-${borderColor}`)
+    border !== "none" &&
+    (borderColor === "default" ? "border-gray-300" : `border-${borderColor}`)
   );
 
   const borderRadiusClasses = cn({
@@ -183,9 +184,9 @@ const Button: React.FC<ButtonProps> = ({
     borderClasses,
     borderRadiusClasses,
     borderRadiusFor(borderRadiusTablet) &&
-      `md:${borderRadiusFor(borderRadiusTablet)}`,
+    `md:${borderRadiusFor(borderRadiusTablet)}`,
     borderRadiusFor(borderRadiusDesktop) &&
-      `lg:${borderRadiusFor(borderRadiusDesktop)}`,
+    `lg:${borderRadiusFor(borderRadiusDesktop)}`,
     shadowClasses,
     shadowFor(shadowTablet) && `md:${shadowFor(shadowTablet)}`,
     shadowFor(shadowDesktop) && `lg:${shadowFor(shadowDesktop)}`,
@@ -194,6 +195,7 @@ const Button: React.FC<ButtonProps> = ({
     cursorFor(cursorDesktop) && `lg:${cursorFor(cursorDesktop)}`,
     hasSpacing && spacingStyles[iconSpacing],
     iconPosition === "right" && "flex-row-reverse",
+    noWrap && "whitespace-nowrap",
     className
   );
 
