@@ -21,6 +21,12 @@ export default <Partial<Config>>{
 
     // Text alignment
     { pattern: /text-(left|center|right)/ },
+    // Whitespace control
+    "whitespace-nowrap",
+    "whitespace-normal",
+    "whitespace-pre",
+    "whitespace-pre-line",
+    "whitespace-pre-wrap",
     // Flex alignment driven by CMS
     { pattern: /justify-(start|center|end|between|around|evenly)/ },
     { pattern: /items-(start|center|end|stretch|baseline)/ },

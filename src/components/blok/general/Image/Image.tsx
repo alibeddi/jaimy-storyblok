@@ -21,6 +21,7 @@ interface ImageBlok {
   aspect_ratio_tablet?: string;
   aspect_ratio_mobile?: string;
   max_width?: string | number;
+  min_width?: string | number;
   margin_bottom?: SpacingVariant;
   preset?: string;
   [key: string]: any;
@@ -60,6 +61,7 @@ const Image: React.FC<ImageProps> = ({ blok }) => {
         aspectTablet={blok?.aspect_ratio_tablet}
         aspectMobile={blok?.aspect_ratio_mobile}
         maxWidth={blok?.max_width}
+        minWidth={blok?.min_width}
         preset={blok?.preset}
         {...imageConfig}
         {...storyblokEditable(blok)}
