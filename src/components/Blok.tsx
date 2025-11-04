@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import { SbBlokData } from "@storyblok/react";
 
 interface BlokData extends SbBlokData {
@@ -10,12 +12,14 @@ interface BlokProps {
   blok: BlokData;
 }
 
-// Lazy load the component map to avoid circular dependencies
-const getComponentMap = () => {
+// Type for the component map
+type ComponentMap = Record<string, React.ComponentType<{ blok: BlokData }>>;
+
+// Lazy load the component map
+const getComponentMap = async (): Promise<ComponentMap> => {
   try {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const { componentMap } = require("./blok-map");
-    return componentMap;
+    const { componentMap } = await import("./blok-map");
+    return componentMap as ComponentMap;
   } catch (error) {
     console.error("Failed to load component map:", error);
     return {};
@@ -23,22 +27,25 @@ const getComponentMap = () => {
 };
 
 const Blok: React.FC<BlokProps> = ({ blok }) => {
-  // Early return for invalid blok data
-  if (!blok || !blok?.component) {
+  const [Component, setComponent] = useState<React.ComponentType<{
+    blok: BlokData;
+  }> | null>(null);
+
+  useEffect(() => {
+    const loadComponent = async () => {
+      const componentRegistry = await getComponentMap();
+      const Comp = componentRegistry[blok.component];
+      setComponent(() => Comp || null);
+    };
+    loadComponent();
+  }, [blok.component]);
+
+  if (!blok?.component) {
     console.error("Invalid blok data:", blok);
     return null;
   }
 
-  const componentRegistry = getComponentMap();
-  const Component = componentRegistry[blok.component];
-
   if (!Component) {
-    console.error(
-      "Unknown component:",
-      blok?.component,
-      "Available components:",
-      Object.keys(componentRegistry)
-    );
     return (
       <div
         style={{
@@ -47,9 +54,7 @@ const Blok: React.FC<BlokProps> = ({ blok }) => {
           color: "#721c24",
           border: "1px solid #f5c6cb",
         }}>
-        Unknown component: {blok.component}
-        <br />
-        <small>Component ID: {blok?._uid}</small>
+        Loading or unknown component: {blok.component}
       </div>
     );
   }

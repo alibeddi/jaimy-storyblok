@@ -25,8 +25,8 @@ export default function Reviews({ blok }: { blok: ReviewsBlok }) {
         setCardsPerSlide(1); // Mobile: 1 card
       } else if (width < 1024) {
         setCardsPerSlide(2); // Tablet: 2 cards
-      } else if (width < 1280) {
-        setCardsPerSlide(3); // Small desktop: 3 cards
+      } else if (width < 1250) {
+        setCardsPerSlide(2); // Medium desktop (including 1350px): 2 cards
       } else {
         setCardsPerSlide(3); // Large desktop: 3 cards
       }
@@ -41,7 +41,7 @@ export default function Reviews({ blok }: { blok: ReviewsBlok }) {
     // Cleanup
     return () => window.removeEventListener("resize", updateCardsPerSlide);
   }, []);
-
+  console.log("Cards per slide:", cardsPerSlide);
   // Reset slide when cards per slide changes
   useEffect(() => {
     setCurrentSlide(0);
@@ -136,7 +136,7 @@ export default function Reviews({ blok }: { blok: ReviewsBlok }) {
       } else if (cardsPerSlide === 2 || totalReviews === 2) {
         return "grid grid-cols-1 md:grid-cols-2 place-items-center max-w-2xl mx-auto";
       } else {
-        return "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center max-w-4xl mx-auto";
+        return "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center  mx-auto";
       }
     }
 

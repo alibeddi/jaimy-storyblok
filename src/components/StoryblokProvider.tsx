@@ -24,7 +24,7 @@ import Features from "./blok/services/Features";
 import Footer from "./blok/services/Footer";
 import Header from "./blok/services/Header";
 import Heading from "./blok/general/Heading";
-import { Hero } from "./blok/services";
+
 import Iframe from "./blok/general/Iframe";
 import Image from "./blok/general/Image";
 import Page from "./blok/services/Page";
@@ -47,7 +47,7 @@ storyblokInit({
   components: {
     page: Page,
     header: Header,
-    hero: Hero,
+    // hero: Hero,
     steps: Steps,
     body: Body,
     blogs: Blogs,
