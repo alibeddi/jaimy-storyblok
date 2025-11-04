@@ -1,8 +1,7 @@
 "use client";
 
 import type { ReviewBlok } from "@/types/storyblok";
-import { StoryblokComponent } from "@storyblok/react";
-import { storyblokEditable } from "@storyblok/react";
+import { StoryblokComponent, storyblokEditable } from "@storyblok/react";
 
 interface Props {
   blok: ReviewBlok;
@@ -18,12 +17,10 @@ export default function Review({ blok, className }: Props) {
   return (
     <div
       {...storyblokEditable(blok)}
-      className={`bg-white p-4 sm:p-6 md:p-8 transition-all duration-300 ease-in-out mx-auto relative ${className || ""}`}
-      style={{
-        borderRadius: "14px",
-        boxShadow: "0 10px 24px rgba(0,0,0,0.10)",
-        willChange: "transform",
-      }}>
+      className={`bg-white min-w-[200px] p-6 sm:p-6 md:p-8 transition-all duration-300 ease-in-out relative 
+        rounded-[14px] shadow-[0_10px_24px_rgba(0,0,0,0.10)] 
+        w-full sm:w-[calc(90%-1rem)] md:w-[calc(100%-1rem)] lg:w-[calc(90.333%-1rem)] mx-auto
+        ${className || ""}`}>
       {/* Top row: Avatar + Name at left, Stars at right */}
       <div className="flex items-center justify-between gap-3 sm:gap-4 md:gap-6">
         <div className="flex items-center gap-3 sm:gap-4 md:gap-5 flex-1 min-w-0">
@@ -49,7 +46,7 @@ export default function Review({ blok, className }: Props) {
           </div>
         </div>
 
-        {/* Stars on the right (never overlaps due to shrink-0) */}
+        {/* Stars */}
         {starsBlok && (
           <div className="flex-shrink-0 ml-2 sm:ml-3 md:ml-4 self-start">
             <StoryblokComponent blok={starsBlok} />
@@ -59,7 +56,7 @@ export default function Review({ blok, className }: Props) {
 
       {/* Review text */}
       {richtextBlok && (
-        <div className="mt-3 sm:mt-4 md:mt-5 text-sm sm:text-base md:text-lg text-black">
+        <div className="mt-3 sm:mt-4 md:mt-5 text-sm sm:text-base md:text-lg text-black max-w-prose mx-auto">
           <div className="italic">
             <span className="mr-1">“</span>
             <StoryblokComponent blok={richtextBlok} />

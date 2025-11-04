@@ -7,7 +7,6 @@ import {
   Features,
   Footer,
   Header,
-  Hero,
   Reviews,
   SocialProof,
 } from "./blok/services";
@@ -58,7 +57,7 @@ type ComponentType = React.ComponentType<any>;
 export const componentMap: Record<string, ComponentType> = {
   // page: PageBlock,
   header: Header,
-  hero: Hero,
+  // hero: Hero,
   step: Step,
   steps: Steps,
   stars: Stars,

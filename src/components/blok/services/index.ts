@@ -1,5 +1,5 @@
 export { default as Reviews } from "./Reviews";
-export { default as Hero } from "./Hero";
+
 export { default as Header } from "./Header";
 export { default as Blogs } from "./Blogs";
 export { default as SocialProof } from "./SocialProof";

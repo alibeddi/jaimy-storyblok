@@ -47,19 +47,24 @@ const ReviewStars: React.FC<ReviewStarsProps> = ({
         })}
         onClick={() => handleStarClick(starRating)}
         disabled={readonly}
-        aria-label={`Rate ${starRating} star${starRating !== 1 ? "s" : ""}`}
-      >
+        aria-label={`Rate ${starRating} star${starRating !== 1 ? "s" : ""}`}>
         <Star
-          className={cn(sizeClasses[size], "transition-colors", {
-            "fill-yellow-400 text-yellow-400": isFilled,
-            "text-gray-300": !isFilled && !isPartiallyFilled,
-          })}
+          className={cn(
+            sizeClasses[size as keyof typeof sizeClasses] ??
+              sizeClasses.default,
+            "transition-colors",
+            {
+              "fill-yellow-400 text-yellow-400": isFilled,
+              "text-gray-300": !isFilled && !isPartiallyFilled,
+            }
+          )}
           strokeWidth={2}
         />
         {isPartiallyFilled && (
           <Star
             className={cn(
-              sizeClasses[size],
+              sizeClasses[size as keyof typeof sizeClasses] ??
+                sizeClasses.default,
               "absolute top-0 left-0 fill-yellow-400 text-yellow-400 transition-colors"
             )}
             style={{
