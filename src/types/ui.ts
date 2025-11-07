@@ -183,7 +183,27 @@ export interface ColumnsProps extends BaseUIProps {
 }
 
 export interface ContainerProps extends BaseUIProps {
-  maxWidth?: "sm" | "md" | "lg" | "xl" | "2xl" | "full";
+  maxWidth?:
+    | "sm"
+    | "md"
+    | "lg"
+    | "xl"
+    | "2xl"
+    | "full"
+    | "10%"
+    | "20%"
+    | "25%"
+    | "30%"
+    | "33%"
+    | "40%"
+    | "50%"
+    | "60%"
+    | "66%"
+    | "70%"
+    | "75%"
+    | "80%"
+    | "90%"
+    | "95%";
   padding?: SpacingVariant;
 }
 
