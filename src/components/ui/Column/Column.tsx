@@ -10,7 +10,7 @@ const ConditionalWrapper: React.FC<{
   wrapper: (children: React.ReactNode) => React.ReactNode;
   children: React.ReactNode;
 }> = ({ condition, wrapper, children }) =>
-  condition ? wrapper(children) : <>{children}</>;
+    condition ? wrapper(children) : <>{children}</>;
 
 const QuoteOpen: React.FC<{ className?: string }> = ({ className }) => (
   <span className={className}>&ldquo;</span>
@@ -119,7 +119,7 @@ const Column: React.FC<ExtendedColumnProps> = ({
     },
     // Apply default border color (gray-300) when borderColor is "default" or when border is set but no specific color
     border !== "none" &&
-      (borderColor === "default" ? "border-gray-300" : `border-${borderColor}`)
+    (borderColor === "default" ? "border-gray-300" : `border-${borderColor}`)
   );
 
   const borderRadiusClasses = cn({
@@ -219,6 +219,10 @@ const Column: React.FC<ExtendedColumnProps> = ({
     md: "gap-6",
     lg: "gap-8",
     xl: "gap-12",
+    "2xl": "gap-16",
+    "3xl": "gap-20",
+    "4xl": "gap-24",
+    "5xl": "gap-32",
   };
 
   const containerClasses = cn(
@@ -259,17 +263,17 @@ const Column: React.FC<ExtendedColumnProps> = ({
       flexDirection !== "default" ||
       flexWrap !== "default" ||
       gap !== "default") &&
-      "flex",
+    "flex",
     flexDirection &&
-      flexDirectionMap[flexDirection as keyof typeof flexDirectionMap],
+    flexDirectionMap[flexDirection as keyof typeof flexDirectionMap],
     justifyContent && justifyMap[justifyContent as keyof typeof justifyMap],
     (alignItems && alignItemsMap[alignItems as keyof typeof alignItemsMap]) ||
-      (alignContent &&
-        alignItemsMap[alignContent as keyof typeof alignItemsMap]),
+    (alignContent &&
+      alignItemsMap[alignContent as keyof typeof alignItemsMap]),
     alignContent &&
-      alignContentMap[alignContent as keyof typeof alignContentMap],
+    alignContentMap[alignContent as keyof typeof alignContentMap],
     justifyItems &&
-      justifyItemsMap[justifyItems as keyof typeof justifyItemsMap],
+    justifyItemsMap[justifyItems as keyof typeof justifyItemsMap],
     flexWrap && flexWrapMap[flexWrap as keyof typeof flexWrapMap],
     gap && gapMap[gap as keyof typeof gapMap]
   );

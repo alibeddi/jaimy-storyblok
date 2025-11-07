@@ -65,14 +65,36 @@ interface ContainerProps {
 const Container: React.FC<ContainerProps> = ({ blok }) => {
   const hasIcon = blok.icon_type && blok.icon_type !== "default";
 
+  // Extract color value from data source object or use string directly
+  const getColorValue = (colorData: any): string | undefined => {
+    if (!colorData) return undefined;
+    if (typeof colorData === "string") return colorData;
+    // Handle Storyblok data source object (Source Self)
+    if (typeof colorData === "object") {
+      // Try different possible property names
+      return (
+        colorData.value ||
+        colorData.name ||
+        colorData.color ||
+        colorData.hex ||
+        colorData.id ||
+        undefined
+      );
+    }
+    return undefined;
+  };
+
+  const backgroundColor = getColorValue(blok?.background_color);
+
+  // Debug: Log the color data to see what's being passed
+  if (process.env.NODE_ENV === "development" && blok?.background_color) {
+    console.log("Background color data:", blok.background_color);
+    console.log("Extracted backgroundColor:", backgroundColor);
+  }
+
   return (
     <ContainerUI
-      maxWidth={
-        blok?.max_width &&
-          ["sm", "md", "lg", "xl", "2xl", "full"].includes(blok.max_width)
-          ? (blok.max_width as "sm" | "md" | "lg" | "xl" | "2xl" | "full")
-          : undefined
-      }
+      maxWidth={blok?.max_width as any}
       padding={blok?.padding}
       // Icon props
       hasIcon={hasIcon}
@@ -82,7 +104,7 @@ const Container: React.FC<ContainerProps> = ({ blok }) => {
       iconSize={blok?.icon_size}
       iconSpacing={blok?.icon_spacing}
       // Background props
-      backgroundColor={blok?.background_color}
+      backgroundColor={backgroundColor}
       backgroundImage={blok?.background_image}
       backgroundSize={blok?.background_size}
       backgroundPosition={blok?.background_position}

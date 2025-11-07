@@ -96,10 +96,11 @@ const Container: React.FC<ExtendedContainerProps> = ({
     if (backgroundRepeat && backgroundRepeat !== "default") {
       backgroundStyles.backgroundRepeat = backgroundRepeat;
     }
+
   }
 
   // Max width styles
-  const maxWidthStyles = {
+  const maxWidthStyles: Record<string, string> = {
     sm: "max-w-sm",
     md: "max-w-md",
     lg: "max-w-lg",
@@ -107,6 +108,11 @@ const Container: React.FC<ExtendedContainerProps> = ({
     "2xl": "max-w-2xl",
     full: "max-w-full",
   };
+
+  // Check if maxWidth is a custom value (percentage or px)
+  const isCustomWidth = maxWidth?.includes("%") || maxWidth?.includes("px");
+  const maxWidthClass = isCustomWidth ? "" : maxWidthStyles[maxWidth];
+  const maxWidthStyle = isCustomWidth ? { maxWidth } : {};
 
   // Padding styles
   const paddingMap = {
@@ -259,7 +265,7 @@ const Container: React.FC<ExtendedContainerProps> = ({
 
   const containerClasses = cn(
     "mx-auto",
-    maxWidthStyles[maxWidth],
+    maxWidthClass,
     displayClass,
     // If any flex options are provided, ensure flex is enabled
     (justifyContent ||
@@ -348,7 +354,7 @@ const Container: React.FC<ExtendedContainerProps> = ({
     return (
       <div
         className={cn("relative", containerClasses)}
-        style={{ ...style, ...backgroundStyles }}
+        style={{ ...style, ...backgroundStyles, ...maxWidthStyle }}
         {...rest}
       >
         <div className={backgroundLayerClasses} style={opacityStyle} />
@@ -360,7 +366,7 @@ const Container: React.FC<ExtendedContainerProps> = ({
   return (
     <div
       className={containerClasses}
-      style={{ ...style, ...backgroundStyles, ...customBgStyle }}
+      style={{ ...style, ...backgroundStyles, ...customBgStyle, ...maxWidthStyle }}
       {...rest}
     >
       {content}
