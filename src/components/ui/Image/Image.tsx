@@ -27,8 +27,14 @@ const Image: React.FC<ImageProps> = memo(
     objectFit = "cover",
     ...rest
   }) => {
-    // Memoize derived values
-    const isResponsive = useMemo(() => !width || !height, [width, height]);
+    // Memoize derived values - treat images as responsive if no dimensions or dimensions are 0
+    const isResponsive = useMemo(() => {
+      const numWidth = typeof width === "string" ? parseInt(width) : width;
+      const numHeight = typeof height === "string" ? parseInt(height) : height;
+      const hasValidWidth = numWidth && numWidth > 0;
+      const hasValidHeight = numHeight && numHeight > 0;
+      return !hasValidWidth || !hasValidHeight;
+    }, [width, height]);
 
     // Memoize image classes calculation
     const imageClasses = useMemo(
@@ -50,66 +56,54 @@ const Image: React.FC<ImageProps> = memo(
       [width, height]
     );
 
-    if (isResponsive) {
-      if (!src) return null;
-      return (
-        <div className={cn("relative w-full h-full", className)}>
-          <NextImage
-            src={src!}
-            alt={alt}
-            className={imageClasses}
-            style={{
-              objectFit: objectFit,
-            }}
-            width={dimensions.width || 100}
-            height={dimensions.height || 100}
-            loading={loading}
-            priority={priority}
-            placeholder={placeholder ? "blur" : undefined}
-            blurDataURL={placeholder}
-            onError={(e) => {
-              console.warn('Responsive image failed to load:', src);
-              // Fallback: try to reload with unoptimized version
-              if (process.env.NODE_ENV === 'production') {
-                const target = e.target as HTMLImageElement;
-                if (!target.src.includes('?unoptimized=true')) {
-                  const separator = target.src.includes('?') ? '&' : '?';
-                  target.src = `${target.src}${separator}unoptimized=true`;
-                }
-              }
-            }}
-            {...rest}
-          />
-        </div>
-      );
+    // Always render with width/height for better compatibility
+    if (!src) {
+      if (process.env.NODE_ENV === "development") {
+        console.log("Image: No src provided");
+      }
+      return null;
     }
 
-    // Handle fixed size images
-    if (!src) return null;
-    
+    if (process.env.NODE_ENV === "development") {
+      console.log("Image: Rendering image", {
+        src,
+        alt,
+        dimensions,
+        isResponsive,
+        finalWidth: dimensions.width || 800,
+        finalHeight: dimensions.height || 600,
+      });
+    }
+
     return (
       <NextImage
         src={src!}
         alt={alt}
-        width={dimensions.width || 100}
-        height={dimensions.height || 100}
-        className={imageClasses}
+        width={dimensions.width || 800}
+        height={dimensions.height || 600}
+        className={cn(imageClasses, "w-full h-auto max-w-full")}
+        style={{
+          objectFit: objectFit,
+        }}
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         loading={loading}
         priority={priority}
         placeholder={placeholder ? "blur" : undefined}
         blurDataURL={placeholder}
-        style={{
-          objectFit: objectFit,
-        }}
         onError={(e) => {
-          console.warn('Image failed to load:', src);
+          console.warn("Image failed to load:", src);
           // Fallback: try to reload with unoptimized version
-          if (process.env.NODE_ENV === 'production') {
+          if (process.env.NODE_ENV === "production") {
             const target = e.target as HTMLImageElement;
-            if (!target.src.includes('?unoptimized=true')) {
-              const separator = target.src.includes('?') ? '&' : '?';
+            if (!target.src.includes("?unoptimized=true")) {
+              const separator = target.src.includes("?") ? "&" : "?";
               target.src = `${target.src}${separator}unoptimized=true`;
             }
+          }
+        }}
+        onLoad={() => {
+          if (process.env.NODE_ENV === "development") {
+            console.log("Image loaded successfully:", src);
           }
         }}
         {...rest}

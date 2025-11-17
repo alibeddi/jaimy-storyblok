@@ -32,9 +32,9 @@ export default function Blog({ blok, className }: Props) {
       {...storyblokEditable(blok)}
       className={`rounded-xl sm:rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.02] shadow-md hover:shadow-lg group bg-white ${className || ""}`}>
       {/* Image Block */}
-      <div className="">
+      <div className="w-full">
         {imageBlok && (
-          <div className="relative max-h-76">
+          <div className="relative w-full h-48 sm:h-56 md:h-64 overflow-hidden">
             <div className="w-full h-full">
               <StoryblokComponent blok={imageBlok} />
             </div>

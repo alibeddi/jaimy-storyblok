@@ -19,16 +19,18 @@ export default function Review({ blok, className }: Props) {
       {...storyblokEditable(blok)}
       className={`bg-white min-w-[200px] p-6 sm:p-6 md:p-8 transition-all duration-300 ease-in-out relative 
         rounded-[14px] shadow-[0_10px_24px_rgba(0,0,0,0.10)] 
-        w-full sm:w-[calc(90%-1rem)] md:w-[calc(100%-1rem)] lg:w-[calc(90.333%-1rem)] mx-auto
+        w-full sm:w-[calc(90%-1rem)] md:w-[calc(100%-1rem)] lg:w-[calc(100%-1rem)] mx-auto
         ${className || ""}`}>
       {/* Top row: Avatar + Name at left, Stars at right */}
       <div className="flex items-center justify-between gap-3 sm:gap-4 md:gap-6">
-        <div className="flex items-center gap-3 sm:gap-4 md:gap-5 flex-1 min-w-0">
+        <div className="flex items-center gap-2 sm:gap-3 md:gap-4 flex-1 min-w-0">
           {/* Avatar */}
-          <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full overflow-hidden flex-shrink-0">
+          <div className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-full overflow-hidden flex-shrink-0">
             {imageBlok ? (
+              // <div className="[&>*]:!mb-0 [&>*]:!mt-0 w-full h-full">
               <StoryblokComponent blok={imageBlok} />
             ) : (
+              // </div>
               <div
                 className="w-full h-full rounded-full"
                 style={{ background: "#BE213A" }}

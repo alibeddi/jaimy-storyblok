@@ -10,7 +10,8 @@ const BlokImage: React.FC<BlokImageProps> = memo(
     aspectDesktop,
     aspectTablet,
     aspectMobile,
-    preset, // Keeping for potential future use
+    width,
+    height,
     maxWidth,
     minWidth,
     className,
@@ -21,13 +22,47 @@ const BlokImage: React.FC<BlokImageProps> = memo(
       const style: React.CSSProperties = {};
 
       if (maxWidth) {
-        style.maxWidth =
-          typeof maxWidth === "number" ? `${maxWidth}px` : maxWidth;
+        // Handle maxWidth as REM units for responsive design
+        let maxWidthValue = "";
+
+        if (typeof maxWidth === "number") {
+          // Convert number to rem units (Storyblok field is already in rem)
+          maxWidthValue = `${maxWidth}rem`;
+        } else if (typeof maxWidth === "string") {
+          // Handle string values
+          const trimmedValue = maxWidth.trim();
+          if (trimmedValue) {
+            // If it's just a number as string, treat as rem
+            if (/^\d+(\.\d+)?$/.test(trimmedValue)) {
+              maxWidthValue = `${trimmedValue}rem`;
+            } else {
+              // If it already has units, use as-is
+              maxWidthValue = trimmedValue;
+            }
+          }
+        }
+
+        if (maxWidthValue) {
+          style.maxWidth = maxWidthValue;
+          // Also ensure it doesn't exceed viewport width on smaller screens
+          style.width = "100%";
+        }
       }
 
       if (minWidth) {
-        style.minWidth =
-          typeof minWidth === "number" ? `${minWidth}px` : minWidth;
+        // Handle different minWidth formats
+        if (typeof minWidth === "number") {
+          style.minWidth = `${minWidth}px`;
+        } else if (typeof minWidth === "string") {
+          const trimmedValue = minWidth.trim();
+          if (trimmedValue) {
+            if (/^\d+$/.test(trimmedValue)) {
+              style.minWidth = `${trimmedValue}px`;
+            } else {
+              style.minWidth = trimmedValue;
+            }
+          }
+        }
       }
 
       return style;
@@ -44,36 +79,123 @@ const BlokImage: React.FC<BlokImageProps> = memo(
 
     // Memoize image props to prevent object recreation
     const imageProps = useMemo(() => {
-      if (!asset?.filename) return null;
+      if (!asset?.filename) {
+        if (process.env.NODE_ENV === "development") {
+          console.log("BlokImage: No asset filename provided", asset);
+        }
+        return null;
+      }
+
+      // Use custom width/height if provided, otherwise use asset dimensions
+      const finalWidth = width || asset.width;
+      const finalHeight = height || asset.height;
+
+      if (process.env.NODE_ENV === "development") {
+        console.log("🔧 BlokImage dimensions processing:", {
+          customWidth: width,
+          customHeight: height,
+          assetWidth: asset.width,
+          assetHeight: asset.height,
+          finalWidth: finalWidth,
+          finalHeight: finalHeight,
+        });
+      }
+
       return {
         src: asset.filename,
         alt: asset.alt || "",
-        width: asset.width,
-        height: asset.height,
+        width: finalWidth,
+        height: finalHeight,
         loading: "lazy" as const,
         ...rest,
       };
-    }, [asset?.filename, asset?.alt, asset?.width, asset?.height, rest]);
+    }, [asset, width, height, rest]);
 
-    // Memoize container class to prevent string concatenation
-    const containerClass = useMemo(
-      () => `mx-auto ${className || ""}`,
-      [className]
-    );
+    // Memoize container class with responsive sizing
+    const containerClass = useMemo(() => {
+      const baseClasses = "mx-auto";
 
-    // Memoize image container class
-    const imageContainerClass = useMemo(
-      () => `relative w-full ${aspectRatioClasses || "h-auto"}`,
-      [aspectRatioClasses]
-    );
+      // If custom width/height is provided, use minimal classes
+      if (width || height) {
+        return `${baseClasses} ${className || ""}`.trim();
+      }
+
+      if (maxWidth) {
+        // When maxWidth is set in rem, ensure it's responsive across screen sizes
+        // The inline style handles the max-width, classes handle responsive behavior
+        const responsiveClasses = "w-full px-4 sm:px-0"; // Add padding on mobile, remove on larger screens
+        return `${baseClasses} ${responsiveClasses} ${className || ""}`.trim();
+      } else {
+        // Default responsive max-width when no maxWidth is specified
+        const responsiveClasses =
+          "w-full max-w-full sm:max-w-lg md:max-w-2xl lg:max-w-4xl px-4 sm:px-0";
+        return `${baseClasses} ${responsiveClasses} ${className || ""}`.trim();
+      }
+    }, [className, maxWidth, width, height]);
+
+    // Memoize image container class with responsive sizing
+    const imageContainerClass = useMemo(() => {
+      // If custom width or height is provided, don't use w-full
+      const widthClass = width ? "" : "w-full";
+      const baseClasses = `relative ${widthClass} max-w-full`;
+      const aspectClasses = aspectRatioClasses || "";
+
+      // If custom dimensions are provided, don't use aspect ratio classes
+      if (width || height) {
+        return `${baseClasses}`;
+      }
+
+      // If no aspect ratio is defined, use auto height
+      if (!aspectClasses) {
+        return `${baseClasses} h-auto`;
+      }
+
+      return `${baseClasses} ${aspectClasses}`;
+    }, [aspectRatioClasses, width, height]);
 
     if (!imageProps) {
       return null;
     }
 
+    // Debug logging for dimensions and max-width
+    if (process.env.NODE_ENV === "development") {
+      console.log("🖼️ BlokImage DEBUG:", {
+        // Dimensions
+        customWidth: width,
+        customHeight: height,
+        assetWidth: asset?.width,
+        assetHeight: asset?.height,
+        finalWidth: imageProps?.width,
+        finalHeight: imageProps?.height,
+        // Max-width
+        originalMaxWidth: maxWidth,
+        convertedMaxWidth: containerStyle.maxWidth,
+        containerStyle: containerStyle,
+        containerClass: containerClass,
+        imageAsset: asset?.filename,
+      });
+    }
+
     return (
-      <div style={containerStyle} className={containerClass}>
-        <div className={imageContainerClass}>
+      <div
+        style={containerStyle}
+        className={containerClass}
+        data-max-width={maxWidth}
+        data-debug="blok-image-container">
+        <div
+          className={imageContainerClass}
+          style={{
+            width: width
+              ? typeof width === "number"
+                ? `${width}px`
+                : width
+              : undefined,
+            height: height
+              ? typeof height === "number"
+                ? `${height}px`
+                : height
+              : undefined,
+          }}>
           <Image
             src={imageProps.src}
             alt={imageProps.alt}
@@ -81,6 +203,7 @@ const BlokImage: React.FC<BlokImageProps> = memo(
             height={imageProps.height}
             loading={imageProps.loading}
             className="w-full h-full object-cover"
+            objectFit="cover"
           />
         </div>
       </div>

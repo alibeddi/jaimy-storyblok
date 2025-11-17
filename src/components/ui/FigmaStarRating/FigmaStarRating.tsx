@@ -26,18 +26,18 @@ const FigmaStarRating: React.FC<FigmaStarRatingProps> = ({
 
   const sizeClasses = {
     sm: {
-      container: "w-[28px] h-[28px]",
+      container: "w-[20px] h-[20px]",
       star: "w-[14px] h-[14px]",
       position: "left-[7px] top-[7px]",
     },
     md: {
-      container: "w-[34px] h-[34px]",
-      star: "w-[17px] h-[17px]",
+      container: "w-[20px] h-[20px]",
+      star: "w-[14px] h-[14px]",
       position: "left-[9px] top-[8px]",
     },
     lg: {
-      container: "w-[40px] h-[40px]",
-      star: "w-[20px] h-[20px]",
+      container: "w-[20px] h-[20px]",
+      star: "w-[14px] h-[14px]",
       position: "left-[10px] top-[10px]",
     },
   };

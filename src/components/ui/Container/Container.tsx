@@ -342,6 +342,8 @@ const Container: React.FC<ExtendedContainerProps> = memo(
       // Apply maxWidth only for contained appearance
       isContained &&
         MAX_WIDTH_STYLES[maxWidth as keyof typeof MAX_WIDTH_STYLES],
+      // Add responsive overflow control
+      "overflow-hidden",
       // Apply padding based on appearance and overrides
       isContained &&
         !paddingX &&

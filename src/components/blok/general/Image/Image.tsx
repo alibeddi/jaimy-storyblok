@@ -20,6 +20,8 @@ interface ImageBlok {
   aspect_ratio_desktop?: string;
   aspect_ratio_tablet?: string;
   aspect_ratio_mobile?: string;
+  width?: string | number;
+  height?: string | number;
   max_width?: string | number;
   min_width?: string | number;
   margin_bottom?: SpacingVariant;
@@ -46,13 +48,24 @@ const Image: React.FC<ImageProps> = ({ blok }) => {
     [marginBottomClasses[blok?.margin_bottom || "default"]]: true,
   });
 
+  // Use custom width/height if provided, otherwise fallback to image asset dimensions
   const imageConfig = {
-    width: blok?.img?.width,
-    height: blok?.img?.height,
+    width: blok?.width || blok?.img?.width,
+    height: blok?.height || blok?.img?.height,
     priority: false,
     layout: "responsive",
   };
-  console.log("Rendering Image blok:", blok?.img);
+  console.log("📷 Storyblok Image DEBUG:", {
+    img: blok?.img,
+    customWidth: blok?.width,
+    customHeight: blok?.height,
+    assetWidth: blok?.img?.width,
+    assetHeight: blok?.img?.height,
+    finalWidth: imageConfig.width,
+    finalHeight: imageConfig.height,
+    max_width: blok?.max_width,
+    min_width: blok?.min_width,
+  });
   return (
     <div className={className}>
       <BlokImage
@@ -60,10 +73,13 @@ const Image: React.FC<ImageProps> = ({ blok }) => {
         aspectDesktop={blok?.aspect_ratio_desktop}
         aspectTablet={blok?.aspect_ratio_tablet}
         aspectMobile={blok?.aspect_ratio_mobile}
+        width={imageConfig.width}
+        height={imageConfig.height}
         maxWidth={blok?.max_width}
         minWidth={blok?.min_width}
         preset={blok?.preset}
-        {...imageConfig}
+        priority={imageConfig.priority}
+        layout={imageConfig.layout}
         {...storyblokEditable(blok)}
       />
     </div>

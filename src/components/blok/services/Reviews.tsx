@@ -157,7 +157,7 @@ export default function Reviews({ blok }: { blok: ReviewsBlok }) {
     } else if (cardsPerSlide === 2) {
       return "w-full max-w-xs sm:max-w-sm";
     } else {
-      return "max-w-lg";
+      return "";
     }
   };
 
