@@ -1,11 +1,10 @@
 import { StoryblokComponent, storyblokEditable } from "@storyblok/react";
 
 import BlokImage from "../../../ui/BlokImage";
-import { BlokImageProps } from "@/types/ui";
 import Connected from "../../../ui/Hero";
 import Icon from "../../../ui/Icon";
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from "react";
+import React, { memo, useMemo } from "react";
 import cn from "classnames";
 
 interface ChildBlok {
@@ -38,52 +37,92 @@ interface HeroProps {
   blok: HeroBlok;
 }
 
-const Hero: React.FC<HeroProps> = ({ className, blok }) => {
-  const hasImage = blok?.img?.filename;
-  const hasConnector = blok?.connector_toggle;
-  const hasIcon = blok?.hero_icon;
-
-  const imageMobile = blok.img_mobile?.filename ? blok.img_mobile : blok.img;
-
-  const imageConfig = hasIcon
-    ? { aspectDesktop: "1:1", aspectTablet: "1:1", aspectMobile: "1:1" }
-    : { aspectDesktop: "8:3", aspectTablet: "8:3", aspectMobile: "16:9" };
-
-  const sectionClass = cn(
-    className,
-    "relative w-full z-10",
-    blok?.hero_appearance === "full-width" &&
-      hasImage &&
-      hasConnector &&
-      "lg:bg-gray-800",
-    blok?.hero_appearance === "full-width" &&
-      hasImage &&
-      !hasConnector &&
-      "bg-gray-800",
-    hasIcon && "pt-4 pb-9"
+const Hero: React.FC<HeroProps> = memo(({ className, blok }) => {
+  // Memoize derived values to prevent recalculation
+  const heroState = useMemo(
+    () => ({
+      hasImage: blok?.img?.filename,
+      hasConnector: blok?.connector_toggle,
+      hasIcon: blok?.hero_icon,
+    }),
+    [blok?.img?.filename, blok?.connector_toggle, blok?.hero_icon]
   );
 
-  const heroContainerClass = cn(
-    "w-full",
-    "lg:container",
-    !hasImage && !hasConnector && "px-4 mt-4 lg:mt-8",
-    blok?.hero_appearance === "constraint" && hasImage && "px-4 lg:mt-0",
-    hasConnector && "lg:translate-y-4"
+  const imageMobile = useMemo(
+    () => (blok.img_mobile?.filename ? blok.img_mobile : blok.img),
+    [blok.img_mobile, blok.img]
   );
 
-  const contentClass = cn(
-    "w-full",
-    "p-4",
-    !hasConnector && "bg-gray-800",
-    hasImage && blok?.hero_appearance === "full-width" && "lg:pl-0",
-    blok.hero_appearance === "constraint" && "lg:px-8"
+  const imageConfig = useMemo(
+    () =>
+      heroState.hasIcon
+        ? { aspectDesktop: "1:1", aspectTablet: "1:1", aspectMobile: "1:1" }
+        : { aspectDesktop: "8:3", aspectTablet: "8:3", aspectMobile: "16:9" },
+    [heroState.hasIcon]
   );
 
-  const imageClass = cn(
-    hasIcon
-      ? "w-16 h-16 lg:w-32 lg:h-32 absolute top-8 right-8 lg:top-16 lg:right-0 z-10"
-      : "",
-    hasConnector && "shadow-xl"
+  // Memoize computed class names
+  const sectionClass = useMemo(
+    () =>
+      cn(
+        className,
+        "relative w-full z-10",
+        blok?.hero_appearance === "full-width" &&
+          heroState.hasImage &&
+          heroState.hasConnector &&
+          "lg:bg-gray-800",
+        blok?.hero_appearance === "full-width" &&
+          heroState.hasImage &&
+          !heroState.hasConnector &&
+          "bg-gray-800",
+        heroState.hasIcon && "pt-4 pb-9"
+      ),
+    [
+      className,
+      blok?.hero_appearance,
+      heroState.hasImage,
+      heroState.hasConnector,
+      heroState.hasIcon,
+    ]
+  );
+
+  const heroContainerClass = useMemo(
+    () =>
+      cn(
+        "w-full",
+        "lg:container",
+        !heroState.hasImage && !heroState.hasConnector && "px-4 mt-4 lg:mt-8",
+        blok?.hero_appearance === "constraint" &&
+          heroState.hasImage &&
+          "px-4 lg:mt-0",
+        heroState.hasConnector && "lg:translate-y-4"
+      ),
+    [blok?.hero_appearance, heroState.hasImage, heroState.hasConnector]
+  );
+
+  const contentClass = useMemo(
+    () =>
+      cn(
+        "w-full",
+        "p-4",
+        !heroState.hasConnector && "bg-gray-800",
+        heroState.hasImage &&
+          blok?.hero_appearance === "full-width" &&
+          "lg:pl-0",
+        blok.hero_appearance === "constraint" && "lg:px-8"
+      ),
+    [heroState.hasConnector, heroState.hasImage, blok?.hero_appearance]
+  );
+
+  const imageClass = useMemo(
+    () =>
+      cn(
+        heroState.hasIcon
+          ? "w-16 h-16 lg:w-32 lg:h-32 absolute top-8 right-8 lg:top-16 lg:right-0 z-10"
+          : "",
+        heroState.hasConnector && "shadow-xl"
+      ),
+    [heroState.hasIcon, heroState.hasConnector]
   );
 
   return (
@@ -94,7 +133,7 @@ const Hero: React.FC<HeroProps> = ({ className, blok }) => {
           largeColumnDesktop="right"
           largeColumnMobile="left"
           color={blok?.connector_color}
-          disabled={!hasConnector}>
+          disabled={!heroState.hasConnector}>
           <div className={contentClass}>
             <div className="space-y-4">
               {blok.content?.map((child) => (
@@ -103,9 +142,9 @@ const Hero: React.FC<HeroProps> = ({ className, blok }) => {
             </div>
           </div>
 
-          {hasImage && (
+          {heroState.hasImage && (
             <div className="relative flex-grow p-4">
-              {hasIcon && (
+              {heroState.hasIcon && (
                 <Icon
                   className={imageClass}
                   variant="primary"
@@ -135,6 +174,8 @@ const Hero: React.FC<HeroProps> = ({ className, blok }) => {
       </div>
     </section>
   );
-};
+});
+
+Hero.displayName = "Hero";
 
 export default Hero;

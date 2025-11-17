@@ -7,6 +7,7 @@ import {
   storyblokInit,
 } from "@storyblok/react";
 import { useEffect, useState } from "react";
+import "@/lib/storyblok-security"; // Import security config to prevent origin errors
 
 import Banner from "./blok/general/Banner";
 import Blog from "./blok/general/Blog/Blog";
@@ -44,6 +45,7 @@ import { WhoWeAreSection } from "./blok/general/WhoWeAreSection";
 storyblokInit({
   accessToken: process.env.NEXT_PUBLIC_STORYBLOK_ACCESS_TOKEN,
   use: [apiPlugin],
+  bridge: process.env.NODE_ENV === "development", // Only enable bridge in development
   components: {
     page: Page,
     header: Header,
@@ -81,7 +83,6 @@ storyblokInit({
     button_group: ButtonGroup,
     button: Button,
   },
-  bridge: true, // Enable bridge for live editing
   apiOptions: {
     region: "eu", // Add region for better compatibility
   },
@@ -100,12 +101,18 @@ export default function StoryblokProvider({
   // We rely on manual bridge below to avoid SSR window errors
 
   useEffect(() => {
-    // Check if we're in preview mode
+    // Check if we're in preview mode - only in development or with explicit preview param
     const isPreview =
       typeof window !== "undefined" &&
-      window.location?.search?.includes("_storyblok");
+      (window.location?.search?.includes("_storyblok") ||
+        window.location?.search?.includes("_storyblok_tk"));
 
-    setIsPreviewMode(!!isPreview);
+    // Only enable preview in development or with explicit preview tokens
+    const shouldEnablePreview =
+      process.env.NODE_ENV === "development" ||
+      (isPreview && window.location?.search?.includes("_storyblok_tk"));
+
+    setIsPreviewMode(!!shouldEnablePreview);
 
     // Get story data from script tag if not provided as prop
     if (!story && typeof window !== "undefined") {
@@ -133,8 +140,20 @@ export default function StoryblokProvider({
         handleStoryblokInput as EventListener
       );
 
-      // Listen for Storyblok bridge messages
+      // Listen for Storyblok bridge messages with proper origin validation
       const handleMessage = (event: MessageEvent) => {
+        // Validate origin to prevent unauthorized messages
+        const allowedOrigins = [
+          "https://app.storyblok.com",
+          "https://service.jaimy.be",
+          window.location.origin,
+        ];
+
+        if (!allowedOrigins.includes(event.origin)) {
+          // Silently ignore unauthorized origins to prevent spam
+          return;
+        }
+
         try {
           if (event.data && typeof event.data === "object") {
             // Check if it's a Storyblok bridge message
@@ -148,7 +167,10 @@ export default function StoryblokProvider({
             }
           }
         } catch (error) {
-          console.error("Error handling bridge message:", error);
+          // Only log errors in development
+          if (process.env.NODE_ENV === "development") {
+            console.error("Error handling bridge message:", error);
+          }
         }
       };
 
@@ -159,15 +181,24 @@ export default function StoryblokProvider({
       (window as any).__storyblokMessageHandler = handleMessage;
     }
 
-    if (isPreview) {
+    if (shouldEnablePreview) {
+      // Additional production safety check
+      if (
+        process.env.NODE_ENV === "production" &&
+        !window.location.search.includes("_storyblok_tk")
+      ) {
+        console.log(
+          "Storyblok bridge disabled in production without preview token"
+        );
+        return;
+      }
+
       // Check if we're running on HTTPS
       if (window.location.protocol !== "https:") {
         console.warn(
           "⚠️ Storyblok bridge requires HTTPS. Please use 'npm run dev:https'"
         );
-      }
-
-      // Add a meta tag to help with origin validation
+      } // Add a meta tag to help with origin validation
       if (typeof document !== "undefined") {
         const metaTag = document.querySelector(
           'meta[name="storyblok-preview"]'
@@ -263,8 +294,9 @@ export default function StoryblokProvider({
             });
 
             // Handle enter edit mode
-            sbBridge.on("enterEditmode", (event) => {
+            sbBridge.on("enterEditmode", () => {
               try {
+                // Editor mode entered
               } catch (error) {
                 console.error("Error handling enterEditmode event:", error);
               }
@@ -275,35 +307,10 @@ export default function StoryblokProvider({
             sbBridge.pingEditor((payload: any) => {
               try {
                 if (sbBridge.isInEditor()) {
-                  // Force initial story load by triggering a ping
-                  setTimeout(() => {
-                    // Set up polling to check for story updates
-                    const pollInterval = setInterval(() => {
-                      if (sbBridge.isInEditor()) {
-                        // Try to get the current story from the bridge
-                        try {
-                          // Force a ping to get the latest story
-                          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                          sbBridge.pingEditor((payload: any) => {
-                            if (payload && payload.story) {
-                              setStory(
-                                payload.story as unknown as ISbStoryData
-                              );
-                            }
-                          });
-                        } catch (error) {
-                          console.log("Polling error:", error);
-                        }
-                      } else {
-                        clearInterval(pollInterval);
-                      }
-                    }, 2000); // Poll every 2 seconds
-
-                    // Clean up polling after 30 seconds
-                    setTimeout(() => {
-                      clearInterval(pollInterval);
-                    }, 30000);
-                  }, 500);
+                  // If payload has story data, use it
+                  if (payload && payload.story) {
+                    setStory(payload.story as unknown as ISbStoryData);
+                  }
                 }
               } catch (error) {
                 console.error("Error in pingEditor callback:", error);

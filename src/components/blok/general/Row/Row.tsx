@@ -23,6 +23,7 @@ interface RowBlok {
   background_attachment?: string;
   background_repeat?: string;
   background_opacity?: string;
+  background_shape?: string;
   text_align?: TextAlign;
   padding_x?: SpacingVariant;
   padding_y?: SpacingVariant;
@@ -61,6 +62,7 @@ const Row: React.FC<RowProps> = ({ blok }) => {
         backgroundAttachment={blok.background_attachment}
         backgroundRepeat={blok.background_repeat}
         backgroundOpacity={blok.background_opacity}
+        backgroundShape={blok.background_shape}
         textAlign={blok.text_align}
         paddingX={blok.padding_x}
         paddingY={blok.padding_y}

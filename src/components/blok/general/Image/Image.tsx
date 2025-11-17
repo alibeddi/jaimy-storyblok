@@ -52,7 +52,7 @@ const Image: React.FC<ImageProps> = ({ blok }) => {
     priority: false,
     layout: "responsive",
   };
-
+  console.log("Rendering Image blok:", blok?.img);
   return (
     <div className={className}>
       <BlokImage

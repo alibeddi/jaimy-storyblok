@@ -41,7 +41,7 @@ export default function Reviews({ blok }: { blok: ReviewsBlok }) {
     // Cleanup
     return () => window.removeEventListener("resize", updateCardsPerSlide);
   }, []);
-  console.log("Cards per slide:", cardsPerSlide);
+
   // Reset slide when cards per slide changes
   useEffect(() => {
     setCurrentSlide(0);
