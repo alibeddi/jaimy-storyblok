@@ -1,6 +1,6 @@
  /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
-import { storyblokEditable, StoryblokComponent } from '@storyblok/react';
+import { StoryblokComponent } from '@storyblok/react';
 import { cn } from '@/lib/utils'; // Add this import
 import TableColumnUI from '../../../ui/Table/TableColumn';
 
@@ -27,7 +27,6 @@ const TableColumn: React.FC<TableColumnProps> = ({
 	width = '', 
 	align = 'left',
 	verticalAlignment = 'middle',
-	spacer = '' 
 }) => {
 	const colSpanValue = blok.colSpan ? parseInt(blok.colSpan.toString(), 10) : undefined;
 	const rowSpanValue = blok.rowSpan ? parseInt(blok.rowSpan.toString(), 10) : undefined;

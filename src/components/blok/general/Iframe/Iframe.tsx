@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { IframeBlok } from "@/types/storyblok";
 import React from "react";
 import { SpacingVariant } from "@/types/ui";

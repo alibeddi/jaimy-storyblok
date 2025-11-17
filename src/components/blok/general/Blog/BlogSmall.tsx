@@ -10,6 +10,23 @@ interface Props {
   className?: string;
 }
 
+// Helper to extract text from potentially nested blok objects
+function getTextContent(value: unknown): string {
+  if (typeof value === "string") return value;
+  if (typeof value === "number") return String(value);
+  if (!value) return "";
+  if (typeof value === "object") {
+    const obj = value as Record<string, unknown>;
+    // If it's a blok with a title field, try to extract that
+    if ("title" in obj) return getTextContent(obj.title);
+    // If it has text content, use that
+    if ("text" in obj) return getTextContent(obj.text);
+    // If it has content, use that
+    if ("content" in obj) return getTextContent(obj.content);
+  }
+  return "";
+}
+
 export default function BlogSmall({ blok, className }: Props) {
   return (
     <article
@@ -23,7 +40,7 @@ export default function BlogSmall({ blok, className }: Props) {
               data-blok-field="image">
               <Image
                 src={blok.image.filename}
-                alt={blok.image.alt || blok.title}
+                alt={blok.image.alt || getTextContent(blok.title)}
                 fill
                 className="object-cover transition-transform duration-300 group-hover:scale-105"
               />
@@ -35,12 +52,12 @@ export default function BlogSmall({ blok, className }: Props) {
           <h4
             data-blok-field="title"
             className="font-light text-base sm:text-lg text-gray-900 leading-tight mb-2 transition-colors duration-300 group-hover:text-[#AF1B3C] truncate">
-            {blok.title}
+            {getTextContent(blok.title)}
           </h4>
           <p
             data-blok-field="excerpt"
             className="text-gray-700 font-light text-xs sm:text-sm leading-relaxed line-clamp-2 transition-opacity duration-300 group-hover:opacity-80">
-            {blok.excerpt}
+            {getTextContent(blok.excerpt)}
           </p>
 
           <div

@@ -1,6 +1,6 @@
     /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { ReactElement, cloneElement } from 'react';
-import { useField, FieldInputProps, FieldMetaProps } from 'formik';
+import { useField } from 'formik';
 import cn from 'classnames';
 
 interface FieldProps {

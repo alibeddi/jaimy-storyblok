@@ -1,5 +1,4 @@
 import { BlokImage } from "../BlokImage";
-import { BlokImageProps } from "@/types/ui";
 import { Column } from "../Column";
 import { Columns } from "../Columns";
 import { Container } from "../Container";

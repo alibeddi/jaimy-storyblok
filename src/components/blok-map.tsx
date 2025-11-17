@@ -49,7 +49,7 @@ import TableHeader from "./blok/general/TableHeader";
 import TableRow from "./blok/general/TableRow";
 import Teaser from "./blok/general/Teaser";
 import TrustBadge from "./blok/general/TrustBadge/TrustBadge";
-import { WhoWeAreSection } from "./blok/general/WhoWeAreSection";
+import WhoWeAreSection from "./blok/general/WhoWeAreSection";
 
 type ComponentType = React.ComponentType<any>;
 

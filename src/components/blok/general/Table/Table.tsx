@@ -36,13 +36,6 @@ interface TableProps {
 }
 
 const Table: React.FC<TableProps> = ({ blok }) => {
-  const totalColumns =
-    blok?.table_body &&
-    blok?.table_body?.length > 0 &&
-    blok?.table_body?.[0]?.content
-      ? blok?.table_body?.[0]?.content?.length
-      : 2;
-
   const tableHeaderRowClasses = cn(
     "py-3 px-4 w-full",
     `bg-[rgb(var(--color-${blok.header_background_color}))]`,

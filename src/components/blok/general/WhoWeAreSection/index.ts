@@ -1,1 +1,1 @@
-export * from './WhoWeAreSection';
+export { WhoWeAreSection as default } from './WhoWeAreSection';

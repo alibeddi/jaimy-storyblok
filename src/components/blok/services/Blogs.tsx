@@ -70,16 +70,25 @@ export default function Blogs({ blok }: { blok: BlogsBlok }) {
                 {(() => {
                   const first = blogPosts[0] as BlogBlok | BlogItem | undefined;
                   if (!first) return null;
-                  const isBlok = (p: BlogBlok | BlogItem): p is BlogBlok => {
-                    const obj = p as Record<string, unknown>;
-                    return (
-                      typeof obj.component === "string" &&
-                      obj.component === "blog"
-                    );
-                  };
-                  if (isBlok(first)) {
-                    return <StoryblokComponent blok={first} />;
+                  
+                  // Check if it's a blok with component property
+                  const obj = first as Record<string, unknown>;
+                  const isBlogBlok = typeof obj.component === "string" && obj.component === "blog";
+                  
+                  if (isBlogBlok) {
+                    return <StoryblokComponent blok={first as BlogBlok} key={(first as BlogBlok)._uid} />;
                   }
+                  
+                  // If it has a component property but it's not "blog", skip it
+                  if (typeof obj.component === "string") {
+                    return null;
+                  }
+                  
+                  // Check if it's a valid BlogItem with required fields
+                  if (!first.title || typeof first.title === 'object') {
+                    return null;
+                  }
+                  
                   const fallback: BlogBlok = {
                     _uid: `${blok._uid}-blog-0`,
                     component: "blog",
@@ -92,7 +101,7 @@ export default function Blogs({ blok }: { blok: BlogsBlok }) {
                     link: first.link,
                     category: first.category,
                   };
-                  return <StoryblokComponent blok={fallback} />;
+                  return <StoryblokComponent blok={fallback} key={fallback._uid} />;
                 })()}
               </div>
 
@@ -102,16 +111,25 @@ export default function Blogs({ blok }: { blok: BlogsBlok }) {
                   const idx = index + 1;
                   const key = `post-${idx}`;
                   const item = post as BlogBlok | BlogItem;
-                  const isBlok = (p: BlogBlok | BlogItem): p is BlogBlok => {
-                    const obj = p as Record<string, unknown>;
-                    return (
-                      typeof obj.component === "string" &&
-                      obj.component === "blog"
-                    );
-                  };
-                  if (isBlok(item)) {
-                    return <BlogSmall key={key} blok={item} />;
+                  
+                  // Check if it's a blok with component property
+                  const obj = item as Record<string, unknown>;
+                  const isBlogBlok = typeof obj.component === "string" && obj.component === "blog";
+                  
+                  if (isBlogBlok) {
+                    return <BlogSmall key={key} blok={item as BlogBlok} />;
                   }
+                  
+                  // If it has a component property but it's not "blog", skip it
+                  if (typeof obj.component === "string") {
+                    return null;
+                  }
+                  
+                  // Check if it's a valid BlogItem with required fields
+                  if (!item.title || typeof item.title === 'object') {
+                    return null;
+                  }
+                  
                   const fallback: BlogBlok = {
                     _uid: `${blok._uid}-blog-${idx}`,
                     component: "blog",

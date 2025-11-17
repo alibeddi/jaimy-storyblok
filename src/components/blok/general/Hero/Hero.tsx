@@ -1,7 +1,6 @@
 import { StoryblokComponent, storyblokEditable } from "@storyblok/react";
 
 import BlokImage from "../../../ui/BlokImage";
-import { BlokImageProps } from "@/types/ui";
 import Connected from "../../../ui/Hero";
 import Icon from "../../../ui/Icon";
 /* eslint-disable @typescript-eslint/no-explicit-any */

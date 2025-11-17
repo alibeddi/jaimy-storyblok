@@ -56,7 +56,6 @@ const FigmaStarRating: React.FC<FigmaStarRatingProps> = ({
   for (let i = 0; i < maxRating; i++) {
     const isFullStar = displayRating >= i + 1;
     const isHalfStar = displayRating > i && displayRating < i + 1;
-    const isEmpty = displayRating <= i;
 
     stars.push(
       <div

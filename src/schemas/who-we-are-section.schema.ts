@@ -1,4 +1,4 @@
-export default {
+const whoWeAreSectionSchema = {
   name: 'who_we_are_section',
   display_name: 'Who We Are Section',
   schema: {
@@ -56,3 +56,5 @@ export default {
   all_presets: [],
   real_name: 'Who We Are Section',
 };
+
+export default whoWeAreSectionSchema;

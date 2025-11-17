@@ -2,7 +2,6 @@
 import React from 'react';
 import { storyblokEditable } from '@storyblok/react';
 import ListItemUI from '../../../ui/ListItem'; // Fixed case sensitivity
-import { IconColor, IconType, IconSize, SpacingVariant } from '@/types/ui';
 
 interface ListItemBlok {
 	component: string;

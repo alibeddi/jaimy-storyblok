@@ -38,7 +38,7 @@ import Step from "./blok/general/Step/Step";
 import Steps from "./blok/general/Steps";
 import Teaser from "./blok/general/Teaser";
 import TrustBadge from "./blok/general/TrustBadge/TrustBadge";
-import { WhoWeAreSection } from "./blok/general/WhoWeAreSection";
+import WhoWeAreSection from "./blok/general/WhoWeAreSection";
 
 // Initialize Storyblok for client-side
 storyblokInit({

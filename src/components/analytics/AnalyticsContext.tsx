@@ -7,7 +7,6 @@ import { usePathname } from "next/navigation";
 import {
   anytrackTrack,
   anytrackPage,
-  anytrackTrackConversion,
   anytrackTrackLead,
   anytrackTrackPurchase,
   debugAnytrackCommands,
@@ -97,8 +96,6 @@ export function AnalyticsProvider({ children }: AnalyticsProviderProps) {
       transactionId,
       value,
       currency = "EUR",
-      items = [],
-      contentIds,
     } = data;
 
     try {
@@ -110,14 +107,14 @@ export function AnalyticsProvider({ children }: AnalyticsProviderProps) {
   };
 
   const trackAddToCart = (data: AddToCartData) => {
-    const { value, currency = "EUR", items = [], contentIds } = data;
+    const { value, currency = "EUR", items = [] } = data;
 
     // Track in Anytrack
     anytrackTrack("add_to_cart", { value, currency, items });
   };
 
   const trackViewItem = (data: ViewItemData) => {
-    const { value, currency = "EUR", items = [], contentIds } = data;
+    const { value, currency = "EUR", items = [] } = data;
 
     // Track in Anytrack
     anytrackTrack("view_item", { value, currency, items });
