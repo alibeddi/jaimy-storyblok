@@ -101,7 +101,25 @@ export default function OptimizedImage({
       setIsLoading(false);
       onLoad?.();
     },
-    onError: () => {
+    onError: (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+      console.warn("OptimizedImage failed to load:", src);
+      const target = e.target as HTMLImageElement;
+      
+      // Try fallback for Storyblok images before setting error state
+      if (src.includes('storyblok.com') && !target.dataset.fallbackAttempted) {
+        target.dataset.fallbackAttempted = 'true';
+        
+        // Use original URL without optimization
+        let fallbackSrc = src;
+        if (src.includes('/m/')) {
+          const parts = src.split('/m/');
+          fallbackSrc = parts[0];
+        }
+        
+        target.src = fallbackSrc;
+        return; // Don't set error state yet, let the fallback try to load
+      }
+      
       setHasError(true);
       setIsLoading(false);
     },

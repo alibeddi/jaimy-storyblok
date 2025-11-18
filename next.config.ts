@@ -11,6 +11,8 @@ const withBundleAnalyzer = bundleAnalyzer({
 const nextConfig: NextConfig = {
   images: {
     dangerouslyAllowSVG: true,
+    loader: 'custom',
+    loaderFile: './src/lib/storyblok-image-loader.js',
     remotePatterns: [
       { protocol: "https", hostname: "a.storyblok.com", pathname: "/**" },
       { protocol: "https", hostname: "img2.storyblok.com", pathname: "/**" },

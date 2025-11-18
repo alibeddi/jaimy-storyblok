@@ -1,10 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import {
-  ISbStoryData,
-  apiPlugin,
-  storyblokInit,
-} from "@storyblok/react";
+import { ISbStoryData, apiPlugin, storyblokInit } from "@storyblok/react";
 import { useEffect, useState, Suspense } from "react";
 import { loadComponent, componentRegistry } from "@/lib/component-registry";
 
@@ -19,7 +16,7 @@ const createDynamicComponentMap = () => {
       const Component = loadComponent(key);
       if (!Component) return null;
       return (
-        <Suspense fallback={<div style={{ minHeight: '50px' }} />}>
+        <Suspense fallback={<div style={{ minHeight: "50px" }} />}>
           <Component {...props} />
         </Suspense>
       );
@@ -48,7 +45,9 @@ interface BlokData {
 
 // Dynamic component wrapper that loads components on demand
 function DynamicBlokComponent({ blok }: { blok: BlokData }) {
-  const [Component, setComponent] = useState<React.ComponentType<{ blok: BlokData }> | null>(null);
+  const [Component, setComponent] = useState<React.ComponentType<{
+    blok: BlokData;
+  }> | null>(null);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
@@ -56,7 +55,9 @@ function DynamicBlokComponent({ blok }: { blok: BlokData }) {
       try {
         const LoadedComponent = loadComponent(blok.component);
         if (LoadedComponent) {
-          setComponent(() => LoadedComponent as React.ComponentType<{ blok: BlokData }>);
+          setComponent(
+            () => LoadedComponent as React.ComponentType<{ blok: BlokData }>
+          );
         } else {
           console.warn(`Component "${blok.component}" not found in registry`);
         }
@@ -74,11 +75,11 @@ function DynamicBlokComponent({ blok }: { blok: BlokData }) {
   }
 
   if (!Component) {
-    return <div style={{ minHeight: '50px' }} />; // Placeholder to prevent CLS
+    return <div style={{ minHeight: "50px" }} />; // Placeholder to prevent CLS
   }
 
   return (
-    <Suspense fallback={<div style={{ minHeight: '50px' }} />}>
+    <Suspense fallback={<div style={{ minHeight: "50px" }} />}>
       <Component blok={blok} />
     </Suspense>
   );
@@ -314,9 +315,7 @@ export default function StoryblokProvider({
                           // eslint-disable-next-line @typescript-eslint/no-explicit-any
                           sbBridge.pingEditor((data: any) => {
                             if (data && data.story) {
-                              setStory(
-                                data.story as unknown as ISbStoryData
-                              );
+                              setStory(data.story as unknown as ISbStoryData);
                             }
                           });
                         } catch (error) {
@@ -387,11 +386,9 @@ export default function StoryblokProvider({
       // Render each block individually with dynamic loading
       return (
         <div>
-          {story.content.body.map(
-            (blok: BlokData, index: number) => (
-              <DynamicBlokComponent key={blok._uid || index} blok={blok} />
-            )
-          )}
+          {story.content.body.map((blok: BlokData, index: number) => (
+            <DynamicBlokComponent key={blok._uid || index} blok={blok} />
+          ))}
         </div>
       );
     } else {

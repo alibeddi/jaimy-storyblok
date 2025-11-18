@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import React, { Suspense } from "react";
@@ -15,12 +16,12 @@ interface BlokProps {
 
 // Loading placeholder component to prevent CLS
 const LoadingPlaceholder = () => (
-  <div style={{ minHeight: '50px' }} aria-label="Loading component" />
+  <div style={{ minHeight: "50px" }} aria-label="Loading component" />
 );
 
 const Blok: React.FC<BlokProps> = ({ blok }) => {
-  console.log('[Blok] Rendering component:', blok?.component, blok);
-  
+  console.log("[Blok] Rendering component:", blok?.component, blok);
+
   if (!blok?.component) {
     console.error("[Blok] Invalid blok data:", blok);
     return null;
@@ -28,21 +29,26 @@ const Blok: React.FC<BlokProps> = ({ blok }) => {
 
   // Load component dynamically
   const Component = loadComponent(blok.component);
-  
+
   if (!Component) {
     console.warn(`[Blok] Component "${blok.component}" not found in registry`);
     return (
-      <div style={{ padding: '20px', background: '#fee', border: '1px solid red' }}>
-        Component "{blok.component}" not found
+      <div
+        style={{
+          padding: "20px",
+          background: "#fee",
+          border: "1px solid red",
+        }}>
+        Component &quot;{blok.component}&quot; not found
       </div>
     );
   }
 
-  console.log('[Blok] Component loaded successfully:', blok.component);
+  console.log("[Blok] Component loaded successfully:", blok.component);
 
   return (
     <Suspense fallback={<LoadingPlaceholder />}>
-      <Component blok={blok} />
+      <Component blok={blok} {...(blok as any)} />
     </Suspense>
   );
 };
