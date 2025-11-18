@@ -41,7 +41,7 @@ export default function Reviews({ blok }: { blok: ReviewsBlok }) {
     // Cleanup
     return () => window.removeEventListener("resize", updateCardsPerSlide);
   }, []);
-  console.log("Cards per slide:", cardsPerSlide);
+
   // Reset slide when cards per slide changes
   useEffect(() => {
     setCurrentSlide(0);
@@ -157,7 +157,7 @@ export default function Reviews({ blok }: { blok: ReviewsBlok }) {
     } else if (cardsPerSlide === 2) {
       return "w-full max-w-xs sm:max-w-sm";
     } else {
-      return "max-w-lg";
+      return "";
     }
   };
 

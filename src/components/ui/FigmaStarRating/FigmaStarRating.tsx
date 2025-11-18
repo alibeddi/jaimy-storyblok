@@ -25,9 +25,21 @@ const FigmaStarRating: React.FC<FigmaStarRatingProps> = ({
   const [hoveredRating, setHoveredRating] = useState<number | null>(null);
 
   const sizeClasses = {
-    sm: { container: "w-[28px] h-[28px]", star: "w-[14px] h-[14px]", position: "left-[7px] top-[7px]" },
-    md: { container: "w-[34px] h-[34px]", star: "w-[17px] h-[17px]", position: "left-[9px] top-[8px]" },
-    lg: { container: "w-[40px] h-[40px]", star: "w-[20px] h-[20px]", position: "left-[10px] top-[10px]" }
+    sm: {
+      container: "w-[20px] h-[20px]",
+      star: "w-[14px] h-[14px]",
+      position: "left-[7px] top-[7px]",
+    },
+    md: {
+      container: "w-[20px] h-[20px]",
+      star: "w-[14px] h-[14px]",
+      position: "left-[9px] top-[8px]",
+    },
+    lg: {
+      container: "w-[20px] h-[20px]",
+      star: "w-[14px] h-[14px]",
+      position: "left-[10px] top-[10px]",
+    },
   };
 
   const currentSize = sizeClasses[size];
@@ -70,14 +82,15 @@ const FigmaStarRating: React.FC<FigmaStarRatingProps> = ({
         onMouseLeave={handleMouseLeave}
         role={interactive ? "button" : undefined}
         tabIndex={interactive ? 0 : undefined}
-        aria-label={interactive ? `Rate ${i + 1} out of ${maxRating} stars` : undefined}
+        aria-label={
+          interactive ? `Rate ${i + 1} out of ${maxRating} stars` : undefined
+        }
         onKeyDown={(e) => {
-          if (interactive && (e.key === 'Enter' || e.key === ' ')) {
+          if (interactive && (e.key === "Enter" || e.key === " ")) {
             e.preventDefault();
             handleStarClick(i);
           }
-        }}
-      >
+        }}>
         {/* Subtle background for better visual separation */}
         <div
           className={cn(
@@ -99,10 +112,14 @@ const FigmaStarRating: React.FC<FigmaStarRatingProps> = ({
             height="18"
             viewBox="0 0 18 18"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+            xmlns="http://www.w3.org/2000/svg">
             <defs>
-              <linearGradient id={`star-gradient-${i}`} x1="0%" y1="0%" x2="100%" y2="100%">
+              <linearGradient
+                id={`star-gradient-${i}`}
+                x1="0%"
+                y1="0%"
+                x2="100%"
+                y2="100%">
                 <stop offset="0%" stopColor="#D62B47" />
                 <stop offset="100%" stopColor="#BE213A" />
               </linearGradient>
@@ -126,10 +143,14 @@ const FigmaStarRating: React.FC<FigmaStarRatingProps> = ({
             height="18"
             viewBox="0 0 18 18"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+            xmlns="http://www.w3.org/2000/svg">
             <defs>
-              <linearGradient id={`half-star-gradient-${i}`} x1="0%" y1="0%" x2="100%" y2="100%">
+              <linearGradient
+                id={`half-star-gradient-${i}`}
+                x1="0%"
+                y1="0%"
+                x2="100%"
+                y2="100%">
                 <stop offset="0%" stopColor="#D62B47" />
                 <stop offset="100%" stopColor="#BE213A" />
               </linearGradient>
@@ -153,11 +174,12 @@ const FigmaStarRating: React.FC<FigmaStarRatingProps> = ({
             height="18"
             viewBox="0 0 18 18"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+            xmlns="http://www.w3.org/2000/svg">
             <path
               d="M5.13628 15.6351L8.95003 12.7042L12.7638 15.6351L11.316 10.7973L14.8472 8.36074H10.5038L8.95003 3.4523L7.39628 8.36074H3.05284L6.58409 10.7973L5.13628 15.6351ZM3.65315 17.7892L5.63065 11.2211L0.545654 7.54855H6.90191L8.95003 0.768555L10.9982 7.54855H17.3544L12.2694 11.2211L14.2469 17.7892L8.95003 13.7636L3.65315 17.7892Z"
-              fill={interactive && hoveredRating !== null ? "#BE213A" : "#C1C5D0"}
+              fill={
+                interactive && hoveredRating !== null ? "#BE213A" : "#C1C5D0"
+              }
               stroke="#BE213A"
               strokeWidth="0.5"
               className="transition-all duration-200"
@@ -179,8 +201,7 @@ const FigmaStarRating: React.FC<FigmaStarRatingProps> = ({
     <div
       className={cn("flex gap-[2px] items-center", className)}
       role="img"
-      aria-label={`Rating: ${rating} out of ${maxRating} stars`}
-    >
+      aria-label={`Rating: ${rating} out of ${maxRating} stars`}>
       {stars}
       {showTooltip && !interactive && (
         <span className="ml-2 text-sm text-gray-600 font-medium">

@@ -175,18 +175,16 @@ export interface BlogItem {
 // Single blog blok for nested usage
 export interface BlogBlok extends SbBlokData {
   component: "blog";
-  title: string;
-  excerpt: string;
-  author: string;
-  date: string;
-  read_time: string;
-  image?: {
-    filename: string;
-    alt?: string;
-  };
-  link: {
+  children?: Array<{
+    component: string;
+    _uid: string;
+    [key: string]: unknown;
+  }>;
+  // Keep link for functionality (can be moved to children later if needed)
+  link?: {
     cached_url: string;
   };
+  // Keep category for filtering (can be moved to children later if needed)
   category?: string;
 }
 

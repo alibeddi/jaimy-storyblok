@@ -308,8 +308,7 @@ const Column: React.FC<ExtendedColumnProps> = ({
           <Link href={linkUrl} target={target} className={anchorClasses}>
             {children}
           </Link>
-        )}
-      >
+        )}>
         {hasQuote && <QuoteOpen className={quoteOpenClasses} />}
         <div className={contentClasses}>{children}</div>
         {hasQuote && <QuoteClose className={quoteCloseClasses} />}

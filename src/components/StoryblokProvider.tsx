@@ -77,12 +77,18 @@ export default function StoryblokProvider({
   // We rely on manual bridge below to avoid SSR window errors
 
   useEffect(() => {
-    // Check if we're in preview mode
+    // Check if we're in preview mode - only in development or with explicit preview param
     const isPreview =
       typeof window !== "undefined" &&
-      window.location?.search?.includes("_storyblok");
+      (window.location?.search?.includes("_storyblok") ||
+        window.location?.search?.includes("_storyblok_tk"));
 
-    setIsPreviewMode(!!isPreview);
+    // Only enable preview in development or with explicit preview tokens
+    const shouldEnablePreview =
+      process.env.NODE_ENV === "development" ||
+      (isPreview && window.location?.search?.includes("_storyblok_tk"));
+
+    setIsPreviewMode(!!shouldEnablePreview);
 
     // Get story data from script tag if not provided as prop
     if (!story && typeof window !== "undefined") {
@@ -110,8 +116,20 @@ export default function StoryblokProvider({
         handleStoryblokInput as EventListener
       );
 
-      // Listen for Storyblok bridge messages
+      // Listen for Storyblok bridge messages with proper origin validation
       const handleMessage = (event: MessageEvent) => {
+        // Validate origin to prevent unauthorized messages
+        const allowedOrigins = [
+          "https://app.storyblok.com",
+          "https://service.jaimy.be",
+          window.location.origin,
+        ];
+
+        if (!allowedOrigins.includes(event.origin)) {
+          // Silently ignore unauthorized origins to prevent spam
+          return;
+        }
+
         try {
           if (event.data && typeof event.data === "object") {
             // Check if it's a Storyblok bridge message
@@ -125,7 +143,10 @@ export default function StoryblokProvider({
             }
           }
         } catch (error) {
-          console.error("Error handling bridge message:", error);
+          // Only log errors in development
+          if (process.env.NODE_ENV === "development") {
+            console.error("Error handling bridge message:", error);
+          }
         }
       };
 
@@ -136,15 +157,24 @@ export default function StoryblokProvider({
       (window as any).__storyblokMessageHandler = handleMessage;
     }
 
-    if (isPreview) {
+    if (shouldEnablePreview) {
+      // Additional production safety check
+      if (
+        process.env.NODE_ENV === "production" &&
+        !window.location.search.includes("_storyblok_tk")
+      ) {
+        console.log(
+          "Storyblok bridge disabled in production without preview token"
+        );
+        return;
+      }
+
       // Check if we're running on HTTPS
       if (window.location.protocol !== "https:") {
         console.warn(
           "⚠️ Storyblok bridge requires HTTPS. Please use 'npm run dev:https'"
         );
-      }
-
-      // Add a meta tag to help with origin validation
+      } // Add a meta tag to help with origin validation
       if (typeof document !== "undefined") {
         const metaTag = document.querySelector(
           'meta[name="storyblok-preview"]'

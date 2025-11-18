@@ -22,7 +22,7 @@ const Iframe: React.FC<IframeProps> = ({ blok }) => {
   const className = cn({
     [marginBottomClasses[(blok.margin_bottom as SpacingVariant) || "default"]]:
       true,
-    "w-full flex justify-center items-center": true,
+    "w-full flex justify-center items-center min-h-fit": true,
   });
 
   const formId = blok.formId || "";
@@ -40,7 +40,7 @@ const Iframe: React.FC<IframeProps> = ({ blok }) => {
         width={width}
         height={height}
         sandbox={sandbox}
-        className="rounded border-0 overflow-hidden"
+        className="rounded border-0 overflow-hidden mx-auto block"
         style={{ overflow: "hidden" }}
         scrolling="no"
         title="Embedded form"

@@ -55,35 +55,35 @@ export interface ButtonProps extends BaseUIProps {
   border?: string; // e.g., "none" | "default" | "2" | "4"
   borderColor?: string; // e.g., "gray-300", "primary-500"
   borderRadius?:
-  | "none"
-  | "small"
-  | "default"
-  | "medium"
-  | "large"
-  | "x-large"
-  | "xx-large"
-  | "full";
+    | "none"
+    | "small"
+    | "default"
+    | "medium"
+    | "large"
+    | "x-large"
+    | "xx-large"
+    | "full";
   borderRadiusTablet?: ButtonProps["borderRadius"];
   borderRadiusDesktop?: ButtonProps["borderRadius"];
   shadow?:
-  | "none"
-  | "small"
-  | "default"
-  | "medium"
-  | "large"
-  | "x-large"
-  | "xx-large";
+    | "none"
+    | "small"
+    | "default"
+    | "medium"
+    | "large"
+    | "x-large"
+    | "xx-large";
   shadowTablet?: ButtonProps["shadow"];
   shadowDesktop?: ButtonProps["shadow"];
   cursor?:
-  | "default"
-  | "pointer"
-  | "not-allowed"
-  | "wait"
-  | "text"
-  | "move"
-  | "help"
-  | "auto";
+    | "default"
+    | "pointer"
+    | "not-allowed"
+    | "wait"
+    | "text"
+    | "move"
+    | "help"
+    | "auto";
   cursorTablet?: ButtonProps["cursor"];
   cursorDesktop?: ButtonProps["cursor"];
   icon?: string;
@@ -205,6 +205,7 @@ export interface ContainerProps extends BaseUIProps {
     | "90%"
     | "95%";
   padding?: SpacingVariant;
+  appearance?: "default" | "contained" | "full-width" | "full-bleed";
 }
 
 // Form component types
@@ -316,6 +317,7 @@ export interface TableColumnProps extends BaseUIProps {
 // Rich text component types
 export interface RichTextProps extends BaseUIProps {
   content: unknown; // Storyblok rich text content
+  type?: string; // Type field for categorizing rich text (excerpt, author, date, read_time)
   maxWidth?: string;
   size?: SizeVariant;
   color?: TextColor;
@@ -351,11 +353,11 @@ export interface StoryblokContentItem {
 export interface BannerProps extends BaseUIProps {
   variant?: BannerVariant;
   type?:
-  | "simple"
-  | "simple-connector"
-  | "constrained"
-  | "constrained-connector"
-  | "full-background";
+    | "simple"
+    | "simple-connector"
+    | "constrained"
+    | "constrained-connector"
+    | "full-background";
   backgroundColor?: string;
   iconVariant?: string;
   iconType?: IconType;

@@ -28,6 +28,7 @@ interface ContainerBlok {
   children?: ChildBlok[];
   max_width?: string;
   padding?: SpacingVariant;
+  appearance?: "default" | "contained" | "full-width" | "full-bleed";
   icon_variant?: string;
   icon_type?: IconType;
   icon_color?: IconColor;
@@ -94,8 +95,14 @@ const Container: React.FC<ContainerProps> = ({ blok }) => {
 
   return (
     <ContainerUI
-      maxWidth={blok?.max_width as any}
+      maxWidth={
+        blok?.max_width &&
+        ["sm", "md", "lg", "xl", "2xl", "full"].includes(blok.max_width)
+          ? (blok.max_width as "sm" | "md" | "lg" | "xl" | "2xl" | "full")
+          : undefined
+      }
       padding={blok?.padding}
+      appearance={blok?.appearance}
       // Icon props
       hasIcon={hasIcon}
       iconVariant={blok?.icon_variant}
