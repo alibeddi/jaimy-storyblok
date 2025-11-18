@@ -49,8 +49,26 @@ export default async function DynamicPage({ params, searchParams }: Props) {
 
     const blocks = storyContent?.body || [];
 
+    console.log('[Page] Story loaded:', {
+      slug: slugPath,
+      locale,
+      version,
+      blocksCount: blocks.length,
+      blocks: blocks.map((b: any) => b.component),
+    });
+
     // Pass story data to StoryblokProvider via a script tag
     const storyData = story;
+
+    if (blocks.length === 0) {
+      return (
+        <div style={{ padding: '40px', textAlign: 'center' }}>
+          <h1>No content blocks found</h1>
+          <p>Story: {slugPath}</p>
+          <p>Locale: {locale}</p>
+        </div>
+      );
+    }
 
     return (
       <>
@@ -63,7 +81,7 @@ export default async function DynamicPage({ params, searchParams }: Props) {
             }}
           />
         )}
-        <div>
+        <div suppressHydrationWarning>
           {blocks.map((blok: any) => (
             <Blok key={(blok as SbBlokData)._uid} blok={blok as BlokData} />
           ))}

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, Suspense } from "react";
+import React, { Suspense } from "react";
 import { SbBlokData } from "@storyblok/react";
 import { loadComponent } from "@/lib/component-registry";
 
@@ -19,42 +19,30 @@ const LoadingPlaceholder = () => (
 );
 
 const Blok: React.FC<BlokProps> = ({ blok }) => {
-  const [Component, setComponent] = useState<React.ComponentType<{
-    blok: BlokData;
-  }> | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const loadBlokComponent = async () => {
-      try {
-        const LoadedComponent = loadComponent(blok.component);
-        if (LoadedComponent) {
-          setComponent(LoadedComponent as React.ComponentType<{ blok: BlokData }>);
-        } else {
-          console.warn(`Component "${blok.component}" not found in registry`);
-        }
-      } catch (error) {
-        console.error(`Error loading component "${blok.component}":`, error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    loadBlokComponent();
-  }, [blok.component]);
-
+  console.log('[Blok] Rendering component:', blok?.component, blok);
+  
   if (!blok?.component) {
-    console.error("Invalid blok data:", blok);
+    console.error("[Blok] Invalid blok data:", blok);
     return null;
   }
 
-  if (isLoading || !Component) {
-    return <LoadingPlaceholder />;
+  // Load component dynamically
+  const Component = loadComponent(blok.component);
+  
+  if (!Component) {
+    console.warn(`[Blok] Component "${blok.component}" not found in registry`);
+    return (
+      <div style={{ padding: '20px', background: '#fee', border: '1px solid red' }}>
+        Component "{blok.component}" not found
+      </div>
+    );
   }
+
+  console.log('[Blok] Component loaded successfully:', blok.component);
 
   return (
     <Suspense fallback={<LoadingPlaceholder />}>
-      <Component blok={blok} key={blok._uid} />
+      <Component blok={blok} />
     </Suspense>
   );
 };

@@ -13,7 +13,7 @@ type ComponentLoader = () => Promise<{ default: ComponentType<any> }>;
  * Component registry with dynamic imports
  * Each component is loaded only when needed
  */
-export const componentRegistry: Record<string, ComponentLoader> = {
+const componentRegistry: Record<string, ComponentLoader> = {
   // Service components
   page: () => import('@/components/blok/services/Page'),
   header: () => import('@/components/blok/services/Header'),
@@ -81,7 +81,53 @@ export const componentRegistry: Record<string, ComponentLoader> = {
 const componentCache = new Map<string, ComponentType<unknown>>();
 
 /**
- * Load a component dynamically with error handling and caching
+ * Lazy load with retry logic
+ * @param importFn - The import function
+ * @param retries - Number of retries (default: 3)
+ */
+function lazyWithRetry(
+  importFn: ComponentLoader,
+  retries = 3
+): ComponentType<unknown> {
+  return lazy(async () => {
+    let lastError: Error | null = null;
+    
+    for (let i = 0; i <= retries; i++) {
+      try {
+        return await importFn();
+      } catch (error) {
+        lastError = error as Error;
+        
+        if (i < retries) {
+          // Wait before retrying (exponential backoff)
+          await new Promise(resolve => setTimeout(resolve, Math.pow(2, i) * 1000));
+          console.warn(`[Component Registry] Retry ${i + 1}/${retries} for component`);
+        }
+      }
+    }
+    
+    console.error(`[Component Registry] Failed to load component after ${retries} retries:`, lastError);
+    
+    // Return fallback component
+    return {
+      default: () => null,
+    };
+  });
+}
+
+/**
+ * Preload hints for common navigation paths
+ */
+const preloadHints: Record<string, string[]> = {
+  'page': ['header', 'footer', 'container'],
+  'blogs': ['blog', 'button', 'image'],
+  'reviews': ['review', 'stars', 'image'],
+  'faq': ['accordion', 'accordion_item', 'rich_text'],
+  'features': ['grid', 'heading', 'image'],
+};
+
+/**
+ * Load a component dynamically with error handling, caching, and retry logic
  * @param componentName - The name of the component to load
  * @returns Lazy-loaded React component or null if not found
  */
@@ -98,24 +144,34 @@ export function loadComponent(componentName: string): ComponentType<unknown> | n
     return null;
   }
 
-  // Create lazy component with error boundary
-  const LazyComponent = lazy(async () => {
-    try {
-      const loadedModule = await loader();
-      return loadedModule;
-    } catch (error) {
-      console.error(`[Component Registry] Error loading component "${componentName}":`, error);
-      // Return a fallback component
-      return {
-        default: () => null,
-      };
-    }
-  });
+  // Create lazy component with retry logic
+  const LazyComponent = lazyWithRetry(loader, 3);
 
   // Cache the lazy component
   componentCache.set(componentName, LazyComponent);
+  
+  // Preload related components
+  preloadRelatedComponents(componentName);
 
   return LazyComponent;
+}
+
+/**
+ * Preload related components based on hints
+ */
+function preloadRelatedComponents(componentName: string): void {
+  const related = preloadHints[componentName];
+  if (related) {
+    related.forEach(name => {
+      const loader = componentRegistry[name];
+      if (loader && !componentCache.has(name)) {
+        // Trigger preload without waiting
+        loader().catch(() => {
+          // Ignore preload errors
+        });
+      }
+    });
+  }
 }
 
 /**
@@ -154,3 +210,8 @@ export function getRegisteredComponents(): string[] {
 export function isComponentRegistered(componentName: string): boolean {
   return componentName in componentRegistry;
 }
+
+/**
+ * Export the component registry for use in StoryblokProvider
+ */
+export { componentRegistry };
