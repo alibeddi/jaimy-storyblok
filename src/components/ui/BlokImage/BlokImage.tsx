@@ -80,26 +80,12 @@ const BlokImage: React.FC<BlokImageProps> = memo(
     // Memoize image props to prevent object recreation
     const imageProps = useMemo(() => {
       if (!asset?.filename) {
-        if (process.env.NODE_ENV === "development") {
-          console.log("BlokImage: No asset filename provided", asset);
-        }
         return null;
       }
 
       // Use custom width/height if provided, otherwise use asset dimensions
       const finalWidth = width || asset.width;
       const finalHeight = height || asset.height;
-
-      if (process.env.NODE_ENV === "development") {
-        console.log("🔧 BlokImage dimensions processing:", {
-          customWidth: width,
-          customHeight: height,
-          assetWidth: asset.width,
-          assetHeight: asset.height,
-          finalWidth: finalWidth,
-          finalHeight: finalHeight,
-        });
-      }
 
       return {
         src: asset.filename,
@@ -155,25 +141,6 @@ const BlokImage: React.FC<BlokImageProps> = memo(
 
     if (!imageProps) {
       return null;
-    }
-
-    // Debug logging for dimensions and max-width
-    if (process.env.NODE_ENV === "development") {
-      console.log("🖼️ BlokImage DEBUG:", {
-        // Dimensions
-        customWidth: width,
-        customHeight: height,
-        assetWidth: asset?.width,
-        assetHeight: asset?.height,
-        finalWidth: imageProps?.width,
-        finalHeight: imageProps?.height,
-        // Max-width
-        originalMaxWidth: maxWidth,
-        convertedMaxWidth: containerStyle.maxWidth,
-        containerStyle: containerStyle,
-        containerClass: containerClass,
-        imageAsset: asset?.filename,
-      });
     }
 
     return (

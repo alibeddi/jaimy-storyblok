@@ -58,21 +58,7 @@ const Image: React.FC<ImageProps> = memo(
 
     // Always render with width/height for better compatibility
     if (!src) {
-      if (process.env.NODE_ENV === "development") {
-        console.log("Image: No src provided");
-      }
       return null;
-    }
-
-    if (process.env.NODE_ENV === "development") {
-      console.log("Image: Rendering image", {
-        src,
-        alt,
-        dimensions,
-        isResponsive,
-        finalWidth: dimensions.width || 800,
-        finalHeight: dimensions.height || 600,
-      });
     }
 
     return (
@@ -91,20 +77,14 @@ const Image: React.FC<ImageProps> = memo(
         placeholder={placeholder ? "blur" : undefined}
         blurDataURL={placeholder}
         onError={(e) => {
-          console.warn("Image failed to load:", src);
-          // Fallback: try to reload with unoptimized version
-          if (process.env.NODE_ENV === "production") {
-            const target = e.target as HTMLImageElement;
-            if (!target.src.includes("?unoptimized=true")) {
-              const separator = target.src.includes("?") ? "&" : "?";
-              target.src = `${target.src}${separator}unoptimized=true`;
-            }
-          }
+          console.error("Image failed to load:", src);
+          // Prevent infinite loop - don't retry on error
+          const target = e.target as HTMLImageElement;
+          // Set a transparent 1x1 pixel as fallback to stop retries
+          target.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
         }}
         onLoad={() => {
-          if (process.env.NODE_ENV === "development") {
-            console.log("Image loaded successfully:", src);
-          }
+          // Image loaded successfully
         }}
         {...rest}
       />

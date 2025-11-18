@@ -87,11 +87,7 @@ const Container: React.FC<ContainerProps> = ({ blok }) => {
 
   const backgroundColor = getColorValue(blok?.background_color);
 
-  // Debug: Log the color data to see what's being passed
-  if (process.env.NODE_ENV === "development" && blok?.background_color) {
-    console.log("Background color data:", blok.background_color);
-    console.log("Extracted backgroundColor:", backgroundColor);
-  }
+
 
   return (
     <ContainerUI

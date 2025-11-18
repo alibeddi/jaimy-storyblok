@@ -19,15 +19,13 @@ const LoadingPlaceholder = () => (
 );
 
 const Blok: React.FC<BlokProps> = ({ blok }) => {
-  console.log('[Blok] Rendering component:', blok?.component, blok);
-  
   if (!blok?.component) {
     console.error("[Blok] Invalid blok data:", blok);
     return null;
   }
 
   // Load component dynamically
-  const Component = loadComponent(blok.component);
+  const Component = loadComponent(blok.component) as React.ComponentType<{ blok: BlokData }>;
   
   if (!Component) {
     console.warn(`[Blok] Component "${blok.component}" not found in registry`);
@@ -37,8 +35,6 @@ const Blok: React.FC<BlokProps> = ({ blok }) => {
       </div>
     );
   }
-
-  console.log('[Blok] Component loaded successfully:', blok.component);
 
   return (
     <Suspense fallback={<LoadingPlaceholder />}>
