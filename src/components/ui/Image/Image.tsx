@@ -92,10 +92,26 @@ const Image: React.FC<ImageProps> = memo(
         blurDataURL={placeholder}
         onError={(e) => {
           console.warn("Image failed to load:", src);
-          // Fallback: try to reload with unoptimized version
+          // Prevent infinite loops by checking if we already tried fallbacks
+          const target = e.target as HTMLImageElement;
+          
           if (process.env.NODE_ENV === "production") {
-            const target = e.target as HTMLImageElement;
-            if (!target.src.includes("?unoptimized=true")) {
+            // For Storyblok images, try fallback to original URL without optimization
+            if (src.includes('storyblok.com') && !target.dataset.fallbackAttempted) {
+              target.dataset.fallbackAttempted = 'true';
+              
+              // Extract original URL without /m/ parameters
+              let fallbackSrc = src;
+              if (src.includes('/m/')) {
+                const parts = src.split('/m/');
+                fallbackSrc = parts[0];
+              }
+              
+              // Set fallback source
+              target.src = fallbackSrc;
+            } else if (!target.dataset.unoptimizedAttempted && !target.src.includes("?unoptimized=true")) {
+              // Try unoptimized version for other cases
+              target.dataset.unoptimizedAttempted = 'true';
               const separator = target.src.includes("?") ? "&" : "?";
               target.src = `${target.src}${separator}unoptimized=true`;
             }
