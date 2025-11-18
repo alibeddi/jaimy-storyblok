@@ -1,7 +1,7 @@
 "use client";
 
 import React, { memo, useMemo } from "react";
-import * as LucideIcons from "lucide-react";
+import { getIcon } from "@/lib/icon-registry";
 import { cn } from "@/lib/utils";
 import { IconProps } from "@/types/ui";
 
@@ -54,12 +54,7 @@ const Icon: React.FC<IconProps> = memo(
     );
 
     const IconComponent = useMemo(
-      () =>
-        formattedName
-          ? (LucideIcons[
-              formattedName as keyof typeof LucideIcons
-            ] as React.ComponentType<React.SVGProps<SVGSVGElement>>)
-          : null,
+      () => (formattedName ? getIcon(formattedName) : null),
       [formattedName]
     );
 

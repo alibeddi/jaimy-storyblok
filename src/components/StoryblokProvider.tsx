@@ -6,14 +6,34 @@ import {
   storyblokInit,
 } from "@storyblok/react";
 import { useEffect, useState, Suspense } from "react";
-import { loadComponent } from "@/lib/component-registry";
-import componentMap from "./blok-map";
+import { loadComponent, componentRegistry } from "@/lib/component-registry";
 
-// Initialize Storyblok for client-side with all components
+// Create a dynamic component map that wraps lazy imports
+// This allows StoryblokComponent to work with our dynamic registry
+const createDynamicComponentMap = () => {
+  const map: Record<string, any> = {};
+
+  Object.keys(componentRegistry).forEach((key) => {
+    // Create a wrapper component that handles the lazy loading
+    map[key] = (props: any) => {
+      const Component = loadComponent(key);
+      if (!Component) return null;
+      return (
+        <Suspense fallback={<div style={{ minHeight: '50px' }} />}>
+          <Component {...props} />
+        </Suspense>
+      );
+    };
+  });
+
+  return map;
+};
+
+// Initialize Storyblok for client-side with dynamic component map
 storyblokInit({
   accessToken: process.env.NEXT_PUBLIC_STORYBLOK_ACCESS_TOKEN,
   use: [apiPlugin],
-  components: componentMap,
+  components: createDynamicComponentMap(),
   bridge: true,
   apiOptions: {
     region: "eu",

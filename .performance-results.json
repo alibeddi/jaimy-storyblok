@@ -1,12 +1,12 @@
 {
   "passed": false,
   "bundleSize": {
-    "js": "2761.79 KB",
-    "css": "0.00 KB",
-    "total": "2761.79 KB"
+    "js": "1579.69 KB",
+    "css": "3.13 KB",
+    "total": "1582.82 KB"
   },
   "warnings": [],
   "errors": [
-    "❌ JavaScript bundle (2761.79 KB) exceeds budget (560 KB)"
+    "❌ JavaScript bundle (1579.69 KB) exceeds budget (560 KB)"
   ]
 }

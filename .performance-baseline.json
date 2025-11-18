@@ -1,0 +1,137 @@
+{
+  "timestamp": "2025-11-18T13:45:59.803Z",
+  "version": "1.0.0",
+  "bundles": {
+    "1.da01626839500135.js": {
+      "size": 582,
+      "sizeKB": 0.57
+    },
+    "144.6f723dc49e272cbe.js": {
+      "size": 680,
+      "sizeKB": 0.66
+    },
+    "239.99b9a70dd8e2af80.js": {
+      "size": 1632,
+      "sizeKB": 1.59
+    },
+    "242.4dde3b9522f64107.js": {
+      "size": 530,
+      "sizeKB": 0.52
+    },
+    "325.e82bfa885cabaac2.js": {
+      "size": 137,
+      "sizeKB": 0.13
+    },
+    "345.5bce9914fb18d0a1.js": {
+      "size": 1690,
+      "sizeKB": 1.65
+    },
+    "409.2fae679ab11b51f1.js": {
+      "size": 268,
+      "sizeKB": 0.26
+    },
+    "441.678c23e857aa9e0d.js": {
+      "size": 7588,
+      "sizeKB": 7.41
+    },
+    "556.72143dccb1368ece.js": {
+      "size": 4694,
+      "sizeKB": 4.58
+    },
+    "623.8c47a5a8cde16a42.js": {
+      "size": 557,
+      "sizeKB": 0.54
+    },
+    "646.e247d014f22da120.js": {
+      "size": 19278,
+      "sizeKB": 18.83
+    },
+    "735.8161d8c3ec43058e.js": {
+      "size": 4049,
+      "sizeKB": 3.95
+    },
+    "763.f9421c5dd3ea3aef.js": {
+      "size": 1835,
+      "sizeKB": 1.79
+    },
+    "826.262434c9b860fbe1.js": {
+      "size": 1421,
+      "sizeKB": 1.39
+    },
+    "939.8eb64c248b63504c.js": {
+      "size": 815,
+      "sizeKB": 0.8
+    },
+    "956.cacb7adb6d0c6a2c.js": {
+      "size": 1241,
+      "sizeKB": 1.21
+    },
+    "blok.379feb62a23bac71.js": {
+      "size": 82636,
+      "sizeKB": 80.7
+    },
+    "common-52177805bed1ffe3.js": {
+      "size": 37222,
+      "sizeKB": 36.35
+    },
+    "framework-411453c1bea825af.js": {
+      "size": 684256,
+      "sizeKB": 668.22
+    },
+    "lib.593c80e9cd8611b0.js": {
+      "size": 9141,
+      "sizeKB": 8.93
+    },
+    "main-9bcb6e0a7084ac69.js": {
+      "size": 118,
+      "sizeKB": 0.12
+    },
+    "main-app-397b83a7213be1bd.js": {
+      "size": 547,
+      "sizeKB": 0.53
+    },
+    "polyfills-42372ed130431b0a.js": {
+      "size": 112594,
+      "sizeKB": 109.96
+    },
+    "runtime-d764c28df520820f.js": {
+      "size": 3932,
+      "sizeKB": 3.84
+    },
+    "storyblok-cb724a51e64459ea.js": {
+      "size": 23884,
+      "sizeKB": 23.32
+    },
+    "vendor-344b4b78d284df11.js": {
+      "size": 39608,
+      "sizeKB": 38.68
+    }
+  },
+  "totals": {
+    "js": 1040935,
+    "css": 84819
+  },
+  "routes": {
+    "/_app": {
+      "files": 7,
+      "size": 766979,
+      "sizeKB": "749.00"
+    },
+    "/_error": {
+      "files": 7,
+      "size": 766961,
+      "sizeKB": "748.99"
+    }
+  },
+  "targets": {
+    "jsReduction": "30%",
+    "cssReduction": "25%",
+    "buildTimeReduction": "20%",
+    "lcp": "<2.5s",
+    "fid": "<100ms",
+    "cls": "<0.1",
+    "cacheHitRate": ">95%",
+    "lighthouseScore": ">90"
+  },
+  "budgetStatus": "over"
+}

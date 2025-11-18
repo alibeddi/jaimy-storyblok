@@ -10,7 +10,7 @@
   - Document any new components or patterns that need optimization
   - _Requirements: All (prerequisite for all optimizations)_
 
-- [ ] 2. Set up performance monitoring and baseline
+- [x] 2. Set up performance monitoring and baseline
   - Create performance baseline script to measure current metrics
   - Install and configure @next/bundle-analyzer for bundle analysis
   - Set up Lighthouse CI configuration with performance assertions
@@ -18,7 +18,7 @@
   - Add bundle size check script to enforce budgets
   - _Requirements: 9.1, 9.2, 9.3, 9.4_
 
-- [ ] 3. Optimize bundle size through component registry
+- [x] 3. Optimize bundle size through component registry
   - Remove all static component imports from src/app/[locale]/layout.tsx
   - Update StoryblokProvider to use empty components object
   - Enhance component registry with retry logic and preloading hints
@@ -26,7 +26,7 @@
   - Configure webpack code splitting in next.config.ts with framework, storyblok, and lib chunks
   - _Requirements: 1.2, 1.3, 1.5, 7.1, 7.2_
 
-- [ ] 4. Implement static generation with ISR
+- [x] 4. Implement static generation with ISR
   - Update page.tsx to use force-static and revalidate: 3600
   - Implement generateStaticParams to pre-generate all published pages for all locales
   - Create getStoryData helper that uses cache for published content
@@ -34,7 +34,7 @@
   - Implement draft mode API route for preview functionality
   - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.5_
 
-- [ ] 5. Enhance image optimization
+- [x] 5. Enhance image optimization
   - Update OptimizedImage component to support Storyblok image service parameters
   - Add getStoryblokImageUrl utility with format, quality, and fit options
   - Implement blur placeholder generation for all images
@@ -42,7 +42,7 @@
   - Update all image components to use priority prop for above-fold images
   - _Requirements: 3.1, 3.2, 3.3, 3.4, 3.5_
 
-- [ ] 6. Optimize font loading
+- [x] 6. Optimize font loading
   - Create font subsetting script (convert-fonts-to-woff2.sh) for Latin characters only
   - Run font subsetting to generate WOFF2 files in belfius-optimized directory
   - Update font configuration to use optimized WOFF2 files with display: swap
@@ -50,7 +50,7 @@
   - Remove legacy font formats and CDN references
   - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5_
 
-- [ ] 7. Minimize CSS bundle
+- [x] 7. Minimize CSS bundle
   - Reduce Tailwind safelist to only CMS-driven dynamic classes
   - Remove duplicate CSS imports from layout files
   - Enable optimizeCss in next.config.ts experimental options
@@ -58,7 +58,7 @@
   - Add optimizePackageImports for @storyblok/react and lucide-react
   - _Requirements: 5.1, 5.2, 5.3, 5.4, 5.5_
 
-- [ ] 8. Implement multi-tier caching system
+- [x] 8. Implement multi-tier caching system
   - Create LRUCache class with maxSize and TTL-based eviction
   - Enhance getCachedStory with L1 memory cache and L2 Next.js cache
   - Implement request deduplication using pendingRequests Map
@@ -66,7 +66,7 @@
   - Enhance invalidateStoryCache to clear both L1 and L2 caches
   - _Requirements: 6.1, 6.2, 6.3, 6.4, 6.5_
 
-- [ ] 9. Implement advanced code splitting
+- [x] 9. Implement advanced code splitting
   - Add lazyWithRetry function to component registry with 3 retry attempts
   - Create preloadHints map for common navigation paths
   - Implement preloadComponents function to trigger related component loads
@@ -74,7 +74,7 @@
   - Update analytics components to use Script with afterInteractive strategy
   - _Requirements: 7.1, 7.2, 7.3, 7.4, 7.5_
 
-- [ ] 10. Optimize third-party scripts
+- [x] 10. Optimize third-party scripts
   - Update Anytrack component to use Next.js Script with afterInteractive
   - Load Storyblok bridge only in draft mode with lazyOnload strategy
   - Add web-vitals tracking script with worker strategy
@@ -82,7 +82,7 @@
   - Implement performance impact monitoring for third-party scripts
   - _Requirements: 8.1, 8.2, 8.3, 8.4, 8.5_
 
-- [ ] 11. Set up Core Web Vitals monitoring
+- [x] 11. Set up Core Web Vitals monitoring
   - Enhance reportWebVitals function to track all metrics (CLS, FID, FCP, LCP, TTFB, INP)
   - Create performance dashboard API endpoint with 75th percentile calculations
   - Implement client-side initPerformanceMonitoring with dynamic web-vitals import
@@ -90,7 +90,7 @@
   - Create performance dashboard UI at /admin/performance
   - _Requirements: 9.1, 9.2, 9.5_
 
-- [ ] 12. Implement build performance monitoring
+- [x] 12. Implement build performance monitoring
   - Create performance-baseline.js script to analyze bundle sizes per route
   - Add build time measurement script (measure-build-time.js)
   - Create .build-history.json to track build performance over time
@@ -98,7 +98,7 @@
   - Generate markdown performance report with route breakdown
   - _Requirements: 9.3, 9.4, 10.3, 10.4, 10.5_
 
-- [ ] 13. Optimize build process
+- [x] 13. Optimize build process
   - Enable swcMinify and output: standalone in next.config.ts
   - Configure incremental cache handler for faster rebuilds
   - Implement advanced webpack optimization with moduleIds: deterministic
@@ -106,7 +106,7 @@
   - Disable productionBrowserSourceMaps and enable compress
   - _Requirements: 10.1, 10.2, 10.3, 10.4_
 
-- [ ] 14. Create build optimization scripts
+- [x] 14. Create build optimization scripts
   - Enhance optimize-build.sh with dependency analysis and performance baseline
   - Create safe-build.js with retry logic and automatic cleanup
   - Add parallel build task support
@@ -114,7 +114,7 @@
   - Add build summary with bundle size breakdown
   - _Requirements: 10.1, 10.3, 10.4_
 
-- [ ] 15. Add error handling and fallbacks
+- [x] 15. Add error handling and fallbacks
   - Implement getCachedStoryWithFallback with stale data fallback
   - Create ComponentErrorBoundary with error reporting to /api/errors
   - Add error logging for cache failures
@@ -122,30 +122,30 @@
   - Add graceful degradation for failed optimizations
   - _Requirements: 1.2, 6.1, 7.1_
 
-- [ ] 16. Write performance tests
-- [ ] 16.1 Create bundle size tests to verify JS and CSS budgets
+- [x] 16. Write performance tests
+- [x] 16.1 Create bundle size tests to verify JS and CSS budgets
   - Write test to check JavaScript bundle is under 560KB
   - Write test to check CSS bundle is under 112KB
   - _Requirements: 1.4, 5.4_
 
-- [ ] 16.2 Create cache performance tests
+- [x] 16.2 Create cache performance tests
   - Write test to verify cache hit is faster than cache miss
   - Write test to verify cache invalidation works correctly
   - Write test to verify >95% cache hit rate
   - _Requirements: 6.1, 6.3_
 
-- [ ] 16.3 Create rendering strategy tests
+- [x] 16.3 Create rendering strategy tests
   - Write test to verify static pages return x-nextjs-cache: HIT
   - Write test to verify ISR pages have correct cache-control headers
   - Write test to verify draft mode uses dynamic rendering
   - _Requirements: 2.1, 2.2, 2.5_
 
-- [ ] 16.4 Create integration tests with Playwright
+- [x] 16.4 Create integration tests with Playwright
   - Write test to verify page loads within 3 seconds
   - Write test to verify CLS is under 0.1
   - _Requirements: 9.1_
 
-- [ ] 17. Set up CI/CD performance checks
+- [x] 17. Set up CI/CD performance checks
   - Create GitHub Actions workflow for performance checks
   - Add bundle size check step that fails on budget violations
   - Add Lighthouse CI step with performance score >90 requirement
@@ -153,7 +153,7 @@
   - Configure workflow to run on pull requests
   - _Requirements: 9.3, 9.4_
 
-- [ ] 18. Create monitoring and alerting
+- [x] 18. Create monitoring and alerting
   - Define alerting thresholds for LCP, FID, CLS, bundle sizes, cache hit rate
   - Create alerts.yml configuration file
   - Implement real-time metrics tracking
@@ -161,7 +161,7 @@
   - Set up weekly and monthly review procedures
   - _Requirements: 9.1, 9.5_
 
-- [ ] 19. Document optimizations and create maintenance guide
+- [x] 19. Document optimizations and create maintenance guide
   - Write optimization documentation covering all 10 requirements
   - Create troubleshooting guide for common issues
   - Document monitoring procedures and alerting rules
