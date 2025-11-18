@@ -49,14 +49,6 @@ export default async function DynamicPage({ params, searchParams }: Props) {
 
     const blocks = storyContent?.body || [];
 
-    console.log('[Page] Story loaded:', {
-      slug: slugPath,
-      locale,
-      version,
-      blocksCount: blocks.length,
-      blocks: blocks.map((b: any) => b.component),
-    });
-
     // Pass story data to StoryblokProvider via a script tag
     const storyData = story;
 

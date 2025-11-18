@@ -55,17 +55,7 @@ const Image: React.FC<ImageProps> = ({ blok }) => {
     priority: false,
     layout: "responsive",
   };
-  console.log("📷 Storyblok Image DEBUG:", {
-    img: blok?.img,
-    customWidth: blok?.width,
-    customHeight: blok?.height,
-    assetWidth: blok?.img?.width,
-    assetHeight: blok?.img?.height,
-    finalWidth: imageConfig.width,
-    finalHeight: imageConfig.height,
-    max_width: blok?.max_width,
-    min_width: blok?.min_width,
-  });
+  
   return (
     <div className={className}>
       <BlokImage

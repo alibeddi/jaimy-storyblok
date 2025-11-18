@@ -9,23 +9,6 @@ interface Props {
   className?: string;
 }
 
-// Helper to extract text from potentially nested blok objects
-function getTextContent(value: unknown): string {
-  if (typeof value === "string") return value;
-  if (typeof value === "number") return String(value);
-  if (!value) return "";
-  if (typeof value === "object") {
-    const obj = value as Record<string, unknown>;
-    // If it's a blok with a title field, try to extract that
-    if ("title" in obj) return getTextContent(obj.title);
-    // If it has text content, use that
-    if ("text" in obj) return getTextContent(obj.text);
-    // If it has content, use that
-    if ("content" in obj) return getTextContent(obj.content);
-  }
-  return "";
-}
-
 export default function Blog({ blok, className }: Props) {
   // Extract different types of bloks from children
   const imageBlok = blok.children?.find((c) => c.component === "image");

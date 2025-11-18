@@ -11,12 +11,12 @@ import { loadComponent, componentRegistry } from "@/lib/component-registry";
 // Create a dynamic component map that wraps lazy imports
 // This allows StoryblokComponent to work with our dynamic registry
 const createDynamicComponentMap = () => {
-  const map: Record<string, any> = {};
+  const map: Record<string, React.ComponentType<{ blok: unknown }>> = {};
 
   Object.keys(componentRegistry).forEach((key) => {
     // Create a wrapper component that handles the lazy loading
-    map[key] = (props: any) => {
-      const Component = loadComponent(key);
+    map[key] = (props: { blok: unknown }) => {
+      const Component = loadComponent(key) as React.ComponentType<{ blok: unknown }>;
       if (!Component) return null;
       return (
         <Suspense fallback={<div style={{ minHeight: '50px' }} />}>
@@ -299,7 +299,6 @@ export default function StoryblokProvider({
             });
 
             // Ping editor to check if we're in preview
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             sbBridge.pingEditor(() => {
               try {
                 if (sbBridge.isInEditor()) {
