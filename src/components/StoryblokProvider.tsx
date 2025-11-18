@@ -2,91 +2,67 @@
 
 import {
   ISbStoryData,
-  StoryblokComponent,
   apiPlugin,
   storyblokInit,
 } from "@storyblok/react";
-import { useEffect, useState } from "react";
-import "@/lib/storyblok-security"; // Import security config to prevent origin errors
+import { useEffect, useState, Suspense } from "react";
+import { loadComponent } from "@/lib/component-registry";
+import componentMap from "./blok-map";
 
-import Banner from "./blok/general/Banner";
-import Blog from "./blok/general/Blog/Blog";
-import Blogs from "./blok/services/Blogs";
-import Body from "./blok/services/Slider";
-import Button from "./blok/general/Button";
-import ButtonGroup from "./blok/general/ButtonGroup";
-import CategorySection from "./blok/general/CategorySection";
-import Column from "./blok/general/Column";
-import Columns from "./blok/general/Columns";
-import Container from "./blok/general/Container";
-import Divider from "./blok/general/Divider";
-import FAQ from "./blok/services/FAQ";
-import Features from "./blok/services/Features";
-import Footer from "./blok/services/Footer";
-import Header from "./blok/services/Header";
-import Heading from "./blok/general/Heading";
-
-import Iframe from "./blok/general/Iframe";
-import Image from "./blok/general/Image";
-import Page from "./blok/services/Page";
-import Review from "./blok/general/Review/Review";
-import Reviews from "./blok/services/Reviews";
-import RichText from "./blok/general/RichText";
-import Row from "./blok/general/Row";
-import SocialProof from "./blok/services/SocialProof";
-import Stars from "./blok/general/Stars";
-import Step from "./blok/general/Step/Step";
-import Steps from "./blok/general/Steps";
-import Teaser from "./blok/general/Teaser";
-import TrustBadge from "./blok/general/TrustBadge/TrustBadge";
-import { WhoWeAreSection } from "./blok/general/WhoWeAreSection";
-
-// Initialize Storyblok for client-side
+// Initialize Storyblok for client-side with all components
 storyblokInit({
   accessToken: process.env.NEXT_PUBLIC_STORYBLOK_ACCESS_TOKEN,
   use: [apiPlugin],
-  bridge: process.env.NODE_ENV === "development", // Only enable bridge in development
-  components: {
-    page: Page,
-    header: Header,
-    // hero: Hero,
-    steps: Steps,
-    body: Body,
-    blogs: Blogs,
-    blog: Blog,
-    reviews: Reviews,
-    review: Review,
-    trust_badge: TrustBadge,
-    trust_badges: TrustBadge,
-    step: Step,
-    social_proof: SocialProof,
-    feature: Features,
-    banner: Banner,
-    teaser: Teaser,
-    faq: FAQ,
-    footer: Footer,
-    iframe: Iframe,
-    features: Features,
-    container: Container,
-    divider: Divider,
-    columns: Columns,
-    column: Column,
-    row: Row,
-    stars: Stars,
-    image: Image,
-    heading: Heading,
-    "category-section": CategorySection,
-    who_we_are_section: WhoWeAreSection,
-    slider: Body, // Add alias for slider component
-    iframe_component: Iframe, // Add alias for iframe component
-    rich_text: RichText,
-    button_group: ButtonGroup,
-    button: Button,
-  },
+  components: componentMap,
+  bridge: true,
   apiOptions: {
-    region: "eu", // Add region for better compatibility
+    region: "eu",
   },
 });
+
+interface BlokData {
+  component: string;
+  _uid: string;
+  [key: string]: unknown;
+}
+
+// Dynamic component wrapper that loads components on demand
+function DynamicBlokComponent({ blok }: { blok: BlokData }) {
+  const [Component, setComponent] = useState<React.ComponentType<{ blok: BlokData }> | null>(null);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    const loadBlokComponent = async () => {
+      try {
+        const LoadedComponent = loadComponent(blok.component);
+        if (LoadedComponent) {
+          setComponent(() => LoadedComponent as React.ComponentType<{ blok: BlokData }>);
+        } else {
+          console.warn(`Component "${blok.component}" not found in registry`);
+        }
+      } catch (err) {
+        console.error(`Error loading component "${blok.component}":`, err);
+        setError(err as Error);
+      }
+    };
+
+    loadBlokComponent();
+  }, [blok.component]);
+
+  if (error) {
+    return null;
+  }
+
+  if (!Component) {
+    return <div style={{ minHeight: '50px' }} />; // Placeholder to prevent CLS
+  }
+
+  return (
+    <Suspense fallback={<div style={{ minHeight: '50px' }} />}>
+      <Component blok={blok} />
+    </Suspense>
+  );
+}
 
 export default function StoryblokProvider({
   children,
@@ -296,7 +272,7 @@ export default function StoryblokProvider({
             // Handle enter edit mode
             sbBridge.on("enterEditmode", () => {
               try {
-                // Editor mode entered
+                // Enter edit mode handling
               } catch (error) {
                 console.error("Error handling enterEditmode event:", error);
               }
@@ -304,13 +280,38 @@ export default function StoryblokProvider({
 
             // Ping editor to check if we're in preview
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            sbBridge.pingEditor((payload: any) => {
+            sbBridge.pingEditor(() => {
               try {
                 if (sbBridge.isInEditor()) {
-                  // If payload has story data, use it
-                  if (payload && payload.story) {
-                    setStory(payload.story as unknown as ISbStoryData);
-                  }
+                  // Force initial story load by triggering a ping
+                  setTimeout(() => {
+                    // Set up polling to check for story updates
+                    const pollInterval = setInterval(() => {
+                      if (sbBridge.isInEditor()) {
+                        // Try to get the current story from the bridge
+                        try {
+                          // Force a ping to get the latest story
+                          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                          sbBridge.pingEditor((data: any) => {
+                            if (data && data.story) {
+                              setStory(
+                                data.story as unknown as ISbStoryData
+                              );
+                            }
+                          });
+                        } catch (error) {
+                          console.log("Polling error:", error);
+                        }
+                      } else {
+                        clearInterval(pollInterval);
+                      }
+                    }, 2000); // Poll every 2 seconds
+
+                    // Clean up polling after 30 seconds
+                    setTimeout(() => {
+                      clearInterval(pollInterval);
+                    }, 30000);
+                  }, 500);
                 }
               } catch (error) {
                 console.error("Error in pingEditor callback:", error);
@@ -363,16 +364,12 @@ export default function StoryblokProvider({
       story.content.body &&
       Array.isArray(story.content.body)
     ) {
-      // Render each block individually to ensure proper component resolution
+      // Render each block individually with dynamic loading
       return (
         <div>
           {story.content.body.map(
-            (
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              blok: any,
-              index: number
-            ) => (
-              <StoryblokComponent key={blok._uid || index} blok={blok} />
+            (blok: BlokData, index: number) => (
+              <DynamicBlokComponent key={blok._uid || index} blok={blok} />
             )
           )}
         </div>

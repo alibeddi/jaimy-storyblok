@@ -1,62 +1,112 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
+import bundleAnalyzer from "@next/bundle-analyzer";
 
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
+
+const withBundleAnalyzer = bundleAnalyzer({
+  enabled: process.env.ANALYZE === "true",
+});
 
 const nextConfig: NextConfig = {
   images: {
     dangerouslyAllowSVG: true,
     remotePatterns: [
-      // Storyblok CDN domains
       { protocol: "https", hostname: "a.storyblok.com", pathname: "/**" },
       { protocol: "https", hostname: "img2.storyblok.com", pathname: "/**" },
       { protocol: "https", hostname: "img.storyblok.com", pathname: "/**" },
-      // Your custom domain
-      { protocol: "https", hostname: "service.jaimy.be", pathname: "/**" },
-      // Local development
-      { protocol: "http", hostname: "localhost", pathname: "/**" },
-      { protocol: "https", hostname: "localhost", pathname: "/**" },
     ],
-    // Disable optimization in production if there are issues
-    unoptimized: process.env.NEXT_IMAGE_UNOPTIMIZED === "true",
-    // Image formats
-    formats: ["image/webp", "image/avif"],
-    // Image sizes for responsive images
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    // Domains (legacy fallback)
-    domains: [
-      "a.storyblok.com",
-      "img2.storyblok.com", 
-      "img.storyblok.com",
-      "service.jaimy.be",
-    ],
+    formats: ['image/webp', 'image/avif'],
+    minimumCacheTTL: 31536000, // 1 year
   },
+  compress: true, // Enable gzip compression
+  poweredByHeader: false, // Remove X-Powered-By header
+  reactStrictMode: true,
+  experimental: {
+    optimizeCss: true,
+    optimizePackageImports: ['@storyblok/react', 'lucide-react'],
+  },
+  // Optimize webpack bundle splitting
+  webpack: (config, { isServer, webpack }) => {
+    if (!isServer) {
+      // Optimize client-side bundle splitting
+      config.optimization = {
+        ...config.optimization,
+        moduleIds: 'deterministic',
+        runtimeChunk: 'single',
+        splitChunks: {
+          chunks: 'all',
+          maxInitialRequests: 25,
+          minSize: 20000,
+          cacheGroups: {
+            default: false,
+            vendors: false,
+            // Framework chunk (React, Next.js)
+            framework: {
+              name: 'framework',
+              chunks: 'all',
+              test: /[\\/]node_modules[\\/](react|react-dom|scheduler|next)[\\/]/,
+              priority: 40,
+              enforce: true,
+            },
+            // Storyblok SDK chunk
+            storyblok: {
+              name: 'storyblok',
+              test: /[\\/]node_modules[\\/]@storyblok[\\/]/,
+              chunks: 'all',
+              priority: 30,
+              enforce: true,
+            },
+            // UI libraries chunk
+            lib: {
+              name: 'lib',
+              test: /[\\/]node_modules[\\/](lucide-react|classnames|clsx)[\\/]/,
+              chunks: 'all',
+              priority: 25,
+              enforce: true,
+            },
+            // Vendor chunk for remaining node_modules
+            vendor: {
+              name: 'vendor',
+              chunks: 'all',
+              test: /[\\/]node_modules[\\/]/,
+              priority: 20,
+            },
+            // Common chunk for shared code
+            common: {
+              name: 'common',
+              minChunks: 2,
+              chunks: 'all',
+              priority: 10,
+              reuseExistingChunk: true,
+            },
+            // Blok components chunk (loaded dynamically)
+            blok: {
+              name: 'blok',
+              test: /[\\/]components[\\/]blok[\\/]/,
+              chunks: 'async',
+              priority: 15,
+              reuseExistingChunk: true,
+            },
+          },
+        },
+      };
 
-  async headers() {
-    return [
-      {
-        // Apply security headers to all routes
-        source: "/(.*)",
-        headers: [
-          {
-            key: "Content-Security-Policy",
-            value:
-              process.env.NODE_ENV === "production"
-                ? "frame-ancestors 'self'; img-src 'self' data: https: blob:; media-src 'self' https: blob:; object-src 'none';" // Allow images in production
-                : "frame-ancestors 'self' https://app.storyblok.com; img-src 'self' data: https: blob:; media-src 'self' https: blob:; object-src 'none';", // Allow Storyblok + images in development
-          },
-          {
-            key: "X-Frame-Options",
-            value:
-              process.env.NODE_ENV === "production"
-                ? "SAMEORIGIN"
-                : "ALLOW-FROM https://app.storyblok.com",
-          },
-        ],
-      },
-    ];
+      // Ignore source maps in production for smaller bundles
+      if (config.mode === 'production') {
+        config.devtool = false;
+      }
+    }
+
+    // Add webpack plugins for optimization
+    config.plugins.push(
+      new webpack.DefinePlugin({
+        'process.env.NODE_ENV': JSON.stringify(config.mode),
+      })
+    );
+
+    return config;
   },
 };
 
-export default withNextIntl(nextConfig);
+export default withBundleAnalyzer(withNextIntl(nextConfig));

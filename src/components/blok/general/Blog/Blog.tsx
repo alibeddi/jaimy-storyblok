@@ -2,12 +2,28 @@
 
 import type { BlogBlok } from "@/types/storyblok";
 import Link from "next/link";
-import { StoryblokComponent } from "@storyblok/react";
-import { storyblokEditable } from "@storyblok/react";
+import { StoryblokComponent, storyblokEditable } from "@storyblok/react";
 
 interface Props {
   blok: BlogBlok;
   className?: string;
+}
+
+// Helper to extract text from potentially nested blok objects
+function getTextContent(value: unknown): string {
+  if (typeof value === "string") return value;
+  if (typeof value === "number") return String(value);
+  if (!value) return "";
+  if (typeof value === "object") {
+    const obj = value as Record<string, unknown>;
+    // If it's a blok with a title field, try to extract that
+    if ("title" in obj) return getTextContent(obj.title);
+    // If it has text content, use that
+    if ("text" in obj) return getTextContent(obj.text);
+    // If it has content, use that
+    if ("content" in obj) return getTextContent(obj.content);
+  }
+  return "";
 }
 
 export default function Blog({ blok, className }: Props) {
@@ -30,34 +46,25 @@ export default function Blog({ blok, className }: Props) {
   return (
     <article
       {...storyblokEditable(blok)}
-      className={`rounded-xl sm:rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.02] shadow-md hover:shadow-lg group bg-white ${className || ""}`}>
-      {/* Image Block */}
-      <div className="w-full">
-        {imageBlok && (
-          <div className="relative w-full h-48 sm:h-56 md:h-64 overflow-hidden">
-            <div className="w-full h-full">
-              <StoryblokComponent blok={imageBlok} />
-            </div>
-          </div>
-        )}
-      </div>
+      className={`rounded-xl sm:rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-lg group bg-white ${className || ""}`}>
+      {imageBlok && (
+        <div className="relative h-48 sm:h-56 md:h-64">
+          <StoryblokComponent blok={imageBlok} />
+        </div>
+      )}
 
-      <div className="p-4 ">
-        {/* Title Block */}
+      <div className="p-4 sm:p-6">
         {titleBlok && (
           <div className="font-light text-lg sm:text-xl md:text-2xl text-gray-900 leading-tight mb-3 sm:mb-4 transition-colors duration-300 group-hover:text-[#AF1B3C]">
             <StoryblokComponent blok={titleBlok} />
           </div>
         )}
-
-        {/* Excerpt Block */}
         {excerptBlok && (
           <div className="text-gray-700 font-light text-sm sm:text-base leading-relaxed">
             <StoryblokComponent blok={excerptBlok} />
           </div>
         )}
 
-        {/* Meta Information */}
         {(authorBlok || dateBlok || readTimeBlok) && (
           <div
             className="mt-3 sm:mt-4 text-xs sm:text-sm text-gray-500 flex gap-3"

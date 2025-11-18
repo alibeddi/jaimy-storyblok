@@ -1,0 +1,35 @@
+{
+  "budgets": [
+    {
+      "path": "/_app",
+      "maxSize": "150kb",
+      "type": "initial",
+      "description": "Main app bundle"
+    },
+    {
+      "path": "/[locale]/[...slug]",
+      "maxSize": "200kb",
+      "type": "initial",
+      "description": "Dynamic page bundle"
+    },
+    {
+      "path": "/**/*.css",
+      "maxSize": "112kb",
+      "type": "total",
+      "description": "Total CSS bundle (25% reduction target)"
+    },
+    {
+      "path": "/**/*.js",
+      "maxSize": "560kb",
+      "type": "total",
+      "description": "Total JavaScript bundle (30% reduction target)"
+    }
+  ],
+  "targets": {
+    "lcp": 2500,
+    "fid": 100,
+    "cls": 0.1,
+    "ttfb": 600,
+    "fcp": 1800
+  }
+}

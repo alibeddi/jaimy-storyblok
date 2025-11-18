@@ -1,15 +1,11 @@
 import {
   WhoWeAreItem,
-  WhoWeAreItemProps,
 } from "../../../ui/WhoWeAreSection/WhoWeAreSection";
 
-import { BlokImage } from "../../../ui/BlokImage";
-import { Column } from "../../../ui/Column";
-import { Columns } from "../../../ui/Columns";
 import { Container } from "../../../ui/Container";
-import { Heading } from "../../../ui/Heading";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { storyblokEditable } from "@storyblok/react";
+import Image from "next/image";
 
 // Define BlokProps interface if it doesn't exist in storyblok types
 interface BlokProps {
@@ -47,21 +43,18 @@ export const WhoWeAreSection: React.FC<{ blok: WhoWeAreSectionBlokProps }> = ({
       description: feature.description || "",
     })) || [];
 
-  // Custom icon styling based on Storyblok settings
-  const iconColor = blok.icon_color || "text-red-600";
-  const iconBgColor = blok.icon_bg_color || "bg-red-100";
-  const featureIconClassName = `w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full ${iconBgColor} ${iconColor} mb-2 sm:mb-3`;
-
   // Handle layout direction
   const isMediaRight = blok.layout === "media_right";
   const mediaColumn = (
     <div className="order-2 lg:order-1">
       {blok.media?.filename ? (
-        <div className="media-container">
-          <img
+        <div className="media-container relative w-full" style={{ aspectRatio: '16/9' }}>
+          <Image
             src={blok.media.filename}
             alt={blok.media.alt || ""}
-            className="w-full h-auto rounded-lg shadow-soft"
+            fill
+            className="rounded-lg shadow-soft object-cover"
+            sizes="(max-width: 768px) 100vw, 50vw"
           />
         </div>
       ) : (
@@ -92,17 +85,14 @@ export const WhoWeAreSection: React.FC<{ blok: WhoWeAreSectionBlokProps }> = ({
       )}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        {whoWeAreItems.map((feature: any, index: number) => {
-          const iconKey = feature.icon;
-          return (
-            <WhoWeAreItem
-              key={index}
-              icon={feature.icon}
-              title={feature.title}
-              description={feature.description}
-            />
-          );
-        })}
+        {whoWeAreItems.map((feature: any, index: number) => (
+          <WhoWeAreItem
+            key={index}
+            icon={feature.icon}
+            title={feature.title}
+            description={feature.description}
+          />
+        ))}
       </div>
     </div>
   );

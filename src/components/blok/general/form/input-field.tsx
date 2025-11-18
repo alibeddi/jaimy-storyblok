@@ -1,4 +1,3 @@
-     
 import React from 'react';
 import { useField, FieldInputProps, FieldMetaProps, FieldHelperProps } from 'formik';
 import cn from 'classnames';
@@ -30,7 +29,7 @@ const InputField: React.FC<InputFieldProps> = ({ blok }) => {
     validation,
   } = blok;
   
-  const [field, meta, helpers]: [FieldInputProps<string>, FieldMetaProps<string>, FieldHelperProps<string>] = useField({
+  const [field, meta]: [FieldInputProps<string>, FieldMetaProps<string>, FieldHelperProps<string>] = useField({
     name,
     type,
     validate: getValidation(validation),

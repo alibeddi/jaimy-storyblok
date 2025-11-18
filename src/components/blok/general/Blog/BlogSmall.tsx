@@ -10,6 +10,23 @@ interface Props {
   className?: string;
 }
 
+// Helper to extract text from potentially nested blok objects
+function getTextContent(value: unknown): string {
+  if (typeof value === "string") return value;
+  if (typeof value === "number") return String(value);
+  if (!value) return "";
+  if (typeof value === "object") {
+    const obj = value as Record<string, unknown>;
+    // If it's a blok with a title field, try to extract that
+    if ("title" in obj) return getTextContent(obj.title);
+    // If it has text content, use that
+    if ("text" in obj) return getTextContent(obj.text);
+    // If it has content, use that
+    if ("content" in obj) return getTextContent(obj.content);
+  }
+  return "";
+}
+
 export default function BlogSmall({ blok, className }: Props) {
   // Extract different types of bloks from children
   const imageBlok = blok.children?.find((c) => c.component === "image");
@@ -29,9 +46,9 @@ export default function BlogSmall({ blok, className }: Props) {
       {...storyblokEditable(blok)}
       className={`rounded-xl sm:rounded-2xl p-4 sm:p-6 transition-all duration-300 hover:scale-[1.01] hover:shadow-md bg-white/80 hover:bg-white/90 group cursor-pointer ${className || ""}`}>
       <div className="flex gap-3 sm:gap-4">
-        <div className="flex-shrink-0">
+        <div className="shrink-0">
           {imageBlok && (
-            <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-17 rounded-lg sm:rounded-xl overflow-hidden relative">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-lg sm:rounded-xl overflow-hidden relative">
               <StoryblokComponent blok={imageBlok} />
             </div>
           )}

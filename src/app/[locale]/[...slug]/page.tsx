@@ -3,10 +3,12 @@
 import Blok from "@/components";
 import { SbBlokData } from "@storyblok/react";
 import { draftMode } from "next/headers";
-import { getStoryblokApi } from "@storyblok/react/rsc";
+import { getCachedStory } from "@/lib/storyblok-cache";
 import { notFound } from "next/navigation";
 
-export const dynamic = "force-dynamic";
+// Use static generation with ISR
+export const dynamic = "force-static";
+export const revalidate = 3600; // Revalidate every hour
 
 interface Props {
   params: Promise<{
@@ -34,8 +36,12 @@ export default async function DynamicPage({ params, searchParams }: Props) {
   }
 
   try {
-    const { data } = await fetchStoryblokData(slugPath, locale, forceDraft);
-    const storyContent = data?.story?.content;
+    const { isEnabled } = await draftMode();
+    const version = (isEnabled || forceDraft ? "draft" : "published") as "draft" | "published";
+
+    // Use cached story fetching
+    const { story } = await getCachedStory(slugPath, locale, version);
+    const storyContent = story?.content;
 
     if (!storyContent) {
       notFound();
@@ -44,7 +50,7 @@ export default async function DynamicPage({ params, searchParams }: Props) {
     const blocks = storyContent?.body || [];
 
     // Pass story data to StoryblokProvider via a script tag
-    const storyData = data?.story;
+    const storyData = story;
 
     return (
       <>
@@ -88,30 +94,45 @@ export default async function DynamicPage({ params, searchParams }: Props) {
   }
 }
 
-async function fetchStoryblokData(
-  slug: string,
-  locale: string,
-  forceDraft = false
-) {
+/**
+ * Generate static params for all published stories
+ * This enables static generation at build time
+ */
+export async function generateStaticParams() {
   try {
-    const { isEnabled } = await draftMode();
-    const version = (isEnabled || forceDraft ? "draft" : "published") as
-      | "draft"
-      | "published";
-
+    const { getStoryblokApi } = await import("@storyblok/react/rsc");
     const storyblokApi = getStoryblokApi();
-    return await storyblokApi.get(`cdn/stories/${slug}`, {
-      version,
-      language: locale,
-      fallback_lang: "fr",
+
+    // Fetch all links (stories)
+    const { data } = await storyblokApi.get('cdn/links', {
+      version: 'published',
     });
-  } catch (error: any) {
-    // Re-throw the error with status information
-    throw {
-      ...error,
-      status: error?.response?.status || error?.status || 500,
-      message: error?.message || "Failed to fetch story",
-    };
+
+    const paths: Array<{ slug: string[]; locale: string }> = [];
+
+    // Generate paths for all stories
+    if (data.links) {
+      Object.values(data.links).forEach((link: unknown) => {
+        const typedLink = link as { is_folder?: boolean; slug?: string; lang?: string };
+        if (!typedLink.is_folder && typedLink.slug) {
+          const slug = typedLink.slug === 'home' ? [] : typedLink.slug.split('/');
+
+          // Generate for all locales
+          ['en', 'nl', 'fr'].forEach((locale) => {
+            paths.push({
+              slug,
+              locale,
+            });
+          });
+        }
+      });
+    }
+
+    console.log(`[Static Generation] Generated ${paths.length} static paths`);
+    return paths;
+  } catch (error) {
+    console.error('[Static Generation] Error generating static params:', error);
+    return [];
   }
 }
 
@@ -120,8 +141,8 @@ export async function generateMetadata({ params }: Props) {
   const slugPath = slug?.length ? slug.join("/") : "home";
 
   try {
-    const { data } = await fetchStoryblokData(slugPath, locale);
-    const story = data?.story;
+    // Use cached story for metadata
+    const { story } = await getCachedStory(slugPath, locale, 'published');
 
     // Handle robots meta tag with enhanced options
     const getRobotsContent = (robots?: string) => {

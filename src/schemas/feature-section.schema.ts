@@ -1,4 +1,4 @@
-export default {
+const featureSectionSchema = {
   name: 'feature-section',
   display_name: 'Feature Section',
   schema: {
@@ -57,3 +57,5 @@ export default {
   real_name: 'Feature Section',
   component_group_name: 'Content'
 };
+
+export default featureSectionSchema;

@@ -1,4 +1,4 @@
-export default {
+const featureItemSchema = {
   name: 'feature_item',
   display_name: 'Feature Item',
   schema: {
@@ -25,3 +25,5 @@ export default {
   real_name: 'Feature Item',
   component_group_name: 'Content'
 };
+
+export default featureItemSchema;

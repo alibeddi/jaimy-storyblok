@@ -1,5 +1,6 @@
 import { SliderBlok } from "@/types/storyblok";
 import { storyblokEditable } from "@storyblok/react";
+import Image from "next/image";
 
 export default function Slider({ blok }: { blok: SliderBlok }) {
   const imageOnRight = blok?.text_position === "right" || blok?.reverse_layout;
@@ -121,11 +122,11 @@ export default function Slider({ blok }: { blok: SliderBlok }) {
             <div className="w-full h-full flex items-center justify-center transition-all duration-300 hover:scale-[1.02] group">
               {currentFeature?.image?.filename ||
               blok?.featured_image?.filename ? (
-                <div data-blok-field="feature">
-                  <img
+                <div data-blok-field="feature" className="relative w-full min-h-[400px] sm:min-h-[500px] lg:min-h-[600px]">
+                  <Image
                     src={
-                      currentFeature?.image?.filename ||
-                      blok?.featured_image?.filename
+                      (currentFeature?.image?.filename ||
+                      blok?.featured_image?.filename) as string
                     }
                     alt={
                       currentFeature?.image?.alt ||
@@ -134,10 +135,13 @@ export default function Slider({ blok }: { blok: SliderBlok }) {
                       blok?.title ||
                       "Featured image"
                     }
-                    className="w-full h-full min-h-[400px] sm:min-h-[500px] lg:min-h-[600px] rounded-2xl sm:rounded-3xl object-cover transition-all duration-500 group-hover:shadow-2xl"
+                    fill
+                    priority
+                    className="rounded-2xl sm:rounded-3xl object-cover transition-all duration-500 group-hover:shadow-2xl"
                     style={{
                       boxShadow: "0 8px 32px rgba(0, 0, 0, 0.12)",
                     }}
+                    sizes="(max-width: 768px) 100vw, 50vw"
                   />
                 </div>
               ) : (
