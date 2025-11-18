@@ -4,13 +4,14 @@ import type { BlogBlok } from "@/types/storyblok";
 import Link from "next/link";
 import { StoryblokComponent } from "@storyblok/react";
 import { storyblokEditable } from "@storyblok/react";
+import { memo } from "react";
 
 interface Props {
   blok: BlogBlok;
   className?: string;
 }
 
-export default function BlogSmall({ blok, className }: Props) {
+const BlogSmall = memo(function BlogSmall({ blok, className }: Props) {
   // Extract different types of bloks from children
   const imageBlok = blok.children?.find((c) => c.component === "image");
   const titleBlok = blok.children?.find((c) => c.component === "heading");
@@ -75,6 +76,7 @@ export default function BlogSmall({ blok, className }: Props) {
             <div className="mt-2" data-blok-field="link">
               <Link
                 href={blok.link.cached_url}
+                prefetch={true}
                 className="text-[#AF1B3C] hover:underline">
                 Read more
               </Link>
@@ -84,4 +86,6 @@ export default function BlogSmall({ blok, className }: Props) {
       </div>
     </article>
   );
-}
+});
+
+export default BlogSmall;

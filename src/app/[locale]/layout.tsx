@@ -9,6 +9,7 @@ import { NextIntlClientProvider } from "next-intl";
 import Script from "next/script";
 import StoryblokProvider from "@/components/StoryblokProvider";
 import PerformanceMonitor from "@/components/PerformanceMonitor";
+import SWRProvider from "@/components/providers/SWRProvider";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 
@@ -57,17 +58,19 @@ export default async function RootLayout({
       </head>
       <body className={belfiusMontserrat.className}>
         <PerformanceMonitor />
-        <AnalyticsProvider>
-          {process.env.NEXT_PUBLIC_ANYTRACK_ID ? (
-            <Anytrack />
-          ) : null}
-          <NextIntlClientProvider
-            messages={messages}
-            locale={locale}
-            timeZone="Europe/Brussels">
-            <StoryblokProvider story={undefined}>{children}</StoryblokProvider>
-          </NextIntlClientProvider>
-        </AnalyticsProvider>
+        <SWRProvider>
+          <AnalyticsProvider>
+            {process.env.NEXT_PUBLIC_ANYTRACK_ID ? (
+              <Anytrack />
+            ) : null}
+            <NextIntlClientProvider
+              messages={messages}
+              locale={locale}
+              timeZone="Europe/Brussels">
+              <StoryblokProvider story={undefined}>{children}</StoryblokProvider>
+            </NextIntlClientProvider>
+          </AnalyticsProvider>
+        </SWRProvider>
       </body>
     </html>
   );

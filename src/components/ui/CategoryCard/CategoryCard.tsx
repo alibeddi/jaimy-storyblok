@@ -1,11 +1,11 @@
 "use client";
 
-
+import React, { memo } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { CategoryCardProps } from "@/types/ui";
 
-const CategoryCard: React.FC<CategoryCardProps> = ({
+const CategoryCard: React.FC<CategoryCardProps> = memo(({
   title,
   description = "Text text text",
   icon,
@@ -43,13 +43,15 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
 
   if (href) {
     return (
-      <Link href={href} className="block">
+      <Link href={href} prefetch={true} className="block">
         {cardContent}
       </Link>
     );
   }
 
   return cardContent;
-};
+});
+
+CategoryCard.displayName = "CategoryCard";
 
 export default CategoryCard;
