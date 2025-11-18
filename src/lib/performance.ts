@@ -190,30 +190,27 @@ export function useRenderPerformance(
   const renderCount = React.useRef(0);
   const lastRenderTime = React.useRef(0);
 
-  React.useEffect(
-    () => {
-      if (process.env.NODE_ENV === "development") {
-        renderCount.current += 1;
-        const currentTime = performance.now();
+  React.useEffect(() => {
+    if (process.env.NODE_ENV === "development") {
+      renderCount.current += 1;
+      const currentTime = performance.now();
 
-        if (lastRenderTime.current > 0) {
-          const timeSinceLastRender = currentTime - lastRenderTime.current;
+      if (lastRenderTime.current > 0) {
+        const timeSinceLastRender = currentTime - lastRenderTime.current;
 
-          if (timeSinceLastRender < 16) {
-            // Less than one frame (60fps)
-            console.warn(
-              `⚡ Fast re-render detected for "${componentName}" (${timeSinceLastRender.toFixed(2)}ms). ` +
-                `Render #${renderCount.current}. Consider memoization.`
-            );
-          }
+        if (timeSinceLastRender < 16) {
+          // Less than one frame (60fps)
+          console.warn(
+            `⚡ Fast re-render detected for "${componentName}" (${timeSinceLastRender.toFixed(2)}ms). ` +
+              `Render #${renderCount.current}. Consider memoization.`
+          );
         }
-
-        lastRenderTime.current = currentTime;
       }
-       
-    },
-    dependencies ? [componentName, ...dependencies] : [componentName]
-  );
+
+      lastRenderTime.current = currentTime;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, dependencies ? [componentName, ...dependencies] : [componentName]);
 }
 
 /**

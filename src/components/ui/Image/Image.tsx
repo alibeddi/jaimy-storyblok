@@ -27,15 +27,6 @@ const Image: React.FC<ImageProps> = memo(
     objectFit = "cover",
     ...rest
   }) => {
-    // Memoize derived values - treat images as responsive if no dimensions or dimensions are 0
-    const isResponsive = useMemo(() => {
-      const numWidth = typeof width === "string" ? parseInt(width) : width;
-      const numHeight = typeof height === "string" ? parseInt(height) : height;
-      const hasValidWidth = numWidth && numWidth > 0;
-      const hasValidHeight = numHeight && numHeight > 0;
-      return !hasValidWidth || !hasValidHeight;
-    }, [width, height]);
-
     // Memoize image classes calculation
     const imageClasses = useMemo(
       () =>

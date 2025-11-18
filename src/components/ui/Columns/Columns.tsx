@@ -64,8 +64,6 @@ const Columns: React.FC<
   shadow = "none",
   paddingX = "default",
   paddingY = "default",
-  touchSlide,
-  touchSlideColumnSize,
   backgroundColor,
   backgroundImage,
   backgroundSize,

@@ -31,7 +31,7 @@ const Blok: React.FC<BlokProps> = ({ blok }) => {
     console.warn(`[Blok] Component "${blok.component}" not found in registry`);
     return (
       <div style={{ padding: '20px', background: '#fee', border: '1px solid red' }}>
-        Component "{blok.component}" not found
+        Component &quot;{blok.component}&quot; not found
       </div>
     );
   }
