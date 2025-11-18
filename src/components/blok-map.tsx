@@ -37,6 +37,7 @@ import Image from "./blok/general/Image";
 import InputField from "./blok/general/input-field";
 import List from "./blok/general/List";
 import ListItem from "./blok/general/ListItem";
+import Review from "./blok/general/Review";
 import ReviewStars from "./blok/general/ReviewStars";
 import RichText from "./blok/general/RichText";
 import Row from "./blok/general/Row";
@@ -86,6 +87,7 @@ export const componentMap: Record<string, ComponentType> = {
   "table-header": TableHeader,
   list: List,
   "list-item": ListItem,
+  review: Review,
   "review-stars": ReviewStars,
   hr: Hr,
   divider: Divider,

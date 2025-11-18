@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { SbBlokData } from "@storyblok/react";
+import { loadComponent } from "@/lib/component-registry";
 
 interface BlokData extends SbBlokData {
   component: string;
@@ -12,32 +13,34 @@ interface BlokProps {
   blok: BlokData;
 }
 
-// Type for the component map
-type ComponentMap = Record<string, React.ComponentType<{ blok: BlokData }>>;
-
-// Lazy load the component map
-const getComponentMap = async (): Promise<ComponentMap> => {
-  try {
-    const { componentMap } = await import("./blok-map");
-    return componentMap as ComponentMap;
-  } catch (error) {
-    console.error("Failed to load component map:", error);
-    return {};
-  }
-};
+// Loading placeholder component to prevent CLS
+const LoadingPlaceholder = () => (
+  <div style={{ minHeight: '50px' }} aria-label="Loading component" />
+);
 
 const Blok: React.FC<BlokProps> = ({ blok }) => {
   const [Component, setComponent] = useState<React.ComponentType<{
     blok: BlokData;
   }> | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const loadComponent = async () => {
-      const componentRegistry = await getComponentMap();
-      const Comp = componentRegistry[blok.component];
-      setComponent(() => Comp || null);
+    const loadBlokComponent = async () => {
+      try {
+        const LoadedComponent = loadComponent(blok.component);
+        if (LoadedComponent) {
+          setComponent(LoadedComponent as React.ComponentType<{ blok: BlokData }>);
+        } else {
+          console.warn(`Component "${blok.component}" not found in registry`);
+        }
+      } catch (error) {
+        console.error(`Error loading component "${blok.component}":`, error);
+      } finally {
+        setIsLoading(false);
+      }
     };
-    loadComponent();
+
+    loadBlokComponent();
   }, [blok.component]);
 
   if (!blok?.component) {
@@ -45,21 +48,15 @@ const Blok: React.FC<BlokProps> = ({ blok }) => {
     return null;
   }
 
-  if (!Component) {
-    return (
-      <div
-        style={{
-          padding: "10px",
-          background: "#f8d7da",
-          color: "#721c24",
-          border: "1px solid #f5c6cb",
-        }}>
-        Loading or unknown component: {blok.component}
-      </div>
-    );
+  if (isLoading || !Component) {
+    return <LoadingPlaceholder />;
   }
 
-  return <Component blok={blok} key={blok._uid} />;
+  return (
+    <Suspense fallback={<LoadingPlaceholder />}>
+      <Component blok={blok} key={blok._uid} />
+    </Suspense>
+  );
 };
 
 export default Blok;
