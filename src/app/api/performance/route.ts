@@ -19,7 +19,15 @@ export async function POST(request: NextRequest) {
     // In production, you would send this to your analytics service:
     // await sendToAnalyticsService(body);
 
-    return NextResponse.json({ success: true });
+    const response = NextResponse.json({ success: true });
+    
+    // Cache successful responses for 60 seconds with stale-while-revalidate
+    response.headers.set(
+      'Cache-Control',
+      'public, s-maxage=60, stale-while-revalidate=30'
+    );
+    
+    return response;
   } catch (error) {
     console.error('Error processing performance metric:', error);
     return NextResponse.json(

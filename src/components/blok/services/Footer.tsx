@@ -213,6 +213,7 @@ export default function Footer({ blok }: { blok: FooterBlok }) {
                 <Link
                   key={`${index}-${linkIndex}`}
                   href={link.link.cached_url}
+                  prefetch={true}
                   className="text-white text-base hover:text-gray-200 transition-colors duration-200"
                   style={{
                     fontFamily:

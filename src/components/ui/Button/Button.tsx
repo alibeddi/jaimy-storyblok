@@ -233,6 +233,7 @@ const Button: React.FC<ButtonProps> = memo(
           href={to}
           target={target}
           rel={relation?.join(" ") || undefined}
+          prefetch={true}
           className={cn(
             "inline-flex items-center gap-2 text-sm text-foreground hover:text-foreground/80 transition-colors",
             iconPosition === "right" && "flex-row-reverse",

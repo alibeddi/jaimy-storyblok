@@ -305,7 +305,7 @@ const Column: React.FC<ExtendedColumnProps> = ({
       <ConditionalWrapper
         condition={!!linkUrl}
         wrapper={(children) => (
-          <Link href={linkUrl} target={target} className={anchorClasses}>
+          <Link href={linkUrl} target={target} prefetch={true} className={anchorClasses}>
             {children}
           </Link>
         )}>

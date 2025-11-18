@@ -4,9 +4,9 @@ import { BlogCardProps } from "@/types/ui";
 import { Clock } from "lucide-react";
 import Image from "../Image/Image";
 import Link from "next/link";
-import React from "react";
+import React, { memo } from "react";
 
-const BlogCard: React.FC<BlogCardProps> = ({ blok, ...rest }) => {
+const BlogCard: React.FC<BlogCardProps> = memo(({ blok, ...rest }) => {
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString("en-US", {
@@ -19,6 +19,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ blok, ...rest }) => {
   return (
     <Link
       href={`/${blok?.full_slug || ""}`}
+      prefetch={true}
       className="block bg-white rounded-lg shadow hover:shadow-lg overflow-hidden relative transition-shadow"
       {...rest}>
       <div className="relative">
@@ -55,6 +56,8 @@ const BlogCard: React.FC<BlogCardProps> = ({ blok, ...rest }) => {
       </div>
     </Link>
   );
-};
+});
+
+BlogCard.displayName = "BlogCard";
 
 export default BlogCard;

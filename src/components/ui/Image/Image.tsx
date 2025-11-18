@@ -2,8 +2,9 @@
 
 import { ImageProps } from "@/types/ui";
 import NextImage from "next/image";
-import React, { memo, useMemo } from "react";
+import React, { memo, useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
+import { isStoryblokImage, getImageDimensions, getOptimizedUrl } from "@/lib/image-utils";
 
 // Move static mapping outside component to prevent recreation
 const OBJECT_FIT_STYLES = {
@@ -27,6 +28,8 @@ const Image: React.FC<ImageProps> = memo(
     objectFit = "cover",
     ...rest
   }) => {
+    const [hasError, setHasError] = useState(false);
+    
     // Memoize image classes calculation
     const imageClasses = useMemo(
       () =>
@@ -39,25 +42,73 @@ const Image: React.FC<ImageProps> = memo(
     );
 
     // Memoize dimensions calculation
-    const dimensions = useMemo(
-      () => ({
-        width: typeof width === "string" ? parseInt(width) : width,
-        height: typeof height === "string" ? parseInt(height) : height,
-      }),
-      [width, height]
-    );
+    const dimensions = useMemo(() => {
+      const w = typeof width === "string" ? parseInt(width) : width;
+      const h = typeof height === "string" ? parseInt(height) : height;
+      
+      // If no dimensions provided and it's a Storyblok image, extract from URL
+      if ((!w || !h) && src && isStoryblokImage(src)) {
+        const extracted = getImageDimensions(src);
+        return {
+          width: w || extracted.width,
+          height: h || extracted.height,
+        };
+      }
+      
+      return {
+        width: w || 800,
+        height: h || 600,
+      };
+    }, [width, height, src]);
+
+    // Memoize optimized source URL for Storyblok images
+    const optimizedSrc = useMemo(() => {
+      if (!src) return '';
+      
+      // For Storyblok images, just use the original URL
+      // Storyblok's CDN will handle optimization automatically
+      // Don't try to add /m/ filters as it can cause issues
+      return src;
+    }, [src]);
 
     // Always render with width/height for better compatibility
-    if (!src) {
+    if (!src || hasError) {
       return null;
     }
 
+    // For Storyblok images, use unoptimized mode to bypass Next.js image optimization
+    // This prevents the infinite loop and 400 errors
+    if (isStoryblokImage(src)) {
+      return (
+        <img
+          src={optimizedSrc}
+          alt={alt}
+          width={dimensions.width}
+          height={dimensions.height}
+          className={cn(imageClasses, "w-full h-auto max-w-full")}
+          style={{
+            objectFit: objectFit,
+          }}
+          loading={loading}
+          onError={(e) => {
+            console.error("Image failed to load:", src);
+            setHasError(true);
+            // Prevent infinite loop
+            const target = e.target as HTMLImageElement;
+            target.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+          }}
+          {...rest}
+        />
+      );
+    }
+
+    // For non-Storyblok images, use Next.js Image component
     return (
       <NextImage
-        src={src!}
+        src={src}
         alt={alt}
-        width={dimensions.width || 800}
-        height={dimensions.height || 600}
+        width={dimensions.width}
+        height={dimensions.height}
         className={cn(imageClasses, "w-full h-auto max-w-full")}
         style={{
           objectFit: objectFit,
@@ -69,13 +120,9 @@ const Image: React.FC<ImageProps> = memo(
         blurDataURL={placeholder}
         onError={(e) => {
           console.error("Image failed to load:", src);
-          // Prevent infinite loop - don't retry on error
+          setHasError(true);
           const target = e.target as HTMLImageElement;
-          // Set a transparent 1x1 pixel as fallback to stop retries
           target.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
-        }}
-        onLoad={() => {
-          // Image loaded successfully
         }}
         {...rest}
       />

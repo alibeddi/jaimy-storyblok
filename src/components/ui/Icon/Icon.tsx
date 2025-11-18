@@ -84,12 +84,11 @@ const Icon: React.FC<IconProps> = memo(
 
     // Early returns after hooks
     if (!variant) {
-      console.warn("Icon variant is empty or undefined");
       return null;
     }
 
     if (!IconComponent) {
-      console.warn(`Lucide icon "${variant}" not found.`);
+      // getIcon already handles warnings and returns default icon
       return null;
     }
 

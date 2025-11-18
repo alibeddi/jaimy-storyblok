@@ -36,6 +36,7 @@ import {
   Info,
   CheckCircle,
   XCircle,
+  Circle,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -86,6 +87,12 @@ export const iconRegistry: Record<string, LucideIcon> = {
   'info': Info,
   'check-circle': CheckCircle,
   'x-circle': XCircle,
+  'circle': Circle,
+  
+  // Fallback for "Default" or empty values
+  'default': Circle,
+  'Default': Circle,
+  '': Circle,
   
   // Pascal case aliases (for dynamic loading)
   'ChevronDown': ChevronDown,
@@ -119,6 +126,7 @@ export const iconRegistry: Record<string, LucideIcon> = {
   'Info': Info,
   'CheckCircle': CheckCircle,
   'XCircle': XCircle,
+  'Circle': Circle,
 };
 
 /**
@@ -127,9 +135,20 @@ export const iconRegistry: Record<string, LucideIcon> = {
  * @returns Icon component or null if not found
  */
 export function getIcon(name: string): LucideIcon | null {
+  // Handle empty or undefined names
+  if (!name || name.trim() === '') {
+    return iconRegistry['default'];
+  }
+  
   // Try direct lookup first
   if (iconRegistry[name]) {
     return iconRegistry[name];
+  }
+  
+  // Try lowercase
+  const lowerName = name.toLowerCase();
+  if (iconRegistry[lowerName]) {
+    return iconRegistry[lowerName];
   }
   
   // Try converting kebab-case to PascalCase
@@ -142,8 +161,11 @@ export function getIcon(name: string): LucideIcon | null {
     return iconRegistry[pascalCase];
   }
   
-  console.warn(`Icon "${name}" not found in registry. Add it to src/lib/icon-registry.ts`);
-  return null;
+  // Return default icon instead of null to prevent errors
+  if (process.env.NODE_ENV === 'development') {
+    console.warn(`Icon "${name}" not found in registry. Using default icon. Add it to src/lib/icon-registry.ts`);
+  }
+  return iconRegistry['default'];
 }
 
 /**
