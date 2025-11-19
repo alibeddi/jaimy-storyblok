@@ -129,7 +129,7 @@ export default function Footer({ blok }: { blok: FooterBlok }) {
                         href="#"
                         className="hover:opacity-80 transition-opacity duration-200">
                         <Image
-                          src="/icons/LinkedIn 2.svg"
+                          src="/icons/LinkedIn.svg"
                           alt="LinkedIn"
                           width={25}
                           height={25}
@@ -140,7 +140,7 @@ export default function Footer({ blok }: { blok: FooterBlok }) {
                         href="#"
                         className="hover:opacity-80 transition-opacity duration-200">
                         <Image
-                          src="/icons/Facebook F.svg"
+                          src="/icons/Facebook.svg"
                           alt="Facebook"
                           width={25}
                           height={25}
