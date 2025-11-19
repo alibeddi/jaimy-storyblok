@@ -8,6 +8,7 @@ export interface BaseUIProps {
   className?: string;
   children?: ReactNode;
   id?: string;
+  style?: React.CSSProperties;
 }
 
 // Icon types
@@ -244,10 +245,12 @@ export interface ImageProps extends BaseUIProps {
   alt: string;
   width?: number | string;
   height?: number | string;
+  fill?: boolean;
   loading?: "lazy" | "eager";
   priority?: boolean;
   placeholder?: string;
   objectFit?: "contain" | "cover" | "fill" | "none" | "scale-down";
+  sizes?: string;
 }
 
 // Add this new interface for BlokImage component

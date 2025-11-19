@@ -3,7 +3,7 @@ import { Column } from "../Column";
 import { Columns } from "../Columns";
 import { Container } from "../Container";
 import { Heading } from "../Heading";
-import Image from "next/image";
+import Image from "@/components/ui/Image/Image";
 
 export interface WhoWeAreItemProps {
   icon: {

@@ -12,15 +12,23 @@ const nextConfig: NextConfig = {
   images: {
     dangerouslyAllowSVG: true,
     remotePatterns: [
-      { protocol: "https", hostname: "a.storyblok.com", pathname: "/**" },
-      { protocol: "https", hostname: "img2.storyblok.com", pathname: "/**" },
-      { protocol: "https", hostname: "img.storyblok.com", pathname: "/**" },
+      {
+        protocol: "https",
+        hostname: "a.storyblok.com",
+      },
+      {
+        protocol: "https",
+        hostname: "img2.storyblok.com",
+      },
+      {
+        protocol: "https",
+        hostname: "img.storyblok.com",
+      },
     ],
     formats: ['image/webp', 'image/avif'],
     minimumCacheTTL: 31536000, // 1 year
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    // Disable optimization for very small images to prevent upscaling issues
     unoptimized: false,
   },
   compress: true, // Enable gzip compression

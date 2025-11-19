@@ -2,7 +2,6 @@
  * Custom SWR hooks for data fetching with caching
  */
 
-import React from 'react';
 import useSWR from 'swr';
 import type { SWRConfiguration } from 'swr';
 
