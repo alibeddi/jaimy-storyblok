@@ -1,6 +1,6 @@
 import { SliderBlok } from "@/types/storyblok";
 import { storyblokEditable } from "@storyblok/react";
-import Image from "next/image";
+import Image from "@/components/ui/Image/Image";
 
 export default function Slider({ blok }: { blok: SliderBlok }) {
   const imageOnRight = blok?.text_position === "right" || blok?.reverse_layout;

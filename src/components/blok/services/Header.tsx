@@ -4,7 +4,7 @@ import { useCallback, useMemo, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
 import { HeaderBlok } from "@/types/storyblok";
-import Image from "next/image";
+import Image from "@/components/ui/Image/Image";
 import { storyblokEditable } from "@storyblok/react";
 import { useLocale } from "next-intl";
 

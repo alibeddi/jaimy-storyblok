@@ -78,56 +78,68 @@ export function getOptimizedUrl(src: string, options: OptimizeOptions = {}): str
   }
   
   // Build image service URL
-  // Format: https://a.storyblok.com/f/{space_id}/{path}/m/{filters}
-  
+  // Format: https://a.storyblok.com/f/{space_id}/{path}/m/{resize}/filters:{filter1}:{filter2}
+
   // Check if URL already has /m/ (image service)
   const hasImageService = src.includes('/m/');
-  
+
   let baseUrl = src;
-  const filters: string[] = [];
-  
+
   if (hasImageService) {
     // Extract base URL and existing filters
     const parts = src.split('/m/');
     baseUrl = parts[0];
     // We'll override with new filters
   }
-  
-  // Add filters
+
+  // Build resize parameter
+  let resize = '';
   if (requestWidth && requestHeight) {
-    filters.push(`${requestWidth}x${requestHeight}`);
+    resize = `${requestWidth}x${requestHeight}`;
   } else if (requestWidth) {
-    filters.push(`${requestWidth}x0`);
+    resize = `${requestWidth}x0`;
   } else if (requestHeight) {
-    filters.push(`0x${requestHeight}`);
+    resize = `0x${requestHeight}`;
   }
-  
+
+  // Build filters array (without the 'filters:' prefix for each)
+  const filterParts: string[] = [];
+
   // Add fit mode
-  if (fit && (requestWidth || requestHeight)) {
-    filters.push(`filters:fit(${fit})`);
+  if (fit && resize) {
+    filterParts.push(`fit(${fit})`);
   }
-  
+
   // Add quality
   if (quality && quality !== 100) {
-    filters.push(`filters:quality(${quality})`);
+    filterParts.push(`quality(${quality})`);
   }
-  
+
   // Add format
   if (format && format !== 'auto') {
-    filters.push(`filters:format(${format})`);
+    filterParts.push(`format(${format})`);
   }
-  
+
   // Add smart cropping
   if (smart) {
-    filters.push('filters:focal()');
+    filterParts.push('focal()');
   }
-  
+
   // Construct final URL
-  if (filters.length > 0) {
-    return `${baseUrl}/m/${filters.join(':')}`;
+  if (!resize && filterParts.length === 0) {
+    return src;
   }
-  
-  return src;
+
+  let urlParts = [];
+  if (resize) {
+    urlParts.push(resize);
+  }
+  if (filterParts.length > 0) {
+    urlParts.push(`filters:${filterParts.join(':')}`);
+  }
+
+  return `${baseUrl}/m/${urlParts.join('/')}`;
+
 }
 
 /**

@@ -1,6 +1,6 @@
 import Button from "../general/Button/Button";
 import { FooterBlok } from "@/types/storyblok";
-import Image from "next/image";
+import Image from "@/components/ui/Image/Image";
 import Link from "next/link";
 import { storyblokEditable } from "@storyblok/react";
 

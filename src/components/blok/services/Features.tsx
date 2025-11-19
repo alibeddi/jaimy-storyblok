@@ -1,6 +1,6 @@
 import Button from "../../blok/general/Button";
 import { ButtonBlok } from "../../blok/general/Button/Button";
-import Image from "next/image";
+import Image from "@/components/ui/Image/Image";
 import { storyblokEditable } from "@storyblok/react";
 
 interface FeaturesProps {

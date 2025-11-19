@@ -5,7 +5,7 @@ import {
 import { Container } from "../../../ui/Container";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { storyblokEditable } from "@storyblok/react";
-import Image from "next/image";
+import Image from "@/components/ui/Image/Image";
 
 // Define BlokProps interface if it doesn't exist in storyblok types
 interface BlokProps {

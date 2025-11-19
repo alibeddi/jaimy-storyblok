@@ -3,7 +3,7 @@
 
 import { StoryblokComponent, storyblokEditable } from "@storyblok/react";
 
-import Image from "next/image";
+import Image from "@/components/ui/Image/Image";
 import type { StepBlok } from "@/types/storyblok";
 
 export default function Step({ blok }: { blok: StepBlok }) {

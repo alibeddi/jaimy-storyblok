@@ -64,10 +64,10 @@ const Image: React.FC<ImageProps> = memo(
     // Memoize optimized source URL for Storyblok images
     const optimizedSrc = useMemo(() => {
       if (!src) return '';
-      
-      // For Storyblok images, just use the original URL
-      // Storyblok's CDN will handle optimization automatically
-      // Don't try to add /m/ filters as it can cause issues
+
+      // For Storyblok images, use original URL without optimization for now
+      // Storyblok's CDN already serves optimized images
+      // We can enable optimization later if needed
       return src;
     }, [src]);
 
@@ -79,27 +79,37 @@ const Image: React.FC<ImageProps> = memo(
     // For Storyblok images, use unoptimized mode to bypass Next.js image optimization
     // This prevents the infinite loop and 400 errors
     if (isStoryblokImage(src)) {
-      return (
-        <img
-          src={optimizedSrc}
-          alt={alt}
-          width={dimensions.width}
-          height={dimensions.height}
-          className={cn(imageClasses, "w-full h-auto max-w-full")}
-          style={{
-            objectFit: objectFit,
-          }}
-          loading={loading}
-          onError={(e) => {
-            console.error("Image failed to load:", src);
-            setHasError(true);
-            // Prevent infinite loop
-            const target = e.target as HTMLImageElement;
-            target.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
-          }}
-          {...rest}
-        />
-      );
+      // Build img attributes, only include width/height if explicitly provided
+      const imgAttributes: React.ImgHTMLAttributes<HTMLImageElement> = {
+        src: optimizedSrc,
+        alt: alt,
+        className: cn(imageClasses, "w-full h-auto max-w-full"),
+        style: {
+          objectFit: objectFit,
+        },
+        loading: loading,
+        onError: (e) => {
+          if (process.env.NODE_ENV === 'development') {
+            console.warn(`[Image] Failed to load Storyblok image:`, {
+              src,
+              optimizedSrc,
+              providedDimensions: { width, height },
+              calculatedDimensions: dimensions,
+            });
+          }
+          setHasError(true);
+          // Prevent infinite loop
+          const target = e.target as HTMLImageElement;
+          target.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+        },
+        ...rest,
+      };
+
+      // Only add width/height if they were explicitly provided
+      if (width) imgAttributes.width = dimensions.width;
+      if (height) imgAttributes.height = dimensions.height;
+
+      return <img {...imgAttributes} />;
     }
 
     // For non-Storyblok images, use Next.js Image component
