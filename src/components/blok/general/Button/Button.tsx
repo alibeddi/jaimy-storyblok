@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
+import { storyblokEditable } from "@storyblok/react";
 import ButtonUI from "../../../ui/Button";
 import {
   IconColor,
@@ -83,6 +84,7 @@ const Button: React.FC<SBButtonProps> = ({ className, blok }) => {
 
   return (
     <ButtonUI
+      {...storyblokEditable(blok)}
       className={className}
       icon={blok?.icon_variant}
       iconColor={blok?.icon_color}

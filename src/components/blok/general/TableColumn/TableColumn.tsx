@@ -1,6 +1,6 @@
  /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
-import { StoryblokComponent } from '@storyblok/react';
+import { StoryblokComponent, storyblokEditable } from '@storyblok/react';
 import { cn } from '@/lib/utils'; // Add this import
 import TableColumnUI from '../../../ui/Table/TableColumn';
 
@@ -43,6 +43,7 @@ const TableColumn: React.FC<TableColumnProps> = ({
 				blok.className
 			)}
 			{...blok}
+			{...storyblokEditable(blok)}
 		>
 			{blok.body?.map((nestedBlok: any, index: number) => (
 				<StoryblokComponent blok={nestedBlok} key={nestedBlok._uid || index} />
