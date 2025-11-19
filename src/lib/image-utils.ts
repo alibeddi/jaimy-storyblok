@@ -130,7 +130,7 @@ export function getOptimizedUrl(src: string, options: OptimizeOptions = {}): str
     return src;
   }
 
-  let urlParts = [];
+  const urlParts = [];
   if (resize) {
     urlParts.push(resize);
   }

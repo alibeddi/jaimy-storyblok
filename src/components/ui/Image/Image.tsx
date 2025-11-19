@@ -4,7 +4,7 @@ import { ImageProps } from "@/types/ui";
 import NextImage from "next/image";
 import React, { memo, useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
-import { isStoryblokImage, getImageDimensions, getOptimizedUrl } from "@/lib/image-utils";
+import { isStoryblokImage, getImageDimensions } from "@/lib/image-utils";
 
 // Move static mapping outside component to prevent recreation
 const OBJECT_FIT_STYLES = {
@@ -22,10 +22,12 @@ const Image: React.FC<ImageProps> = memo(
     alt,
     width,
     height,
+    fill = false,
     loading = "lazy",
     priority = false,
     placeholder,
     objectFit = "cover",
+    sizes,
     ...rest
   }) => {
     const [hasError, setHasError] = useState(false);
@@ -83,7 +85,10 @@ const Image: React.FC<ImageProps> = memo(
       const imgAttributes: React.ImgHTMLAttributes<HTMLImageElement> = {
         src: optimizedSrc,
         alt: alt,
-        className: cn(imageClasses, "w-full h-auto max-w-full"),
+        className: cn(
+          imageClasses,
+          fill ? "absolute inset-0 w-full h-full" : "w-full h-auto max-w-full"
+        ),
         style: {
           objectFit: objectFit,
         },
@@ -105,9 +110,11 @@ const Image: React.FC<ImageProps> = memo(
         ...rest,
       };
 
-      // Only add width/height if they were explicitly provided
-      if (width) imgAttributes.width = dimensions.width;
-      if (height) imgAttributes.height = dimensions.height;
+      // Only add width/height if they were explicitly provided and fill is not used
+      if (!fill) {
+        if (width) imgAttributes.width = dimensions.width;
+        if (height) imgAttributes.height = dimensions.height;
+      }
 
       return <img {...imgAttributes} />;
     }
@@ -117,13 +124,15 @@ const Image: React.FC<ImageProps> = memo(
       <NextImage
         src={src}
         alt={alt}
-        width={dimensions.width}
-        height={dimensions.height}
+        {...(fill
+          ? { fill: true }
+          : { width: dimensions.width, height: dimensions.height }
+        )}
         className={cn(imageClasses, "w-full h-auto max-w-full")}
         style={{
           objectFit: objectFit,
         }}
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        sizes={sizes || "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"}
         loading={loading}
         priority={priority}
         placeholder={placeholder ? "blur" : undefined}
