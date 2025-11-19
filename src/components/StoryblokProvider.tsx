@@ -6,7 +6,7 @@ import {
   storyblokInit,
   StoryblokComponent,
 } from "@storyblok/react";
-import { useEffect, useState, Suspense } from "react";
+import { useEffect, useState, useCallback, Suspense } from "react";
 import { loadComponent, componentRegistry } from "@/lib/component-registry";
 
 // Create a dynamic component map that wraps lazy imports
@@ -60,7 +60,7 @@ export default function StoryblokProvider({
   const [isInEditor, setIsInEditor] = useState(false);
 
   // Helper to safely update story only if it's different
-  const updateStory = (newStory: ISbStoryData) => {
+  const updateStory = useCallback((newStory: ISbStoryData) => {
     setStory((prevStory) => {
       // Only update if the story actually changed
       if (!prevStory || prevStory.id !== newStory.id || prevStory.content !== newStory.content) {
@@ -68,7 +68,7 @@ export default function StoryblokProvider({
       }
       return prevStory;
     });
-  };
+  }, []);
 
   // We rely on manual bridge below to avoid SSR window errors
 
@@ -315,7 +315,7 @@ export default function StoryblokProvider({
         }
       }
     };
-  }, [story]);
+  }, [story, updateStory]);
 
   // In preview mode, use the story if available, otherwise use children
   if (isPreviewMode && story) {
