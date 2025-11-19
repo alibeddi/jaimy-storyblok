@@ -1,8 +1,10 @@
 # ---- Base image ----
 FROM node:22-alpine AS base
 
-# Add curl for debugging
-RUN apk add --no-cache curl
+# Add curl for debugging and install pnpm
+RUN apk add --no-cache curl && \
+    corepack enable && \
+    corepack prepare pnpm@latest --activate
 
 # ---- Build stage ----
 FROM base AS build
@@ -10,12 +12,12 @@ FROM base AS build
 WORKDIR /usr/src/app
 
 # Copy dependency files
-COPY package.json package-lock.json ./
+COPY package.json pnpm-lock.yaml ./
 COPY tsconfig* *.config.* ./
 
 
-RUN --mount=type=cache,target=/root/.npm \
-    npm install --cache /root/.npm --prefer-offline
+RUN --mount=type=cache,target=/root/.local/share/pnpm/store \
+    pnpm install --frozen-lockfile
 
 # Copy project files
 COPY public ./public
@@ -29,7 +31,7 @@ COPY .env ./
 # Build Next.js app
 RUN --mount=type=secret,id=storyblok_token \
     export NEXT_PUBLIC_STORYBLOK_API_TOKEN=$(cat ./.env | grep NEXT_PUBLIC_STORYBLOK_API_TOKEN | cut -d '=' -f2) && \
-    npm run build
+    pnpm run build
 
 # ---- Production stage ----
 FROM base
@@ -46,4 +48,4 @@ COPY --from=build /usr/src/app/public ./public
 EXPOSE 3001
 
 # Start app
-CMD ["npm", "start"]
+CMD ["pnpm", "start"]
